@@ -1,0 +1,75 @@
+{
+  "domain": "retail",
+  "task_id": "88",
+  "original_task_digest": "cd1aea17a5a02b3685ae9cbadc8edd25edb84757a8296f9504326a8223533bbf",
+  "sampling_stratum": "cancel",
+  "task": {
+    "id": "88",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You want to change the book shelf to 4 foot but with the same material and color. If it is not available, cancel the whole order and you will buy again. If the agent asks for the cancellation reason, you say you ordered by mistake.",
+        "known_info": "You name is Daiki Silva and your email is daiki.silva6295@example.com.",
+        "unknown_info": null,
+        "task_instructions": "You are insecure, creative, direct, relaxing."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "88_0",
+          "requestor": "assistant",
+          "name": "cancel_pending_order",
+          "arguments": {
+            "order_id": "#W8835847",
+            "reason": "ordered by mistake"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr313",
+    "tr314",
+    "tr315",
+    "tr316",
+    "tr317",
+    "tr318",
+    "tr319",
+    "tr320",
+    "tr321",
+    "tr322",
+    "tr323",
+    "tr324"
+  ]
+}

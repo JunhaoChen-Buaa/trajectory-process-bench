@@ -1,0 +1,274 @@
+{
+  "case_id": "tr198",
+  "created_beijing": "2026-11-10T16:06:48.939866+08:00",
+  "input_sha256": "41083bed7ce7df516e5eea1ede4739d0ed69f4373bdef1533905796483af327d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "e848990d25ad478664663b746180b27b81def66b811003dc9ed72aaf6ad97717",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1593,
+    "completion_tokens_details": {
+      "reasoning_tokens": 226
+    },
+    "prompt_tokens": 19941,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 21534
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待发货订单两项商品选项（行李箱换红色+滑板换34寸custom）",
+        "object": "订单#W3295833的Luggage Set 8926329222与Skateboard 5312063289",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "行李箱改为2-piece红色softshell（item 7160999700，$499.29）",
+            "basis": "用户h:25确认，同产品不同选项",
+            "refs": [
+              "h:7",
+              "h:25"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "滑板改为bamboo 34寸custom（item 6956751343，$217.06）",
+            "basis": "用户h:25确认",
+            "refs": [
+              "h:25"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "差价经Visa credit_card_3261838支付，一次调用完成全部修改",
+            "basis": "policy modify items规则+用户h:25",
+            "refs": [
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选item id与目录变体一致且可用，同产品修改、单次调用合并两项，参数正确（h:21,h:23,e:9）。",
+            "refs": [
+              "h:21",
+              "h:23",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列出全部细节后用户h:25逐项明确确认，含付款方式。",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "滑板存储正确，但行李箱实际存储为滑板选项且价格217.06（s:9），与同意的红色softshell $499.29不符，后端写入错误。",
+            "refs": [
+              "s:9",
+              "e:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:30向用户断言行李箱已改为red softshell $499.29，与实际存储状态矛盾，为虚假完成说明。",
+            "refs": [
+              "h:30",
+              "s:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$499.29与$217.06及差价$68.92均与目录一致（h:21,h:23）。",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "确认pending状态（e:6）、查目录（e:7,e:8）、提醒只能改一次且需一次提交（h:24）均符合policy。",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单状态pending (item modified)，差价$68.92已扣Visa；行李箱实际存储选项/价格错误（217.06、滑板选项），滑板正确，且Agent向用户虚假报告行李箱修改成功"
+      },
+      {
+        "group_id": "G2",
+        "goal": "退回已送达订单中的登山靴",
+        "object": "订单#W8488728的Hiking Boots 5676696062",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered订单退回靴子，退款至原支付方式PayPal",
+            "basis": "policy return规则+用户h:1,h:25",
+            "refs": [
+              "h:1",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered（e:3），退款方式为原支付PayPal，符合policy。",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24说明退款细节，用户h:25确认退靴。",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "状态已改为return requested，return_payment_method_id=paypal_3650980（s:10）。",
+            "refs": [
+              "h:29",
+              "s:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30如实说明return requested、邮件指引及5-7个工作日退款。",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "退款时效说明符合policy的5-7工作日。",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "退回前核验了delivered状态（e:3）。",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W8488728状态return requested，退款将按PayPal 5-7个工作日处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "行李箱修改后端实际写入错误变体，Agent虚假报告成功",
+        "basis": "用户同意改为2-piece红色softshell $499.29（h:25），但s:9实际存储options为滑板选项且price 217.06；h:30仍称'Luggage Set → 2-piece, red, softshell ($499.29)'",
+        "refs": [
+          "h:25",
+          "h:26",
+          "h:30",
+          "s:9"
+        ],
+        "root_cause": "tool",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "客户被多收差额且收到的实际商品与确认不符，且被告知错误状态为成功，未获更正或告知"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:24",
+        "to": "h:25",
+        "purpose": "确认细节与用户逐项同意"
+      },
+      {
+        "from": "h:26",
+        "to": "s:9",
+        "purpose": "请求参数与实际存储结果对比，证明行李箱写入错误"
+      },
+      {
+        "from": "h:30",
+        "to": "s:9",
+        "purpose": "完成说明与实际状态矛盾，REPORT fail依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "工具receipt本身即含错误数据（行李箱复制滑板选项），Agent未察觉回执异常也加剧了虚假报告，但写入根因在后端工具"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

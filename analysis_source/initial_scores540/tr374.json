@@ -1,0 +1,166 @@
+{
+  "case_id": "tr374",
+  "created_beijing": "2026-11-10T14:46:35.907882+08:00",
+  "input_sha256": "8490ccacd8fef61b1587e2dfbe660577868241db1cefba965d9853c3cad3c02f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "12e16e07f48dd030a8d47d291974f1aae7dd7e4e9742b2cbb3663978a1e7de55",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 797,
+    "completion_tokens_details": {
+      "reasoning_tokens": 27
+    },
+    "prompt_tokens": 20754,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 21551
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "MMS无法发送的技术支持排查",
+        "object": "用户线路L1002（555-123-2002）及设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复MMS发送失败问题",
+            "basis": "用户请求 'I can't send MMS messages'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "如因超出流量上限需补流量，须先确认价格与数量",
+            "basis": "policy Data Refueling步骤",
+            "refs": [
+              "h:64",
+              "h:66"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "境外旅行时按政策免费为线路开启漫游",
+            "basis": "policy 'enable it at no cost'",
+            "refs": [
+              "h:102",
+              "h:103"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "先验证身份，按技术支持手册逐步排查（SIM、网络模式、APN、Wi-Fi Calling、权限、流量、漫游），补救流量与开启漫游均符合政策且对象线路正确（L1002对应用户号码）。",
+            "refs": [
+              "h:2",
+              "h:64",
+              "h:103",
+              "e:30",
+              "e:31"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前明确报价$4.00（2GB×$2）并获得用户确认 'Yeah, go ahead'。",
+            "refs": [
+              "h:66",
+              "h:67"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "MMS最终可发送（h:112），线路漫游已启用，2GB已加并计费$4，符合用户要求；流量付费与漫游开启都是问题根因，合理必要。",
+            "refs": [
+              "e:19",
+              "e:30",
+              "h:112",
+              "h:113"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "所有完成说明均与实际状态一致，最终总结准确复述各步骤及费用。",
+            "refs": [
+              "h:70",
+              "h:114"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "流量超限诊断（15.1/15GB）、$2/GB价格、'17 GB total available'均有工具数据支撑。",
+            "refs": [
+              "h:61",
+              "h:63",
+              "h:79",
+              "h:80"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按手册顺序检查各常见MMS原因，补救前确认价格、开漫游前询问是否在境外，步骤完整。",
+            "refs": [
+              "h:10",
+              "h:28",
+              "h:32",
+              "h:42",
+              "h:102"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "SIM、网络模式、APN、权限、流量上限、漫游等多重原因逐一修复，MMS恢复可发送，充值$4并成功开启漫游。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:61",
+        "to": "h:64",
+        "purpose": "确认线路L1002流量15.1GB超限是根因"
+      },
+      {
+        "from": "h:103",
+        "to": "h:104",
+        "purpose": "用户确认在境外，据此开启漫游"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查过程较长且曾让用户多次重复can_send_mms测试，但均为按手册验证，属流程冗余，非业务错误。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

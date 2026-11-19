@@ -1,0 +1,226 @@
+{
+  "case_id": "tr192",
+  "created_beijing": "2026-11-10T14:57:31.357662+08:00",
+  "input_sha256": "5f48ca84aa5ab5d17183ce4dd09000459e0e0815de8a1498cfe10039acfe9734",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3a8161e0c091c05f253e9f825e53ba8d126f53d2afaed58640a9d3aeb110c25d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 889,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13129,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14018
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "订单#W5490111全部商品退货",
+        "object": "#W5490111",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered状态订单可退货，需确认订单ID与退货商品清单",
+            "basis": "policy: An order can only be returned if its status is 'delivered'",
+            "refs": [
+              "h:1",
+              "h:11"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "退款需到原支付方式或已有礼品卡",
+            "basis": "policy: refund must go to the original payment method, or an existing gift card",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为delivered，四件商品全部退货，退款到原Visa卡，符合规则",
+            "refs": [
+              "h:11",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16列出全部细节后用户回答Yeah. Do it.，有效确认",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态变为return requested，return_payment_method_id为credit_card_3124723",
+            "refs": [
+              "h:19",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知状态为return requested且将收到退回邮件，与实际一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "订单商品、状态、支付方式说明与查询结果一致",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证身份、查订单状态、列明细确认后执行，顺序合规",
+            "refs": [
+              "h:2",
+              "h:11",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单状态return requested，四件商品退款至原Visa信用卡，后续退回邮件将发送"
+      },
+      {
+        "group_id": "G2",
+        "goal": "订单#W7387996游戏鼠标退货",
+        "object": "#W7387996",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered状态订单可退货，退款到原PayPal",
+            "basis": "policy: return if status is 'delivered'; refund to original payment method",
+            "refs": [
+              "h:15",
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered，唯一商品退货，退款到原PayPal，符合规则",
+            "refs": [
+              "h:13",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16列出细节，用户Yeah. Do it.确认",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态return requested，退款方式paypal_9497703",
+            "refs": [
+              "h:21",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:22说明状态与邮件流程，与实际一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "鼠标商品信息与订单一致",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "状态核验、明细确认均完成",
+            "refs": [
+              "h:13",
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单状态return requested，游戏鼠标退款至PayPal"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:16",
+        "to": "h:17",
+        "purpose": "确认细节与用户yes确认关联"
+      },
+      {
+        "from": "h:11",
+        "to": "e:4",
+        "purpose": "订单状态核验与实际写入结果对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "执行流程顺畅，无纯接口规范问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

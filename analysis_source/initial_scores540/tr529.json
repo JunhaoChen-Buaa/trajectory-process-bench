@@ -1,0 +1,151 @@
+{
+  "case_id": "tr529",
+  "created_beijing": "2026-11-10T14:32:59.492088+08:00",
+  "input_sha256": "51bf3b7299ecd2e161e26a2583191ccba98e8eadb901f92e3be14f89b9a77704",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bb2efe7e8e372266e7bb410d2220c2de6a3ab6ecd0379f650be1b575d2edde48",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 628,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 12794,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13422
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无服务问题（技术支持）",
+        "object": "线路 555-123-2002 (L1002) 的蜂窝服务",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: 'You must first identify the customer.'",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并排除无服务原因（飞行模式、SIM卡等）",
+            "basis": "tech_support_policy: Airplane Mode / SIM Card Issues 排查流程",
+            "refs": [
+              "h:1",
+              "h:10",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "恢复服务后确认用户可正常使用",
+            "basis": "用户要求 'I need this fixed'",
+            "refs": [
+              "h:21",
+              "h:22"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策先识别客户，再通过设备侧诊断定位飞行模式与SIM卡问题并指导修复，对象线路正确。",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排查操作为只读或用户设备操作，无需额外确认。",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终状态 Excellent/5G/Data Enabled，服务已恢复，与用户确认一致。",
+            "refs": [
+              "h:21",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明根因（飞行模式+SIM未插好）并确认已解决，与实际状态一致。",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于飞行模式禁用蜂窝、SIM缺失阻断连接的说明均有技术支持手册依据。",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查线路状态排除停机（h:8 Active），再按手册顺序处理飞行模式与SIM，步骤完整。",
+            "refs": [
+              "h:8",
+              "h:10",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "服务已恢复：Excellent信号、5G、数据已启用，问题解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:8",
+        "purpose": "确认用户号码对应L1002且状态Active"
+      },
+      {
+        "from": "h:15",
+        "to": "h:21",
+        "purpose": "指导的操作与最终恢复结果关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "每次一工具规范、回复语气等均正常，无接口违规。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

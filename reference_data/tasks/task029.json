@@ -1,0 +1,81 @@
+{
+  "domain": "retail",
+  "task_id": "93",
+  "original_task_digest": "c1809c3d9dc3ab6e31774d56ab13a3249ca1693f22a9de3bace7562bb2b53124",
+  "sampling_stratum": "exchange",
+  "task": {
+    "id": "93",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You received a laptop and you want to exchange it to i7 processor, 8GB, 1TB SSD. If the agent asks for which laptop, it is 15-inch, 32GB.",
+        "known_info": "You name is Lei Wilson and your zip code is 32255.",
+        "unknown_info": "You do not remember your email address",
+        "task_instructions": "You are confident, organized, creative, impatient."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "93_0",
+          "requestor": "assistant",
+          "name": "exchange_delivered_order_items",
+          "arguments": {
+            "order_id": "#W4073673",
+            "item_ids": [
+              "2216662955"
+            ],
+            "new_item_ids": [
+              "9844888101"
+            ],
+            "payment_method_id": "credit_card_3677959"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr337",
+    "tr338",
+    "tr339",
+    "tr340",
+    "tr341",
+    "tr342",
+    "tr343",
+    "tr344",
+    "tr345",
+    "tr346",
+    "tr347",
+    "tr348"
+  ]
+}

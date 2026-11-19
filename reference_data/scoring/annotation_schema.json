@@ -1,0 +1,402 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "交互轨迹过程评分记录",
+  "type": "object",
+  "required": [
+    "case_id",
+    "groups"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "group_id",
+          "goal",
+          "object",
+          "scores"
+        ],
+        "properties": {
+          "group_id": {
+            "type": "string"
+          },
+          "goal": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "具体要求；一条历史简写业务组未单列本字段，其要求依据保留在scores.reason。"
+          },
+          "scores": {
+            "type": "object",
+            "required": [
+              "RULE",
+              "CONSENT",
+              "OUTCOME",
+              "REPORT",
+              "FACT",
+              "STEPS"
+            ],
+            "properties": {
+              "RULE": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reason"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown",
+                      "na"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requirement_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "issue_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "na"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "refs"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "CONSENT": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reason"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown",
+                      "na"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requirement_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "issue_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "na"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "refs"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "OUTCOME": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reason"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown",
+                      "na"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requirement_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "issue_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "na"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "refs"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "REPORT": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reason"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown",
+                      "na"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requirement_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "issue_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "na"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "refs"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "FACT": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reason"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown",
+                      "na"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requirement_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "issue_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "na"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "refs"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "STEPS": {
+                "type": "object",
+                "required": [
+                  "status",
+                  "reason"
+                ],
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown",
+                      "na"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requirement_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "issue_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "na"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "refs"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array"
+    },
+    "evidence_links": {
+      "type": "array"
+    },
+    "auxiliary_notes": {
+      "type": "array"
+    }
+  }
+}

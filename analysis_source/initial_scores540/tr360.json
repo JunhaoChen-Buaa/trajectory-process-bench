@@ -1,0 +1,313 @@
+{
+  "case_id": "tr360",
+  "created_beijing": "2026-11-10T14:37:02.710029+08:00",
+  "input_sha256": "8ff7bd2caf0829d92cd6591d9cb8968767d91ecd95f630ac3274b5f59bd9ca63",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4079807d96559842b0f15bd4d4f00784bfaf0fa2fd47dad1543c2d58353de0de",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1504,
+    "completion_tokens_details": {
+      "reasoning_tokens": 218
+    },
+    "prompt_tokens": 24420,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 25924
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "自行车与拼图换货（同单）",
+        "object": "订单#W3916020的Bicycle与Jigsaw Puzzle",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "自行车换为大架（可接受山地），拼图换为1500片art/intermediate",
+            "basis": "用户要求 h:15",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "差价退款到Visa卡",
+            "basis": "用户指定 h:15/h:27",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "新item 5606522780（large/mountain）与5546244844（1500片/art/intermediate）均可用且符合用户描述，一次调用合并两件",
+            "refs": [
+              "h:17",
+              "h:19",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "Agent在h:26列明换货明细与付款卡，用户回复确认物品并'I'm good to go'（h:27）",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单状态为exchange requested，差价-14.96至credit_card_3951670，符合规则",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知exchange requested、退款金额与后续邮件，与实际状态一致",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "换货选项与价格差计算均与目录一致",
+            "refs": [
+              "h:17",
+              "h:19"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查状态、查可用变体、提醒确认全部换货项后一次调用，顺序符合政策",
+            "refs": [
+              "h:11",
+              "h:16",
+              "h:26",
+              "h:28"
+            ]
+          }
+        },
+        "end_state": "#W3916020已exchange requested，退款$14.96至Visa"
+      },
+      {
+        "group_id": "G2",
+        "goal": "相机换货（降分辨率）",
+        "object": "订单#W4689314的Digital Camera",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换为分辨率更低、其余相同（3x zoom/SD card）的相机",
+            "basis": "用户要求 h:15",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "差价退款到Visa卡",
+            "basis": "用户指定 h:15",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "8363011723为20MP/3x/SD，可用且同产品不同选项",
+            "refs": [
+              "h:21",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:26列明明细，用户h:27确认",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单exchange requested，差价-71.59至Visa",
+            "refs": [
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致，含退款金额与邮件提示",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "变体信息与价格差计算有源且正确",
+            "refs": [
+              "h:21"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查状态与可用变体，确认后执行",
+            "refs": [
+              "h:7",
+              "h:20",
+              "h:30"
+            ]
+          }
+        },
+        "end_state": "#W4689314已exchange requested，退款$71.59至Visa"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消滑板（单件）",
+        "object": "订单#W8855135中的Skateboard",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:27",
+            "change": "用户撤回：改为自行在网站处理，不动该订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅取消滑板且不影响其他商品",
+            "basis": "用户要求 h:15",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "政策不允许移除pending订单单件，Agent正确说明限制且未违规操作",
+            "refs": [
+              "h:9",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何修改操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户撤回请求，订单未被改动，与用户意愿一致",
+            "refs": [
+              "h:27",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认不改动该订单，说明与实际一致",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于pending订单只能整单取消或换变体的说明符合政策",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询订单状态并说明可行选项",
+            "refs": [
+              "h:9",
+              "h:26"
+            ]
+          }
+        },
+        "end_state": "#W8855135未改动，用户自行处理滑板"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:28",
+        "purpose": "用户换货需求对应实际调用参数"
+      },
+      {
+        "from": "h:26",
+        "to": "h:27",
+        "purpose": "确认明细与用户同意的关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:24的可见消息混入大量内部独白（如'Let me re-read the policy'），措辞冗长且不专业，属接口规范问题，不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

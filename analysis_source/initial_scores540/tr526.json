@@ -1,0 +1,180 @@
+{
+  "case_id": "tr526",
+  "created_beijing": "2026-11-10T15:52:49.116643+08:00",
+  "input_sha256": "1150ba3ebeab5bb941bda471224be4497826fb2f92d7de0d8deb6135f8ac45b3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "cc325df7ca4a29bdfeeb75519348c911185cc67d915e23a5291244c0654a2c8e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 767,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 16552,
+    "prompt_tokens_details": {
+      "cached_tokens": 5952
+    },
+    "total_tokens": 17319
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复手机服务（欠费缴费并解除停机）",
+        "object": "客户 C1001 的 L1002 线路（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查明停机原因（欠费/合同到期）并按政策处理",
+            "basis": "policy: Line Suspension",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "核验账单为Overdue后发送付款请求并完成支付",
+            "basis": "policy: Overdue Bill Payment",
+            "refs": [
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "付清欠费后解除线路停机并告知需重启设备",
+            "basis": "policy: suspension/line resume",
+            "refs": [
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "排查重启后仍无信号的问题（飞行模式、SIM）直至恢复服务",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:31",
+              "h:35",
+              "h:39"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "先查三条线路确认 L1002 停机及合同未到期，确认 B1234321 为 Overdue 后请求付款并 resume，均符合政策",
+            "refs": [
+              "h:8",
+              "h:11",
+              "h:23",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "发送付款请求前获得用户同意（\"Go ahead and send the payment request\"），金额与账单一致",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "付款完成、账单转Paid、线路恢复Active，用户最终确认信号正常数据可用",
+            "refs": [
+              "h:23",
+              "h:25",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "先核验账单状态为Paid再告知，恢复后提醒重启设备，各项说明与实际一致",
+            "refs": [
+              "h:16",
+              "h:23",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "告知停机因欠费账单B1234321 $65有账单数据支持，正确",
+            "refs": [
+              "h:12",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按政策完成身份核验、查线路状态、查账单确认Overdue、付款后核验Paid再resume，顺序正确",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:10",
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "欠费已付清，L1002恢复Active，SIM重插后设备信号Excellent、5G、数据可用，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:14",
+        "purpose": "确认账单Overdue后才发送付款请求"
+      },
+      {
+        "from": "h:23",
+        "to": "h:24",
+        "purpose": "付款到账Paid后才resume_line"
+      },
+      {
+        "from": "h:38",
+        "to": "h:41",
+        "purpose": "SIM Missing→reseat_sim_card 指引依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户身份核验采用手机号查找，符合Customer Lookup政策",
+      "停机原因判断正确：L1002合同到期2026-12-31在未来，仅欠费导致停机，可合法恢复"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

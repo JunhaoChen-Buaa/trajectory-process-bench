@@ -1,0 +1,169 @@
+{
+  "case_id": "tr456",
+  "created_beijing": "2026-11-10T14:52:13.314002+08:00",
+  "input_sha256": "d0fb8f1fe88183fab5491ef8ba2f5c03ae8f8d0c2fdaf38453703c9cf4e0a4d2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "84812acc28ee8cafd1438b679713a546085cdf62eb87844ca0e05f2f4e77a4dc",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 987,
+    "completion_tokens_details": {
+      "reasoning_tokens": 174
+    },
+    "prompt_tokens": 18036,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19023
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "法国漫游下移动数据慢/不可用问题技术支持",
+        "object": "L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:35",
+            "change": "从修复不可用升级为要求excellent速度"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先完成客户身份识别",
+            "basis": "Tech Support: 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查移动数据问题（data saver、VPN、APN、漫游设置、网络模式等）",
+            "basis": "tech_support_policy各故障步骤",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "穷尽方案后如无法解决再转人工",
+            "basis": "policy: 'You should try your best to resolve the issue before transferring'",
+            "refs": [
+              "h:69"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全部操作在政策范围内，未违规改动账户；line已确认roaming enabled（h:9），无需enable_roaming。",
+            "refs": [
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "纯技术排查，无需用户确认的写操作；用户自行动设备。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "Data saver已关闭、APN重置并重启，速度从不可用提升为good；剩余excellent需求超出标准方案范围，转人工属必要转接。",
+            "refs": [
+              "h:53",
+              "h:70"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知good已是当前位置可能的上限并提出转人工，未虚假宣称问题已完全解决。",
+            "refs": [
+              "h:68"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "8.7/15GB未达限额、roaming enabled、4G/5G preferred等说明均有工具结果支持；重启不删照片属合理常识说明。",
+            "refs": [
+              "h:11",
+              "h:9",
+              "h:65"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（h:2-h:4），逐项按手册诊断并在转人工前穷尽标准步骤，转接流程符合规定。",
+            "refs": [
+              "h:4",
+              "h:70",
+              "h:72"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "标准排查完成，数据恢复正常可用（good），用户excellent速度诉求超出代理能力，已成功转接人工（h:72, e:8 handoff_succeeded）"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "建议用户toggle_roaming导致数据漫游被关闭",
+        "basis": "tech_support_policy: toggle_roaming 'turns Data Roaming ON or OFF'；当时漫游已开启（h:39），再次toggle只会关闭",
+        "refs": [
+          "h:40",
+          "h:41"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": true,
+        "effect": "用户漫游短暂关闭，下一步立即指导重新开启（h:42-h:43），未造成持续影响"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:39",
+        "to": "h:43",
+        "purpose": "toggle_roaming误关闭后已恢复开启"
+      },
+      {
+        "from": "h:53",
+        "to": "h:70",
+        "purpose": "good速度仍非excellent，标准方案穷尽后转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "APN设置检查正常仍执行reset_apn_settings（h:46），非政策要求步骤但无害；多次重复检查（data saver/VPN/网络模式）略显冗长，属流程效率问题，不影响业务质量。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,338 @@
+{
+  "case_id": "tr176",
+  "created_beijing": "2026-11-10T14:17:23.716121+08:00",
+  "input_sha256": "4c8f512e0fc09b118fc5b15a9f822598a9f34b52a5894f2dbd50a09e13ee083c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "1000f848b80310f3be84fc46b25e2e09915cc7c85335523954eaee00440be9c6",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2213,
+    "completion_tokens_details": {
+      "reasoning_tokens": 563
+    },
+    "prompt_tokens": 14820,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17033
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消IFOYYZ预订",
+        "object": "IFOYYZ",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "IFOYYZ为basic economy、无保险、下单超过24小时且航班未飞，不满足任何取消条件，应拒绝取消",
+            "basis": "policy: flight can be cancelled if any of the following is true...",
+            "refs": [
+              "h:15",
+              "h:11"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "Agent正确识别IFOYYZ不满足任何取消条件并拒绝执行取消，未违规调用cancel",
+            "refs": [
+              "h:20",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行写入操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "按政策正确结果就是不取消，预订未被改动，结果符合规则",
+            "refs": [
+              "h:11",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "Agent告知用户IFOYYZ需转人工处理(\"Requires transfer to human agent\")，但按政策该请求应直接拒绝，人工也不能取消，误导用户预期",
+            "refs": [
+              "h:20",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "将不满足取消条件的请求说成需人工处理而非应拒绝，属对政策的事实性错误说明",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策规定仅在请求无法在自身权限范围内处理时转人工；拒绝违规请求属于权限内，把IFOYYZ纳入转人工违反转接条件",
+            "refs": [
+              "h:22",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "IFOYYZ未被取消；被错误地包含在人工转接中，用户被误导认为人工可处理"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消NQNU5R预订",
+        "object": "NQNU5R",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "NQNU5R航班日期2024-05-13/14已飞过，任何已飞预订不能取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, the agent cannot help and transfer is needed",
+            "refs": [
+              "h:13",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确判断航班已飞，未尝试取消，符合政策",
+            "refs": [
+              "h:14",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无写入操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法未取消且转人工，属政策允许的正确处理",
+            "refs": [
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知航班已飞且需人工处理，转接话术符合规定",
+            "refs": [
+              "h:14",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对NQNU5R已飞状态的说明与预订数据一致",
+            "refs": [
+              "h:14",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已按政策先核实航班日期再执行transfer_to_human_agents并发送指定话术",
+            "refs": [
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "NQNU5R未取消，已按规定流程转人工"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将M20IZO改为直飞航班",
+        "object": "M20IZO",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:21",
+            "change": "用户在确认无直飞后撤回改签请求，决定保留现有经停航班"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查询2024-05-22 JFK-MCO是否有直飞可选",
+            "basis": "用户 h:15 \"see if there's a nonstop option available\"",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "确认M20IZO为economy可改，且改签需保持origin/destination/trip type不变，处理符合规则",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "最终未执行任何修改，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "用户已撤回改签请求，预订保持原状符合用户意愿",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知无直飞，明确说明需选择经停或保持现状，未虚假承诺",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "直飞搜索返回空结果，告知无直飞与实际一致",
+            "refs": [
+              "h:17",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查直飞(e:5)再查经停(e:6)确认选项，核验充分",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "M20IZO保持原经停航班不变，用户主动撤回改签"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "将不符合取消条件的IFOYYZ错误纳入人工转接并误导用户",
+        "basis": "policy: \"You should deny user requests that are against this policy\"及\"transfer if and only if the request cannot be handled within the scope\"；h:20称IFOYYZ \"Requires transfer to human agent\"",
+        "refs": [
+          "h:20",
+          "h:22",
+          "h:24"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "用户被误导以为人工可取消basic economy预订；转接摘要中混入本应拒绝的请求，但预订未被违规改动"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:20",
+        "purpose": "IFOYYZ属性(basic economy/无保险/5-12下单)与Agent取消资格判断的关联"
+      },
+      {
+        "from": "h:13",
+        "to": "h:22",
+        "purpose": "NQNU5R航班日期已飞与转人工决定的关联"
+      },
+      {
+        "from": "h:17",
+        "to": "h:21",
+        "purpose": "直飞搜索为空与用户撤回改签的关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:20回复冗长且多次重复同一结论，并在提及付款方式时把certificate_9645872列为改签付款选项，但改签按政策只能用gift card或credit card；因最终未改签，无实际影响，仅作辅助说明。转接摘要把本应拒绝的IFOYYZ也交人工处理，已计入I1。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

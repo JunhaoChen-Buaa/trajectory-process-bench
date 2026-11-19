@@ -1,0 +1,172 @@
+{
+  "case_id": "tr160",
+  "created_beijing": "2026-11-10T15:35:22.538919+08:00",
+  "input_sha256": "446fab4b223a61282f3d4bcc0f4816d09597cb2b4016c1f1fbf42e578e8c6972",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f4044fe6c9e97e01ac94f19f23ea698e838985689b20ff07fcee38e4123f2c5c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1028,
+    "completion_tokens_details": {
+      "reasoning_tokens": 153
+    },
+    "prompt_tokens": 13711,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 14739
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月26日ORD到PHL的HAT271单程经济舱机票（2名乘客）",
+        "object": "新预订 reservation HATHAT（HAT271, 2024-05-26）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订HAT271 ORD→PHL 2024-05-26 单程，与5月10日同航班",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "经济舱，乘客Sophia Silva和Kevin Smith，无行李，无保险",
+            "basis": "用户要求",
+            "refs": [
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "仅用一个certificate付款，需profile内支付方式并先确认",
+            "basis": "policy及用户要求",
+            "refs": [
+              "h:19",
+              "h:20"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "查询到原航班HAT271并按规则预订；一个certificate、economy乘客免费0行李均符合policy；写库前已确认。",
+            "refs": [
+              "h:15",
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22完整列出航班、舱位、乘客、价格、支付方式，用户回复'Yeah, that's all correct'后执行。",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "工具返回并回读确认预订成功：HAT271 5/26 economy、2乘客、$348用certificate_8045380、0行李、无保险，与同意一致。",
+            "refs": [
+              "h:25",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致，座位偏好已如实说明系统自动分配。",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:20告诉用户'Since the total cost is $348, either certificate can cover it'，但certificate_3887113仅$150，无法覆盖$348，属错误事实陈述（用户仍选了$500那张，未影响结果）。",
+            "refs": [
+              "h:5",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先取user id并查profile定位原航班，搜索确认可用性，问齐乘客/行李/保险/支付后再预订。",
+            "refs": [
+              "h:4",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功创建，完全符合用户要求；座位偏好需用户后续自行处理，已如实告知。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "错误声称两张certificate都足以支付$348",
+        "basis": "certificate_3887113余额仅$150（h:5），Agent却称'either certificate can cover it'（h:20）",
+        "refs": [
+          "h:5",
+          "h:20"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": true,
+        "effect": "用户实际选择了$500的certificate_8045380，预订正常完成，未造成实际影响"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:20",
+        "purpose": "证书余额$150与'都能覆盖$348'的矛盾依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent为定位5月10日航班逐一查看了全部5个预订，稍显冗余但结果正确且非业务违规。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

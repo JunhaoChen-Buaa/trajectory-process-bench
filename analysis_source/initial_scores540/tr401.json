@@ -1,0 +1,134 @@
+{
+  "case_id": "tr401",
+  "created_beijing": "2026-11-10T14:40:59.016896+08:00",
+  "input_sha256": "6c41b52070a7fd0ea265f2c9a70e615c72b6ea094257307dc7a473a86549a3a2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0d64bf8c774b8da0796683dc93ecac5488247f6cd647f7a014a7cadd9969d582",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 618,
+    "completion_tokens_details": {
+      "reasoning_tokens": 55
+    },
+    "prompt_tokens": 13765,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14383
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复国外MMS发送故障",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决用户在法国无法发送MMS的问题",
+            "basis": "用户请求 'can't send MMS messages'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别用户号码对应的线路L1002，按政策为出国用户免费启用漫游（'enable it at no cost'），后续指导符合tech support政策",
+            "refs": [
+              "h:9",
+              "h:11",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "启用漫游前征得用户同意 'Go ahead and enable it'，且告知免费",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游启用成功，随后定位2G问题并指导用户切换网络模式，用户确认MMS可发送 'it's working now'",
+            "refs": [
+              "h:14",
+              "h:31",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "各步骤说明与实际一致，总结准确（启用漫游+切换4G/5G）",
+            "refs": [
+              "h:15",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'2G networks are not suitable for MMS' 有政策依据，漫游禁用诊断正确",
+            "refs": [
+              "h:11",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查号识别客户，核对线路与号码映射，指导用户完成设备侧诊断与修复，顺序合理",
+            "refs": [
+              "h:4",
+              "h:8",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "线路L1002漫游已启用，设备切换至4G/5G，MMS可正常发送，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户号码555-123-2002对应线路L1002后再操作"
+      }
+    ],
+    "auxiliary_notes": [
+      "初次建议重启设备并非APN重置后的强制要求，属轻微措辞，不影响结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

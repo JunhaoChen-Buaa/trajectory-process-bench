@@ -1,0 +1,137 @@
+{
+  "case_id": "tr474",
+  "created_beijing": "2026-11-10T15:58:17.704021+08:00",
+  "input_sha256": "32693cd01cbe89e052cef56ed92d0a36eab262c52578d97750d1587e22c86dc4",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "528ad922e967dc60a07ed409f0f830ebae872a500b6e49e867764f6bb8580d41",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 564,
+    "completion_tokens_details": {
+      "reasoning_tokens": 20
+    },
+    "prompt_tokens": 13750,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14314
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决国外移动数据无连接/慢的问题",
+        "object": "线路L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先验证客户身份",
+            "basis": "policy: Technical Support requires customer identification",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "逐步诊断并在用户 abroad 情况下确认line roaming已开通、指导设备端开启数据漫游",
+            "basis": "tech_support_policy: Addressing Data Roaming Problems",
+            "refs": [
+              "h:1",
+              "h:27"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按技术支持流程逐步诊断，仅指导用户侧操作，line端roaming已enabled无需后端变更，对象线路正确",
+            "refs": [
+              "h:28",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无付费或写入操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终速度测试275 Mbps Excellent（e:11），数据连接恢复",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认问题解决并如实说明roaming已双端开启及15GB限额与续费选项，与工具结果一致",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "引用的8.7GB用量、15GB限额、$2.00/GB续费价均与P1002/L1002查询结果一致（e:2、e:3）",
+            "refs": [
+              "h:12",
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先验证身份（get_customer_by_phone），并尝试status bar、speed test、data saver、VPN、network status等诊断步骤后再定位roaming",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "设备端数据漫游已开启，速度测试Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "e:0",
+        "purpose": "身份验证与线路归属确认"
+      },
+      {
+        "from": "h:27",
+        "to": "e:2",
+        "purpose": "确认line端roaming已enabled"
+      }
+    ],
+    "auxiliary_notes": [
+      "诊断步骤顺序合理，无多余工具调用"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

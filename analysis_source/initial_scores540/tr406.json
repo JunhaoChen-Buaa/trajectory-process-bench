@@ -1,0 +1,151 @@
+{
+  "case_id": "tr406",
+  "created_beijing": "2026-11-10T16:05:21.057972+08:00",
+  "input_sha256": "ddc3aa45f1b3c82995c4b1546f0a0036aa50e4140bf152010d3ad8e5f50b9a18",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b502c6296bb0e558d742512f9fd531d771627f3fba6544f67804cb321b030c23",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 702,
+    "completion_tokens_details": {
+      "reasoning_tokens": 51
+    },
+    "prompt_tokens": 13159,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13861
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游期间无法发送MMS的问题",
+        "object": "用户线路L1002及设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后排查MMS问题直至可用",
+            "basis": "tech_support_policy: must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在国外时应检查并免费开启线路漫游",
+            "basis": "policy: enable it at no cost for the user",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "排查设备侧原因（漫游开关、2G网络）直至MMS可用",
+            "basis": "tech_support_policy MMS troubleshooting",
+            "refs": [
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核验身份(h:3-5)后核对线路L1002(h:9)，按政策为国外用户免费开启漫游(e:3)，设备排查符合MMS流程。",
+            "refs": [
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "漫游免费开启、设备设置均无确认要求。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "线路漫游已启用(e:3)，用户设备漫游开启并切至5G(h:21)，can_send_mms确认可发MMS(h:25)。",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已免费开启漫游与实际一致(h:12)，后续说明(保持漫游开启、数据限额)有政策依据(h:27)。",
+            "refs": [
+              "h:12",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "漫游免费、2G不适合MMS、数据超限断连均可由政策与工具返回支撑。",
+            "refs": [
+              "h:17",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份，再查线路漫游并启用，随后引导设备诊断与修复，顺序符合政策。",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002漫游已在后端开启，用户设备漫游开启且为5G，MMS测试通过。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户号码555-123-2002对应线路L1002后再启用漫游"
+      },
+      {
+        "from": "h:16",
+        "to": "h:17",
+        "purpose": "设备侧数据漫游关闭与2G是MMS失败原因，据此给出修复步骤"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作(toggle_roaming、set_network_mode_preference、can_send_mms)由用户在其设备执行，Agent引导得当，无遗漏。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

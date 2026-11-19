@@ -1,0 +1,422 @@
+{
+  "case_id": "tr351",
+  "created_beijing": "2026-11-10T15:47:49.909055+08:00",
+  "input_sha256": "1a16b234925bbe4f083d9cfc2e892a78cbbb7b03e9e2dec581e365c792030c46",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "983ef4f457ed4b6cc0f139b672b68c803ee604873a6b56bb7f0785648bb63b47",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2368,
+    "completion_tokens_details": {
+      "reasoning_tokens": 510
+    },
+    "prompt_tokens": 8686,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 11054
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "换购更大车架/山地自行车",
+        "object": "订单 #W4689314 的 Bicycle",
+        "request_refs": [
+          "h:5",
+          "h:8",
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将自行车换为同产品更大车架或可用山地车款，价格差用Visa卡结算",
+            "basis": "用户要求",
+            "refs": [
+              "h:5",
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "从未查询产品可换选项，反而要求用户提供型号，且一次exchange工具调用因参数格式错误失败(h:11)，换购未按同产品可换规则推进",
+            "refs": [
+              "h:10",
+              "h:11",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未形成具体换购方案供确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换购未执行，仅转人工，业务未完成",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "未对自行车换购作完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未作产品选项或事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求换前核对订单状态与可用新item，Agent均未查询product/order详情即陷入要求用户提供型号，步骤缺失",
+            "refs": [
+              "h:10",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "转人工，换购未办理"
+      },
+      {
+        "group_id": "G2",
+        "goal": "换购1000片艺术主题拼图",
+        "object": "订单 #W4689314 的 Jigsaw Puzzle",
+        "request_refs": [
+          "h:5",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "换为比现有件数多1000、同难度、艺术主题（如有）的同产品拼图",
+            "basis": "用户要求",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "未查询现有拼图规格与可换选项，换购未按政策推进",
+            "refs": [
+              "h:9",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未形成具体方案供确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换购未执行，仅转人工",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未作事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未按政策查询商品与可用变体即把查询工作推给用户",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "转人工，换购未办理"
+      },
+      {
+        "group_id": "G3",
+        "goal": "换购低分辨率相机",
+        "object": "订单 #W8855135 的 Camera",
+        "request_refs": [
+          "h:5",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "换为分辨率略低、其余规格相同的同产品相机，差价用Visa卡",
+            "basis": "用户要求",
+            "refs": [
+              "h:5",
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "未查询相机现有规格与可换选项，换购未推进",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未形成具体方案供确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换购未执行，仅转人工",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未作事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未查询订单状态与可用变体即转人工",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "转人工，换购未办理"
+      },
+      {
+        "group_id": "G4",
+        "goal": "仅取消订单中滑板",
+        "object": "订单 #W3916020 的 Skateboard",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [
+          {
+            "ref": "h:9",
+            "change": "用户撤回：若无法单独取消滑板，将自行在网站取消整单，要求Agent只确认能否单独取消"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q4",
+            "content": "回答是否可单独取消滑板（政策仅支持整单取消）",
+            "basis": "policy: cancel pending order 整单取消；用户 h:9 要求确认",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "na",
+            "reason": "撤回后仅要求确认规则，未触发取消操作",
+            "refs": [
+              "h:9"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无取消操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "unknown",
+            "reason": "转人工处理，用户能否得到答案未知；单件取消本身不在Agent政策范围内",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "用户直接询问能否单独取消，Agent从未答复该政策事实（仅可整单取消），也未答复即转人工",
+            "refs": [
+              "h:9",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "用户明确要求确认能否单独取消，Agent未作必要说明即转人工",
+            "refs": [
+              "h:9",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "转人工；用户要求的单件取消可行性确认未获得"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "三笔换购均未办理，未查询商品选项即把工作推给用户并转人工",
+        "basis": "policy要求Agent查询可用同产品变体并核对delivered状态；exchange工具调用因参数格式错误失败(h:10,h:11)；用户h:13明确要求Agent自行查询，Agent却转人工(h:14)",
+        "refs": [
+          "h:10",
+          "h:11",
+          "h:13",
+          "h:14",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "自行车、拼图、相机换购全部未完成，需人工接手"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未答复能否单独取消滑板",
+        "basis": "policy仅支持整单cancel pending order；用户h:9明确要求'confirm whether you can do a single item cancellation'，Agent未答复即转人工",
+        "refs": [
+          "h:9",
+          "h:14",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户的问题未得到答案，需自行处理"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:7",
+        "purpose": "定位三个订单与Visa卡"
+      },
+      {
+        "from": "h:13",
+        "to": "h:14",
+        "purpose": "用户要求Agent自行查询并求助后，Agent转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:10的exchange调用因list参数格式错误失败，属接口规范问题，但根因是Agent未收集全部待换item就提前调用，已计入I1",
+      "身份认证按政策以姓名+邮编完成(e:0)，正常"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,168 @@
+{
+  "case_id": "tr004",
+  "created_beijing": "2026-11-10T14:56:29.786266+08:00",
+  "input_sha256": "e4f3b3880f9a482898e0e38745fbef0ef898859dddeb2b8384e40f10677ce2a6",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "911eeea26c42ee1844cef3f5fec17e3b2a29c5d742a020f46a1b841ffcbea6db",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1304,
+    "completion_tokens_details": {
+      "reasoning_tokens": 464
+    },
+    "prompt_tokens": 16188,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 17492
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "FQ8APE订单三项修改（升舱、加3件行李、改乘客为本人）",
+        "object": "FQ8APE（EWR→ORD 单程，Omar Rossi）",
+        "request_refs": [
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将舱位从basic_economy升为economy，价格差由用户选定支付方式处理",
+            "basis": "用户要求 'upgrade it to economy class'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "添加3件托运行李，gold会员economy可享3件免费",
+            "basis": "policy行李额度 + 用户 'add 3 checked bags'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "将乘客Ivan Garcia改为Omar Rossi（1960-06-06）",
+            "basis": "用户 'change that to myself, Omar Rossi'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "所有写操作前需列出细节并获得用户明确确认，支付方式须在用户档案中",
+            "basis": "policy 'must list the action details and obtain explicit user confirmation'",
+            "refs": [
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "三项修改均符合政策：非改航班段、金卡economy 3件免费、乘客可改名不改人数，升级到economy后basic economy不可改的限制已消除",
+            "refs": [
+              "h:16",
+              "h:20",
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "Agent列出全部改动细节并询问，用户确认 'I'm good with all three changes' 并指定用礼品卡支付；用户委托选择具体礼品卡属语义等价授权",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据库复核：cabin=economy、total_baggages=3/nonfree=0、乘客=Omar Rossi，另按当前价差向gift_card_8190333收取209元，全部写入成功",
+            "refs": [
+              "h:21",
+              "h:23",
+              "h:25",
+              "e:5",
+              "e:6",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:26的完成说明与实际数据库状态逐项一致，无虚假完成表述",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于basic economy不可改航班、gold会员行李额度（basic 2件/economy 3件免费）、保险不可后加的说明均与policy一致",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证user id（h:4）、定位订单（h:8-h:14）、写操作前列出明细并取得确认，顺序符合政策要求",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FQ8APE已成功改为economy舱、3件免费托运行李、乘客Omar Rossi，差价209美元记入gift_card_8190333"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:26",
+        "purpose": "用户三项要求与最终完成说明对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:18回复中大段内部推理/犹豫过程以customer_visible形式送达用户，冗长且暴露不确定思考，属纯接口规范问题，不构成业务fail",
+      "用户询问'which one would you use?'，Agent未明确回答具体选择了哪张礼品卡即直接执行，建议改进行为但不影响本次授权有效性"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

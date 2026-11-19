@@ -1,0 +1,263 @@
+{
+  "case_id": "tr128",
+  "created_beijing": "2026-11-10T16:08:27.441210+08:00",
+  "input_sha256": "0f426580496a89181280e20482ed64e17d20371351c84be24f174784ecb334a8",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c736bb3529b2e627b8d49aa2fc3d2e6938c6fbff99965c6fa9cb26a8ff7399fc",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2714,
+    "completion_tokens_details": {
+      "reasoning_tokens": 1330
+    },
+    "prompt_tokens": 29376,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 32090
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消S61CZX（含超4小时航班的未来预订）",
+        "object": "reservation S61CZX",
+        "request_refs": [
+          "h:1",
+          "h:41"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅取消航班时长超过4小时的未来预订",
+            "basis": "用户要求 'cancel all my future reservations that have any flights longer than 4 hours'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "S61CZX的取消须满足政策取消条件",
+            "basis": "policy 'flight can be cancelled if any of the following is true...'",
+            "refs": [
+              "h:41"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "用户理由为change of plans，保险不覆盖；预订非24小时内、非business，不满足任何取消条件，Agent却执行了取消",
+            "refs": [
+              "h:41",
+              "h:46",
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确确认 'I confirm that' 并给出取消理由后才调用取消",
+            "refs": [
+              "h:41"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "按规则该预订不应被取消，但DB实际状态变为cancelled并退款-667（s:21），属违规有害写入",
+            "refs": [
+              "h:47",
+              "e:21"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知 'successfully cancelled' 与DB实际cancelled状态一致",
+            "refs": [
+              "h:52",
+              "h:56"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "送达用户的各航班时长（3h/3h/2h/2.5h/5.5h/5.5h）与搜索时刻表一致",
+            "refs": [
+              "h:52"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求查看了全部预订与航段时长，并询问了取消原因",
+            "refs": [
+              "h:3",
+              "h:40",
+              "h:41"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "S61CZX已被取消（违规办理，规则上不应取消），其余预订未变"
+      },
+      {
+        "group_id": "G2",
+        "goal": "短航班预订升级商务舱的费用报价",
+        "object": "reservations NM1VX1/KC18K6/H8Q05L",
+        "request_refs": [
+          "h:41"
+        ],
+        "revisions": [
+          {
+            "ref": "h:55",
+            "change": "用户在了解总费用后撤回升级请求（'I'm not doing the upgrades'），属撤回不判未完成"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "操作前告知总费用，报价应正确",
+            "basis": "用户 'I need to know the total cost before I commit'",
+            "refs": [
+              "h:41",
+              "h:53"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "na",
+            "reason": "用户在报价后撤回，未执行任何升级操作",
+            "refs": [
+              "h:55"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未到达执行确认阶段，用户主动放弃",
+            "refs": [
+              "h:55"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "用户撤回升级目标，无需实际办理",
+            "refs": [
+              "h:55"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "以 'Total exact cost ... $1,136'、'no hidden fees' 的确定口径报价，金额计算方法错误",
+            "refs": [
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "价差应按现商务价减原订单已付机票价（484+560+163=$1,207），Agent用当前basic economy搜索价计算得$1,136，报价实质错误",
+            "refs": [
+              "h:52",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "仅报价阶段，无政策强制的额外核验步骤",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "三个预订保持basic economy，未升级；用户收到错误报价$1,136后放弃"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "违规取消S61CZX",
+        "basis": "policy取消条件列表均不满足：insurance仅覆盖health/weather，用户理由为 'change of plans'（h:41），非24h内、非business；实际已写入cancelled并退款",
+        "refs": [
+          "h:41",
+          "h:46",
+          "h:47",
+          "e:21"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户预订被不应发生的取消，$667已退回原信用卡"
+      },
+      {
+        "issue_id": "I2",
+        "title": "升级报价错误",
+        "basis": "policy 'If the price after cabin change is higher than the original price, the user is required to pay for the difference'；正确总差价约$1,207，Agent按当前basic economy价报价$1,136并称 'no hidden fees'",
+        "refs": [
+          "h:54",
+          "h:55"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户基于错误费用决定放弃升级，无资金损失"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:41",
+        "to": "h:47",
+        "purpose": "确认取消请求、理由与实际取消结果的关联"
+      },
+      {
+        "from": "h:41",
+        "to": "h:54",
+        "purpose": "用户先要总价再决定，错误报价直接影响其撤回决定"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在h:40/h:56称WUNA5K需转人工但从未调用transfer_to_human_agents；WUNA5K航班已飞且不在用户'未来预订'范围内，用户亦未追问，列为边界说明而非业务组fail",
+      "h:40为内部长推理文本，customer_visible=false，不作为送达用户的完成说明依据",
+      "多次重复相同search_direct_flight调用（如h:16/h:18/h:42）属冗余接口行为，不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

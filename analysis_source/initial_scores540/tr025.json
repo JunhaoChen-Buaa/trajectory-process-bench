@@ -1,0 +1,153 @@
+{
+  "case_id": "tr025",
+  "created_beijing": "2026-11-10T15:07:38.473657+08:00",
+  "input_sha256": "d8c6ddef04a9065db42968d262a2ac6e86cf442b8ebdec157b1d6b5f689a3414",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6bd6c1ef5831a5c0a7d80edf47526a467c185fc845a24161aba3a15ae7d213e1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 850,
+    "completion_tokens_details": {
+      "reasoning_tokens": 132
+    },
+    "prompt_tokens": 11884,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 12734
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日 JFK→SEA 单程经济舱机票",
+        "object": "新预订 HATHAT（Mia Li，HAT136+HAT039）",
+        "request_refs": [
+          "h:1",
+          "h:10"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "单程，JFK→SEA，5月20日，经济舱，HAT136+HAT039",
+            "basis": "用户要求 'book a flight from New York to Seattle on May 20... economy'",
+            "refs": [
+              "h:1",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "乘客仅 Mia Li，3件托运行李，无保险",
+            "basis": "用户说明",
+            "refs": [
+              "h:10",
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "支付只能用一个旅行证书，其余用profile内信用卡",
+            "basis": "policy 'at most one travel certificate' + 'must already be in user profile'",
+            "refs": [
+              "h:11",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订对象、舱位、航班、行李（gold经济舱3件免费）均符合规则；证书仅用一个且信用卡在profile内。",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:11完整列出航班、舱位、乘客、行李与支付方案，用户h:12明确同意 '$250 certificate + 7447 card'。",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "实际写入结果（e:3，共$255）与同意内容一致，行李3件0付费，状态正确。",
+            "refs": [
+              "h:14",
+              "e:3"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:15完成说明与实际预订详情完全一致，含支付拆分。",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$255与实际存储价格152+103一致；免费行李说明符合gold经济舱规则；证书不可退余额的提示正确，虽有措辞混乱但随后自行澄清，不影响理解。",
+            "refs": [
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id、搜索直飞与中转航班、确认后再写入，必要步骤齐全。",
+            "refs": [
+              "h:2",
+              "h:6",
+              "h:11"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功：JFK→SEA 5/20 经济舱，Mia Li，3件免费行李，支付$250证书+$5信用卡(7447)。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:14",
+        "purpose": "确认支付方案与实际支付记录一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:11中agent先误称两证合计$350可覆盖票款、有$95作废，随即自我更正为仅限一张证书，属过程措辞瑕疵，最终方案正确且用户基于澄清后信息确认。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,226 @@
+{
+  "case_id": "tr117",
+  "created_beijing": "2026-11-10T15:53:43.537790+08:00",
+  "input_sha256": "e290d99b9bfae68aab004299bc64e546b0b20b28c565abeb1e351fee291b766f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ac9d381a625e5caeb990f1f295d10b8667061fae203ef285c6e051c230c5a01a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 869,
+    "completion_tokens_details": {
+      "reasoning_tokens": 26
+    },
+    "prompt_tokens": 15662,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16531
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消5月17日多余预订FDZ0T5",
+        "object": "reservation FDZ0T5",
+        "request_refs": [
+          "h:15",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消FDZ0T5（JFK→PHL, 5月17日）",
+            "basis": "用户确认 cancel FDZ0T5",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订未 flown、为 business，符合可取消条件，对象正确",
+            "refs": [
+              "h:11",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16列出完整计划，用户明确确认并给理由",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:8/s:8显示状态cancelled且退款-3778到原信用卡",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明已取消并退款5-7个工作日到账，与实际一致",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "列出的航线日期与订单一致",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求获取user id、reservation id和取消原因",
+            "refs": [
+              "h:3",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FDZ0T5已取消，$3778退款至原信用卡"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消5月22日多余预订HSR97W",
+        "object": "reservation HSR97W",
+        "request_refs": [
+          "h:15",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消HSR97W（ORD→SFO, 5月22日）",
+            "basis": "用户确认 cancel HSR97W",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business舱未 flown 可取消，对象正确",
+            "refs": [
+              "h:9",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "计划经h:16列明后用户确认",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:9/s:9显示cancelled且退款-1227到原信用卡",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "退款说明与实际一致",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "航线日期陈述正确",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取原因并按流程执行",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "HSR97W已取消，$1227退款至原信用卡"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:16",
+        "to": "h:17",
+        "purpose": "计划与用户确认的对应关系"
+      },
+      {
+        "from": "h:17",
+        "to": "h:19",
+        "purpose": "取消指令与实际执行结果"
+      }
+    ],
+    "auxiliary_notes": [
+      "保留的5BGGWZ、PUNERT及SE9KEL未被改动，符合用户要求；两次取消在同一批次调用属于接口细节，不影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

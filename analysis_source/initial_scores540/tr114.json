@@ -1,0 +1,390 @@
+{
+  "case_id": "tr114",
+  "created_beijing": "2026-11-10T15:50:00.986386+08:00",
+  "input_sha256": "95cdf3961087ffa7d67d5e5717ef9a816722b7b251bff1ff7cc42736fc3eba79",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "08225c10adbb6f50abb38a0921fb68d1be0e0b618c317a9ef993953f24ceb168",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1676,
+    "completion_tokens_details": {
+      "reasoning_tokens": 158
+    },
+    "prompt_tokens": 17204,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 18880
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消误订预订MFRB94",
+        "object": "MFRB94",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订并退款至原支付方式",
+            "basis": "policy: business可取消, refund to original payment methods",
+            "refs": [
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business舱未起飞、符合取消条件，对象正确",
+            "refs": [
+              "h:7",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确说 'go ahead and cancel'（h:23），且此前已列明详情",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读status=cancelled并退款-4418到原信用卡",
+            "refs": [
+              "e:8",
+              "s:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "此组无单独完成说明，转人工消息与整体一致，无虚假声明",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未对MFRB94作实质事实陈述争议",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id、查询预订详情并说明资格后再取消",
+            "refs": [
+              "h:4",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MFRB94已取消，4418美元退款至原信用卡"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消误订预订HSR97W",
+        "object": "HSR97W",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订并退款至原支付方式",
+            "basis": "policy: business可取消",
+            "refs": [
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business舱符合取消条件，对象正确",
+            "refs": [
+              "h:11",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户h:23明确确认取消该三单",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读status=cancelled，退款-1227至原卡",
+            "refs": [
+              "e:9",
+              "s:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "无虚假完成说明；退款时限已在h:22如实说明",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "无争议事实陈述",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询详情并核对资格",
+            "refs": [
+              "h:11",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "HSR97W已取消，1227美元退款至原信用卡"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消误订预订FDZ0T5",
+        "object": "FDZ0T5",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订并退款至原支付方式",
+            "basis": "policy: business可取消",
+            "refs": [
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business舱符合取消条件",
+            "refs": [
+              "h:15",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户h:23明确确认",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读status=cancelled，退款-3778至原卡",
+            "refs": [
+              "e:10",
+              "s:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "无虚假完成说明",
+            "refs": [],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "无争议事实陈述",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询详情并核对资格",
+            "refs": [
+              "h:15",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FDZ0T5已取消，3778美元退款至原信用卡"
+      },
+      {
+        "group_id": "G4",
+        "goal": "取消不符合条件的预订HTR26G",
+        "object": "HTR26G",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消HTR26G（用户称非本人预订）",
+            "basis": "user h:21; policy取消条件",
+            "refs": [
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "economy、无保险、非24小时内预订，按政策正确拒绝且未误写",
+            "refs": [
+              "h:17",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝并转人工处理，预订未被误改",
+            "refs": [
+              "h:30",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已如实告知不符合资格原因，转人工说明真实",
+            "refs": [
+              "h:22",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:22所列资格条件与policy一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "真实调用了transfer_to_human_agents并发送转接话术",
+            "refs": [
+              "e:11",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "HTR26G未取消（政策不允许），已转人工"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:23",
+        "to": "e:8",
+        "purpose": "用户确认三单取消对应实际取消操作"
+      },
+      {
+        "from": "h:17",
+        "to": "h:22",
+        "purpose": "HTR26G资格判断依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:20总结中对SE9KEL乘客Ivan Brown/Emma Li与saved_passengers一致，说明对象无误。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

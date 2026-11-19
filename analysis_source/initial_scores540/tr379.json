@@ -1,0 +1,167 @@
+{
+  "case_id": "tr379",
+  "created_beijing": "2026-11-10T16:13:28.099646+08:00",
+  "input_sha256": "c3de78e4c95b3a68bf8a74724e71dc3ec25fa91e18d5676cbc09ee0fc2e50fab",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "64c1c5468d598737c951351132a3e476907e5fa37462376038d88451d575e940",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1252,
+    "completion_tokens_details": {
+      "reasoning_tokens": 281
+    },
+    "prompt_tokens": 14229,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15481
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复无法发送MMS的问题",
+        "object": "用户手机（MMS/蜂窝与数据连通性）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在国外漫游时应检查该线路是否开通roaming，未开通则免费开通，并配合手机端开启data roaming",
+            "basis": "policy: 'If a user is traveling outside their home network, you should check if the line is roaming enabled...'",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "按MMS排障流程逐项排查（2G网络、APN/MMSC、Wi-Fi Calling、应用权限、can_send_mms验证），尽量解决后再转人工",
+            "basis": "tech_support_policy: 'Make sure you try all the possible ways to resolve the user's issue before transferring'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "用户身处法国漫游，但Agent从未查询客户/线路，未检查或开通line的roaming，也未引导开启手机端data roaming；转人工前提是穷尽手段，实际未完成Q2规定的核心检查",
+            "refs": [
+              "h:5",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排障无需额外用户确认，未触发",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS问题未解决即转人工；手机端data roaming仍为关闭(e:5 'Data Roaming Enabled: No')，线路roaming也未开通，可自行解决的部分未完成，转人工过早",
+            "refs": [
+              "e:5",
+              "e:14",
+              "h:60"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "Agent未向用户作出'已修复/已完成'的说明，仅有转人工提示语",
+            "refs": [
+              "h:60"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "Agent未向用户给出实质业务事实性说明，未发现虚假或错误陈述",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明确要求技术支持先识别客户(h:1后从未做customer lookup)；用户提示在法国漫游后，policy要求先检查线路roaming状态，均未执行",
+            "refs": [
+              "h:5",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "MMS问题未解决，用户被转人工；身份从未核实，漫游相关可自行完成的排查与开通均未执行"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "技术支持未先识别客户身份，用户在法国漫游却未检查/开通线路roaming也未引导开启手机端data roaming，未穷尽排障手段即过早转人工",
+        "basis": "policy 'You must first identify the customer'、'If a user is traveling outside their home network, you should check if the line is roaming enabled'、'try all the possible ways...before transferring'；e:5显示手机Data Roaming为关闭，h:5用户已说明在法国",
+        "refs": [
+          "h:1",
+          "h:5",
+          "e:5",
+          "h:58",
+          "h:60"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "MMS故障未修复且漫游侧可解决的根因（线路roaming未开通、手机data roaming关闭）完全未处理，用户被无效转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "e:5",
+        "purpose": "用户声明身在法国，结合手机端data roaming关闭说明漫游排查缺失"
+      },
+      {
+        "from": "h:58",
+        "to": "h:60",
+        "purpose": "转人工发生在未完成漫游检查与MMS逐项验证之后，证明过早转移"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2-h:14期间反复调用check_status_bar及先开再关airplane mode属于低效操作，未改变结果，仅为流程冗余，不影响业务判分",
+      "Agent发送的均为设备侧动作指令，由用户手机执行，此为系统设计，不据此扣分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,188 @@
+{
+  "case_id": "tr010",
+  "created_beijing": "2026-11-10T15:57:49.959822+08:00",
+  "input_sha256": "b7ad8c4db119b3bc0b4f5f9dcdcf88cc1334b42a2e2115660a82defcdeefea15",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "49f338361a9cd9f359e16a6baa84b460ecfe6baea8b076bb81afbc9cdc08e36b",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1423,
+    "completion_tokens_details": {
+      "reasoning_tokens": 446
+    },
+    "prompt_tokens": 16954,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 18377
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "FQ8APE预订：升舱经济舱、改乘客本人、加3件托运行李",
+        "object": "预订FQ8APE",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "同一预订整体升舱为economy（不改航班，票价差额付款）",
+            "basis": "policy: cabin change allowed for basic economy, same across all flights",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "乘客由Ivan Garcia改为Omar Rossi（人数不变）",
+            "basis": "policy: user can modify passengers but not number",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "增加3件托运行李，gold成员经济舱3件免费",
+            "basis": "policy baggage allowance",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "更新前列出操作细节并获用户明确确认",
+            "basis": "policy: must list action details and obtain explicit confirmation",
+            "refs": [
+              "h:20",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所有操作符合政策：basic economy可升舱不改航班、乘客信息可改人数不变、行李可增加；e:7-e:9 DB实际写入正确",
+            "refs": [
+              "h:15",
+              "h:22",
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "用户以$179确认（h:21），实际按$209扣款且扣款后才披露，确认金额与实际操作金额不一致（事后用户接受，recovered）",
+            "refs": [
+              "h:20",
+              "h:21",
+              "h:23",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "三项修改均实际写入DB：economy $209扣款、乘客Omar Rossi、3件行李，与用户最终接受的结果一致",
+            "refs": [
+              "h:23",
+              "h:25",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent如实主动披露首次报价错误并说明实际扣款$209，说明与实际DB状态一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "免费行李3件（gold+economy）与票价计算正确；仅初始差额$179误报，事后已更正并被用户确认",
+            "refs": [
+              "h:20",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查用户与预订、搜索航班、列明细、获确认后依次执行，顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FQ8APE最终为economy舱、乘客Omar Rossi、3件免费行李、gift_card_8190333扣款$209，余额$71，与用户最终认可一致"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "按未确认金额$209扣款（确认时报价为$179）",
+        "basis": "policy要求列明操作细节获明确确认；用户确认基于$179（h:20-21），实际扣款$209（h:23），差$30，扣款后才披露（h:28）",
+        "refs": [
+          "h:20",
+          "h:21",
+          "h:23",
+          "h:28"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": true,
+        "effect": "实际多扣$30，但Agent主动披露且用户当场认可，未造成持续损失"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:21",
+        "to": "h:23",
+        "purpose": "确认金额$179与实际扣款$209的矛盾"
+      },
+      {
+        "from": "h:20",
+        "to": "h:28",
+        "purpose": "初始报价错误与后续更正披露"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户要求不从profile取DOB，但政策对乘客修改未禁止使用档案中的出生日期，且用户随后同意继续（h:21），不构成业务fail",
+      "离线重放显示两次search_direct_flight后端实际报AttributeError而receipt返回数据（receipt_exact=false），属环境/接口差异，Agent据返回数据的操作结果仍正确"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,140 @@
+{
+  "case_id": "tr392",
+  "created_beijing": "2026-11-10T15:14:47.926191+08:00",
+  "input_sha256": "b4ec56f549ccaeaeb6c5806367c8693604783f7cee0269120a783767eda11115",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ccc3abd58440ef8af0c85c9c25765ea7c3d438fa1c0c1dce3f27bd9333516fba",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 617,
+    "completion_tokens_details": {
+      "reasoning_tokens": 10
+    },
+    "prompt_tokens": 15274,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15891
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复MMS无法发送问题",
+        "object": "用户手机消息应用/线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份再提供技术支持",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按MMS排障流程诊断并修复，使MMS可正常发送",
+            "basis": "用户请求 'I can't send MMS messages'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按MMS排障手册逐步诊断（网络模式、APN、Wi-Fi Calling、应用权限），修复手段符合政策，未越权操作",
+            "refs": [
+              "h:20",
+              "h:28",
+              "h:36",
+              "h:40",
+              "h:44"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排障无单独确认要求，用户全程配合执行设备操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户确认 'it's saying my messaging app can send MMS messages now'（h:51），问题实际解决",
+            "refs": [
+              "h:49",
+              "h:50",
+              "h:51"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际一致：网络模式更改+两项权限授权，均有工具成功回执支撑",
+            "refs": [
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'2G一般不适合MMS，需至少3G' 与手册一致；权限缺失判断与check_app_permissions结果相符",
+            "refs": [
+              "h:20",
+              "h:38",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（h:2-h:5），核对正确线路L1002（号码555-123-2002），随后按手册逐步诊断",
+            "refs": [
+              "h:4",
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS发送功能已恢复正常，用户确认满意并结束会话"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户提供的号码对应线路L1002，避免多线路混淆"
+      }
+    ],
+    "auxiliary_notes": [
+      "APN设置正常后Agent仍建议进一步排查的表述（h:32）略显绕口，但不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

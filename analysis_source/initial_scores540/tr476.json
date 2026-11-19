@@ -1,0 +1,148 @@
+{
+  "case_id": "tr476",
+  "created_beijing": "2026-11-10T14:30:40.061411+08:00",
+  "input_sha256": "af5d3106b48ba76f1d9a45bc5488427e693659609274d950ffd150b3cf2cdf0b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "dccafe0f2f1cde44c96fa1a87b040f304559305dc410429c41611f0f645b8e68",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 610,
+    "completion_tokens_details": {
+      "reasoning_tokens": 15
+    },
+    "prompt_tokens": 15235,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15845
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排除手机移动数据慢/断连问题",
+        "object": "C1001 名下 555-123-2002 (L1002)",
+        "request_refs": [
+          "h:1",
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先核验客户身份并确认出问题的线路",
+            "basis": "policy: Technical Support 需先识别客户",
+            "refs": [
+              "h:2",
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按技术支持手册逐步诊断并修复移动数据问题",
+            "basis": "tech_support_policy 数据故障排查",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅使用用户设备动作与只读查询，未越权操作，对象线路 L1002 与用户所报号码一致",
+            "refs": [
+              "h:7",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持流程无需额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "关Data Saver并开手机端roaming后测速275 Mbps Excellent，连接恢复",
+            "refs": [
+              "h:48",
+              "h:52"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结如实描述两项修复内容，与实际结果一致",
+            "refs": [
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量8.7/15GB未超限、线路roaming已开通等说明均与工具返回一致",
+            "refs": [
+              "h:11",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验(h:3)，逐项按手册检查并验证，必要步骤齐全",
+            "refs": [
+              "h:5",
+              "h:16",
+              "h:20",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002 移动数据恢复正常（Excellent 275 Mbps），用户确认满意结束"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:11",
+        "purpose": "确认用户报障号码对应L1002且roaming在线路端已开通"
+      },
+      {
+        "from": "h:44",
+        "to": "h:48",
+        "purpose": "无连接诊断后开启手机端roaming"
+      },
+      {
+        "from": "h:48",
+        "to": "h:52",
+        "purpose": "修复后测速验证恢复"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查顺序与手册略有灵活（先查VPN后查Data Saver），属等价表达，不构成业务问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

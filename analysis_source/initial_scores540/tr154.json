@@ -1,0 +1,136 @@
+{
+  "case_id": "tr154",
+  "created_beijing": "2026-11-10T14:52:57.150136+08:00",
+  "input_sha256": "95fb06b8721213cda3acce00d9accdf60a63eb33614f5de04aeb1662b625e68c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "cdf3bbe2198748c169727f75cb7a4e4f924ace9ec8a0057dc0f6edf6b697ccc1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 565,
+    "completion_tokens_details": {
+      "reasoning_tokens": 18
+    },
+    "prompt_tokens": 7536,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 8101
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消预订并退款",
+        "object": "预订 3RK2T9",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "核实预订记录后按取消条件判断是否可取消",
+            "basis": "policy: cancellation conditions (24h/business/insurance/airline cancelled)",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "不满足条件时拒绝取消；用户要求人工时转人工",
+            "basis": "policy: deny requests against policy; transfer if cannot handle",
+            "refs": [
+              "h:5",
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订无保险、basic economy、超24小时，正确拒绝取消，符合政策允许情形",
+            "refs": [
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何数据库更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝取消并按请求转人工，属正确处理，未发生错误写入",
+            "refs": [
+              "h:4",
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明无法取消及依据（'insurance: no'），未虚假声称已完成取消",
+            "refs": [
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于无保险、超24小时、basic economy的说明与工具返回记录一致",
+            "refs": [
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查预订详情核实，用户明确要求supervisor后调用转人工并发送标准话术",
+            "refs": [
+              "h:2",
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "取消请求被依规拒绝，用户争议保险记录，已按请求转人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:3",
+        "purpose": "用户取消请求与预订实际记录（insurance: no）关联判断"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户声称已购保险但系统记录为无，属用户与记录的争议，非Agent错误；Agent已通过转人工合理处理。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

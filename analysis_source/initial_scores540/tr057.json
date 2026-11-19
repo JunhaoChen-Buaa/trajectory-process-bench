@@ -1,0 +1,232 @@
+{
+  "case_id": "tr057",
+  "created_beijing": "2026-11-10T14:31:39.587003+08:00",
+  "input_sha256": "53dd966046a0db273e4fe1fda54708bec6a7d1b3b4ec158e5424a6d073bf3680",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "86720fa53efd22659e7ee34624a34c4a3a8146df0da653e6b914057de697c78f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 940,
+    "completion_tokens_details": {
+      "reasoning_tokens": 14
+    },
+    "prompt_tokens": 10455,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 11395
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将DF89BM改签为JFK直飞",
+        "object": "预订DF89BM（basic economy，JFK-DTW）",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将5月17日JFK出发航段改为非stop",
+            "basis": "用户请求",
+            "refs": [
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "basic economy预订不可修改",
+            "basis": "policy: Basic economy flights cannot be modified",
+            "refs": []
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝修改：DF89BM为basic economy，policy明文禁止修改；未违规调用API。",
+            "refs": [
+              "h:12",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何改库操作，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝可正确；basic economy不可改，拒绝符合规则。",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知无法修改并说明原因，与政策一致。",
+            "refs": [
+              "h:12",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "预订详情（basic economy、5/17经ORD、5/24返程）与工具返回一致。",
+            "refs": [
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id并定位预订，符合流程。",
+            "refs": [
+              "h:2",
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "改签请求按政策被拒绝，预订DF89BM保持不变。"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消DF89BM或转人工",
+        "object": "预订DF89BM",
+        "request_refs": [
+          "h:15",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "仅当预订24小时内/航司取消/business/有保险且理由符合时才可取消",
+            "basis": "policy cancellation rules",
+            "refs": []
+          },
+          {
+            "id": "Q4",
+            "content": "若请求超出Agent权限且无法处理，应转人工",
+            "basis": "policy transfer rule",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订建于2024-05-01、basic economy、无保险，四项取消条件均不满足，正确拒绝。",
+            "refs": [
+              "h:9",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消操作。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "取消不合规被正确拒绝；用户明确要求找人工后真实转接成功，符合策略。",
+            "refs": [
+              "h:18",
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "逐条说明不可取消的理由后再转人工，无虚假完成说明。",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "引用的取消条件（5/1预订、非business、无保险）与预订数据一致。",
+            "refs": [
+              "h:9",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "取消前询问取消原因，符合政策要求；用户要求人工后调用transfer并播报转接语。",
+            "refs": [
+              "h:16",
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "取消被正确拒绝，按用户请求转接人工成功。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:16",
+        "purpose": "预订数据（basic economy、无保险、5/1创建）为判断不可修改与不可取消的依据"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "用户请求人工触发转接"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent正确遵守一次一个动作的接口规范；用户消息customer_visible=false不影响其作为需求依据。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

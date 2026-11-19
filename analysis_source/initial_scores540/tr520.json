@@ -1,0 +1,168 @@
+{
+  "case_id": "tr520",
+  "created_beijing": "2026-11-10T16:02:01.240135+08:00",
+  "input_sha256": "52d4764c953fe832657c36cffa765c22c98c1a71974fb67bdcaddd9f68bceb55",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f4450cbe7668f785883983266a6fce1a6b8e9ca67fc836cdecc3a7d0765afc3f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1456,
+    "completion_tokens_details": {
+      "reasoning_tokens": 592
+    },
+    "prompt_tokens": 14188,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15644
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决L1002线路No Service(因逾期账单被停机)并恢复服务",
+        "object": "线路L1002(555-123-2002)与逾期账单B1234321",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户并确定用户号码对应的线路",
+            "basis": "policy: Technical Support - must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查停机原因：逾期账单需先支付，合同未到期可恢复",
+            "basis": "policy: Line Suspension / overdue bills",
+            "refs": [
+              "h:9",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "发送付款请求后须告知用户通过check_payment_request查看并接受，再由agent完成付款",
+            "basis": "policy: Overdue Bill Payment步骤",
+            "refs": [
+              "h:14",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别客户C1001并定位到用户号码对应的L1002停机、发现逾期账单B1234321且合同期未到，处理路径符合政策",
+            "refs": [
+              "h:5",
+              "h:9",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "付款请求由系统通知用户，政策未要求额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "账单未支付、L1002仍Suspended，且未给用户接受付款请求的机会就转人工；虽agent无make_payment工具需转人工，但流程未按政策走完",
+            "refs": [
+              "h:15",
+              "h:17",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "仅发送标准转接话术h:22，无已完成类说明",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "诊断依据（L1002 Suspended、B1234321 Overdue $65、合同到2026年）均有工具返回支持",
+            "refs": [
+              "h:9",
+              "h:13",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明确要求发送付款请求后告知用户用check_payment_request查看并接受，agent发送请求后未向用户传达任何付款说明即直接转人工",
+            "refs": [
+              "h:15",
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "账单B1234321处于Awaiting Payment，L1002仍停机，用户被转人工且从未被告知付款请求"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "发送付款请求后未告知用户查看/接受即转人工",
+        "basis": "policy: 'Inform the user that a payment request has been sent. They should check their payment requests using the check_payment_request tool'；实际e:5发送请求后h:22直接转接，无任何告知",
+        "refs": [
+          "h:14",
+          "h:15",
+          "h:20",
+          "h:22"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户失去接受付款请求的机会，业务未走完政策流程，线路仍停机"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:20",
+        "purpose": "发送付款请求与转人工之间的流程缺失"
+      }
+    ],
+    "auxiliary_notes": [
+      "转人工本身可辩护（agent无make_payment工具），但应先完成告知用户付款请求这一政策要求步骤，并在消息中说明后续付款方式"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

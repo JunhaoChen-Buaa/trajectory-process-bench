@@ -1,0 +1,165 @@
+{
+  "case_id": "tr499",
+  "created_beijing": "2026-11-10T14:38:58.993244+08:00",
+  "input_sha256": "40d6125e3b76330cafd1e781d5c5202fcd31cb6fdcee90082bd6b12d8ee0c078",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "92583528117725832c5b21ca6b67bc834e0da9e1659b8a191ec8a68124063ee8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1062,
+    "completion_tokens_details": {
+      "reasoning_tokens": 293
+    },
+    "prompt_tokens": 12614,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13676
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复手机无服务问题",
+        "object": "用户手机蜂窝信号（关联线路未确认）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户",
+            "basis": "policy: 'Technical Support: You must first identify the customer.'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查无信号需检查线路是否被停机及APN设置等可能原因",
+            "basis": "tech support policy: Line Suspension/APN 排查流程",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "未按政策先识别客户即开始技术支持，也未核查线路停机状态（离线事实显示L1003/L1009为Suspended，可能正是根因）",
+            "refs": [
+              "h:1",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及费用或变更的确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "信号问题未解决即转人工；因跳过停机核查与APN检查，未充分尝试可解决路径，转接过早",
+            "refs": [
+              "h:48",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "未做虚假完成声明，转接消息按政策原样送达",
+            "refs": [
+              "h:50"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户做出影响理解的事实/政策说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "缺少客户识别与线路停机核查两个政策明文要求的步骤；设备侧排查本身齐全但顺序缺失关键核验",
+            "refs": [
+              "h:1",
+              "h:12",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "信号问题未解决，用户被转人工；线路状态从未被核查"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未识别客户且未核查线路停机状态",
+        "basis": "policy要求'Technical Support: You must first identify the customer'；tech support指南要求排查Line Suspension；全程无get_customer/line查询",
+        "refs": [
+          "h:1",
+          "h:12",
+          "h:48"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "可能遗漏真正根因（线路停机），导致无法用resume_line解决"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未穷尽可解决手段即转人工",
+        "basis": "policy: 'try your best to resolve the issue before transferring'；未查停机与APN即transfer_to_human_agents",
+        "refs": [
+          "h:24",
+          "h:48",
+          "h:50"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "业务未能办结，问题未解决"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:48",
+        "purpose": "用户无服务请求最终以转人工结束，中间缺少客户识别与线路核查"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧诊断（状态栏、SIM、网络模式、飞行模式切换）步骤本身符合指南，但多次重复的check/toggle在h:14-h:37间出现冗余循环，属接口效率问题不计业务fail",
+      "Agent以tool-call JSON形式输出check_status_bar等指令属设备侧引导的正常形式，用户实际执行了相应动作"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

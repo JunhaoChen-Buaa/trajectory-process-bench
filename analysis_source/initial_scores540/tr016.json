@@ -1,0 +1,157 @@
+{
+  "case_id": "tr016",
+  "created_beijing": "2026-11-10T16:14:43.324584+08:00",
+  "input_sha256": "d220dcbad526aa80c7d8bd346f2b59ce37e3f7dbbcb9d9a4299812ca69bd10aa",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b03615a8ced339276e01f3b2a3a02a5cbd7e4b800b23a431f594a8edc33f271a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 712,
+    "completion_tokens_details": {
+      "reasoning_tokens": 51
+    },
+    "prompt_tokens": 11216,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 11928
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "改签Z7GOZK返程航班（后撤回改为凭保险取消）",
+        "object": "预订Z7GOZK（EWR-IAH往返，basic economy，含保险）",
+        "request_refs": [
+          "h:1",
+          "h:13"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "撤回改签要求，改为以健康原因+旅行保险取消整个预订"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "basic economy不可改签航班",
+            "basis": "policy: 'Basic economy flights cannot be modified'",
+            "refs": [
+              "h:1",
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "有保险且健康原因可取消，退款至原支付方式5-7个工作日",
+            "basis": "policy取消规则与Refund条款",
+            "refs": [
+              "h:13",
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "取消前需用户ID、预订ID、取消原因及明确确认",
+            "basis": "policy: 'obtain the user id and reservation id... reason for cancellation... explicit user confirmation'",
+            "refs": [
+              "h:3",
+              "h:14",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝basic economy改签（policy禁止），改签撤回后按保险+健康原因规则取消，规则适用正确",
+            "refs": [
+              "h:12",
+              "h:14",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明预订、原因、退款方式并获用户明确'yes'（h:15）",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读status='cancelled'且-169美元退回gift_card_2200803，与应然结果一致",
+            "refs": [
+              "h:17",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已成功取消、退款169美元5-7个工作日，与实际状态一致",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对保险覆盖健康原因、航班未飞、退款方式的说明均有依据",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取了user id与reservation id、确认了取消原因、核实航班未飞，顺序正确",
+            "refs": [
+              "h:3",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "Z7GOZK已成功取消，169美元退款至gift_card_2200803，5-7个工作日到账"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:14",
+        "purpose": "用户撤回改签改为取消，Agent核实保险取消资格"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在h:12同时询问改签与舱位问题，信息略多但属可接受的澄清，不影响业务质量"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

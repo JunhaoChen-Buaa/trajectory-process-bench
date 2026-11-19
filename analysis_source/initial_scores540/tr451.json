@@ -1,0 +1,192 @@
+{
+  "case_id": "tr451",
+  "created_beijing": "2026-11-10T14:36:28.966077+08:00",
+  "input_sha256": "2142323d1e0ebea6f41c9b58d8534d1d9dc9e8db6bd92cb25b4dceb3e5333876",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "11815cf4a1c56de58b838f9f70b1ab2120df7df8dd1c60b292374780d20c7ade",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1153,
+    "completion_tokens_details": {
+      "reasoning_tokens": 170
+    },
+    "prompt_tokens": 20303,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 21456
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复用户在法国的移动数据不可用/过慢问题",
+        "object": "用户号码555-123-2002对应的线路及手机",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "为用户实际使用的线路启用国际漫游（免费）",
+            "basis": "policy: traveling outside home network → check/enable roaming at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按技术支持流程诊断数据无连接的真实原因并恢复数据",
+            "basis": "tech_support_policy: diagnose mobile data issues",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "requirements_note": "",
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "enable_roaming作用在线路L1001，而用户号码555-123-2002对应L1002（offline事实：L1002已roaming_enabled=true），对象错误且未核对号码-线路映射",
+            "refs": [
+              "e:1",
+              "h:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "漫游按政策免费启用，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "speed test仍为No Connection（e:2），数据问题未解决，且错误线路L1001被副作用启用漫游",
+            "refs": [
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2",
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:12声称已启用漫游并暗示数据应可用，实际启用了错误线路且测试仍无连接；此后连续发送原始JSON调用而非可读说明",
+            "refs": [
+              "h:12",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2",
+              "I3"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "Agent在h:8直接把L1001当作用户线路，未核实其号码映射，属无依据的事实性说明",
+            "refs": [
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未按tech support流程诊断（未查线路、未引导check_status_bar等可读步骤），陷入重复发送check_status_bar调用的死循环约100次",
+            "refs": [
+              "h:16",
+              "h:100"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          }
+        },
+        "end_state": "用户数据仍无连接；L1001被误开启漫游（副作用），正确线路L1002未被处理，问题未解决"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "对错误线路启用漫游：用户号码555-123-2002对应L1002，却被误操作L1001",
+        "basis": "用户提供的号码h:5；offline映射L1002=555-123-2002且roaming已启用；e:1对L1001写入",
+        "refs": [
+          "h:5",
+          "h:8",
+          "e:1"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "正确线路未处理，且L1001产生误开漫游副作用"
+      },
+      {
+        "issue_id": "I2",
+        "title": "数据问题未解决且向用户给出未经验证的乐观说明",
+        "basis": "h:12 'should now be able to use your mobile data'；e:2仍No Connection",
+        "refs": [
+          "h:12",
+          "e:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户被告知可能可用但实际完全无连接"
+      },
+      {
+        "issue_id": "I3",
+        "title": "诊断陷入死循环：重复发送原始工具JSON调用约百次而非以可读方式引导用户",
+        "basis": "h:16至h:200连续'check_status_bar' JSON，用户反复回复'不知道那是什么'",
+        "refs": [
+          "h:16",
+          "h:50",
+          "h:100"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "技术支持流程完全停滞，问题未诊断"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "e:1",
+        "purpose": "用户提供的号码555-123-2002用于核对实际线路归属"
+      },
+      {
+        "from": "h:12",
+        "to": "e:2",
+        "purpose": "完成说明与实际无连接结果对比"
+      }
+    ],
+    "auxiliary_notes": [
+      "以customer_visible=false的assistant原始JSON消息视作Agent内部失误被暴露给用户界面，归入I3实质流程问题而非单纯措辞问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,174 @@
+{
+  "case_id": "tr030",
+  "created_beijing": "2026-11-10T16:00:19.480353+08:00",
+  "input_sha256": "c2d9bc4d83ca4523d3cd3e309b6fddf294d723c0b3f5cbd60dd98e86a3c2284d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0c72844da93d923248b8add9cbee92af05958493cda4889f586a130484890235",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 832,
+    "completion_tokens_details": {
+      "reasoning_tokens": 64
+    },
+    "prompt_tokens": 12031,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 12863
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日JFK至SEA单程经济舱机票",
+        "object": "新预订HATHAT（Mia Li）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:10",
+            "change": "不再选上午11点前出发的直飞航班，改寻11点后出发选项"
+          },
+          {
+            "ref": "h:16",
+            "change": "想用两张gift certificate支付，被规则限制后改为一张$250证书+信用卡"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订JFK→SEA 2024-05-20单程经济舱，一名乘客Mia Li，11点后出发",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:3",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "3件托运行李且不额外收费，无保险",
+            "basis": "用户要求与gold会员政策",
+            "refs": [
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "支付：一张$250证书+7447卡付余款，须为profile内支付方式",
+            "basis": "policy最多一张certificate",
+            "refs": [
+              "h:18"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "操作前列出明细并获得明确确认",
+            "basis": "policy确认要求",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "经济舱、单程、JFK→SEA不变；gold会员economy 3件免费行李正确；仅用一张证书符合政策。",
+            "refs": [
+              "h:14",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:15完整列出航班、乘客、行李、保险、总价与支付选项，用户随后明确选定证书+7447卡。",
+            "refs": [
+              "h:15",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "booking成功写入：HATHAT含HAT136+HAT039、3件免费行李、无保险、$250+$5支付，与同意一致。",
+            "refs": [
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:21如实报告预订ID、航班、支付、行李与保险状态，与实际结果一致。",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$255（152+103）、11点后出发选项、免费行李说明均有工具返回依据。",
+            "refs": [
+              "h:7",
+              "h:12",
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id、查用户详情、按要求搜索直飞/中转，必要时步骤均已执行。",
+            "refs": [
+              "h:2",
+              "e:0",
+              "e:1",
+              "e:3"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功创建，含所求航班、经济舱、3件免费行李、无保险，按同意方式支付$255。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "e:4",
+        "purpose": "确认内容与实际写入结果一致性"
+      },
+      {
+        "from": "h:14",
+        "to": "h:15",
+        "purpose": "gold会员3件免费行李核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "离线重放显示JFK直飞搜索在存储层有AttributeError，但Agent收到的返回正常，属接口层问题，不影响业务评价。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

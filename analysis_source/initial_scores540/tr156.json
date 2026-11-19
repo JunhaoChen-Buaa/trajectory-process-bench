@@ -1,0 +1,130 @@
+{
+  "case_id": "tr156",
+  "created_beijing": "2026-11-10T16:12:31.845290+08:00",
+  "input_sha256": "3b1320fcc81a239f6f00e5929670c712365f8c449a42fce099b24d05ea6fbf7b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "50764568ff015cf3336fced99cf9a7a795b2a902e7efcfe35cecc0573bcbda6d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1012,
+    "completion_tokens_details": {
+      "reasoning_tokens": 433
+    },
+    "prompt_tokens": 8060,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 9072
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消机票并退款",
+        "object": "预订3RK2T9",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订3RK2T9并退款（含保险，如确实存在）",
+            "basis": "用户 h:1 'I need to cancel my flight and get a refund'",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "系统显示 basic_economy、无保险、创建于2024-05-02 超过24小时，均不满足取消条件；Agent 未执行违规取消，因保险争议超出可处理范围而转人工，符合 'transfer if the request cannot be handled within the scope of your actions'。",
+            "refs": [
+              "h:5",
+              "h:6",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何更新数据库的操作，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "取消因不满足政策条件而未办理，依法转人工处理，属于可正确的拒绝/转接路径，且离线回放确认 insurance 确为 \"no\"。",
+            "refs": [
+              "h:5",
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知系统显示 insurance: \"no\"、列出取消条件不满足，并说明转人工，与实际状态一致。",
+            "refs": [
+              "h:6",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于预订信息（cabin、创建时间、insurance: \"no\"）的说明均有 get_reservation_details 返回（h:5）为据。",
+            "refs": [
+              "h:5",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先取得 user id 与 reservation id，查询预订详情并获取取消原因（生病），流程完整。",
+            "refs": [
+              "h:1",
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "取消未执行（政策不允许），已附说明转人工处理保险争议，用户进入转接流程。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:5",
+        "purpose": "用户声称购买保险，但预订详情显示 insurance: \"no\"，是判断取消条件与争议的关键依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:6 说明较为冗长，属措辞层面，不影响业务判定。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

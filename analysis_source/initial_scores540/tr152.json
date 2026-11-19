@@ -1,0 +1,149 @@
+{
+  "case_id": "tr152",
+  "created_beijing": "2026-11-10T14:36:15.234770+08:00",
+  "input_sha256": "ee9d66d5708266df988b6e935aac86d43b77c9aa5bb469d5f95786c97ea4c008",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b969a3bc5b9638ca8677df860bcabbdb67f7d0f43c95c295882c555d4d428c77",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1123,
+    "completion_tokens_details": {
+      "reasoning_tokens": 418
+    },
+    "prompt_tokens": 8139,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 9262
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消预订3RK2T9并退款",
+        "object": "预订3RK2T9（MCO-SFO，basic economy，2名乘客）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅在满足取消条件时取消：24小时内预订/航司取消/商务舱/有保险且病因符合",
+            "basis": "policy: cancel conditions",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "先获取user id和reservation id及取消原因",
+            "basis": "policy: cancel flight",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确核对：预订超过24小时、basic economy、insurance: no，均不满足取消条件，未违规调用取消API",
+            "refs": [
+              "h:5",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消/更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依据policy未满足取消条件未取消预订，属于合规拒绝，DB无变更",
+            "refs": [
+              "e:0",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知系统显示insurance: no并说明无法取消的原因，未虚假声称完成",
+            "refs": [
+              "h:6"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于无保险、创建时间、舱位等事实说明均与工具返回一致",
+            "refs": [
+              "h:5",
+              "h:6"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "policy要求'You should deny user requests that are against this policy'，取消条件不满足应直接拒绝；转人工仅限无法在自身权限内处理的请求，此处不合规请求应被拒绝而非转接",
+            "refs": [
+              "h:6",
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "预订未取消，用户被转接人工，系统状态无变化"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "对不符合取消条件的请求不当转人工而非拒绝",
+        "basis": "policy: 'You should deny user requests that are against this policy'；transfer仅当请求无法在agent权限内处理",
+        "refs": [
+          "h:6",
+          "h:8",
+          "h:10"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "取消未执行本属正确，但产生了不必要的转人工流程，浪费处理资源"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:6",
+        "purpose": "核对取消条件判断依据（insurance: no、创建时间、basic economy）"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:6说明冗长且包含自我重复的分段表述，属措辞问题，不影响业务正确性",
+      "用户主张已购保险与系统记录不符，agent已如实披露并上报人工调查，处理诚实"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

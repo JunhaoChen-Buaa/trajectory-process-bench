@@ -1,0 +1,312 @@
+{
+  "domain": "telecom",
+  "task_id": "[service_issue]airplane_mode_on|break_apn_settings|overdue_bill_suspension[PERSONA:None]",
+  "original_task_digest": "f7522e1bfb08b972ad2fe8465c64c17324d59cf452c9dd89c8bb1f7a27fb8764",
+  "sampling_stratum": "service_issue",
+  "task": {
+    "id": "[service_issue]airplane_mode_on|break_apn_settings|overdue_bill_suspension[PERSONA:None]",
+    "description": {
+      "purpose": "Test resolution path: No Service/Connection Issues.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "telecom",
+        "reason_for_call": "Your phone has been showing 'No Service' for the past few hours.",
+        "known_info": "You are Mamadou Diallo with phone number 555-123-2002.",
+        "unknown_info": null,
+        "task_instructions": "If the agent suggests actions that don't immediately fix the issue, follow their guidance but express mild frustration after the first unsuccessful attempt. You will consider the issue resolved when the status bar shows that you have signal. Always check the status bar if the agent asks you for status information. If the agent asks you to pay a bill, you accept. If the tool call does not return updated status information, you might need to perform another tool call to get the updated status. \nWhenever the agent asks you about your device, always ground your responses on the results of tool calls. \nFor example: If the agent asks what the status bar shows, always ground your response on the results of the `get_status_bar` tool call. If the agent asks if you are able to send an MMS message, always ground your response on the results of the `can_send_mms` tool call.\nNever make up the results of tool calls, always ground your responses on the results of tool calls.\nIf you are unsure about whether an action is necessary, always ask the agent for clarification.\n"
+      }
+    },
+    "ticket": "The user is experiencing issues with their phone service. They are unable to make or receive calls, and the status bar shows 'No Service'. Customer name: Mamadou Diallo, phone number: 555-123-2002. They gave permission to pay all their overdue bills. They will consider the issue resolved when the status bar shows that they have signal.",
+    "initial_state": {
+      "initialization_data": {
+        "agent_data": {
+          "customers": [
+            {
+              "customer_id": "C1001",
+              "full_name": "Mamadou Diallo",
+              "date_of_birth": "1985-06-15",
+              "email": "john.smith@example.com",
+              "phone_number": "555-123-2002",
+              "address": {
+                "street": "123 Main St",
+                "city": "Anytown",
+                "state": "CA",
+                "zip_code": "90210"
+              },
+              "account_status": "Active",
+              "payment_methods": [
+                {
+                  "method_type": "Credit Card",
+                  "account_number_last_4": "1235",
+                  "expiration_date": "12/2026"
+                }
+              ],
+              "line_ids": [
+                "L1001",
+                "L1002",
+                "L1003"
+              ],
+              "bill_ids": [
+                "B1001",
+                "B1002",
+                "B1003"
+              ],
+              "created_at": "2025-01-15T10:30:00",
+              "last_extension_date": null,
+              "goodwill_credit_used_this_year": 25.0
+            },
+            {
+              "customer_id": "C1002",
+              "full_name": "Sarah Johnson",
+              "date_of_birth": "1990-11-22",
+              "email": "sarah.j@example.com",
+              "phone_number": "555-123-1002",
+              "address": {
+                "street": "456 Oak Ave",
+                "city": "Springfield",
+                "state": "IL",
+                "zip_code": "62701"
+              },
+              "account_status": "Active",
+              "payment_methods": [
+                {
+                  "method_type": "Debit Card",
+                  "account_number_last_4": "1234",
+                  "expiration_date": "12/2026"
+                },
+                {
+                  "method_type": "Credit Card",
+                  "account_number_last_4": "5678",
+                  "expiration_date": "06/2027"
+                }
+              ],
+              "line_ids": [
+                "L1004",
+                "L1005",
+                "L1006",
+                "L1007",
+                "L1008"
+              ],
+              "bill_ids": [
+                "B1004",
+                "B1005"
+              ],
+              "created_at": "2025-02-10T14:15:00",
+              "last_extension_date": "2025-01-05",
+              "goodwill_credit_used_this_year": 0.0
+            },
+            {
+              "customer_id": "C1003",
+              "full_name": "Michael Lee",
+              "date_of_birth": "1978-04-30",
+              "email": "michael.lee@example.com",
+              "phone_number": "555-123-1003",
+              "address": {
+                "street": "789 Pine St",
+                "city": "Denver",
+                "state": "CO",
+                "zip_code": "80203"
+              },
+              "account_status": "Suspended",
+              "payment_methods": [
+                {
+                  "method_type": "PayPal",
+                  "account_number_last_4": "5555",
+                  "expiration_date": "06/2025"
+                }
+              ],
+              "line_ids": [
+                "L1009"
+              ],
+              "bill_ids": [
+                "B1006"
+              ],
+              "created_at": "2024-12-05T09:45:00",
+              "last_extension_date": null,
+              "goodwill_credit_used_this_year": 50.0
+            },
+            {
+              "customer_id": "C1004",
+              "full_name": "Emma Wilson",
+              "date_of_birth": "1995-08-17",
+              "email": "emma.w@example.com",
+              "phone_number": "555-123-1004",
+              "address": {
+                "street": "101 River Rd",
+                "city": "Austin",
+                "state": "TX",
+                "zip_code": "73301"
+              },
+              "account_status": "Pending Verification",
+              "payment_methods": [],
+              "line_ids": [],
+              "bill_ids": [],
+              "created_at": "2025-01-25T16:20:00",
+              "last_extension_date": null,
+              "goodwill_credit_used_this_year": 0.0
+            }
+          ]
+        },
+        "user_data": null
+      },
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Mamadou Diallo",
+            "phone_number": "555-123-2002"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "turn_airplane_mode_on",
+          "arguments": {}
+        },
+        {
+          "env_type": "user",
+          "func_name": "break_apn_settings",
+          "arguments": {}
+        },
+        {
+          "env_type": "assistant",
+          "func_name": "suspend_line_for_overdue_bill",
+          "arguments": {
+            "customer_id": "C1001",
+            "line_id": "L1002",
+            "new_bill_id": "B1234321",
+            "contract_ended": false
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "simulate_network_search",
+          "arguments": {}
+        }
+      ],
+      "message_history": null
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "toggle_airplane_mode_0",
+          "requestor": "user",
+          "name": "toggle_airplane_mode",
+          "arguments": {},
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "reset_apn_settings_1",
+          "requestor": "user",
+          "name": "reset_apn_settings",
+          "arguments": {},
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "reboot_device_2",
+          "requestor": "user",
+          "name": "reboot_device",
+          "arguments": {},
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "send_payment_request_3",
+          "requestor": "assistant",
+          "name": "send_payment_request",
+          "arguments": {
+            "customer_id": "C1001",
+            "bill_id": "B1234321"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "make_payment_4",
+          "requestor": "user",
+          "name": "make_payment",
+          "arguments": {},
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "resume_line_5",
+          "requestor": "assistant",
+          "name": "resume_line",
+          "arguments": {
+            "customer_id": "C1001",
+            "line_id": "L1002"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "reboot_device_6",
+          "requestor": "user",
+          "name": "reboot_device",
+          "arguments": {},
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": [
+        {
+          "env_type": "user",
+          "func_name": "assert_service_status",
+          "arguments": {
+            "expected_status": "connected"
+          },
+          "assert_value": true,
+          "message": "Service status is not as expected"
+        },
+        {
+          "env_type": "assistant",
+          "func_name": "assert_no_overdue_bill",
+          "arguments": {
+            "overdue_bill_id": "B1234321"
+          },
+          "assert_value": true,
+          "message": "Overdue bill is not as expected"
+        }
+      ],
+      "communicate_info": null,
+      "nl_assertions": null,
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/telecom.txt",
+  "policy_rule_index": "requirements/telecom_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr481",
+    "tr482",
+    "tr483",
+    "tr484",
+    "tr485",
+    "tr486",
+    "tr487",
+    "tr488",
+    "tr489",
+    "tr490",
+    "tr491",
+    "tr492"
+  ]
+}

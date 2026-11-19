@@ -1,0 +1,137 @@
+{
+  "case_id": "tr502",
+  "created_beijing": "2026-11-10T15:54:02.244106+08:00",
+  "input_sha256": "8f9a8e7845b7c126fce8f9cc0b693600f82053fbac6273efd37278c9c37c0ecf",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "de21cb3a6ed046fa940c527158d1e6a4439096909b007b12cb930a50172187f5",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 520,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 11776,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 12296
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无服务问题",
+        "object": "线路 555-123-2002 (L1002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前先核实客户身份",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断无服务原因并指导用户恢复信号",
+            "basis": "tech_support_policy: airplane mode troubleshooting",
+            "refs": [
+              "h:1",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策流程：先身份核验，查线路确认Active非停机，再按手册诊断飞行模式并指导关闭",
+            "refs": [
+              "h:4",
+              "h:9",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本业务无确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户确认飞行模式关闭后信号恢复（h:25），问题解决",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "服务恢复的说明与用户确认的实际状态一致",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "线路L1002确为Active（e:2），'not a suspension issue'说明有据",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "身份核验（get_customer_by_phone）、检查线路状态、状态栏诊断均按顺序执行",
+            "refs": [
+              "h:4",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式关闭，555-123-2002线路信号恢复，用户确认问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户号码555-123-2002对应线路L1002，确认诊断对象正确"
+      },
+      {
+        "from": "h:15",
+        "to": "h:25",
+        "purpose": "飞行模式诊断与用户确认关闭后恢复信号的因果依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent查了L1001和L1002两条线路，属合理的号码核对，未误改对象",
+      "无纯接口规范问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

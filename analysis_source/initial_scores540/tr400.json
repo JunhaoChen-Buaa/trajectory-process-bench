@@ -1,0 +1,140 @@
+{
+  "case_id": "tr400",
+  "created_beijing": "2026-11-10T15:37:55.848344+08:00",
+  "input_sha256": "5c5a76eada21acfb941806c88eaa2de7568032b416eb6ff83485a570e654b59b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a4b413ba7f377ccd7ebe71eb7f4ce71056a4fda4a6a96dd60089e258d48733b3",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 645,
+    "completion_tokens_details": {
+      "reasoning_tokens": 64
+    },
+    "prompt_tokens": 15335,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15980
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "MMS发送故障排查（国外漫游场景）",
+        "object": "用户号码555-123-2002对应的线路L1002及手机设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份再提供技术支持",
+            "basis": "policy: Technical Support - must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在国外时若线路未开漫游应免费开启漫游",
+            "basis": "policy: enable it at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "按MMS排查流程定位并解决无法发送MMS的问题",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确核对号码555-123-2002对应L1002后免费enable_roaming，设备侧操作均按政策指引执行",
+            "refs": [
+              "h:8",
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "漫游免费开启且MMS排查为无费用操作，原规则不要求额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "线路漫游已开启(e:3)，网络模式改为4g_5g_preferred并打开数据漫游后can_send_mms确认可发送",
+            "refs": [
+              "h:46",
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结的两个原因(2G网络模式、漫游关闭)与实际操作一致，且基于can_send_mms成功结果",
+            "refs": [
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'MMS requires at least a 3G network connection' 等说明均有tech_support_policy依据",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份识别(e:0)，再查线路漫游状态(e:1/e:2)，随后按APN/Wi-Fi Calling/权限/数据限制顺序排查并验证",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ]
+          }
+        },
+        "end_state": "MMS可正常发送，线路漫游已免费开启，手机数据漫游已打开"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户号码555-123-2002对应线路L1002后再操作"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作均由用户在其手机执行，Agent通过指引完成，符合技术支持流程"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

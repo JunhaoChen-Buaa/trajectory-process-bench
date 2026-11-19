@@ -1,0 +1,150 @@
+{
+  "case_id": "tr229",
+  "created_beijing": "2026-11-10T16:23:35.754929+08:00",
+  "input_sha256": "3c1a22fba03e5e591c9025e017ed05e5b5d3dd5f1a9c129a88839f30319b190e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bb1e7080ae6ff42756e51fbc1ffe6132b40972074c4932b424cd116c137f2c04",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 772,
+    "completion_tokens_details": {
+      "reasoning_tokens": 111
+    },
+    "prompt_tokens": 14555,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15327
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待发货订单收货地址",
+        "object": "订单 #W1845024 的收货地址",
+        "request_refs": [
+          "h:13",
+          "h:17"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "放弃部分取消/退款，改为改地址到NYC、保留全部商品、到货后再自行退货"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单需为pending且改地址前核对状态",
+            "basis": "policy: modify only if status pending, check status",
+            "refs": [
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按用户提供的实际地址 742 Fifth Avenue, Apt 12B, NY 10108 更新",
+            "basis": "用户 h:17",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "执行前列出改动详情并取得明确确认",
+            "basis": "policy: explicit user confirmation (yes)",
+            "refs": [
+              "h:18",
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending(e:2)，仅做地址修改这一政策允许的操作，未执行违规的部分取消",
+            "refs": [
+              "h:12",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:18列出新地址全部字段，用户明确yes确认(h:19)后执行",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认地址已改为742 Fifth Avenue Apt 12B，其余状态与商品未受影响(e:5,s:5)",
+            "refs": [
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:22准确告知地址已更新且五件商品保留，与e:5一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:22关于退货需经客服发起、退款可回原支付方式(PayPal)的说明符合政策；'not fully automatic'提醒准确",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按policy完成姓名+邮编身份核验(e:0)，查订单状态后操作，顺序正确",
+            "refs": [
+              "e:0",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "#W1845024保持pending，收货地址已改为用户提供的NYC公寓地址，五件商品保留，用户拟到货后再申请退货"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "e:5",
+        "purpose": "用户提供的实际地址与实际写入地址一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户声称无PayPal，但账户文件显示paypal_3169710为其唯一支付方式(h:7)，Agent按文件处理无违规；用户对支付方式的异议无政策依据可进一步处理",
+      "Agent在h:12措辞略显绕口但信息正确，属轻微表达问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,382 @@
+{
+  "case_id": "tr355",
+  "created_beijing": "2026-11-10T14:51:51.033141+08:00",
+  "input_sha256": "bdcb13dc9731107421e45b3f7b93dfdb30fb705b69902a1770abfbc0d0e9066e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "fa5d263d44aefd6c48938a1c269b85a0f4ac1511210213bd43ed86de5e18419a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2498,
+    "completion_tokens_details": {
+      "reasoning_tokens": 672
+    },
+    "prompt_tokens": 11585,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 14083
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "同订单自行车与拼图换货",
+        "object": "订单#W4689314中的Bicycle和Jigsaw Puzzle",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已送达订单可换同产品不同选项的可用新品，需先查订单状态与可用变体",
+            "basis": "policy: Exchange delivered order... check its status",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换货前须列明具体操作细节（新item、差价、支付方式）并获明确确认",
+            "basis": "policy: exchange detail and explicit user confirmation",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "提醒客户确认已列出所有要换的商品，一次调用完成",
+            "basis": "policy: remind the customer to confirm all items",
+            "refs": [
+              "h:5"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "从未查询订单状态或产品变体，直接用编造的item_id 1008292230/2231/2232调用换货，两次均失败（Error: Number of [ not found），首次还使用占位订单号#W0000000",
+            "refs": [
+              "h:6",
+              "h:18",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "用户仅确认了模糊描述，Agent从未列出实际新item选项、差价和明细即尝试调用，不满足列明细节后确认的要求",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换货未完成，两次调用均报错，最终转人工",
+            "refs": [
+              "h:19",
+              "h:31",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "未向用户做出任何已完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "无依据地向用户断言自行车和拼图在#W4689314，该映射未通过订单详情验证，属于编造事实",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "缺少政策要求的订单状态核验、可用变体查询，且调用前未提醒客户确认所有换货商品",
+            "refs": [
+              "h:6",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "自行车与拼图换货未办理，业务转人工"
+      },
+      {
+        "group_id": "G2",
+        "goal": "相机换低分辨率款",
+        "object": "订单#W8855135中的Camera",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查订单状态与可用变体后，换到同产品低分辨率可用款",
+            "basis": "policy: check its status; available new item of same product",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "使用Visa卡处理差价，列明细节并获确认",
+            "basis": "policy + user 'Visa card'",
+            "refs": [
+              "h:5",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "从未查询#W8855135详情或相机产品变体，未做任何真实换货尝试即转人工",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "仅确认模糊描述，未列明具体新款选项和差价明细",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "相机换货完全未执行",
+            "refs": [
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "无依据断言相机和滑板在#W8855135，未经订单详情验证",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未做状态核验、变体查询和所有换货商品提醒",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "相机换货未办理，转人工"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消订单中的滑板商品",
+        "object": "订单#W8855135中的Skateboard",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "政策仅支持取消整个pending订单并说明原因，不支持单个商品取消",
+            "basis": "policy: cancel_pending_order，订单需为pending",
+            "refs": [
+              "h:5"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "用户要求只取消滑板不取消整单，不符合政策的整单取消规则，Agent未按政策拒绝或说明限制，反而确认将推进该请求",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未到达合法可执行操作的确认环节",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "滑板取消未执行且未依法向用户说明不可行",
+            "refs": [
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "向用户暗示可单独取消滑板（'I'll proceed with...cancellation'），与政策不符，未说明该限制",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未查询订单状态即承诺处理取消",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "滑板单独取消不可行且未被告知，业务未处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未查询订单/产品即编造item_id和订单内商品映射，换货调用反复失败",
+        "basis": "policy要求check status且只能换到available new item；evidence_interpretation: catalogue/DB值需验证，不可用占位ID。调用#W0000000及item 1008292230等无任何查询来源，两次返回Error",
+        "refs": [
+          "h:6",
+          "h:16",
+          "h:18",
+          "h:19",
+          "h:30",
+          "h:31"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "三项换货全部未办理，最终转人工，多次无效往返消耗用户时间"
+      },
+      {
+        "issue_id": "I2",
+        "title": "对不合规的单商品取消请求未按政策拒绝",
+        "basis": "policy仅支持取消整个pending订单（'you should deny user requests that are against this policy'），用户要求只取消滑板，Agent确认将执行",
+        "refs": [
+          "h:5",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户未被告知该请求不可行，期待落空"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "用户详情仅含订单号列表，证明订单内商品映射无依据"
+      },
+      {
+        "from": "h:18",
+        "to": "h:19",
+        "purpose": "换货调用使用编造item_id导致失败"
+      },
+      {
+        "from": "h:33",
+        "to": "h:34",
+        "purpose": "用户要求人工后真实转接"
+      }
+    ],
+    "auxiliary_notes": [
+      "身份核验按要求完成（name+zip）。Visa卡credit_card_3951670选择正确。重复的重复核验与确认循环（h:10-h:29）属于流程低效，为接口/流程层面问题，不影响业务判分实质。最终转人工本身是正确动作，失败根因在前的换货处理。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

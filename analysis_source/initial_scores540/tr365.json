@@ -1,0 +1,155 @@
+{
+  "case_id": "tr365",
+  "created_beijing": "2026-11-10T15:36:51.098498+08:00",
+  "input_sha256": "0047068be714f51ec2b4fc700c251a3b0f1271f66c766c9a642f8d91a913225b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "694bd4899db0696a344b89eaf1da6f952be8305f67e893e81c52204d25d8a55a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 667,
+    "completion_tokens_details": {
+      "reasoning_tokens": 11
+    },
+    "prompt_tokens": 18567,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19234
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复MMS发送失败",
+        "object": "John Smith的L1002线路(555-123-2002)手机",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "识别客户并排查MMS失败的常见原因（飞行模式、SIM、APN/MMSC、网络模式、数据开关、Wi-Fi Calling、应用权限、数据超限）",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "数据超限时提供充值或换套餐选项，充值前确认价格",
+            "basis": "policy Data Refueling",
+            "refs": [
+              "h:56"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "最终MMS可正常发送",
+            "basis": "用户要求",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按手册逐步排查飞行模式、SIM、2G、数据开关、APN/MMSC重置+重启、Wi-Fi Calling、存储权限，最终定位数据超限并按政策充值2GB。",
+            "refs": [
+              "h:17",
+              "h:27",
+              "h:42",
+              "h:62"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前核对价格$2/GB、2GB=$4并获得用户明确同意(h:61)。",
+            "refs": [
+              "h:60",
+              "h:61"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "充值2GB成功(h:63)，can_send_mms返回可发送(h:66)，问题彻底解决。",
+            "refs": [
+              "h:63",
+              "h:66"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "每次修复后先验证再陈述，充值完成后如实说明并请用户测试。",
+            "refs": [
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格说明$2/GB、$4.00与P1002返回一致(h:59)；数据用量15.1/15.0说明有工具依据(h:55)。",
+            "refs": [
+              "h:55",
+              "h:59"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:2)，充值前确认价格顺序符合政策，APN重置后要求reboot_device。",
+            "refs": [
+              "h:2",
+              "h:27",
+              "h:60"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002充值2GB($4)，MMS已恢复正常，用户确认结束。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:55",
+        "to": "h:56",
+        "purpose": "数据超限诊断是MMS仍失败的关键根因"
+      },
+      {
+        "from": "h:63",
+        "to": "h:66",
+        "purpose": "充值后MMS恢复验证"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent一次回复列多个检查项与'一次一工具调用'规范无冲突（均为请用户设备执行），整体流程清晰。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

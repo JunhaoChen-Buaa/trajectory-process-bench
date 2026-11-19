@@ -1,0 +1,266 @@
+{
+  "case_id": "tr350",
+  "created_beijing": "2026-11-10T15:45:36.661344+08:00",
+  "input_sha256": "98f95ef8203a448a5a74357d17f2cbc15d9637dbf384af8006f207c554f275a2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ef5c03cf7322e7ba8e26f57cee2879bd88a42fabc0fa7b91bdbb1557216f6248",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1239,
+    "completion_tokens_details": {
+      "reasoning_tokens": 78
+    },
+    "prompt_tokens": 19610,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 20849
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "换货：自行车换大车架山地车+拼图换1500片",
+        "object": "订单#W3916020",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "自行车换大车架（可接受山地车）可用变体",
+            "basis": "用户h:5、policy同产品不同选项",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "拼图换同难度多1000片（1500），艺术主题优先",
+            "basis": "用户h:5",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "差价退款至Visa卡并事先确认",
+            "basis": "用户h:5、policy确认要求",
+            "refs": [
+              "h:5",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "同产品可用变体5606522780与5546244844，订单已delivered，符合规则",
+            "refs": [
+              "h:17",
+              "h:19",
+              "e:9"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列明细节，h:23用户明确同意，且已提醒一次性交换确认全部商品",
+            "refs": [
+              "h:22",
+              "h:23"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认状态exchange requested、差价-14.96至Visa，与同意一致",
+            "refs": [
+              "s:9"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28如实说明exchange requested及后续退回邮件，与实际一致",
+            "refs": [
+              "h:28"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价的大框红山地$1902.67、1500片艺术中级$51.59与目录一致",
+            "refs": [
+              "h:17",
+              "h:19"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "身份核验、订单/商品查询、一次性交换提醒均完成",
+            "refs": [
+              "h:2",
+              "h:22"
+            ]
+          }
+        },
+        "end_state": "#W3916020状态exchange requested，差价$14.96将退至Visa"
+      },
+      {
+        "group_id": "G2",
+        "goal": "换货：相机换低分辨率20MP",
+        "object": "订单#W4689314",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "相机换分辨率更低、其余相同（20MP, 3x, SD）的可用变体",
+            "basis": "用户h:5",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "差价退款至Visa并事先确认",
+            "basis": "用户h:5、policy确认要求",
+            "refs": [
+              "h:5",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "8363011723为同产品20MP/3x/SD可用变体，订单delivered",
+            "refs": [
+              "h:21",
+              "e:10"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列明换货细节，h:23用户确认，已提醒确认全部待换商品",
+            "refs": [
+              "h:22",
+              "h:23"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认exchange requested、差价-71.59至Visa",
+            "refs": [
+              "s:10"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28如实报告状态与退款，并提示后续邮件",
+            "refs": [
+              "h:28"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价20MP/3x/SD $2823.96、退款$71.59与目录一致",
+            "refs": [
+              "h:21"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "核验与查询步骤齐备",
+            "refs": [
+              "h:2",
+              "h:22"
+            ]
+          }
+        },
+        "end_state": "#W4689314状态exchange requested，差价$71.59将退至Visa"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消pending订单中的单个滑板商品",
+        "object": "订单#W8855135",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "用户撤回该请求，自行在网站取消整单"
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确说明pending订单不能只取消单件商品，仅可整单取消或换同类变体，与policy一致",
+            "refs": [
+              "h:22"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无写入操作，用户已撤回",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "用户撤回，Agent无需也未执行任何操作",
+            "refs": [
+              "h:23"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28确认用户自行处理滑板订单，与用户意图一致",
+            "refs": [
+              "h:28"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "该订单确为pending，说明准确",
+            "refs": [
+              "h:11"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询订单状态后再答复",
+            "refs": [
+              "e:3"
+            ]
+          }
+        },
+        "end_state": "用户自行处理整单取消，Agent未做任何修改"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:23",
+        "to": "e:9",
+        "purpose": "用户确认后执行#W3916020换货"
+      },
+      {
+        "from": "h:23",
+        "to": "e:10",
+        "purpose": "用户确认后执行#W4689314换货"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent回复均为英文拉丁字母，符合格式要求",
+      "每次仅一个工具调用，接口规范合规"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,140 @@
+{
+  "case_id": "tr413",
+  "created_beijing": "2026-11-10T16:24:51.350065+08:00",
+  "input_sha256": "7f6ca95284303a3de40c43801380ea8c4f3954014cabe3f88456f2a3fbeef2eb",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "86a542d9882d9594fef1047fdf9525b3ad0b87dbe2e3fae732c24422fe928f62",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 583,
+    "completion_tokens_details": {
+      "reasoning_tokens": 35
+    },
+    "prompt_tokens": 16067,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 16650
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复用户无法发送MMS的问题",
+        "object": "用户设备(线路L1002, 555-123-2002)的MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决MMS无法发送的问题",
+            "basis": "用户请求：can't send MMS，abroad in France",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "先完成客户身份识别",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support流程排查SIM、roaming、APN、权限、Wi-Fi Calling，对象线路正确(L1002与号码匹配)",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:17",
+              "h:21",
+              "h:33",
+              "h:43",
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断与设备侧修复操作无需额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "多次验证后can_send_mms返回可以发送，问题最终解决",
+            "refs": [
+              "h:57",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际修复内容一致，基于验证结果而非预测",
+            "refs": [
+              "h:59"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量、roaming状态等说明均有工具返回依据",
+            "refs": [
+              "h:12",
+              "h:9",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:2-h:4)，再依次按手册诊断并修复，顺序符合政策",
+            "refs": [
+              "h:2",
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "SIM重置、开启设备roaming、重置APN并重启、关闭Wi-Fi Calling后，MMS可正常发送，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:57",
+        "purpose": "用户原始MMS问题与最终验证成功的关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "每次一个工具调用、无同时消息，接口规范良好"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

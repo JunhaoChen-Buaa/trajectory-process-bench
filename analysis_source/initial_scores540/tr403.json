@@ -1,0 +1,166 @@
+{
+  "case_id": "tr403",
+  "created_beijing": "2026-11-10T15:35:48.753540+08:00",
+  "input_sha256": "0ffd4074239fe19a9b223095d0ddc6aed3466b6b10fa4ce5969453fab499f9a4",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ddb1aca54dd0ebe7e33df513186ef31bc11d5157624f7e4e4b07202f858f70d3",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1049,
+    "completion_tokens_details": {
+      "reasoning_tokens": 206
+    },
+    "prompt_tokens": 10175,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 11224
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "国外漫游下无法发送MMS的技术支持排查",
+        "object": "用户手机线路（法国漫游环境）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "提供技术支持前必须先识别客户身份",
+            "basis": "policy: 'Technical Support — You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查并修复MMS不可用（含漫游未启用、2G网络等已发现的原因）",
+            "basis": "用户主诉及tech_support_policy",
+            "refs": [
+              "h:1",
+              "h:8"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "未按政策先识别客户，直接用臆造的customer_id/line_id调用enable_roaming；对象错误且被后端拒绝。",
+            "refs": [
+              "h:10",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持流程无确认要求，未触发。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS问题未解决；enable_roaming失败后即转人工，且已发现的2G网络、手机端roaming开关等可继续排查项未尝试，属于可解决却未解决的过早转接。",
+            "refs": [
+              "h:8",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "仅告知转接，未宣称问题已解决或漫游已开启，与实际一致。",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户做事实/报价类说明。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明文要求技术支持必须先识别客户，Agent跳过身份核验直接操作，必要步骤缺失。",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "问题未解决：线路漫游未启用（enable_roaming失败），手机端漫游关闭、2G网络未处理，最终转人工。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未识别客户即用臆造ID调用enable_roaming",
+        "basis": "policy 'You must first identify the customer'；e:h:10 enable_roaming(customer_id=12345) 返回 'Customer with ID 12345 not found'",
+        "refs": [
+          "h:10",
+          "h:11"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "线路漫游未能开启，后续MMS修复无法推进"
+      },
+      {
+        "issue_id": "I2",
+        "title": "排查不完整即过早转人工",
+        "basis": "policy 'try your best to resolve the issue before transferring'；h:8已显示2G网络、data roaming关闭等可处理原因，仅一次失败尝试后即转接",
+        "refs": [
+          "h:8",
+          "h:11",
+          "h:12"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户MMS问题未解决，被转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:8",
+        "to": "h:10",
+        "purpose": "网络状态显示roaming未启用，触发enable_roaming尝试"
+      },
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "enable_roaming失败直接导致转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接消息中混入工具调用JSON文本（h:12），属于纯接口/格式规范问题，不影响业务评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

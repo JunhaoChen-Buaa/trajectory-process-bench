@@ -1,0 +1,152 @@
+{
+  "case_id": "tr493",
+  "created_beijing": "2026-11-10T14:13:43.022788+08:00",
+  "input_sha256": "947833accf02e8a44ace454b113f5ade7b001807ceea53a81454e584ea588b1f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "fec15192e2f649b5a8fe1f226c50b17d8813d954a99f965f932cf250ab0e0788",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 908,
+    "completion_tokens_details": {
+      "reasoning_tokens": 141
+    },
+    "prompt_tokens": 16536,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 17444
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无信号/无服务问题",
+        "object": "用户线路 555-123-2002（L1002）及设备 D1002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复线路的蜂窝服务",
+            "basis": "用户短引：'No Service... I need this fixed'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "无法解决时按政策转人工",
+            "basis": "policy：transfer if the request cannot be handled within the scope of your actions",
+            "refs": [
+              "h:47"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按技术支持手册逐步排查（飞行模式、SIM、网络模式、账务、重启），排除可修原因后依法转人工，对象线路正确。",
+            "refs": [
+              "h:15",
+              "h:23",
+              "h:41",
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断与转接均无需用户确认的操作变更。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "问题未被解决但根因不在Agent能力范围内，尽最大排查后必要转人工属正确结果；用户侧操作均正常执行。",
+            "refs": [
+              "h:33",
+              "h:43",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明问题仍未解决并告知正在转接人工，无虚假完成声明。",
+            "refs": [
+              "h:41",
+              "h:49"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "向用户称二月账单 B1002 仍为 'Issued'（not overdue）因此账务非原因，但当前日期 2025-02-25 已晚于到期日 2025-02-19，该账单实已逾期，事实说明有误。",
+            "refs": [
+              "h:40",
+              "h:41"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "技术支持先识别客户（get_customer_by_phone），并按手册完成各诊断步骤及顺序。",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:19",
+              "h:27",
+              "h:35"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "标准排查全部完成但无服务问题未解决，已按政策转接人工处理；账单逾期状态被错误告知。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "错误告知用户二月账单未逾期",
+        "basis": "账单 B1002 到期日 2025-02-19，当前时间 2025-02-25，实际已逾期；Agent 向用户称 '(not overdue), so billing isn't the cause'",
+        "refs": [
+          "h:40",
+          "h:41"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "用户对账务状态的理解有误，可能延误缴费；未直接导致错误操作或写入。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:41",
+        "to": "h:40",
+        "purpose": "核对账单状态与逾期判断依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查过程沟通清晰、逐步指导用户设备操作，属良好实践，不影响评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

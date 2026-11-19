@@ -1,0 +1,135 @@
+{
+  "case_id": "tr425",
+  "created_beijing": "2026-11-10T15:02:18.107057+08:00",
+  "input_sha256": "e226871b6d7dae94514abc897c980a6d4d01ac96246fd6d32e26708be6878e69",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "07b7296f7d3ef3904db8c2c1ac4c782d8feee1353f2ec3b0f15a7f8dfc1d3247",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 629,
+    "completion_tokens_details": {
+      "reasoning_tokens": 41
+    },
+    "prompt_tokens": 13669,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 14298
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复在法国的移动数据中断/慢速问题",
+        "object": "C1001 用户号码 555-123-2002（线路L1002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复移动数据，达到优良速度",
+            "basis": "用户请求 'I need it fixed and I need excellent speed'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按技术支持流程逐步排查（识别客户、检查线路/用量、设备诊断）",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "先识别客户，核对正确线路L1002（号码555-123-2002）并确认其已漫游启用（h:11），仅指导设备侧合法操作",
+            "refs": [
+              "h:4",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排查操作无需确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "关闭飞行模式、开启漫游后速度测试275 Mbps（Excellent），最终check_network_status确认全部正常",
+            "refs": [
+              "h:25",
+              "h:29",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明数据中断根因（Airplane Mode）并确认已解决，与实际状态一致",
+            "refs": [
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'8.7 GB out of your 15 GB limit' 与 get_data_usage 返回一致，未误导",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按流程识别客户→定位线路→查用量→引导诊断与修复，顺序完整",
+            "refs": [
+              "h:4",
+              "h:13",
+              "h:15",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户移动数据在法国恢复正常，5G信号优、漫游开启，速度Excellent"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:11",
+        "purpose": "确认用户号码555-123-2002对应线路L1002且漫游已启用"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作（toggle_airplane_mode、toggle_roaming等）均由用户在设备端执行，属正常技术支持流程"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

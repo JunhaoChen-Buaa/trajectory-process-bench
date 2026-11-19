@@ -1,0 +1,148 @@
+{
+  "case_id": "tr286",
+  "created_beijing": "2026-11-10T14:57:24.202162+08:00",
+  "input_sha256": "1c45d4f48a50d45b59506fe89f784291c5e827e5aef68d1fad088a9b13990dd4",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "26f3df1f7e5f8ee10d2c829f201bccfd0353bbf9e79e912240aae9cf33d51109",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 689,
+    "completion_tokens_details": {
+      "reasoning_tokens": 27
+    },
+    "prompt_tokens": 14285,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14974
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "台灯换货（水瓶已撤回）",
+        "object": "订单#W6390527中的Desk Lamp (item 8384507844)",
+        "request_refs": [
+          "h:1",
+          "h:17",
+          "h:21"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "用户撤回水瓶换货要求，仅换台灯"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅换同产品、新选项可用的台灯（silver, low, AC adapter）",
+            "basis": "policy: exchanged to an available new item of the same product",
+            "refs": [
+              "h:17",
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "价差5.08美元经用户确认后由PayPal支付",
+            "basis": "policy: user must provide payment method and confirm",
+            "refs": [
+              "h:22",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "台灯换为同产品可用选项1569765161，价差5.08由PayPal支付，符合政策；水瓶撤回未被误换",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列明明细并请求确认，用户h:23明确同意，且提醒一次性限制",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB重放确认订单状态为exchange requested，exchange_new_items=1569765161，价差5.08记录正确",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:26说明'exchange requested'并提及邮件与价差，与实际状态一致，无虚假完成声明",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "选项价格143.02与目录一致，availability信息准确",
+            "refs": [
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（name+zip）、查订单状态delivered、查产品可用性，均按政策执行",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W6390527状态为exchange requested，台灯将换为silver/low/AC adapter，价差5.08经PayPal收取，用户将收到退回邮件"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:21",
+        "purpose": "确认用户撤回水瓶换货，仅换台灯"
+      }
+    ],
+    "auxiliary_notes": [
+      "换货流程一次工具调用即包含全部已确认项目，符合'only once'要求，无接口规范问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

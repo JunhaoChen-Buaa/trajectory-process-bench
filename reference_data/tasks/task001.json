@@ -1,0 +1,120 @@
+{
+  "domain": "airline",
+  "task_id": "17",
+  "original_task_digest": "f5d4c046832466d01f35174212b2c140bbe891a0c2d446ec5e5ee60ba32ebe9e",
+  "sampling_stratum": "change",
+  "task": {
+    "id": "17",
+    "description": {
+      "purpose": "Testing if the agent can handle user asking for 3 changes at once.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "airline",
+        "reason_for_call": "For your upcoming trip from New York to Chicago, you want to:\n- add 3 checked bags\n- change the passenger to yourself\n- upgrade it to economy class. \n\nMention all three things at once and in this order.",
+        "known_info": "Your name is Omar Rossi.\n\nYour user id is omar_rossi_1241.",
+        "unknown_info": null,
+        "task_instructions": "You prefer gift card payment.\n\nYour birthday is in your user profile so you prefer not to provide it."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "17_0",
+          "requestor": "assistant",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT056",
+                "date": "2024-05-25"
+              },
+              {
+                "flight_number": "HAT138",
+                "date": "2024-05-25"
+              }
+            ],
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "17_1",
+          "requestor": "assistant",
+          "name": "update_reservation_passengers",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "passengers": [
+              {
+                "first_name": "Omar",
+                "last_name": "Rossi",
+                "dob": "1970-06-06"
+              }
+            ]
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "17_2",
+          "requestor": "assistant",
+          "name": "update_reservation_baggages",
+          "arguments": {
+            "reservation_id": "FQ8APE",
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "payment_id": "gift_card_8190333"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": [
+        "Reservation FQ8APE is updated to economy.",
+        "Passenger for reservation FQ8APE is updated to Omar Rossi.",
+        "Number of bags for reservation FQ8APE is updated to 3."
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/airline.txt",
+  "policy_rule_index": "requirements/airline_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr001",
+    "tr002",
+    "tr003",
+    "tr004",
+    "tr005",
+    "tr006",
+    "tr007",
+    "tr008",
+    "tr009",
+    "tr010",
+    "tr011",
+    "tr012"
+  ]
+}

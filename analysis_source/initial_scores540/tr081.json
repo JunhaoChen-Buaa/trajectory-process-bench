@@ -1,0 +1,230 @@
+{
+  "case_id": "tr081",
+  "created_beijing": "2026-11-10T14:45:20.430070+08:00",
+  "input_sha256": "b30a8f5c31ae002d5ee3b7d55fd24597d18a97343be7a9052c8dee131e08a0bc",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f9bded7710e898937cf0be24862b0fd051ab124b9e62a8f4f881a20fcb958aef",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1308,
+    "completion_tokens_details": {
+      "reasoning_tokens": 247
+    },
+    "prompt_tokens": 17190,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 18498
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消5月22日JFK-MCO订单",
+        "object": "reservation M20IZO",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:22",
+            "change": "用户在转账后表示不想转人工，愿继续在机器人处处理"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "变更计划取消仅在订票后24小时内可退，不合规应拒绝",
+            "basis": "policy: 'A change-of-plan cancellation is only allowed within 24 hours of booking'",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单已超24小时且非商务/无保险/非航司取消，正确拒绝违规取消；被拒尝试未被写成成功写入",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何写入操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单未被取消，符合规则应有状态",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知不符合取消资格及原因，无虚假完成说明",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对silver会员不改变取消资格的说明与policy一致",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id与reservation、查明原因、核验规则后再答复；用户明确要求找supervisor后按政策转人工",
+            "refs": [
+              "h:11",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "M20IZO保持原状未取消，转人工已发起后用户表示不想转但未再有处理机会"
+      },
+      {
+        "group_id": "G2",
+        "goal": "预订5月24日JFK-SFO单程经济舱机票",
+        "object": "新reservation HATHAT",
+        "request_refs": [
+          "h:22",
+          "h:24"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "按用户选择经SEA中转HAT069+HAT011经济舱、无行李、无保险、$300用尾号7334信用卡订票",
+            "basis": "用户短引 'the one-stop via SEA at $300' / 'pay with the Mastercard ending in 7334'",
+            "refs": [
+              "h:29",
+              "h:31"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订票内容、舱位、航线、行李数与用户要求一致，写入成功且DB回读无差异",
+            "refs": [
+              "e:8",
+              "s:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:30完整列出细节并请求确认，h:31用户明确同意并选择付款方式",
+            "refs": [
+              "h:30",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:8写入成功，DB回放hash一致，实际存储与同意内容一致",
+            "refs": [
+              "e:8",
+              "s:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认说明与实际预订结果一致（航班、价格、付款方式）",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "silver经济舱2件免费行李的说明与policy一致；报价$300与实际价格相符",
+            "refs": [
+              "h:28",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "收集了trip type、乘客信息（DOB来自profile，用户同意）、询问保险、搜索航班、按序完成必要步骤",
+            "refs": [
+              "h:23",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "成功预订HATHAT，$300用credit_card_9074831支付，0行李无保险"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "取消原因与资格判定关联"
+      },
+      {
+        "from": "h:31",
+        "to": "h:32",
+        "purpose": "用户付款确认与实际订票参数关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户多次坚持silver全额退款的说法无政策依据，Agent多次耐心拒绝并说明，处理得当",
+      "G1中转人工后用户撤回转人工意愿，但转接已执行且此后无Agent回复机会，不计为错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

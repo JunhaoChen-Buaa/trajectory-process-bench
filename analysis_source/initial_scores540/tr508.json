@@ -1,0 +1,139 @@
+{
+  "case_id": "tr508",
+  "created_beijing": "2026-11-10T15:45:24.761174+08:00",
+  "input_sha256": "be79bcf189d73ca02d9941e799cffa89c5f1f67eb310d2a7b7508cc6740583ae",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d6190a5a2759173afe209fbde2b3f79c22c9749d7a5c85f6c7587f82b6ef3ecd",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 595,
+    "completion_tokens_details": {
+      "reasoning_tokens": 74
+    },
+    "prompt_tokens": 14075,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14670
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查手机无服务问题",
+        "object": "L1002线路（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决/适当升级No Service问题",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "SIM锁定时应升级处理（escalate for SIM security）",
+            "basis": "tech_support_policy: \"escalate to technical support for assistance with SIM security\"",
+            "refs": [
+              "h:18"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "先关飞行模式（用户执行），SIM锁定后按政策不可自行处理而正确转人工",
+            "refs": [
+              "h:12",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断/转人工流程无需额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞行模式已关闭并消除了一个原因；SIM锁定属政策要求人工协助的情形，依法转接即为正确结果",
+            "refs": [
+              "h:14",
+              "h:18",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转接话术按政策原文发送，未虚假宣称已修复",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "向用户说明飞行模式导致无服务（h:12）与状态栏证据一致；SIM锁定需人工协助符合政策",
+            "refs": [
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验客户身份与线路状态，再按手册顺序检查状态栏、SIM状态，必要时真实转接",
+            "refs": [
+              "h:2",
+              "h:7",
+              "h:9",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式已关闭；SIM锁定问题按政策转人工处理，线路L1002未被误改"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:24",
+        "purpose": "SIM锁定触发政策要求的转人工升级"
+      }
+    ],
+    "auxiliary_notes": [
+      "转人工前查询账单与L1003属额外核查，不影响业务质量评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

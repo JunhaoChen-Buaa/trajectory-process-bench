@@ -1,0 +1,146 @@
+{
+  "case_id": "tr258",
+  "created_beijing": "2026-11-10T15:14:10.722279+08:00",
+  "input_sha256": "e8233193701ac928432ef9a8201cf374cd71506dd3b97cf89681d76da730300d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5792f917bcc9dbbc15ffa6bdb644ca1b3fb1317f6548dcf55c2cf6cc2e4cf31a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 696,
+    "completion_tokens_details": {
+      "reasoning_tokens": 24
+    },
+    "prompt_tokens": 11934,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 12630
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待发货订单中的耳机颜色",
+        "object": "订单#W5061109的Wireless Earbuds",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将白色耳机换成同规格蓝色变体且价格不升",
+            "basis": "用户要求 'swap out my wireless earbuds for a blue colored one... price stays the same or comes down'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "修改前核验订单状态为pending、确认唯一修改项、差价退款至原支付方式",
+            "basis": "policy: 'can only be modified if its status is pending'、'remind the customer to confirm they have provided all the items'",
+            "refs": [
+              "h:8"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending（h:5），新item 8555936349为同产品同规格蓝色变体且可用、价格更低，符合政策与用户条件",
+            "refs": [
+              "h:5",
+              "h:7",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列明新item、价格、退款$30.18至PayPal并确认唯一修改项后获得明确同意 'Go ahead'",
+            "refs": [
+              "h:8",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "哈希回放确认DB中耳机已变为item 8555936349（blue/8h/IPX4, $226.49）且退款$30.18入PayPal，与同意结果一致",
+            "refs": [
+              "e:3",
+              "s:3"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'All done' 说明与实际状态一致：新变体、价格、退款金额与方式均正确",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$226.49、同规格蓝色、退款$30.18均有目录与订单数据依据",
+            "refs": [
+              "h:7",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按email缺失路径用姓名+邮编认证（e:0），查订单确认pending，查询商品变体，并提醒只能修改一次并确认所有修改项",
+            "refs": [
+              "h:2",
+              "h:5",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单状态为pending (item modified)，耳机已换成蓝色$226.49变体，$30.18退款至PayPal"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:8",
+        "to": "h:9",
+        "purpose": "确认用户对修改细节的明确同意"
+      },
+      {
+        "from": "h:10",
+        "to": "s:3",
+        "purpose": "核对实际写入状态与报价一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "退款时限表述5-7 business days符合PayPal退款政策，措辞无问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

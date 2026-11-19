@@ -1,0 +1,68 @@
+{
+  "trajectories": {
+    "n": 540,
+    "pass": 291,
+    "fail": 220,
+    "unknown": 29,
+    "na": 0,
+    "pass_rate_decided": 0.5694716242661448
+  },
+  "business_groups": {
+    "n": 874,
+    "pass": 506,
+    "fail": 321,
+    "unknown": 47,
+    "na": 0,
+    "pass_rate_decided": 0.6118500604594922
+  },
+  "dimensions": {
+    "RULE": {
+      "n": 540,
+      "pass": 385,
+      "fail": 144,
+      "unknown": 9,
+      "na": 2,
+      "pass_rate_decided": 0.7277882797731569
+    },
+    "CONSENT": {
+      "n": 540,
+      "pass": 230,
+      "fail": 94,
+      "unknown": 4,
+      "na": 212,
+      "pass_rate_decided": 0.7098765432098766
+    },
+    "OUTCOME": {
+      "n": 540,
+      "pass": 390,
+      "fail": 130,
+      "unknown": 16,
+      "na": 4,
+      "pass_rate_decided": 0.75
+    },
+    "REPORT": {
+      "n": 540,
+      "pass": 461,
+      "fail": 59,
+      "unknown": 0,
+      "na": 20,
+      "pass_rate_decided": 0.8865384615384615
+    },
+    "FACT": {
+      "n": 540,
+      "pass": 350,
+      "fail": 127,
+      "unknown": 26,
+      "na": 37,
+      "pass_rate_decided": 0.7337526205450734
+    },
+    "STEPS": {
+      "n": 540,
+      "pass": 382,
+      "fail": 149,
+      "unknown": 9,
+      "na": 0,
+      "pass_rate_decided": 0.71939736346516
+    }
+  }
+}

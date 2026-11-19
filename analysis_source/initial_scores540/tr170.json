@@ -1,0 +1,307 @@
+{
+  "case_id": "tr170",
+  "created_beijing": "2026-11-10T14:44:47.455106+08:00",
+  "input_sha256": "9298d9addc82af0ab84a69b573ed09897f7d429e0e215f3d217933df90b93cf5",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b8ed2a729810f31364a8422e2198354cc86ef0f214df06ce6dc255d6422db278",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1326,
+    "completion_tokens_details": {
+      "reasoning_tokens": 87
+    },
+    "prompt_tokens": 10248,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 11574
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消预订IFOYYZ",
+        "object": "IFOYYZ",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按政策判断取消资格：basic economy、无保险、非24小时内、非航司取消，不可取消",
+            "basis": "cancel rules",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝不符合任何取消条件的basic economy订单，符合policy取消规则",
+            "refs": [
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行修改数据库操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝取消，订单未被改动，处理正确",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "向用户如实说明不可取消的三条理由，与实际数据一致",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "5月12日下单、basic economy、无保险均与h:9返回一致",
+            "refs": [
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查用户与订单详情并询问取消原因，符合policy要求顺序",
+            "refs": [
+              "h:4",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "IFOYYZ未取消，保留原状，用户接受"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消预订NQNU5R",
+        "object": "NQNU5R",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已飞订单不可通过Agent取消",
+            "basis": "If any portion of the flight has already been flown, the agent cannot help",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "航班日期5月13-14已过（当前5月15日），正确拒绝取消",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何写操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "按政策无法办理，订单保持原状",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明部分航段已使用故无法取消",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "航班日期与乘客信息与h:11一致",
+            "refs": [
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查询了订单详情以核实航班日期",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "NQNU5R未取消，保留原状，用户接受"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将M20IZO改为直飞航班",
+        "object": "M20IZO",
+        "request_refs": [
+          "h:1",
+          "h:7"
+        ],
+        "revisions": [
+          {
+            "ref": "h:19",
+            "change": "确认无直飞后用户撤回改签要求，保留原行程"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "如有直飞JFK-MCO可改签，需先确认并经用户同意",
+            "basis": "用户要求nonstop",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "搜索了2024-05-22 JFK→MCO直飞，结果为空，未违规改签",
+            "refs": [
+              "e:4",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行修改，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "无可用直飞，用户主动撤回改签，订单保持原状符合用户最终意愿",
+            "refs": [
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知无直飞并确认行程未变",
+            "refs": [
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "搜索返回[]，说明无直飞属实；仅检查了用户给定日期，符合用户请求范围",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查询订单详情再按原日期搜索直飞，步骤充分",
+            "refs": [
+              "e:3",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "M20IZO行程未变更，用户主动保留原一行程"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:12",
+        "purpose": "取消资格判断依据：basic economy无保险"
+      },
+      {
+        "from": "e:4",
+        "to": "h:18",
+        "purpose": "直飞搜索空结果支撑无直飞说明"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12称NQNU5R航班'already been flown'基于日期已过推断，未调用get_flight_status，但属合理判断"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

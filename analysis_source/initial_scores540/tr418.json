@@ -1,0 +1,133 @@
+{
+  "case_id": "tr418",
+  "created_beijing": "2026-11-10T14:49:12.336548+08:00",
+  "input_sha256": "1defd115c33c1c86c64fc0aa1f6beebee93fe301c49c11d22e44586d956a4589",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0ab37b9387c7b6144ec366941c6b8450bbeb287e3cf38e25f0574ca8f78e7e6a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 602,
+    "completion_tokens_details": {
+      "reasoning_tokens": 23
+    },
+    "prompt_tokens": 15507,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16109
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决无法发送MMS的问题",
+        "object": "用户手机（号码555-123-2002，line L1002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后诊断并修复MMS发送问题",
+            "basis": "tech_support_policy：MMS需蜂窝服务、移动数据、正确APN/MMSC、网络≥3G等",
+            "refs": [
+              "h:1",
+              "h:2"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全程按tech support手册诊断：SIM reseat、roaming开启（line L1002本已roaming_enabled，属用户侧设置）、APN reset+重启、关闭Wi-Fi Calling，对象为用户提供号码对应线路",
+            "refs": [
+              "h:18",
+              "h:24",
+              "h:36",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排查无需用户确认类操作，无额外确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终can_send_mms返回can send MMS，问题实际解决",
+            "refs": [
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "复述的四步修复与实际执行一致，最终确认MMS可用后才告知完成",
+            "refs": [
+              "h:56"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明均与诊断结果有据：SIM missing、MMSC URL Not Set、Wi-Fi Calling干扰等均来自设备检查结果",
+            "refs": [
+              "h:16",
+              "h:34",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（get_customer_by_phone），随后按手册逐步诊断并验证，设备侧操作由用户执行属正常流程",
+            "refs": [
+              "h:4",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户MMS功能已恢复，可正常发送彩信"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "e:0",
+        "purpose": "用电话号码555-123-2002定位并核验客户C1001"
+      },
+      {
+        "from": "h:9",
+        "to": "h:24",
+        "purpose": "确认L1002线路侧roaming已启用，设备侧roaming需用户开启"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查流程规范高效，无多余冗长问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

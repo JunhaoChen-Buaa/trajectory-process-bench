@@ -1,0 +1,150 @@
+{
+  "case_id": "tr445",
+  "created_beijing": "2026-11-10T14:41:16.313658+08:00",
+  "input_sha256": "5435a85fae94abaf863d87fdea60c940e1cb512b1aeb1d2bc86a88a3ea07467c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3c07bd5b29518b20397199069888a335166607bd92221d27a98d84c1c3cee42a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 729,
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_tokens": 14037,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 14766
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游期间移动数据慢/断连问题",
+        "object": "用户线路 L1002（555-123-2002）的移动数据连接",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: Technical Support 必须先识别客户",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "核对所提供号码对应线路是否已启用roaming，未启用则免费开启",
+            "basis": "policy: If a user is traveling outside their home network... enable it at no cost",
+            "refs": [
+              "h:6"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "排查设备侧数据问题（网络模式、漫游开关等）并验证修复",
+            "basis": "tech_support_policy: 2G/roaming/data troubleshooting",
+            "refs": [
+              "h:16"
+            ]
+          }
+        ],
+        "requirements_ids": [
+          "Q1",
+          "Q2",
+          "Q3"
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "通过电话号码定位C1001并核对L1002为用户号码对应线路，line已roaming enabled无需开启，方案符合政策",
+            "refs": [
+              "h:5",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本流程无需要用户确认的计费或写入操作",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "设备侧由用户依次执行set_network_mode_preference与toggle_roaming后，speed test显示Excellent 275 Mbps，数据问题实际解决",
+            "refs": [
+              "h:28",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:34的完成说明与实际状态一致（已修复2G和roaming问题并有测速验证）",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:16数据用量未超限、h:22关于2G慢和设备roaming需开启的说明均有工具结果支撑",
+            "refs": [
+              "h:16",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验，再核对线路roaming与数据用量，再引导设备诊断与修复，顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:13",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户在法国的移动数据恢复正常，5G/Excellent速度，设备roaming已开启，线路本身roaming enabled无需变更"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:11",
+        "purpose": "确认555-123-2002对应L1002且roaming_enabled=true"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作（check_network_status、toggle_roaming等）由用户执行，符合tech support流程，不因Agent未直接调用而扣分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

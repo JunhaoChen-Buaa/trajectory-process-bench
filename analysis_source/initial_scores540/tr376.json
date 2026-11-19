@@ -1,0 +1,171 @@
+{
+  "case_id": "tr376",
+  "created_beijing": "2026-11-10T14:53:16.762289+08:00",
+  "input_sha256": "f2199b121f3769ee3f64d14b70e5aa3324deed6a648baaf300e66dabf9085382",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "abf9906a41e05d6659b25ef64d71ee045e8e9300c3265e1ab324ce307c23eb0d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 841,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 18522,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19363
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复无法发送MMS的技术支持",
+        "object": "L1002线路（电话555-123-2002）及其设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: Technical Support — You must first identify the customer",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按技术支持流程诊断并修复MMS（无服务→SIM、2G网络、APN/MMSC、Wi-Fi Calling、应用权限、漫游、数据限制）",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超限时按政策加数据（确认数量与价格，最多2GB）",
+            "basis": "policy: Data Refueling",
+            "refs": [
+              "h:74",
+              "h:75"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "完成说明须与实际状态一致",
+            "basis": "policy REPORT要求",
+            "refs": [
+              "h:82"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所有操作均属政策允许的排障与数据加注流程，对象线路L1002与用户号码一致，加注2GB未超上限。",
+            "refs": [
+              "h:20",
+              "h:76"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加注数据前已说明单价$2/GB并经用户确认2GB（h:74-h:75），无其他需确认的写操作。",
+            "refs": [
+              "h:74",
+              "h:75"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终can_send_mms返回成功（e:21），SIM重置、网络模式、权限、数据加注均实际生效，问题解决。",
+            "refs": [
+              "h:80",
+              "h:82"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际一致：MMS已可用，总结步骤均真实执行；重启提醒为非承诺性建议。",
+            "refs": [
+              "h:82",
+              "h:84"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "超限说明（15.1/15.0GB）、$2/GB价格、2G不适合MMS等说明均有工具数据或政策依据。",
+            "refs": [
+              "h:71",
+              "h:73",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按政策完成身份核验（h:2-h:3），并系统覆盖了MMS排障清单：SIM、APN/MMSC、Wi-Fi Calling、权限、漫游、数据限制与VPN。",
+            "refs": [
+              "h:2",
+              "h:28",
+              "h:40",
+              "h:62",
+              "h:66"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS修复成功：SIM重置、5G网络、权限已授予、线路漫游启用、加注2GB数据（$4计入账单），can_send_mms返回成功。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:71",
+        "to": "h:74",
+        "purpose": "数据超限（15.1>15.0GB）是MMS失败的根因，支撑加注数据的必要性与报价"
+      },
+      {
+        "from": "h:77",
+        "to": "h:80",
+        "purpose": "加注后MMS验证成功，证明办理结果符合预期"
+      }
+    ],
+    "auxiliary_notes": [
+      "enable_roaming在用户未表示出国的情况下启用（h:56），属多余但政策允许的免费操作，且在初次MMS验证失败后的合理尝试范围内，不构成业务错误。",
+      "末尾建议用户重启设备（h:84）措辞略含糊（'not strictly necessary'），属轻微措辞问题，不影响业务。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,177 @@
+{
+  "case_id": "tr373",
+  "created_beijing": "2026-11-10T14:39:39.584040+08:00",
+  "input_sha256": "ecc00757c454e2f822c5b7ff360c40fd5ea3d614f1248921b7d62d5e05d3b812",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6c25a1504ea11d972ff48acbe8d1ed3b74bb0b0b01fa5ca7a014ecea2e18d879",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 948,
+    "completion_tokens_details": {
+      "reasoning_tokens": 66
+    },
+    "prompt_tokens": 19046,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19994
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS无法发送问题",
+        "object": "用户线路L1002（555-123-2002）及设备D1002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复无法发送MMS的问题",
+            "basis": "用户请求 'can't send MMS messages... I need this fixed'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "如超出数据额度，可通过充值数据解决，2GB上限，按套餐每GB价格收费并确认价格",
+            "basis": "policy Data Refueling / Data Plan Limits",
+            "refs": [
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用户在国外漫游时若线路未开通漫游应免费开通",
+            "basis": "policy Data Roaming 'enable it at no cost'",
+            "refs": [
+              "h:46"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "排查SIM、网络模式、Wi-Fi Calling、应用权限等MMS相关原因后再考虑转人工",
+            "basis": "tech support policy MMS troubleshooting",
+            "refs": [
+              "h:57"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "诊断与修复路径符合政策：确认超量后充值2GB（上限内）、境外免费开通漫游、按MMS排查项逐一处理，对象均为L1002/D1002。",
+            "refs": [
+              "h:13",
+              "h:49",
+              "h:63"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前确认了金额$4.00且用户明确同意（h:18），漫游为政策免费项无需额外确认，其余为用户设备操作由用户执行。",
+            "refs": [
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终can_send_mms返回可发送（h:69），充值、漫游开通、权限等均实际生效，MMS问题已解决。",
+            "refs": [
+              "h:69",
+              "h:70"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际操作一致（充值、SIM重置、漫游、网络模式、Wi-Fi Calling、权限），且均以用户确认为准，无虚假完成声明。",
+            "refs": [
+              "h:71"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据超量解释、MMS依赖蜂窝服务和数据、SIM缺失诊断、Wi-Fi Calling与权限影响等说明均有工具结果或政策依据支撑。",
+            "refs": [
+              "h:12",
+              "h:31",
+              "h:34",
+              "h:60",
+              "h:61"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "识别客户（按手机号查到C1001）、查线路与数据用量、确认价格后充值、逐一排查SIM/APN/网络/漫游/Wi-Fi Calling/权限，顺序符合政策。",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:17",
+              "h:29",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS可正常发送；线路L1002充值2GB（$4.00入账）并开通漫游，设备侧SIM、网络模式、Wi-Fi Calling、应用权限均已修复。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "数据超量15.1>15.0作为MMS失败根因判断依据"
+      },
+      {
+        "from": "h:31",
+        "to": "h:34",
+        "purpose": "SIM缺失与无服务作为下一步重置SIM的依据"
+      },
+      {
+        "from": "h:60",
+        "to": "h:63",
+        "purpose": "Wi-Fi Calling开启与权限缺失作为最终修复依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:25与h:27连续两次读取同一设备D1002，属于冗余只读调用，不影响业务结果。",
+      "首次充值后未立即让用户跑速度测试而是直接建议发MMS，属排查顺序的轻微优化空间，未造成实质影响。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

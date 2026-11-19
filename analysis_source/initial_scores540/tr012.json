@@ -1,0 +1,169 @@
+{
+  "case_id": "tr012",
+  "created_beijing": "2026-11-10T15:28:57.220713+08:00",
+  "input_sha256": "8c71139e1a0027d73c67b07e76b069cf6622eac9e0e501ac7487f942152e261d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f198820ca69fc08913599e20014b8a930a8e15177ec98da964b40d03a8747874",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1318,
+    "completion_tokens_details": {
+      "reasoning_tokens": 538
+    },
+    "prompt_tokens": 15273,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 16591
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改FQ8APE预订：加3件托运行李、改乘客姓名、升舱至经济舱",
+        "object": "预订FQ8APE（EWR-ORD，1名乘客）",
+        "request_refs": [
+          "h:3",
+          "h:14"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "为预订增加3件托运行李",
+            "basis": "用户要求 h:3",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "将乘客Ivan Garcia改为Omar Rossi",
+            "basis": "用户要求 h:3",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "舱位从basic_economy升为economy",
+            "basis": "用户要求 h:3",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "写库操作前列出细节并获得用户明确确认，付款方式须在用户档案内",
+            "basis": "policy: must list the action details and obtain explicit user confirmation",
+            "refs": [
+              "h:14",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "三项修改均符合政策（basic economy可改舱、乘客数量不变、行李只加不减），gold会员economy 3件免费行李，nonfree=0正确",
+            "refs": [
+              "h:16",
+              "h:19",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:14列出全部改动细节并请求确认，用户h:15确认并用档案内gift_card_8190333（余额280足够支付209差价）",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读显示乘客改为Omar Rossi、cabin=economy、total_baggages=3且免费，差价209扣自gift_card_8190333，全部写入成功",
+            "refs": [
+              "h:19",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:22的完成说明与回读DB状态完全一致，且如实说明升级后gold经济舱3件行李免费",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "确认时按当时basic economy报价2免费+1付费$50有依据；升舱后最终按economy 3件免费执行并向用户说明，最终结论正确",
+            "refs": [
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id与各预订详情，确认对象FQ8APE正确后再执行三项更新，顺序合理",
+            "refs": [
+              "h:5",
+              "h:11",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FQ8APE最终为economy舱、乘客Omar Rossi、3件免费托运行李，差价$209由gift_card_8190333支付，三项要求全部完成"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:18",
+        "purpose": "用户确认及指定礼品卡作为升舱差价支付依据"
+      },
+      {
+        "from": "h:14",
+        "to": "h:22",
+        "purpose": "确认报价与最终行李免费额变化说明的一致性"
+      }
+    ],
+    "auxiliary_notes": [
+      "确认时按basic economy的行李报价与最终economy标准不同，但结果对用户更有利且无额外收费，属正常顺序执行结果，不计为问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,11 @@
+{
+  "source": "Already completed software acceptance run, retail100, 2026-11-13",
+  "purpose": "Offline conversion/report/source-review overlay replay; not new model inference or Agent performance evidence",
+  "actor": "DeepSeek official Flash; thinking disabled",
+  "user": "Bailian Qwen3.8-Flash; thinking disabled; differs from paper local Qwen27B",
+  "judge": "GLM official5.3-Flash; thinking low",
+  "automatic_trajectory": "fail",
+  "source_reviewed_trajectory": "fail",
+  "review_note": "Automatic found tool-origin outcome mismatch but wrongly passed completed-outcome report; overlay preserves this correction",
+  "provenance": "Assistant/model-assisted source review; not independent human gold"
+}

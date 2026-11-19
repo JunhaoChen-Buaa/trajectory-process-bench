@@ -1,0 +1,147 @@
+{
+  "case_id": "tr478",
+  "created_beijing": "2026-11-10T15:53:02.120525+08:00",
+  "input_sha256": "4b50a750f519e77435a439840e0970603a2d68d73362a3b0480273ced14593f6",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "18a0e7304d7385fdc8bfdc61f33ef3f3cb97852993c259355c93a6b59d0626f5",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 593,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 14961,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15554
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决国外(法国)手机无移动数据连接问题",
+        "object": "L1002 (555-123-2002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先验证身份再提供技术支持",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并解决移动数据无连接问题",
+            "basis": "用户: 'mobile data... just stops working'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "逐步按tech support手册排查（Data Saver、VPN、APN、重启、网络状态），确认国外后指导开启设备侧data roaming，符合 roaming 政策",
+            "refs": [
+              "h:14",
+              "h:26",
+              "h:30",
+              "h:34",
+              "h:40",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "纯诊断排障，无需确认的操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终speed test 275 Mbps Excellent，数据连接恢复，问题解决",
+            "refs": [
+              "h:50",
+              "h:51"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结准确：问题为手机端data roaming关闭而线路本身已开通roaming，与实际结果一致",
+            "refs": [
+              "h:52",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'your line is already roaming-enabled on our end' 经L1002 roaming_enabled=true证实；'within your data limit' 经usage 8.7/15GB证实",
+            "refs": [
+              "h:26",
+              "h:46",
+              "h:25",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先要求身份验证(h:2-h:5)，通过设备诊断逐项排查，未漏必做步骤",
+            "refs": [
+              "h:2",
+              "h:5",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户在法国开启data roaming后移动数据恢复，275 Mbps Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:5",
+        "purpose": "通过手机号查到客户并核对L1002归属"
+      },
+      {
+        "from": "h:45",
+        "to": "h:46",
+        "purpose": "确认国外后才定位roaming原因并检查线路roaming_enabled"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查顺序较长（Data Saver、VPN、APN、重启后才检查roaming），但不违反政策，属效率层面"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

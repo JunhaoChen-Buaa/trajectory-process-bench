@@ -1,0 +1,94 @@
+{
+  "domain": "retail",
+  "task_id": "92",
+  "original_task_digest": "2532e79a2566993875e646ebdc7f6d6e23453ea57cc34df03318cfb5bc08a6b6",
+  "sampling_stratum": "return",
+  "task": {
+    "id": "92",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You are angry about the quality of the two skateboards you just bought. You want to return them and refund to credit card.  If the agent asks for confirmation, do not say yes immediately, because you also want to return the smart watch and e-reader.",
+        "known_info": "You name is Mei Ahmed and your zip code is 78705.",
+        "unknown_info": "You do not remember your email address",
+        "task_instructions": "You are polite and outgoing."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "92_0",
+          "requestor": "assistant",
+          "name": "return_delivered_order_items",
+          "arguments": {
+            "order_id": "#W7553978",
+            "item_ids": [
+              "4545791457",
+              "3098764622",
+              "1631806422"
+            ],
+            "payment_method_id": "credit_card_5902940"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "92_1",
+          "requestor": "assistant",
+          "name": "return_delivered_order_items",
+          "arguments": {
+            "order_id": "#W3239882",
+            "item_ids": [
+              "9494281769"
+            ],
+            "payment_method_id": "credit_card_5902940"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr325",
+    "tr326",
+    "tr327",
+    "tr328",
+    "tr329",
+    "tr330",
+    "tr331",
+    "tr332",
+    "tr333",
+    "tr334",
+    "tr335",
+    "tr336"
+  ]
+}

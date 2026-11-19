@@ -1,0 +1,343 @@
+{
+  "case_id": "tr085",
+  "created_beijing": "2026-11-10T14:50:30.352488+08:00",
+  "input_sha256": "cc731b1248837b2602e551749806d31222fc3493fc490fed216c6c1727205b6b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0e34967446beb1d6fe00612100c08330262136799cf0bd9b9e4dd802475727c9",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1830,
+    "completion_tokens_details": {
+      "reasoning_tokens": 307
+    },
+    "prompt_tokens": 14365,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16195
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消已飞行的商务舱预订NQNU5R",
+        "object": "reservation NQNU5R",
+        "request_refs": [
+          "h:1",
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已飞部分航段的预订不可由Agent取消，需转人工",
+            "basis": "policy: 'If any portion of the flight has already been flown, the agent cannot help and transfer is needed.'",
+            "refs": [
+              "h:10",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别两段航程(5/13、5/14)均已飞行，拒绝取消符合政策。",
+            "refs": [
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何修改操作，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝并按需转人工是正确处理，用户也同意转人工。",
+            "refs": [
+              "h:18",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知航班日期已过、无法取消，与DB记录一致。",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "日期与已飞行状态的说明有预订详情依据(h:10)。",
+            "refs": [
+              "h:10",
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查user及reservation详情再判断，转接流程符合政策。",
+            "refs": [
+              "h:8",
+              "h:21"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "未取消，已转人工处理"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消basic economy预订IFOYYZ",
+        "object": "reservation IFOYYZ",
+        "request_refs": [
+          "h:1",
+          "h:7",
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "不满足任何取消条件（超24小时、非航司取消、basic economy、无保险）时不得取消",
+            "basis": "policy取消条件清单",
+            "refs": [
+              "h:9",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "逐条核对后确认无取消条件成立，拒绝正确。",
+            "refs": [
+              "h:12",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行修改操作。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "拒绝符合政策；用户要求尝试人工，转接属可接受的必要路径。",
+            "refs": [
+              "h:18",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "透明列出四个取消条件均不满足，与DB事实一致。",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "创建时间2024-05-12、basic economy、无保险等说明均有源依据。",
+            "refs": [
+              "h:9",
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查询详情并核实条件后再拒绝，顺序正确。",
+            "refs": [
+              "h:8",
+              "h:12"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "未取消，已按用户意愿转人工"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将M20IZO升级为商务舱",
+        "object": "reservation M20IZO",
+        "request_refs": [
+          "h:1",
+          "h:7",
+          "h:18"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "升级后价格为842/人，两乘客应付差额应为(842-245)*2=1194",
+            "basis": "h:15/h:16商务舱报价与h:11原经济舱价格",
+            "refs": [
+              "h:11",
+              "h:15",
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "扣款金额须与用户确认的金额一致，用户同意按$352支付",
+            "basis": "policy确认要求+用户'good to go with that'",
+            "refs": [
+              "h:17",
+              "h:18"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "同一预订全部航段升为business、航班不变，符合改舱规则。",
+            "refs": [
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "用户确认支付$352，实际扣款$1194，金额严重不符，超出同意范围。",
+            "refs": [
+              "h:17",
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "改舱本身成功，但实际多收取$842（1194 vs 用户同意的352），产生有害超额扣款。",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "转接消息后Agent未向用户送达任何升级完成说明。",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "报价'the difference would be $352'计算错误：正确差额为每人$597、共$1194。",
+            "refs": [
+              "h:17",
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "升级前查询了当前航班商务舱价格并获明确同意后操作。",
+            "refs": [
+              "h:14",
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "M20IZO已升为business，但向信用卡9074831收取$1194，远超用户确认的$352"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "M20IZO升舱报价与实际扣款严重不符",
+        "basis": "Agent报价'the difference would be $352 for the two passengers'，实际DB扣款credit_card_9074831 $1194（每人差额(430+412)-(136+109)=597）",
+        "refs": [
+          "h:17",
+          "h:18",
+          "h:20",
+          "s:6"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户同意支付$352却被扣$1194，多收$842，且转接后未获得更正说明"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:20",
+        "purpose": "报价$352与实际扣款$1194对比，判定超额扣款"
+      },
+      {
+        "from": "h:15",
+        "to": "h:17",
+        "purpose": "商务舱单价430/412是核算差额的依据"
+      },
+      {
+        "from": "h:10",
+        "to": "h:17",
+        "purpose": "NQNU5R航班日期证明已飞行，支持拒绝取消"
+      }
+    ],
+    "auxiliary_notes": [
+      "两次取消请求中Agent一次性并行调用多个查询工具，属接口规范层面，不计入业务六项。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

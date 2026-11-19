@@ -1,0 +1,32 @@
+name: Offline checks
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+    env:
+      LITELLM_LOCAL_MODEL_COST_MAP: "True"
+      LITELLM_TELEMETRY: "False"
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Check public files
+        run: python -X utf8 tools/check_public_files.py
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Verify dependencies
+        run: python -m pip check
+      - name: Verify references and interfaces without network calls
+        run: python -X utf8 verify_release.py --tests
+      - name: Reproduce initial-versus-reviewed comparison
+        run: python -X utf8 analysis/score_comparison/compare_scores.py --raw-scores analysis_source/initial_scores540 --reference reference_data/reference/annotations.jsonl --run-index reference_data/run_index.json --out results/score_comparison

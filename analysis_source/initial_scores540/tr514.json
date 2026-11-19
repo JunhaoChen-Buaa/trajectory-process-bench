@@ -1,0 +1,139 @@
+{
+  "case_id": "tr514",
+  "created_beijing": "2026-11-10T14:44:14.635563+08:00",
+  "input_sha256": "b433226da25e0d7ed34c92765dca3b15facde23d836e1626ef0d8908c3c602c3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f18259005777111fca60fd745da8e8055ced478fa7b1b0ceded109e20ca4260c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 625,
+    "completion_tokens_details": {
+      "reasoning_tokens": 53
+    },
+    "prompt_tokens": 11788,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12413
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查手机无服务问题",
+        "object": "线路555-123-2002 (L1002) / 设备D1002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "识别客户并排查No Service原因",
+            "basis": "policy: Technical Support先识别客户",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "SIM锁定(PIN/PUK)需升级转人工",
+            "basis": "tech_support_policy: 'Locked ... escalate to technical support'",
+            "refs": [
+              "h:18"
+            ]
+          }
+        ],
+        "requirements_note": null,
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策流程排查：先查线路状态(L1002 Active)，设备侧关闭飞行模式，SIM锁定后按政策升级转人工",
+            "refs": [
+              "h:5",
+              "h:12",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排查与转接无需用户确认类操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "SIM锁定属于政策规定Agent无法解决的情形，按政策升级转人工为正确处理",
+            "refs": [
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知SIM锁定需SIM安全协助并说明转接，与实际一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明'line active，问题在设备端'与L1002 Active一致；飞行模式关闭解释信号原因正确",
+            "refs": [
+              "h:8",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(e:0)，核对线路Active(h:5,h:7)，按顺序引导status bar→toggle_airplane_mode→check_sim_status，SIM锁定后转接",
+            "refs": [
+              "h:2",
+              "h:8",
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "SIM PIN锁定无法由Agent解决，已按政策转接人工技术支持"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:20",
+        "purpose": "SIM锁定(PIN)触发升级转人工政策"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接流程规范：先transfer_to_human_agents后发送指定话术(h:20)"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

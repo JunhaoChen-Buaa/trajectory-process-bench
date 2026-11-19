@@ -1,0 +1,149 @@
+{
+  "case_id": "tr420",
+  "created_beijing": "2026-11-10T14:57:43.730276+08:00",
+  "input_sha256": "2502a21ed8f8b6a4e02c89a8a0ebd3fb35abf5d2a63a0c28094f251635104e13",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ae828482bb95bf133b5bdef6459a095083d08df4d589d4f0c2e3b449c451b90d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 691,
+    "completion_tokens_details": {
+      "reasoning_tokens": 16
+    },
+    "prompt_tokens": 17408,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 18099
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "国外漫游时无法发送MMS的技术支持排查",
+        "object": "用户线路L1002（555-123-2002）及手机设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份再提供技术支持",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按MMS排查手册逐步诊断并修复（SIM、漫游、APN/MMSC、Wi-Fi Calling、应用权限），最终确认可发送MMS",
+            "basis": "tech_support_policy MMS章节",
+            "refs": [
+              "h:32",
+              "h:48",
+              "h:56"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用户在国外，若线路未开通roaming需免费开通",
+            "basis": "policy: enable roaming at no cost for traveling users",
+            "refs": [
+              "h:24"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "通过电话号码查到客户，核对L1002为用户线路且已roaming enabled，全部操作符合排查手册要求",
+            "refs": [
+              "h:5",
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "设备侧排查操作均由用户本人执行，无需额外确认",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "can_send_mms返回可发送，MMS问题实际解决",
+            "refs": [
+              "h:62"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际修复步骤一致，且以can_send_mms验证后再说明完成",
+            "refs": [
+              "h:60",
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对MMS依赖条件（服务、数据、APN/MMSC、2G、Wi-Fi Calling、权限）的说明均有手册依据",
+            "refs": [
+              "h:32",
+              "h:36",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验，随后按手册顺序检查状态栏、网络、SIM、APN、Wi-Fi Calling、权限，并正确处理reboot要求",
+            "refs": [
+              "h:2",
+              "h:12",
+              "h:20",
+              "h:36",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS可正常发送；设备侧SIM重插、数据漫游开启、APN重置并重启、Wi-Fi Calling关闭，线路L1002本就roaming enabled无需后端操作"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户电话号码对应线路L1002并核对其roaming状态"
+      }
+    ],
+    "auxiliary_notes": [
+      "整个流程为标准的MMS排查，步骤顺序合理，无多余操作"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

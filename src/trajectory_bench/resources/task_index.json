@@ -1,0 +1,317 @@
+[
+  {
+    "domain": "airline",
+    "task_id": "17",
+    "sampling_stratum": "change",
+    "task_file": "tasks/task001.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "19",
+    "sampling_stratum": "cancel",
+    "task_file": "tasks/task002.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "20",
+    "sampling_stratum": "book",
+    "task_file": "tasks/task003.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "21",
+    "sampling_stratum": "change",
+    "task_file": "tasks/task004.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "31",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task005.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "32",
+    "sampling_stratum": "change",
+    "task_file": "tasks/task006.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "35",
+    "sampling_stratum": "book",
+    "task_file": "tasks/task007.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "37",
+    "sampling_stratum": "change",
+    "task_file": "tasks/task008.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "39",
+    "sampling_stratum": "cancel",
+    "task_file": "tasks/task009.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "42",
+    "sampling_stratum": "cancel",
+    "task_file": "tasks/task010.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "44",
+    "sampling_stratum": "change",
+    "task_file": "tasks/task011.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "45",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task012.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "49",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task013.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "8",
+    "sampling_stratum": "book",
+    "task_file": "tasks/task014.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "airline",
+    "task_id": "9",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task015.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "10",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task016.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "100",
+    "sampling_stratum": "return",
+    "task_file": "tasks/task017.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "12",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task018.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "30",
+    "sampling_stratum": "return",
+    "task_file": "tasks/task019.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "34",
+    "sampling_stratum": "modify",
+    "task_file": "tasks/task020.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "57",
+    "sampling_stratum": "other",
+    "task_file": "tasks/task021.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "61",
+    "sampling_stratum": "modify",
+    "task_file": "tasks/task022.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "69",
+    "sampling_stratum": "cancel",
+    "task_file": "tasks/task023.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "7",
+    "sampling_stratum": "exchange",
+    "task_file": "tasks/task024.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "72",
+    "sampling_stratum": "modify",
+    "task_file": "tasks/task025.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "81",
+    "sampling_stratum": "cancel",
+    "task_file": "tasks/task026.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "88",
+    "sampling_stratum": "cancel",
+    "task_file": "tasks/task027.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "92",
+    "sampling_stratum": "return",
+    "task_file": "tasks/task028.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "93",
+    "sampling_stratum": "exchange",
+    "task_file": "tasks/task029.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "retail",
+    "task_id": "99",
+    "sampling_stratum": "exchange",
+    "task_file": "tasks/task030.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card[PERSONA:Easy]",
+    "sampling_stratum": "mms_issue",
+    "task_file": "tasks/task031.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_both_permissions|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:None]",
+    "sampling_stratum": "mms_issue",
+    "task_file": "tasks/task032.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mms_issue]bad_network_preference|break_app_both_permissions[PERSONA:Easy]",
+    "sampling_stratum": "mms_issue",
+    "task_file": "tasks/task033.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mms_issue]bad_network_preference|user_abroad_roaming_disabled_off[PERSONA:None]",
+    "sampling_stratum": "mms_issue",
+    "task_file": "tasks/task034.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mms_issue]bad_wifi_calling|break_apn_mms_setting|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Easy]",
+    "sampling_stratum": "mms_issue",
+    "task_file": "tasks/task035.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mobile_data_issue]airplane_mode_on|user_abroad_roaming_enabled_off[PERSONA:None]",
+    "sampling_stratum": "mobile_data_issue",
+    "task_file": "tasks/task036.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:Easy]",
+    "sampling_stratum": "mobile_data_issue",
+    "task_file": "tasks/task037.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mobile_data_issue]bad_network_preference|user_abroad_roaming_enabled_off[PERSONA:Hard]",
+    "sampling_stratum": "mobile_data_issue",
+    "task_file": "tasks/task038.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mobile_data_issue]data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Hard]",
+    "sampling_stratum": "mobile_data_issue",
+    "task_file": "tasks/task039.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[mobile_data_issue]data_saver_mode_on|user_abroad_roaming_enabled_off[PERSONA:Easy]",
+    "sampling_stratum": "mobile_data_issue",
+    "task_file": "tasks/task040.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[service_issue]airplane_mode_on|break_apn_settings|overdue_bill_suspension[PERSONA:None]",
+    "sampling_stratum": "service_issue",
+    "task_file": "tasks/task041.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[service_issue]airplane_mode_on|break_apn_settings|unseat_sim_card[PERSONA:None]",
+    "sampling_stratum": "service_issue",
+    "task_file": "tasks/task042.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[service_issue]airplane_mode_on|lock_sim_card_pin[PERSONA:Easy]",
+    "sampling_stratum": "service_issue",
+    "task_file": "tasks/task043.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[service_issue]airplane_mode_on|overdue_bill_suspension|unseat_sim_card[PERSONA:Easy]",
+    "sampling_stratum": "service_issue",
+    "task_file": "tasks/task044.json",
+    "reference_runs": 12
+  },
+  {
+    "domain": "telecom",
+    "task_id": "[service_issue]airplane_mode_on|unseat_sim_card[PERSONA:None]",
+    "sampling_stratum": "service_issue",
+    "task_file": "tasks/task045.json",
+    "reference_runs": 12
+  }
+]

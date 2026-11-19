@@ -1,0 +1,159 @@
+{
+  "case_id": "tr238",
+  "created_beijing": "2026-11-10T14:49:31.190070+08:00",
+  "input_sha256": "f38155871885c8edd8c6b9d779cd4a3bb5fcf2285c31326ea20ad6e781ecf0b2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4a04f6ac0639d9574833fcb87ddfceab00bc726b9bec8bc0b0c6e633ffd8f62a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 780,
+    "completion_tokens_details": {
+      "reasoning_tokens": 60
+    },
+    "prompt_tokens": 12085,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12865
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将订单#W1845024收货地址改为NYC默认地址",
+        "object": "订单#W1845024",
+        "request_refs": [
+          "h:11"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "放弃取消办公物品的原始目标（部分取消不可行），改为改地址，事后自行退货"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单为pending且核对状态后才可修改地址",
+            "basis": "policy: modify address only if pending, check status",
+            "refs": [
+              "h:9",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "改至224 Elm Street, Suite 491, New York, NY 10108, USA并列出明细后获用户明确确认",
+            "basis": "policy: list action details and obtain explicit yes",
+            "refs": [
+              "h:12",
+              "h:13",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "仅修改地址，不误改其他字段，总价$1,527.24保持不变",
+            "basis": "policy范围与订单数据",
+            "refs": [
+              "h:17",
+              "h:18"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单确为pending（h:9），仅执行政策允许的地址修改，对象正确。",
+            "refs": [
+              "h:9",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:12列出地址明细并请求yes，用户在h:15明确确认同一地址与总价后才执行。",
+            "refs": [
+              "h:12",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:3及DB回放确认地址已改为NYC地址，其余字段与总价$1,527.24均未变。",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:18如实说明地址已改、订单仍pending，未来退货为意向性描述而非已完成声明。",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "地址确为账户默认地址（h:7），总额与各项价格均有订单数据支持，退货预估$1,093.34计算正确。",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按政策以姓名+邮编完成身份认证，再查订单核对pending状态，顺序符合要求。",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "地址已成功改为224 Elm Street, Suite 491, New York, NY 10108, USA，订单仍pending，总价不变；用户计划送达后自行退货三件办公物品。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:12",
+        "purpose": "用户质疑的224 Elm地址确为账户默认地址，支撑澄清与确认"
+      },
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "改地址前的用户明确确认"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:10中口头说完再道歉无碍；h:13用户误解地址来源属用户侧，Agent已澄清，无实质问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

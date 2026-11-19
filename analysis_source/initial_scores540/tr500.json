@@ -1,0 +1,130 @@
+{
+  "case_id": "tr500",
+  "created_beijing": "2026-11-10T16:11:38.197445+08:00",
+  "input_sha256": "99956a30409a882384b937d44794418578a42f24b04f8326aa9d93011351632c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "853c4ece0393bd6333a9aa599f5b26cbc82adf8c2cfe01627445acbd31cf4f4c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 561,
+    "completion_tokens_details": {
+      "reasoning_tokens": 24
+    },
+    "prompt_tokens": 18367,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18928
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复无服务问题",
+        "object": "线路L1002（555-123-2002）手机无服务",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "排查并恢复用户手机的无服务问题",
+            "basis": "用户h:1 'No Service...I need this fixed'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support流程逐步排查（飞行模式、SIM、网络、APN），对象线路正确且最终解决",
+            "refs": [
+              "h:16",
+              "h:24",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持流程无需额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "APN重置并重启后状态栏显示Excellent信号、5G、Data Enabled，用户确认服务恢复",
+            "refs": [
+              "h:58",
+              "h:59"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:60完成说明与实际状态一致，用户确认问题解决",
+            "refs": [
+              "h:60",
+              "h:61"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于飞行模式、SIM、APN错误的说明均有设备诊断证据支持",
+            "refs": [
+              "h:16",
+              "h:24",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按要求识别客户（h:4），再按手册顺序排查，必要步骤齐全",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:50",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "服务已恢复：信号Excellent、5G、数据可用，用户满意结束"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:52",
+        "to": "h:58",
+        "purpose": "APN为broken是根因，重置重启后服务恢复"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:36中Agent对账单状态的自言自语式分析（B1002 overdue讨论）冗长且与本次无服务问题无直接关联，但未产生错误操作或误导性结论，属纯措辞/流程冗余问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

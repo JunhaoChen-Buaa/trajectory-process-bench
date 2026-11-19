@@ -1,0 +1,14 @@
+﻿case_id,model_alias,domain,task_id,repetition,validation_errors,reviewed_verdict
+tr023,llama8b,airline,19,3,"[""parse:AttributeError""]",fail
+tr063,llama8b,airline,32,1,"[""fail_missing_issue:OUTCOME"", ""fail_missing_issue:STEPS""]",fail
+tr092,qwen9b,airline,37,2,"[""fail_missing_issue:RULE"", ""fail_missing_issue:OUTCOME"", ""fail_missing_issue:REPORT""]",unknown
+tr143,llama8b,airline,45,3,"[""parse:AttributeError""]",fail
+tr241,ds_flash,retail,57,1,"[""parse:AttributeError""]",pass
+tr245,ds_flash,retail,57,2,"[""parse:AttributeError""]",pass
+tr283,llama8b,retail,7,2,"[""parse:JSONDecodeError""]",fail
+tr352,qwen9b,retail,99,1,"[""parse:AttributeError""]",fail
+tr361,ds_flash,telecom,[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card[PERSONA:Easy],1,"[""parse:JSONDecodeError""]",fail
+tr471,llama8b,telecom,[mobile_data_issue]data_saver_mode_on|user_abroad_roaming_enabled_off[PERSONA:Easy],1,"[""parse:AttributeError""]",fail
+tr488,qwen9b,telecom,[service_issue]airplane_mode_on|break_apn_settings|overdue_bill_suspension[PERSONA:None],2,"[""six_dimensions_missing:G1""]",fail
+tr498,glm_flash,telecom,[service_issue]airplane_mode_on|break_apn_settings|unseat_sim_card[PERSONA:None],2,"[""six_dimensions_missing:G1""]",pass
+tr519,llama8b,telecom,[service_issue]airplane_mode_on|overdue_bill_suspension|unseat_sim_card[PERSONA:Easy],1,"[""parse:AttributeError""]",fail

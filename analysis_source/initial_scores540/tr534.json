@@ -1,0 +1,138 @@
+{
+  "case_id": "tr534",
+  "created_beijing": "2026-11-10T16:25:08.392081+08:00",
+  "input_sha256": "c6684bc17561e3a1a1cb483d317784e42bd8cfe63cae040488b454de12c336f8",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7f57dd5a5987d6f4e3c9983483d331f45eaca9905344f1955e378365b7341000",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 587,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 12644,
+    "prompt_tokens_details": {
+      "cached_tokens": 5952
+    },
+    "total_tokens": 13231
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无服务问题（技术支持）",
+        "object": "用户设备（线路L1002，号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先验证客户身份再提供技术支持",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并解决No Service问题",
+            "basis": "用户要求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support手册逐步排查：先查状态栏发现飞行模式，再查SIM，重插后服务恢复，全程对象正确。",
+            "refs": [
+              "h:10",
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本次业务无需用户确认的变更操作（设备侧操作由用户自行执行）。",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "服务完全恢复：SIM active、信号Excellent、5G、数据启用，速度测试275 Mbps Excellent。",
+            "refs": [
+              "h:24",
+              "h:26",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知cellular service restored与实际状态一致，且总结准确（airplane mode off、SIM reseated）。",
+            "refs": [
+              "h:28",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "Line active的判断有e:2依据（L1002 Active），后续诊断说明均与工具结果一致。",
+            "refs": [
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份验证（h:2-h:5），确认线路Active后按手册顺序排查飞行模式→SIM，步骤齐全。",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户手机蜂窝服务与移动数据完全恢复（Excellent信号，275 Mbps）"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "e:2",
+        "purpose": "用户提供的号码555-123-2002对应L1002，确认排查对象线路状态Active"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent回应语言为英文，与输出要求一致；无多余工具调用。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

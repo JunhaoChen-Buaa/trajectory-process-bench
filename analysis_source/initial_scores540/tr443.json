@@ -1,0 +1,163 @@
+{
+  "case_id": "tr443",
+  "created_beijing": "2026-11-10T16:06:32.786476+08:00",
+  "input_sha256": "bcc5cc31ec14583e3ddb91ce38b9c435b5191fa52cab64f943d2ee2346c7ca22",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "88017848ad63c3206023d9225d4d0e6f04cd76472e7abc47a843823eb5b1f5dc",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 943,
+    "completion_tokens_details": {
+      "reasoning_tokens": 143
+    },
+    "prompt_tokens": 21247,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 22190
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复海外（法国）移动数据不稳/无数据问题",
+        "object": "用户当前使用中的手机线路",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户",
+            "basis": "policy: 'You must first identify the customer.'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并修复移动数据问题（用户在法国漫游，需检查/启用线路漫游及设备设置）",
+            "basis": "tech_support_policy 移动数据排障流程",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "requirements_extra": [],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "未做任何客户身份识别，也未核对线路漫游状态，全程只是向用户重复发送原始工具调用JSON，未推进合规排障流程",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何需要确认的变更操作",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "用户报修的数据问题全程未解决，未开启线路漫游、未指导开启数据或调整网络模式",
+            "refs": [
+              "h:11",
+              "h:200"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "Agent从未向用户发送任何可读的说明或完成声明",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "Agent未向用户做出任何事实/报价说明",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明文要求技术支持前先识别客户，全程未执行；也未按排障流程引导用户逐步执行设备操作",
+            "refs": [
+              "h:1",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "数据问题未解决；仅用户自行完成状态栏和Wi-Fi Calling两项检查，客户身份与线路漫游状态从未核实"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未识别客户且反复向用户发送原始工具调用JSON",
+        "basis": "policy 'You must first identify the customer'；h:2至h:200大量customer_visible的原始JSON未传达任何指引",
+        "refs": [
+          "h:2",
+          "h:3",
+          "h:7",
+          "h:200"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户始终不知道要做什么，仅两次自行执行了检查，排障无法推进"
+      },
+      {
+        "issue_id": "I2",
+        "title": "移动数据问题最终未修复，未处理漫游与线路核实",
+        "basis": "tech_support_policy要求检查线路漫游启用；用户明确在法国（h:1），离线事实显示线路roaming_enabled=false但Agent从未核实或启用",
+        "refs": [
+          "h:1",
+          "h:11"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户报修问题完全未解决"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:11",
+        "purpose": "用户在法国漫游，排障需核实线路漫游启用状态"
+      },
+      {
+        "from": "h:3",
+        "to": "h:200",
+        "purpose": "用户多次表示未收到可读指引，但Agent持续发送原始JSON"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent消息以customer_visible=true发送原始工具调用JSON属接口/沟通层面严重混乱，已并入I1实质问题；h:2/h:4等前缀调用未形成真实设备事件，属无效尝试而非虚构成功"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

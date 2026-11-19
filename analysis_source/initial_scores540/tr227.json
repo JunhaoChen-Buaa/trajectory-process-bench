@@ -1,0 +1,323 @@
+{
+  "case_id": "tr227",
+  "created_beijing": "2026-11-10T14:13:58.844310+08:00",
+  "input_sha256": "1c7207bba3ed3e548ee581248092f93ce62345191e5fc9de84a50ec5416cd119",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "abe1c60e971d745dedf6e377597fac1422f5a4eb50bd7712ca1712389df51201",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2110,
+    "completion_tokens_details": {
+      "reasoning_tokens": 451
+    },
+    "prompt_tokens": 9748,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 11858
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "查询平板订单并获取跟踪号",
+        "object": "订单 #W9319364 的跟踪信息",
+        "request_refs": [
+          "h:1",
+          "h:13",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "提供用户真实订单的跟踪号等准确信息",
+            "basis": "政策：提供用户自己订单信息",
+            "refs": [
+              "h:1",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "身份认证须先通过email或姓名+邮编定位用户",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:5"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "通过姓名+邮编成功认证（e:0），按用户请求查订单，流程方向正确",
+            "refs": [
+              "h:10",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "仅信息查询，无更新数据库操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "Agent从未成功获取 #W9319364 的订单详情（此前查的 #W0000000 均报 not found），用户拿到的所谓跟踪号无真实依据，业务未真正完成",
+            "refs": [
+              "h:3",
+              "h:15",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "向用户断言订单 'Status: Delivered, Tracking Number: 123456789012'，但没有任何成功读取该订单的工具返回支撑，属无依据的已完成说明",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "跟踪号与delivered状态均为编造，且与后续工具 'Non-delivered order cannot be returned/exchanged' 直接矛盾",
+            "refs": [
+              "h:20",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按政策先认证（h:10认证成功）再提供订单信息，认证顺序符合要求",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户获得了一个未经工具验证、疑似编造的跟踪号；订单真实详情始终未查到"
+      },
+      {
+        "group_id": "G2",
+        "goal": "将受损平板换货为同款新平板",
+        "object": "订单 #W9319364 中的平板（item 1008292230）",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "仅delivered订单可换货，且换货前应核对状态",
+            "basis": "policy: exchange only if status is 'delivered', check status before action",
+            "refs": [
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "换货需获得用户明确确认及支付差价方式",
+            "basis": "policy: explicit user confirmation (yes)",
+            "refs": [
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "订单实际非delivered（工具多次报 'Non-delivered order cannot be exchanged'），Agent未核对真实状态而反复发起违规换货尝试（e:1-2间多次h:26/30/34）",
+            "refs": [
+              "h:23",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "操作前均获得用户明确同意 'Yeah, I'm sure. Exchange for the same tablet.'",
+            "refs": [
+              "h:25",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换货从未成功（所有调用均被后端拒绝），最终转人工属于合理兜底，但换货业务本身未办成",
+            "refs": [
+              "h:27",
+              "h:31",
+              "h:35",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "多次自相矛盾地说 'Since the order #W9319364 is already delivered, I'm unable to...'（与工具返回相反）并反复承诺可办理换货，未向用户如实说明订单实际不可换货的状态",
+            "refs": [
+              "h:24",
+              "h:28",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I4"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "向用户断言订单已是delivered状态，与后端 'Non-delivered order' 返回直接矛盾，影响用户对资格的理解",
+            "refs": [
+              "h:24",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I4"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求换货前核对订单状态，但Agent从未成功调用 get_order_details 查询 #W9319364 的真实状态，即基于虚构的delivered判断发起换货",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "换货未成功；在多次违规重试后转接人工客服处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "编造订单状态与跟踪号",
+        "basis": "h:20 断言 'Delivered / Tracking 123456789012'，但该订单从未被成功查询（h:3、h:15 均为 Order not found，且查的是 #W0000000），后被 h:23 'Non-delivered order' 反证",
+        "refs": [
+          "h:20",
+          "h:23"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户获得了虚构的跟踪号和错误的订单信息"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未核实订单状态即反复发起违规换货",
+        "basis": "policy要求check status before action；实际订单非delivered，h:22/h:26/h:30/h:34多次尝试均被拒",
+        "refs": [
+          "h:27",
+          "h:31",
+          "h:35"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "多次无效重试，换货未能办理"
+      },
+      {
+        "issue_id": "I3",
+        "title": "换货业务最终未完成",
+        "basis": "所有 exchange_delivered_order_items 调用均返回 'Non-delivered order cannot be exchanged'，最终只能转人工（e:2）",
+        "refs": [
+          "h:35",
+          "e:2"
+        ],
+        "root_cause": "mixed",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户换货需求未在本会话内解决，转人工兜底"
+      },
+      {
+        "issue_id": "I4",
+        "title": "向用户虚假说明订单为delivered且可办理换货",
+        "basis": "h:24/h:28/h:32 称 'order is already delivered, I'm unable to return... I can assist you with exchanging'，与 h:27 后端返回直接矛盾",
+        "refs": [
+          "h:24",
+          "h:27",
+          "h:32"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户被误导认为订单已送达且可换货"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:23",
+        "purpose": "虚构的delivered/跟踪号被后端'Non-delivered'返回反证"
+      },
+      {
+        "from": "h:24",
+        "to": "h:27",
+        "purpose": "送达用户的换货承诺与实际工具结果矛盾"
+      },
+      {
+        "from": "h:26",
+        "to": "h:35",
+        "purpose": "证明多次换货尝试均失败"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12 在送达消息中嵌入工具调用JSON属接口规范问题，记为辅助事项",
+      "对同一失败操作循环询问'yes'并重复调用4次属流程低效，未造成额外写入"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

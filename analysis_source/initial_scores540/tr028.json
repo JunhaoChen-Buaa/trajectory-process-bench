@@ -1,0 +1,171 @@
+{
+  "case_id": "tr028",
+  "created_beijing": "2026-11-10T15:04:55.577243+08:00",
+  "input_sha256": "74f6fc47f60cdf241c5930dfb9e7366ea5a959f7047e0b171c5d0b06c8e7281e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "cc3f8e6e1047b944417851ae2102a2161c8b541f763a1fde56f0c7fb1f2c1a5d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 901,
+    "completion_tokens_details": {
+      "reasoning_tokens": 84
+    },
+    "prompt_tokens": 16531,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 17432
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日纽约到西雅图单程经济舱机票",
+        "object": "新预订HATHAT（JFK经ATL至SEA，HAT136+HAT039）",
+        "request_refs": [
+          "h:1",
+          "h:9",
+          "h:19"
+        ],
+        "revisions": [
+          {
+            "ref": "h:19",
+            "change": "放弃两个直达早班选项，要求上午11点后出发"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订2024-05-20出发（11点后）的NY→SEA单程经济舱，1名乘客，无保险",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:9",
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "预订前列明细节并获用户明确确认",
+            "basis": "policy: obtain explicit user confirmation",
+            "refs": [
+              "h:26"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "支付须来自用户档案内方式，每单至多一张travel certificate",
+            "basis": "policy: at most one travel certificate",
+            "refs": [
+              "h:23",
+              "h:24"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "gold会员economy 3件免费托运行李，不添加不需要的行李",
+            "basis": "policy baggage allowance",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选HAT136（19:00起飞）满足用户11点后出发的新要求，经济舱单程，对象与用户档案一致",
+            "refs": [
+              "h:20",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:26完整列出航线、乘客、行李、支付拆分（证书$250+卡$5）后用户回复确认",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:6写库成功，预订HATHAT内容与确认一致，支付$250+$5共$255，3件行李全免费",
+            "refs": [
+              "e:6",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30如实说明预订成功并列出与实际一致的细节（reservation ID、航班、支付）",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "两证不能同用的说明有policy依据，行李免费额度（gold+economy=3件）与价格计算$255均正确",
+            "refs": [
+              "h:24",
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id、查档案、列机场并搜索直达与中转选项，顺序符合政策",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:8",
+              "h:10",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功：2024-05-20 HAT136+HAT039，经济舱，Mia Li，3件免费行李，无保险，$250证书+$5信用卡支付"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:19",
+        "to": "h:20",
+        "purpose": "用户改要求为11点后出发，Agent据此筛选中转选项"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:18与h:20将大量内部推理（如'Wait, let me re-read the policy'、对API返回格式的犹豫）作为可见消息发给用户，措辞冗长混乱但不构成业务错误。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

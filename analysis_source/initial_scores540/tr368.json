@@ -1,0 +1,149 @@
+{
+  "case_id": "tr368",
+  "created_beijing": "2026-11-10T15:53:19.454357+08:00",
+  "input_sha256": "bcbf74043742ae51b14059b5342fbfbb353e50fa41083272d0b3266384df6d38",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a7a2bfa3159c398554af83bae0eeeef33c95887c6256d55c3ca68663e196c7da",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 663,
+    "completion_tokens_details": {
+      "reasoning_tokens": 9
+    },
+    "prompt_tokens": 18788,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19451
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS无法发送问题",
+        "object": "John Smith 的线路 L1002（号码 555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复用户MMS无法发送的问题，按技术支持手册逐步排查",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "充值数据不得超过2GB且需确认价格",
+            "basis": "policy: 'The maximum amount of data that can be refueled is 2GB'",
+            "refs": [
+              "h:70"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别客户与线路（L1002对应555-123-2002），逐项按手册排查：飞行模式、SIM、数据开关、网络模式、APN/MMSC、Wi-Fi Calling、权限，最后发现数据超额并充值2GB未超上限",
+            "refs": [
+              "h:7",
+              "h:66",
+              "h:67"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前向用户确认了金额与价格（$2/GB，最多2GB），用户明确同意2.0GB",
+            "refs": [
+              "h:70",
+              "h:71"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "充值2GB成功（charge $4.00），can_send_mms 最终返回可发送，问题解决",
+            "refs": [
+              "h:73",
+              "h:76"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成总结与实际修复内容一致，且基于工具验证的最终结果告知用户",
+            "refs": [
+              "h:74",
+              "h:78"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于2G不适合MMS、MMSC URL作用、Wi-Fi Calling干扰、存储权限需要的说明均有手册依据",
+            "refs": [
+              "h:24",
+              "h:36",
+              "h:50",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（按电话号码查客户），诊断顺序符合手册，数据超额后报价、确认、充值、再验证的步骤齐全",
+            "refs": [
+              "h:2",
+              "h:62",
+              "h:74"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS问题已解决：2GB数据充值成功（$4.00），can_send_mms 确认可发送"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:66",
+        "to": "h:70",
+        "purpose": "数据超额诊断引出充值方案"
+      },
+      {
+        "from": "h:73",
+        "to": "h:76",
+        "purpose": "充值成功后验证MMS恢复"
+      }
+    ],
+    "auxiliary_notes": [
+      "整体为一次顺畅的技术支持流程，未发现实质性问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

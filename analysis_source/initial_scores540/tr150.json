@@ -1,0 +1,137 @@
+{
+  "case_id": "tr150",
+  "created_beijing": "2026-11-10T15:19:13.000085+08:00",
+  "input_sha256": "1180d2426cddd6ce7dca1bb3b90bb2d114e73f00f0e03456354913f5622475fa",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "9003d6faf90e4b76e3a9f6a81e3a0e570dff67b47977de3c95cb51bbe7d71cac",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 735,
+    "completion_tokens_details": {
+      "reasoning_tokens": 103
+    },
+    "prompt_tokens": 7755,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 8490
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消预订并退款",
+        "object": "预订 3RK2T9（MCO-SFO，含保险退款主张）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:7",
+            "change": "用户坚持保险已购买但撤回了对Agent直接办理的要求，改为索要人工（记录在原组，不判未完成）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅当满足取消条件（24h内/航司取消/商务舱/保险覆盖健康原因）时才可取消",
+            "basis": "policy 'flight can be cancelled if any of the following is true'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "有保险且健康原因时应可取消并退款",
+            "basis": "policy保险条款 + 用户 'I'm sick'",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "系统记录 basic_economy、insurance:no、创建于2024-05-02，均不满足取消条件，拒绝符合policy；查证对象3RK2T9正确",
+            "refs": [
+              "h:5",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝取消并转人工处理争议是合法处理路径，不构成业务失败",
+            "refs": [
+              "h:6",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明拒绝原因及保险记录为no，未虚假承诺完成",
+            "refs": [
+              "h:6",
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "保险无、>24小时、basic economy均有源依据；$280=$57+$83 ×2的核算正确",
+            "refs": [
+              "h:5",
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id和reservation id，查询预订详情核实后再拒绝；用户明确要求supervisor后执行transfer并发送标准话术",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未取消；Agent依规拒绝，用户因主张保险记录不符被转人工，转接成功"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:6",
+        "to": "h:5",
+        "purpose": "拒绝依据来自预订详情中的cabin/insurance/created_at"
+      }
+    ],
+    "auxiliary_notes": [
+      "数据库记录与用户口头主张不一致，工具记录可信度更高；转人工的summary客观描述了争议，处理得当"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

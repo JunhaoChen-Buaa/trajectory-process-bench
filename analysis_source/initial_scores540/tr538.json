@@ -1,0 +1,136 @@
+{
+  "case_id": "tr538",
+  "created_beijing": "2026-11-10T16:19:23.064305+08:00",
+  "input_sha256": "2d5ea8ae476fd90079f8a461a601821afe2aad7fcff16818d7606c8816ef5796",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4e593dfb2c44e9b30d65ae69fe055f7feb4a5c53524355034e5fa470a14fb2f1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 495,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 12400,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12895
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复手机无信号问题（技术支持）",
+        "object": "线路555-123-2002（L1002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查并解决No Service问题",
+            "basis": "用户要求",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按手册流程排查：关闭飞行模式、检查SIM、重新插卡，对象为正确线路，设备端操作由用户执行属正常引导",
+            "refs": [
+              "h:14",
+              "h:18",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排查无需用户确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "状态栏恢复Excellent信号、5G、Data Enabled，SIM Active（h:24,h:26），问题解决",
+            "refs": [
+              "h:24",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28的完成总结与实际状态一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明飞行模式禁用蜂窝连接、SIM状态解读均有手册依据且正确",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证身份（h:4），再按手册诊断顺序排查，设备侧操作均引导用户完成",
+            "refs": [
+              "h:4",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式关闭、SIM重新插好且Active，信号与移动数据恢复，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认555-123-2002对应L1002且状态Active"
+      },
+      {
+        "from": "h:22",
+        "to": "h:24",
+        "purpose": "重插SIM后信号恢复"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备端诊断与修复操作由用户执行，符合设备侧行动规范"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

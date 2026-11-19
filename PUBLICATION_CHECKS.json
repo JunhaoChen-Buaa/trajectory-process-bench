@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "prepared_on": "2026-11-19",
+  "local_verification": {
+    "python": "3.13; existing isolated acceptance environment",
+    "task_catalogs": 45,
+    "normalized_inputs": 540,
+    "unit_tests": {
+      "run": 57,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "network_attempts": 0,
+    "new_model_calls": 0,
+    "new_business_trials": 0,
+    "process_exit_code": 0,
+    "offline_exit_cleanup": {
+      "cached_client_objects": 4,
+      "unused_callbacks_removed": 1,
+      "live_model_transport_used": false,
+      "scope": "Offline verifier only; import-created clients had no live transport; normal task cleanup is unchanged"
+    }
+  },
+  "reference_trajectories": {
+    "pass": 291,
+    "fail": 220,
+    "unknown": 29
+  },
+  "reference_request_groups": {
+    "pass": 506,
+    "fail": 321,
+    "unknown": 47
+  },
+  "initial_reviewed_comparison": {
+    "paired_complete": 527,
+    "incomplete_initial": 13,
+    "verdict_agree": 459,
+    "metrics_unchanged": true
+  },
+  "publication_scan": {
+    "status": "passed",
+    "known_credential_matches": 0,
+    "private_key_matches": 0,
+    "private_local_path_matches": 0,
+    "candidate_values_printed": false,
+    "scope": "Current release files; pattern checks plus private exact credential comparison"
+  },
+  "documentation_links": "all local links resolve",
+  "git_roundtrip": {
+    "status": "passed",
+    "files": 1704,
+    "core_autocrlf": true,
+    "all_publication_files_tracked": true,
+    "all_exported_bytes_identical": true,
+    "commits_created": 0,
+    "remotes_added": 0,
+    "network_used": false
+  },
+  "unchanged": {
+    "reference_files": 605,
+    "runtime_and_rubric": true,
+    "upstream_files": true,
+    "original_delivery": true
+  },
+  "hosted_ci": "not run; workflow included for Python 3.12/3.13",
+  "external_publication": "These checks were completed locally before upload; repository identity is supplied separately.",
+  "repository": "https://github.com/JunhaoChen-Buaa/trajectory-process-bench"
+}

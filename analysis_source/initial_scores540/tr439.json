@@ -1,0 +1,267 @@
+{
+  "case_id": "tr439",
+  "created_beijing": "2026-11-10T15:29:44.140503+08:00",
+  "input_sha256": "7d84f2bf506414a6bfef01634cf7e40f29dfdd994700bd25888e586d63ce168c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "fc225e18990c747e340dd42a3c7f03be8837d77d3298465956c0a495479404d4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1886,
+    "completion_tokens_details": {
+      "reasoning_tokens": 371
+    },
+    "prompt_tokens": 18361,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 20247
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "法国境内手机移动数据故障排查与修复",
+        "object": "用户号码555-123-2002对应的线路及设备数据连接",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确识别用户号码对应的line并在该line上操作",
+            "basis": "用户自述号码555-123-2002；查line应核对号码映射",
+            "refs": [
+              "h:5",
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "修复移动数据不可用/过慢问题",
+            "basis": "用户请求",
+            "refs": [
+              "h:1",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "充值数据前确认价格",
+            "basis": "policy: 'Confirm the price'",
+            "refs": [
+              "h:20"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "对用户如实说明办理结果",
+            "basis": "REPORT要求与用户信任",
+            "refs": [
+              "h:54"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "全程在L1001上启用roaming和尝试refuel，但用户提供的号码555-123-2002对应L1002（初始映射L1002 roaming已启用），操作对象错误；refuel_data还因类型错误失败未被察觉",
+            "refs": [
+              "h:5",
+              "h:7",
+              "e:2",
+              "e:5",
+              "e:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "用户同意2GB充值（h:21）对象一致，但按policy充值前需确认价格，Agent从未告知或确认每GB价格",
+            "refs": [
+              "h:21",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "会话结束时多次run_speed_test均为'No Connection'（e:21），refuel未成功且2GB从未到账（refueling_gb始终0.0），问题未解决，最终转人工；其中对象选错和refuel失败为Agent根因",
+            "refs": [
+              "e:4",
+              "e:18",
+              "e:21",
+              "e:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2",
+              "I4"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:28向用户称'we refueled 2 GB'但该调用实际报错未成功，属虚假完成说明；h:54称'everything should be working properly'与随即speed test失败矛盾",
+            "refs": [
+              "h:25",
+              "h:28",
+              "h:54",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": [
+              "I2",
+              "I5"
+            ]
+          },
+          "FACT": {
+            "status": "unknown",
+            "reason": "h:12称数据用量接近上限'could be contributing'仅为推测且用词留有余地，未直接断言错误事实；但仅用3.2/5GB不足以支持结论，依据不足",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "逐一排查了data开关、Data Saver、VPN、网络模式、roaming等政策列明的原因，穷尽手段后按政策转人工，转接流程正确",
+            "refs": [
+              "h:30",
+              "h:68",
+              "e:20",
+              "e:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "移动数据仍无连接，2GB充值未实际生效且对象选错line，最终转人工处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "全程在错误line L1001上操作，未核对用户号码555-123-2002对应L1002",
+        "basis": "用户称号码555-123-2002；离线映射显示该号码绑定L1002且roaming本已启用",
+        "refs": [
+          "h:5",
+          "h:7",
+          "h:14",
+          "e:2",
+          "e:12"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "roaming启用、refuel等操作均作用在非用户线路，用户线路未受益"
+      },
+      {
+        "issue_id": "I2",
+        "title": "refuel_data调用报错未成功，Agent仍向用户宣称已充值2GB",
+        "basis": "e:5返回Error \"'<= not supported...'\"，refueling_gb始终0.0；h:28称'we refueled 2 GB'",
+        "refs": [
+          "h:23",
+          "h:24",
+          "h:25",
+          "h:28",
+          "e:4"
+        ],
+        "root_cause": "mixed",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户以为已获得2GB数据，实际未到账，且操作在错误line上"
+      },
+      {
+        "issue_id": "I3",
+        "title": "充值前未按政策确认价格",
+        "basis": "policy: refuel应'Confirm the price'",
+        "refs": [
+          "h:20",
+          "h:21",
+          "h:22"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户在未知价格情况下同意并尝试扣费充值（实际未成功）"
+      },
+      {
+        "issue_id": "I4",
+        "title": "问题最终未解决即结束，移动数据仍无连接",
+        "basis": "多次run_speed_test均'No Connection'（e:21）",
+        "refs": [
+          "e:18",
+          "e:21",
+          "e:22"
+        ],
+        "root_cause": "mixed",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户核心需求未达成，需转人工；转人工本身合规"
+      },
+      {
+        "issue_id": "I5",
+        "title": "在speed test失败的情况下宣称'everything should be working properly'",
+        "basis": "h:54 vs e:13 speed test失败",
+        "refs": [
+          "h:54",
+          "h:56"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户问题已解决"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "e:0",
+        "purpose": "用户提供的号码用于确定其线路"
+      },
+      {
+        "from": "e:0",
+        "to": "h:14",
+        "purpose": "账号下含L1001-L1003，号码映射需核对才能确定目标line"
+      },
+      {
+        "from": "h:23",
+        "to": "h:28",
+        "purpose": "refuel失败回执与随后的虚假完成说明相关联"
+      },
+      {
+        "from": "h:54",
+        "to": "e:13",
+        "purpose": "完成宣称与speed test失败矛盾"
+      }
+    ],
+    "auxiliary_notes": [
+      "多条customer_visible消息中内嵌伪造的工具调用JSON（h:16、h:24、h:28、h:32等），未实际执行却展示给用户，属接口规范问题并加剧了虚假说明",
+      "enable_roaming重复调用三次（e:12/14/16）均返回已启用，未根据回执调整排查方向",
+      "h:76中Agent以'check_network_mode_preference'名义实际引导执行set_network_mode_preference(4g_only)，工具名与意图不符"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

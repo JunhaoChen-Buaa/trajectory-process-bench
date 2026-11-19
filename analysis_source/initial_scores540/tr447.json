@@ -1,0 +1,225 @@
+{
+  "case_id": "tr447",
+  "created_beijing": "2026-11-10T14:26:05.360976+08:00",
+  "input_sha256": "8e4f3381e68840cd634a1224d36da7735eb5183f9f8d9faa7ab9623a244df5d3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "2a46f1da9bc9fa4a8931fe2a6994c1c749857d523c6b1adfcca60904544d1b65",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2031,
+    "completion_tokens_details": {
+      "reasoning_tokens": 687
+    },
+    "prompt_tokens": 13211,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15242
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复用户在法国的手机移动数据不可用/过慢问题",
+        "object": "用户手机号码555-123-2002对应的线路(L1002)及用户设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "应针对用户提供号码555-123-2002所关联的线路排查并修复数据问题",
+            "basis": "policy: 'the line associated with the phone number the user provided'",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在国外漫游，应确保线路roaming已启用(未启用则免费开启)，并引导用户在设备上开启Data Roaming",
+            "basis": "policy roaming条款",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "仅在数据超限时才refuel，且需先确认价格并征得同意",
+            "basis": "policy Data Refueling",
+            "refs": [
+              "h:27",
+              "h:28"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "转人工前应尽力用可用手段解决",
+            "basis": "policy: 'try your best to resolve the issue before transferring'",
+            "refs": [
+              "h:29",
+              "h:32"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "将排查对象锁定在L1001而非用户号码555-123-2002对应的L1002；数据仅3.2/5GB未超限仍建议refuel 2GB；线路/设备roaming问题本可用enable_roaming和toggle_roaming解决却直接转人工",
+            "refs": [
+              "h:18",
+              "h:28",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2",
+              "I3"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "最终未执行任何需确认的变更操作（refuel仅是建议，用户未执行，且未确认价格）",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "用户移动数据问题最终未解决：真正可修的roaming设置(线路端免费enable_roaming、设备端toggle_roaming)从未处理，直接转人工，用户离开时数据仍不可用",
+            "refs": [
+              "h:24",
+              "h:32",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent未向用户虚假声称问题已解决；转接话术为规定文本",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "向用户声称L1001是其正在使用的线路（'your first line (L1001) is the one that's currently active'），但用户提供的号码555-123-2002对应L1002，L1001绑定的是555-123-2001，该对象判断无依据且错误",
+            "refs": [
+              "h:8",
+              "h:12",
+              "h:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未核对用户号码与线路的映射即选定L1001；发现'不想在国外'场景后未按政策检查线路roaming状态/启用roaming，也未引导设备toggle_roaming",
+            "refs": [
+              "h:10",
+              "h:30",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "未解决：数据问题因roaming未处理仍然存在，已转人工；L1001未被改动，未产生误扣费"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "线路对象识别错误：用L1001而非用户号码555-123-2002对应的L1002",
+        "basis": "用户明确说号码是555-123-2002(h:5)；离线映射显示555-123-2002→L1002、L1001→555-123-2001；policy要求按'line associated with the phone number the user provided'操作",
+        "refs": [
+          "h:5",
+          "h:8",
+          "h:10",
+          "h:12"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "后续所有诊断和修复针对错误线路，误导用户且问题未被定位"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未尝试可用的roaming修复即转人工",
+        "basis": "用户身在法国(h:1)；check_network_status显示Data Roaming Enabled: No(h:30)；policy要求旅行用户检查并免费启用roaming，且'try your best to resolve before transferring'",
+        "refs": [
+          "h:30",
+          "h:32"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户数据问题未解决被转接，而enable_roaming工具和toggle_roaming设备操作本可解决"
+      },
+      {
+        "issue_id": "I3",
+        "title": "数据未超限仍建议无谓的2GB refuel",
+        "basis": "get_data_usage显示3.2/5GB(h:27)；policy规定仅'If the user's data usage exceeds the plan's data limit'才可refuel",
+        "refs": [
+          "h:27",
+          "h:28"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户未执行，未产生扣费，但方案违反政策且与事实矛盾"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:10",
+        "purpose": "用户提供的号码应确定线路对象，Agent却查询了L1001"
+      },
+      {
+        "from": "h:30",
+        "to": "h:32",
+        "purpose": "设备显示roaming关闭，本应引导修复而非直接转人工"
+      },
+      {
+        "from": "h:27",
+        "to": "h:28",
+        "purpose": "数据未超限却建议refuel，方案缺乏依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:22中Agent将工具调用JSON文本直接发给用户而非发起调用，属接口规范问题，不影响业务判分",
+      "h:4将号码查询错误描述为'多个客户同号码'，措辞与实际错误返回不符，属轻微表述问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

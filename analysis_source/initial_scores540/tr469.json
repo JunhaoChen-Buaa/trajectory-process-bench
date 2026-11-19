@@ -1,0 +1,126 @@
+{
+  "case_id": "tr469",
+  "created_beijing": "2026-11-10T14:50:49.302846+08:00",
+  "input_sha256": "5b1f47e3c7e99f68c3812c2c4b8e62869cfeade4e9e2a7e65db772dbc66a6671",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "efb1b25bab9deb31ffbae14e7eb6a4b53ed1f203d9d3baca0c1cf71e8efbe9ac",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 634,
+    "completion_tokens_details": {
+      "reasoning_tokens": 72
+    },
+    "prompt_tokens": 13287,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 13921
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "境外移动数据故障排查",
+        "object": "L1002线路(555-123-2002)的移动数据连接",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复用户在法国时555-123-2002线路的移动数据连接",
+            "basis": "用户短引 'it just stops working altogether... so slow'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策先识别客户(h:2要求号码)，核对L1002线路roaming_enabled=true(h:14)，指导用户开启设备数据漫游与关闭Data Saver，均在政策允许范围",
+            "refs": [
+              "h:5",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排查无需价格/方案确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户开启roaming并关闭Data Saver后速度测试275 Mbps (Excellent)，数据连接恢复",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'275 Mbps... means your data is working great now' 与实际结果一致，并如实说明线路侧roaming本已开启",
+            "refs": [
+              "h:16",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'your line (L1002...) already has roaming enabled' 与工具返回一致；roaming off影响数据连接的说明符合政策",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份识别(get_customer_by_phone)，核对线路roaming状态后再指导toggle_roaming、关闭Data Saver并run_speed_test验证",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002设备数据漫游开启、Data Saver关闭，速度测试Excellent，移动数据正常"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:14",
+        "purpose": "确认555-123-2002对应L1002且carrier侧roaming已开启"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent同时发出三个get_details_by_id调用以定位用户号码对应线路，纯接口规范说明，未影响业务"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

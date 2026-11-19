@@ -1,0 +1,166 @@
+{
+  "case_id": "tr026",
+  "created_beijing": "2026-11-10T16:11:34.204119+08:00",
+  "input_sha256": "f4e33aaef567c1d739cd8ae210cfcbadecdc300d7796bed0d7063a2244d5c559",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "1aff009e364b3d2cc126a5b3cbf5b8809d3f2b5237b0d5a4d751bf91358f01d8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 889,
+    "completion_tokens_details": {
+      "reasoning_tokens": 132
+    },
+    "prompt_tokens": 12089,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12978
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日纽约至西雅图单程经济舱机票",
+        "object": "新预订 reservation HATHAT（HAT136+HAT039，乘客 Mia Li）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:9",
+            "change": "补充时间限制：出发须晚于11am EST，直飞选项被否决"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订 JFK→SEA 2024-05-20 单程、出发晚于11am的航班",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "经济舱、无保险、3件免费托运行李",
+            "basis": "用户要求",
+            "refs": [
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用 certificate_7504063 之外的 $250 证书一张 + Visa 尾号7447 支付差额",
+            "basis": "用户要求及政策'at most one travel certificate'",
+            "refs": [
+              "h:13",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "预订前列出明细并获得明确确认",
+            "basis": "policy:'must list the action details and obtain explicit user confirmation'",
+            "refs": [
+              "h:16",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "单程/日期/航段/经济舱/一张证书+一张信用卡均符合政策限制，金卡经济舱3件免费行李正确。",
+            "refs": [
+              "h:14",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16 列出全部明细后用户明确'Go ahead and book it'。",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "book_reservation 成功写入，实际存储航班、价格(152+103=255)、支付($250+$5)、3件行李、无保险均与确认一致。",
+            "refs": [
+              "e:3",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:20 完成说明与实际存储结果完全一致。",
+            "refs": [
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价 $255（$152+$103）、证书规则'at most one travel certificate'、金卡经济舱3件免费行李均有工具/政策依据。",
+            "refs": [
+              "h:7",
+              "h:14",
+              "e:3"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取 user id、查询用户与航班、收集乘客/行李/保险信息，必要步骤齐全。",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:6",
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订 HATHAT 成功创建，实际存储与用户确认内容一致。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:16",
+        "to": "e:3",
+        "purpose": "确认明细与实际写入结果逐项比对"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:7/h:11 的搜索返回中 HAT069/HAT083 的 date 字段为 null，属工具返回展示问题，未影响办理",
+      "行李描述'3 checked bags (all free)'与 total_baggages=3/nonfree=0 一致，无问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

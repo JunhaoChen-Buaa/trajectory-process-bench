@@ -1,0 +1,271 @@
+{
+  "domain": "telecom",
+  "task_id": "[mms_issue]bad_network_preference|break_app_both_permissions[PERSONA:Easy]",
+  "original_task_digest": "feb591346602bb32d5321ad4c58ef01d101180d119238b750eafada7235e3f91",
+  "sampling_stratum": "mms_issue",
+  "task": {
+    "id": "[mms_issue]bad_network_preference|break_app_both_permissions[PERSONA:Easy]",
+    "description": {
+      "purpose": "Test resolution path: MMS (Picture/Group Messaging) Issues.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": "\nAs a 41-year-old office administrator, you use your cellphone daily for both work and personal tasks. While you're familiar with common phone functions, you wouldn't call yourself a tech enthusiast.\n\nYour technical skills are average - you handle standard smartphone features like calls, texts, email, and basic apps with ease. You understand the fundamental settings, but prefer clear, step-by-step guidance when trying something new.\n\nIn interactions, you're naturally friendly and patient. When receiving help, you listen attentively and aren't afraid to ask questions. You make sure to confirm your understanding and provide detailed feedback on each instruction you receive.\n",
+      "instructions": {
+        "domain": "telecom",
+        "reason_for_call": "You are unable to send MMS messages using your messaging app for the past few hours. You want to fix it and successfully send an MMS message.",
+        "known_info": "You are Priya Patil with phone number 555-123-2002. You are currently at home in the United States.",
+        "unknown_info": null,
+        "task_instructions": "If the agent suggests actions that don't immediately fix the issue, follow their guidance but express mild frustration after the first unsuccessful attempt. You are willing to refuel 2.0 GB of data if necessary, but you do not want to change your mobile data plan. If the tool call does not return updated status information, you might need to perform another tool call to get the updated status. \nWhenever the agent asks you about your device, always ground your responses on the results of tool calls. \nFor example: If the agent asks what the status bar shows, always ground your response on the results of the `get_status_bar` tool call. If the agent asks if you are able to send an MMS message, always ground your response on the results of the `can_send_mms` tool call.\nNever make up the results of tool calls, always ground your responses on the results of tool calls.\nIf you are unsure about whether an action is necessary, always ask the agent for clarification.\n"
+      }
+    },
+    "ticket": "The user has been unable to send MMS messages using their messaging app for the past few hours. Customer name: Priya Patil, phone number: 555-123-2002, current location: at home in the United States. They will consider the issue resolved when an MMS message can be successfully sent.",
+    "initial_state": {
+      "initialization_data": {
+        "agent_data": {
+          "customers": [
+            {
+              "customer_id": "C1001",
+              "full_name": "Priya Patil",
+              "date_of_birth": "1985-06-15",
+              "email": "john.smith@example.com",
+              "phone_number": "555-123-2002",
+              "address": {
+                "street": "123 Main St",
+                "city": "Anytown",
+                "state": "CA",
+                "zip_code": "90210"
+              },
+              "account_status": "Active",
+              "payment_methods": [
+                {
+                  "method_type": "Credit Card",
+                  "account_number_last_4": "1235",
+                  "expiration_date": "12/2026"
+                }
+              ],
+              "line_ids": [
+                "L1001",
+                "L1002",
+                "L1003"
+              ],
+              "bill_ids": [
+                "B1001",
+                "B1002",
+                "B1003"
+              ],
+              "created_at": "2025-01-15T10:30:00",
+              "last_extension_date": null,
+              "goodwill_credit_used_this_year": 25.0
+            },
+            {
+              "customer_id": "C1002",
+              "full_name": "Sarah Johnson",
+              "date_of_birth": "1990-11-22",
+              "email": "sarah.j@example.com",
+              "phone_number": "555-123-1002",
+              "address": {
+                "street": "456 Oak Ave",
+                "city": "Springfield",
+                "state": "IL",
+                "zip_code": "62701"
+              },
+              "account_status": "Active",
+              "payment_methods": [
+                {
+                  "method_type": "Debit Card",
+                  "account_number_last_4": "1234",
+                  "expiration_date": "12/2026"
+                },
+                {
+                  "method_type": "Credit Card",
+                  "account_number_last_4": "5678",
+                  "expiration_date": "06/2027"
+                }
+              ],
+              "line_ids": [
+                "L1004",
+                "L1005",
+                "L1006",
+                "L1007",
+                "L1008"
+              ],
+              "bill_ids": [
+                "B1004",
+                "B1005"
+              ],
+              "created_at": "2025-02-10T14:15:00",
+              "last_extension_date": "2025-01-05",
+              "goodwill_credit_used_this_year": 0.0
+            },
+            {
+              "customer_id": "C1003",
+              "full_name": "Michael Lee",
+              "date_of_birth": "1978-04-30",
+              "email": "michael.lee@example.com",
+              "phone_number": "555-123-1003",
+              "address": {
+                "street": "789 Pine St",
+                "city": "Denver",
+                "state": "CO",
+                "zip_code": "80203"
+              },
+              "account_status": "Suspended",
+              "payment_methods": [
+                {
+                  "method_type": "PayPal",
+                  "account_number_last_4": "5555",
+                  "expiration_date": "06/2025"
+                }
+              ],
+              "line_ids": [
+                "L1009"
+              ],
+              "bill_ids": [
+                "B1006"
+              ],
+              "created_at": "2024-12-05T09:45:00",
+              "last_extension_date": null,
+              "goodwill_credit_used_this_year": 50.0
+            },
+            {
+              "customer_id": "C1004",
+              "full_name": "Emma Wilson",
+              "date_of_birth": "1995-08-17",
+              "email": "emma.w@example.com",
+              "phone_number": "555-123-1004",
+              "address": {
+                "street": "101 River Rd",
+                "city": "Austin",
+                "state": "TX",
+                "zip_code": "73301"
+              },
+              "account_status": "Pending Verification",
+              "payment_methods": [],
+              "line_ids": [],
+              "bill_ids": [],
+              "created_at": "2025-01-25T16:20:00",
+              "last_extension_date": null,
+              "goodwill_credit_used_this_year": 0.0
+            }
+          ]
+        },
+        "user_data": null
+      },
+      "initialization_actions": [
+        {
+          "env_type": "user",
+          "func_name": "set_user_info",
+          "arguments": {
+            "name": "Priya Patil",
+            "phone_number": "555-123-2002"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "set_network_mode_preference",
+          "arguments": {
+            "mode": "2g_only"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "remove_app_permission",
+          "arguments": {
+            "app_name": "messaging",
+            "permission": "sms"
+          }
+        },
+        {
+          "env_type": "user",
+          "func_name": "remove_app_permission",
+          "arguments": {
+            "app_name": "messaging",
+            "permission": "storage"
+          }
+        }
+      ],
+      "message_history": null
+    },
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "set_network_mode_preference_0",
+          "requestor": "user",
+          "name": "set_network_mode_preference",
+          "arguments": {
+            "mode": "4g_5g_preferred"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "grant_app_permission_1",
+          "requestor": "user",
+          "name": "grant_app_permission",
+          "arguments": {
+            "app_name": "messaging",
+            "permission": "sms"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "grant_app_permission_2",
+          "requestor": "user",
+          "name": "grant_app_permission",
+          "arguments": {
+            "app_name": "messaging",
+            "permission": "storage"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": [
+        {
+          "env_type": "user",
+          "func_name": "assert_can_send_mms",
+          "arguments": {
+            "expected_status": true
+          },
+          "assert_value": true,
+          "message": null
+        }
+      ],
+      "communicate_info": null,
+      "nl_assertions": null,
+      "reward_basis": [
+        "ENV_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/telecom.txt",
+  "policy_rule_index": "requirements/telecom_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr385",
+    "tr386",
+    "tr387",
+    "tr388",
+    "tr389",
+    "tr390",
+    "tr391",
+    "tr392",
+    "tr393",
+    "tr394",
+    "tr395",
+    "tr396"
+  ]
+}

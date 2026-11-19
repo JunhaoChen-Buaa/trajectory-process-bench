@@ -1,0 +1,154 @@
+{
+  "case_id": "tr324",
+  "created_beijing": "2026-11-10T14:39:16.093622+08:00",
+  "input_sha256": "4007783eff87c8d5380476eb5be15e479694d76feed3a922e0d9ce6a81315f63",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "16e84d68f2d4dc9538e3e59fbd95395a3fd6a086e8d40d6ee1dfbd69842f2831",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 683,
+    "completion_tokens_details": {
+      "reasoning_tokens": 45
+    },
+    "prompt_tokens": 13366,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 14049
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将订单书架改为4英尺同材质同色，不可行后取消整个订单",
+        "object": "订单 #W8835847（Bookshelf）",
+        "request_refs": [
+          "h:1",
+          "h:17"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "因目标变体缺货，放弃换货改为取消整个订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将书架改为 glass/white/4 ft（须为可用变体）",
+            "basis": "用户h:1与policy 'different product option, available'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消订单须pending并经明确确认，理由为ordered by mistake",
+            "basis": "policy cancel pending order",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "目标变体7373893106不可用，正确拒绝改单；随后按policy对pending订单取消，理由合规",
+            "refs": [
+              "h:15",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明订单号、理由、退款到礼品卡，获得用户明确yes",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认订单cancelled并退款$689.97至gift_card_2652153",
+            "refs": [
+              "e:5",
+              "s:5"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知取消成功、退款即时到账，与实际状态一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "如实告知目标变体不可用及可用4ft选项，与产品数据一致",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先邮箱认证，查订单状态pending，查产品变体可用性，顺序符合要求",
+            "refs": [
+              "h:2",
+              "h:5",
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单 #W8835847 已取消，退款$689.97即时到礼品卡；原换货目标因缺货未执行"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:17",
+        "purpose": "目标变体不可用导致用户改取消"
+      },
+      {
+        "from": "h:21",
+        "to": "h:22",
+        "purpose": "取消结果与完成说明一致性核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "换货请求因库存不可行未执行，属正确拒绝，不记失败"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,162 @@
+{
+  "case_id": "tr527",
+  "created_beijing": "2026-11-10T16:15:11.898730+08:00",
+  "input_sha256": "c9f3e5d188af634734087377860cec4cd1b758ae4d7c60ee39d37a7952993e31",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6921b11c5e7b4ca92a752644fc48511f767a60a27321ac470009171c1d448f2e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1023,
+    "completion_tokens_details": {
+      "reasoning_tokens": 287
+    },
+    "prompt_tokens": 11173,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 12196
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "手机无服务故障排查",
+        "object": "用户手机线路服务",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前须先识别客户身份",
+            "basis": "policy: Technical Support \"You must first identify the customer\"",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q1x",
+            "content": "转人工前应穷尽可自行排查的手段（APN检查、线路状态/欠费核查）",
+            "basis": "tech_support_policy: \"try all the possible ways...before transferring\"",
+            "refs": [
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "全程未识别客户身份，也未核查线路状态/欠费等策略要求的方向，即推进排查",
+            "refs": [
+              "h:1",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排查类操作无需单独确认",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "无服务问题未解决；且转人工前未完成APN检查与线路状态核查，属过早升级而非依规必要转接",
+            "refs": [
+              "h:25",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1x"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "未向用户做出任何已完成或故障原因的结论性说明，仅发送标准转接话术",
+            "refs": [
+              "h:28"
+            ]
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未对用户提供影响理解的政策或事实说明",
+            "refs": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "跳过客户识别和APN设置检查、线路停机核查即转人工，违反排查顺序与穷尽要求；飞行模式开启已正确处理",
+            "refs": [
+              "h:1",
+              "h:16",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q1x"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "问题未解决，已转人工；APN设置与线路状态从未核查"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未先识别客户身份即开展技术支持",
+        "basis": "policy: \"You must first identify the customer\"；全程无任何customer lookup调用",
+        "refs": [
+          "h:1",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "无法核查线路状态/欠费等可能根因（线路可能为Suspended），排查方向缺失"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未检查APN设置与线路状态即提前转人工",
+        "basis": "tech_support_policy: \"Make sure you try all the possible ways to resolve the user's issue before transferring\"；check_apn_settings从未执行",
+        "refs": [
+          "h:25",
+          "h:26"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "无服务问题未尝试完所有自助排查手段即升级，业务未办结"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:26",
+        "purpose": "用户报告No Service后Agent未识别身份、未查线路状态即转人工"
+      },
+      {
+        "from": "h:16",
+        "to": "h:26",
+        "purpose": "SIM Active后应继续APN检查而非直接升级"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14 在飞行模式已关闭后再次要求toggle_airplane_mode属冗余重复，为接口/流程效率问题，不影响业务评分",
+      "Agent回复多为直接输出工具调用指令，格式属接口规范范畴"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

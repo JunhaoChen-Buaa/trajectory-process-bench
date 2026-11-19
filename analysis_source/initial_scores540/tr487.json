@@ -1,0 +1,180 @@
+{
+  "case_id": "tr487",
+  "created_beijing": "2026-11-10T15:40:45.534821+08:00",
+  "input_sha256": "d6f37d4ab325383215546fb3e794830ff5888226b15fed6d6b736b409b21945e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6614e5f7bdd57f4a9692b4b96e3412c3ae822b8a180a4cde7d154dd7ab07229e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 967,
+    "completion_tokens_details": {
+      "reasoning_tokens": 113
+    },
+    "prompt_tokens": 12446,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13413
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并恢复手机无服务问题",
+        "object": "用户手机线路（未确认具体线路）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q1b",
+            "content": "无服务排查应检查线路是否因欠费停机，可恢复的停机应由Agent恢复",
+            "basis": "tech_support_policy: Line Suspension; general policy",
+            "refs": [
+              "h:1",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "穷尽可解决手段后才可转人工",
+            "basis": "policy: try your best to resolve before transferring",
+            "refs": [
+              "h:37"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "技术支持未先做客户身份识别（查号/查ID），违反'Technical Support: You must first identify the customer'，也从未核对用户线路是否停机",
+            "refs": [
+              "h:1",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "设备侧排查动作均为只读诊断或用户确认过的修复，无需另行确认的账户变更",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "用户仍无信号，问题未解决；线路可能因停机导致无服务（账户存在Suspended线路且设备故障排查已穷尽常见项），Agent在未检查线路状态的情况下过早升级，未尽力自行解决",
+            "refs": [
+              "h:37",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1b",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转接说明'YOU ARE BEING TRANSFERRED TO A HUMAN AGENT'与实际转接成功一致，未虚构解决结果",
+            "refs": [
+              "h:39",
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "逐项说明的诊断结论（SIM active、APN broken需重置等）均有工具返回依据",
+            "refs": [
+              "h:14",
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "缺少政策明文要求的客户身份识别步骤；穷尽排查后未检查线路停机这一明列原因即转接",
+            "refs": [
+              "h:2",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q1b"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "用户手机仍无服务，已转人工；Agent未验证客户身份，也未排查线路是否停机"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "技术支持未先识别客户身份",
+        "basis": "policy: 'Technical Support - You must first identify the customer'；全程无任何客户查询调用",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "无法核对线路状态/停机原因，后续排查不完整"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未检查线路停机原因即过早转人工",
+        "basis": "tech_support_policy要求调查线路是否Suspended且Agent可自行恢复停机；policy要求'try your best to resolve before transferring'",
+        "refs": [
+          "h:37",
+          "h:38"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户无服务问题未解决，可能本可由Agent恢复停机线路"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:37",
+        "to": "h:38",
+        "purpose": "重启与APN重置后仍无服务，Agent立即转人工"
+      },
+      {
+        "from": "h:1",
+        "to": "h:2",
+        "purpose": "首次请求即开始设备排查，未做身份识别"
+      }
+    ],
+    "auxiliary_notes": [
+      "多处assistant消息内容为工具调用JSON而非自然语言（如h:2、h:8），属接口规范问题，不影响业务判分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

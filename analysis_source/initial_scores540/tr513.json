@@ -1,0 +1,138 @@
+{
+  "case_id": "tr513",
+  "created_beijing": "2026-11-10T15:03:49.286106+08:00",
+  "input_sha256": "4e5765c9948fbde853ee2b7109e0fa3dfad57595f5117d529ab12168615789d3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f86ef4e67e8bc062210a44ab7a6047d0f76afcf5b5d268d755450601c74ca787",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 544,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13231,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 13775
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机\"No Service\"无服务问题(技术支持)",
+        "object": "L1002 (555-123-2002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按技术支持流程诊断并尽量解决无服务问题",
+            "basis": "tech_support_policy: cellular service troubleshooting",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "SIM锁定时升级人工协助",
+            "basis": "tech_support_policy: Locked SIM — escalate to technical support for SIM security",
+            "refs": [
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "逐步按流程排查(关闭飞行模式、开数据、查SIM)，SIM锁定属不可自行处理情形，转人工符合政策。",
+            "refs": [
+              "h:13",
+              "h:17",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断与转人工无需额外确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "问题未能解决是因SIM PIN锁定需人工，正确转接(e:9)，属合规结果。",
+            "refs": [
+              "h:25",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转接消息按政策发送，未虚假声称问题已解决。",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "告知L1002非挂起、飞行模式导致无服务等说明均有工具返回依据。",
+            "refs": [
+              "h:5",
+              "h:7",
+              "h:11"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:2)，再按诊断路径检查状态栏/SIM，最后真实转接，顺序符合政策。",
+            "refs": [
+              "h:2",
+              "h:10",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "发现SIM PIN锁定，按政策转人工，问题由人工接手。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:25",
+        "to": "h:27",
+        "purpose": "SIM锁定是转人工的直接依据"
+      },
+      {
+        "from": "h:2",
+        "to": "h:7",
+        "purpose": "确认用户号码对应L1002且状态Active"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接前未让用户尝试reseat_sim_card，但SIM状态为Locked而非Missing，按政策Locked应升级，处理正确。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

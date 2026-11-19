@@ -1,0 +1,162 @@
+{
+  "case_id": "tr111",
+  "created_beijing": "2026-11-10T16:17:13.859825+08:00",
+  "input_sha256": "850c09a350cccebb7a9db609187273f49fba29bb76d1d78b825fdae20d929b88",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "82b9af0a3cab42573a3619542733a484e7c276b0a2d3fc71ac75b96533248575",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1325,
+    "completion_tokens_details": {
+      "reasoning_tokens": 437
+    },
+    "prompt_tokens": 11270,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 12595
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "定位并处理同日重复航班预订",
+        "object": "用户sophia_martin_4574名下与5月17日达拉斯→纽约、5月22日波士顿出发相关的预订",
+        "request_refs": [
+          "h:1",
+          "h:9",
+          "h:17"
+        ],
+        "revisions": [
+          {
+            "ref": "h:25",
+            "change": "用户明确要求转人工，暂停原查找目标"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "根据用户描述（5月17日到达纽约、5月22日离开波士顿）从7个预订中定位相关/重复预订",
+            "basis": "用户要求 You figure out which flights should go and which should stay",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅执行读取查询，无违规写入；用户明确要求人工后按政策转接。",
+            "refs": [
+              "h:25",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何更新数据库的操作，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "重复航班未识别、未取消；在未查完剩余3个预订（PUNERT/HTR26G/5BGGWZ）情况下问题未解决即转接。",
+            "refs": [
+              "h:9",
+              "h:25",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "对目标业务无完成性说明，仅转接提示；对已查预订的描述性播报不属完成声明。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "向用户播报MFRB94时有实质错误：'There are two passengers'，实际e:1/h:11显示仅1名乘客Sophia Martin。",
+            "refs": [
+              "h:12",
+              "h:11"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "必要步骤是完整核对预订列表以定位相关航班，但仅查了4个预订，遗漏3个未逐一或用搜索核实。",
+            "refs": [
+              "h:7",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "未定位到用户所述行程的预订，未取消任何重复航班，业务转人工，用户问题在本次交互中未解决"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未查完预订列表即转人工，定位任务未完成",
+        "basis": "用户要求根据5月17/5月22行程判断哪些航班该取消（h:9），agent只查了4个预订（MFRB94/HSR97W/SE9KEL/FDZ0T5），剩余PUNERT/HTR26G/5BGGWZ从未查询，也无搜索调用",
+        "refs": [
+          "h:9",
+          "h:25",
+          "h:26"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "重复航班未识别、未处理，用户被迫转人工"
+      },
+      {
+        "issue_id": "I2",
+        "title": "播报MFRB94乘客数错误",
+        "basis": "实际预订仅1名乘客（h:11），agent向用户称'There are two passengers'（h:12）",
+        "refs": [
+          "h:12",
+          "h:11"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "用户收到错误的预订信息描述"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:7",
+        "purpose": "用户行程描述需对照profile中7个预订以判断查找是否完整"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8在未查看任何预订前即断言'multiple flights booked for the same day'属于过早判断，但未构成后续业务误导，列为边界说明",
+      "转接摘要'incorrect reservation details'较笼统，属接口规范层面，不影响业务评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

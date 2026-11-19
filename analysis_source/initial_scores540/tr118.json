@@ -1,0 +1,151 @@
+{
+  "case_id": "tr118",
+  "created_beijing": "2026-11-10T14:44:20.485468+08:00",
+  "input_sha256": "efab55a99a56021fc83137822eddb2dc188cb189e4af681241319942e45c2fae",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "72b063fa15294758ca89c8f5fb2893c6884fbd8b5d5b633065fcd7e708ab59e0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 784,
+    "completion_tokens_details": {
+      "reasoning_tokens": 48
+    },
+    "prompt_tokens": 17159,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17943
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消不符合行程的重复机票预订",
+        "object": "MFRB94、HSR97W、FDZ0T5 三笔预订",
+        "request_refs": [
+          "h:1",
+          "h:7",
+          "h:17"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "用户细化范围：保留5BGGWZ和PUNERT，不触碰有其他乘客的SE9KEL"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "保留5BGGWZ、PUNERT、SE9KEL，取消MCO⇄LGA、ORD→SFO、JFK→PHL",
+            "basis": "用户要求'Anything that doesn't fit that, cancel it'及指定三个订单",
+            "refs": [
+              "h:17",
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消前核对政策资格并取得用户明确确认",
+            "basis": "policy: 必须列明细节并获得explicit confirmation；仅business可取消",
+            "refs": [
+              "h:16",
+              "h:18",
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "三个目标均为business舱可取消，HTR26G因economy/无保险/超24小时被正确拒绝，5BGGWZ因已 flown被正确拒绝",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:18列明三个订单及退款方式，用户h:19明确'go ahead and cancel those three'",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "三次cancel_reservation均返回status cancelled并附退款记录，DB回放确认；保留订单未被误改",
+            "refs": [
+              "h:21",
+              "h:23",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:26如实报告三个订单已取消及退款5-7工作日，与实际状态一致",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对5BGGWZ已飞首段、HTR26G资格、5BGGWZ返程即用户5月17行程的说明均有数据依据",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id并查询全部7个预订再核对资格、确认后执行，顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:8",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MFRB94、HSR97W、FDZ0T5已取消并退款至Visa信用卡，其余订单保持不变"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "用户细化保留/取消范围后Agent据此制定方案"
+      },
+      {
+        "from": "h:19",
+        "to": "h:21",
+        "purpose": "确认后执行取消操作"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在h:16对5BGGWZ标注'(flown)'，实际5月10首段相对当前时间已飞，说明合理。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

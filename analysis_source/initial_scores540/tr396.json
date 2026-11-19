@@ -1,0 +1,126 @@
+{
+  "case_id": "tr396",
+  "created_beijing": "2026-11-10T15:36:05.782545+08:00",
+  "input_sha256": "0d8ad76fc25fb6c6b2693a8b83f9d430d08cd8f8fb6481e559171ad4f9f2192f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a2383a31be2340f6361300b9b32b4e598c4c3163c70fc42e26ca529eda00f346",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 587,
+    "completion_tokens_details": {
+      "reasoning_tokens": 12
+    },
+    "prompt_tokens": 15796,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 16383
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复无法发送MMS的技术支持问题",
+        "object": "L1002线路（555-123-2002）上的messaging应用",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复用户MMS发送失败问题",
+            "basis": "用户要求 'I can't send MMS messages... I need it fixed'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support流程先识别客户（h:2）、核对线路（h:8-11），排查路径（2G网络、APN、Wi-Fi Calling、应用权限）均符合手册。",
+            "refs": [
+              "h:2",
+              "h:20",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持诊断类操作无确认要求。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "can_send_mms 复测返回 'can send MMS messages'（h:46），5G/5G速度测试正常，问题实际解决。",
+            "refs": [
+              "h:46",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致：列出三项修复且经can_send_mms与speed test验证（h:56）。",
+            "refs": [
+              "h:56"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于2G不适合MMS、需storage与sms权限的说明均有手册依据且与设备返回一致。",
+            "refs": [
+              "h:20",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户，逐项按手册诊断（status bar、APN、Wi-Fi calling、permissions），并修复后验证，顺序合规。",
+            "refs": [
+              "h:2",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS问题已解决，messaging应用可正常发送MMS，5G网络下数据连接正常。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:36",
+        "to": "h:46",
+        "purpose": "授予权限后复测确认修复效果"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:28中APN措辞略含糊（'might need to reset'）但未影响判断与结果，属轻微措辞问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

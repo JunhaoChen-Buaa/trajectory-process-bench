@@ -1,0 +1,175 @@
+{
+  "case_id": "tr051",
+  "created_beijing": "2026-11-10T14:56:13.842407+08:00",
+  "input_sha256": "3a20aa0a5e724abc04024131be47ae8762b24ead1337b07a34c794bc0a02814e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "be7644595df0ee66206b607e2e9e4acbe0bf2f81f240b1868cf56e39ec4e5f64",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1076,
+    "completion_tokens_details": {
+      "reasoning_tokens": 156
+    },
+    "prompt_tokens": 18598,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19674
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将5月17日JFK至LAX航班改为直达/最早到家航班",
+        "object": "用户现有JFK-LAX机票预订（预订ID待查）",
+        "request_refs": [
+          "h:9",
+          "h:21",
+          "h:33"
+        ],
+        "revisions": [
+          {
+            "ref": "h:29",
+            "change": "在无直达航班的前提下，先探询最短中转方案（未撤回改签目标）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户不知道预订ID时，Agent应使用可用工具帮助定位预订",
+            "basis": "policy: \"If the user doesn't know their reservation id, the agent should help locate it using available tools\"",
+            "refs": [
+              "h:41",
+              "h:45"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "如找到符合条件的航班，在规则内完成改签（价格差额<$100才执行）",
+            "basis": "用户要求 h:9,h:33",
+            "refs": [
+              "h:9",
+              "h:33"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "unknown",
+            "reason": "改签本身尚未进入执行阶段（因预订ID未查到），无规则违规写入；多个搜索尝试符合改签前提调查",
+            "refs": [
+              "h:10",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未到达需要确认的更新操作阶段",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "改签未完成，根因是Agent未按政策用用户档案中的预订列表逐个查询定位预订，反而声称无法找到并转人工",
+            "refs": [
+              "h:40",
+              "h:48",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "向用户声称\"I don't see your reservation ID in your user details\"（h:40）及无法用工具找到预订，与用户档案中实际含reservations列表的事实矛盾",
+            "refs": [
+              "h:40",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "用户详情返回含 reservations: [DF89BM, COVE6R, IIHXDG]（h:7,h:47），Agent多次声称档案里没有预订ID，属无源依据的错误事实说明",
+            "refs": [
+              "h:7",
+              "h:40",
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明文要求用户不知道预订ID时应帮助定位，Agent未执行get_reservation_details逐个查询，且在可自行解决时即转人工",
+            "refs": [
+              "h:38",
+              "h:42",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "未完成改签；因Agent未按政策自行定位预订ID而过早转人工，用户原始需求未办理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未用工具定位预订ID即错误声称无法找到并转人工",
+        "basis": "policy要求\"agent should help locate it using available tools\"；用户详情含reservations列表（h:7,h:47），Agent称\"I don't see your reservation ID in your user details\"（h:40）后转人工（h:50）",
+        "refs": [
+          "h:40",
+          "h:41",
+          "h:47",
+          "h:50"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户改签需求未办理，本可通过查询三个预订ID解决"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:40",
+        "purpose": "用户档案含预订列表，反证Agent声称找不到预订ID"
+      },
+      {
+        "from": "h:45",
+        "to": "h:50",
+        "purpose": "用户再次说明无ID后Agent未尝试查询而转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "多次以占位参数调用工具（'your user ID'、'your flight number'、reservation_id='None'，h:2/h:34/h:42）属接口规范问题，均为真实失败尝试且未写入，记为辅助说明；agent_observed=false的用户消息不影响用户实际表达过的要求"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

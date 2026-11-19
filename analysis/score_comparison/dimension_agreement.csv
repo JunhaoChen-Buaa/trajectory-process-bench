@@ -1,0 +1,7 @@
+﻿dimension,name,n,agreement,changed,count_pass_to_pass,count_pass_to_fail,count_pass_to_unknown,count_pass_to_na,count_fail_to_pass,count_fail_to_fail,count_fail_to_unknown,count_fail_to_na,count_unknown_to_pass,count_unknown_to_fail,count_unknown_to_unknown,count_unknown_to_na,count_na_to_pass,count_na_to_fail,count_na_to_unknown,count_na_to_na
+RULE,规则与对象,527,0.9240986717267552,40,372,23,1,0,3,114,7,1,2,2,1,1,0,0,0,0
+CONSENT,用户确认,527,0.889943074003795,58,223,29,3,1,4,42,1,0,0,0,0,0,0,20,0,204
+OUTCOME,实际结果,527,0.8785578747628083,64,347,13,4,0,32,111,10,0,1,2,1,0,2,0,0,4
+REPORT,完成说明,527,0.8861480075901328,60,408,8,0,5,19,47,0,3,1,0,0,0,22,2,0,12
+FACT,事实说明,527,0.8785578747628083,64,340,24,16,9,2,93,7,0,0,4,2,0,0,2,0,28
+STEPS,必要步骤,527,0.920303605313093,42,369,22,2,0,9,116,7,0,0,2,0,0,0,0,0,0

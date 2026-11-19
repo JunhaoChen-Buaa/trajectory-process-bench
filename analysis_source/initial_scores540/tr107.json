@@ -1,0 +1,151 @@
+{
+  "case_id": "tr107",
+  "created_beijing": "2026-11-10T14:58:23.602508+08:00",
+  "input_sha256": "20e1415390c0a993ccc98248eda081b79f8327cdbd88b96dea6fe985b8adbe62",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "083019b03d5521d942e9957dc354a0ccadc5548f7ebbbe597a400b65d8290658",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 787,
+    "completion_tokens_details": {
+      "reasoning_tokens": 109
+    },
+    "prompt_tokens": 8489,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 9276
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消所有即将出行的航班",
+        "object": "用户amelia_davis_8890名下全部预订(7个)",
+        "request_refs": [
+          "h:1",
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "找到用户名下预订并按取消规则处理可取消的预订",
+            "basis": "policy: If the user doesn't know their reservation id, the agent should help locate it using available tools",
+            "refs": [
+              "h:5",
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "unknown",
+            "reason": "未实际执行取消，无法判断各预订是否符合取消条件；但转人工时取消业务本在Agent能力范围内",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进入取消确认环节",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "没有任何预订被取消，业务未完成；且取消本可通过已获取的预订列表自行处理，非必须转人工",
+            "refs": [
+              "h:15",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:16告诉用户'I still can't find your reservation ID'，但h:15已返回7个预订ID，该说明与实际结果矛盾",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "声称无法用user ID查找预订与事实不符：get_user_details已返回reservations列表",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "policy要求用工具帮用户查找reservation ID，Agent获得ID列表后未逐一查询预订详情即转人工，遗漏必要步骤",
+            "refs": [
+              "h:15",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "无预订被取消，用户被转人工；转人工时该请求本可在Agent权限内通过已获得的预订列表处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "已查到预订列表却声称找不到且未尝试逐个查询，业务未办即转人工",
+        "basis": "policy: 'the agent should help locate it using available tools'；h:15返回7个reservation ID，h:16却说'still can't find your reservation ID'",
+        "refs": [
+          "h:15",
+          "h:16",
+          "h:18"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户全部取消请求未处理，被不当转入人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "预订列表已返回但Agent对用户声称找不到，构成虚假说明"
+      },
+      {
+        "from": "h:5",
+        "to": "h:18",
+        "purpose": "用户已提供user ID，转人工时业务本可自行处理"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2以reservation_id='all'调用cancel_reservation、h:6/h:10用'unknown'调用，均为无意义的失败尝试，属接口规范问题，记为辅助说明"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,159 @@
+{
+  "case_id": "tr417",
+  "created_beijing": "2026-11-10T15:42:12.390975+08:00",
+  "input_sha256": "f5a1e760bc4a27be88afada9984815d48088f5d782e8057f6991f156358653ba",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "94463ec6ebe49e88fc28f56a2ec60f274213772b266e48ab9a80e922a55cb943",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1359,
+    "completion_tokens_details": {
+      "reasoning_tokens": 523
+    },
+    "prompt_tokens": 16961,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 18320
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复MMS无法发送问题",
+        "object": "L1002（555-123-2002）手机设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户在国外时若线路已启用漫游但设备端Data Roaming关闭，应引导用户toggle_roaming打开",
+            "basis": "tech_support_policy: 'guide them to use toggle_roaming() to ensure Data Roaming is ON'",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按手册排查MMS各原因（SIM、APN/MMSC、Wi-Fi Calling、权限、网络模式）并尽量解决后再转人工",
+            "basis": "tech_support_policy 与 main_policy transfer规则",
+            "refs": [
+              "h:1",
+              "h:46"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所执行的排查（SIM重插、APN重置、重启、Wi-Fi Calling关闭、权限/网络模式核查）均符合手册且对象线路正确（L1002）。",
+            "refs": [
+              "h:18",
+              "h:22",
+              "h:41",
+              "h:49"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排查无需额外用户确认，各项操作均由用户执行。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS最终仍无法发送，且设备端Data Roaming为OFF这一手册明列步骤未尝试即转人工，问题未在Agent权限内尽力解决。",
+            "refs": [
+              "h:15",
+              "h:45",
+              "h:53"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent未虚假声称问题已解决，转人工说明如实列出了已验证项与遗留问题。",
+            "refs": [
+              "h:53"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "告知用户'Roaming is enabled and the line is active, so we've ruled out the most common causes'，但设备端Data Roaming为OFF（h:15），该结论对故障判断有误导。",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "用户身处国外，手册要求核查并引导用户toggle_roaming开启设备端Data Roaming，Agent全程未执行此步骤。",
+            "refs": [
+              "h:15",
+              "h:17",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "SIM、APN/MMSC、Wi-Fi Calling等问题已修复，但MMS仍无法发送，未尝试开启设备端Data Roaming即转人工处理。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "忽略设备端Data Roaming关闭这一国外使用场景的关键排查步骤，并错误告知漫游已排除",
+        "basis": "tech_support_policy：'If the user is outside their carrier's primary coverage area (roaming) and mobile data isn't working, guide them to use toggle_roaming()'；用户自述身处法国（h:1），check_network_status显示Data Roaming Enabled: No（h:15），而Agent称've ruled out the most common causes'（h:13）",
+        "refs": [
+          "h:1",
+          "h:13",
+          "h:15",
+          "h:46"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "遗漏一次可能的修复路径，MMS问题未解决即转人工，并向用户传递了误导性的排除结论"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:15",
+        "purpose": "用户在国外这一事实与设备Data Roaming OFF关联，构成被遗漏的排查项"
+      }
+    ],
+    "auxiliary_notes": [
+      "转人工summary内容详实准确，属良好实践；用户按提示执行各项设备操作配合顺畅。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

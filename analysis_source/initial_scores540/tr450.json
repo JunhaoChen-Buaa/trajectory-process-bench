@@ -1,0 +1,158 @@
+{
+  "case_id": "tr450",
+  "created_beijing": "2026-11-10T16:08:56.966670+08:00",
+  "input_sha256": "447f96b31210ecc81f971b8636d66e0550e87bfc795e5e859a236da3c4f9283b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7037d3169f9cbce06b674cfd4781e5f02c7980974fe095a0fdaee91a337c9884",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 748,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13837,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14585
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复国外漫游时移动数据不可用/过慢问题",
+        "object": "John Smith 的线路 L1002（号码 555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确核验客户身份并定位对应线路",
+            "basis": "policy: Customer Lookup / Technical Support 要求先识别客户",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查并修复移动数据问题（网速慢、无连接）",
+            "basis": "用户请求 h:1 与 tech_support_policy 排查流程",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "确认线路本身漫游已启用（L1002 roaming_enabled=true）",
+            "basis": "tech_support_policy: 'check that the line … is roaming enabled'",
+            "refs": [
+              "h:9",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确找到用户号码对应的线路 L1002（未误用 L1001），并按手册逐项排查：2G 模式→4G/5G、数据漫游开启；未违规操作",
+            "refs": [
+              "h:8",
+              "h:12",
+              "h:22",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本次为设备设置排查，原政策无确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终 speed test 275 Mbps Excellent（h:40），用户数据问题实际解决，无额外副作用",
+            "refs": [
+              "h:36",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结如实（改网络模式、开漫游），与实际状态一致，未虚构结果",
+            "refs": [
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "告知线路 active、roaming 已启用、用量 8.7/15 GB 均与 L1002/P1002 数据一致",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（get_customer_by_phone），再按手册顺序诊断并验证修复，必要步骤齐全",
+            "refs": [
+              "h:4",
+              "h:16",
+              "h:26",
+              "h:30",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "数据问题已解决：网络模式改为 4g_5g_preferred，设备漫游开启，速度测试 275 Mbps Excellent"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户提供的号码 555-123-2002 对应线路 L1002，用于确认操作对象正确"
+      },
+      {
+        "from": "h:30",
+        "to": "h:34",
+        "purpose": "无连接后定位为漫游设置问题并指导用户开启"
+      }
+    ],
+    "auxiliary_notes": [
+      "引导用户在设备端执行诊断/修复操作符合政策（设备侧工具由用户执行），Agent 无需直接调用",
+      "指示用户使用诊断工具名（如 check_network_mode_preference）的表达方式稍显生硬，属措辞层面，不影响业务"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

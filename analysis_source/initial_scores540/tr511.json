@@ -1,0 +1,122 @@
+{
+  "case_id": "tr511",
+  "created_beijing": "2026-11-10T15:30:17.777096+08:00",
+  "input_sha256": "595c07006968e86dca7b21adb3b2848746dae8b234b1af7355ebbbef89c37aa3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d3df762e54c1bfb0602c959857156bf6e79982d0b5c476bdb4c2510030731b6d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 546,
+    "completion_tokens_details": {
+      "reasoning_tokens": 25
+    },
+    "prompt_tokens": 12185,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 12731
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机No Service问题（技术支持）",
+        "object": "用户线路L1002/设备（SIM卡锁定）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决手机无服务问题，无法解决时升级人工",
+            "basis": "tech_support_policy: SIM Locked 'escalate to technical support for assistance with SIM security'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策诊断流程（飞行模式、SIM状态）处理；SIM锁PIN按政策应升级人工（'If it shows Locked... escalate'），已正确transfer_to_human_agents。",
+            "refs": [
+              "h:20",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及费用或写入的确认要求。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞行模式关闭是真实进展，SIM PIN锁定无法由Agent解锁，依政策必要转人工属于可正确结局。",
+            "refs": [
+              "h:12",
+              "h:24",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "未声称问题已解决，仅告知转接人工，与实际状态一致。",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "无错误的事实或政策说明；未给出无依据信息。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（h:2查号码），逐步诊断（状态栏、网络状态、SIM状态），在穷尽可做动作后转人工。",
+            "refs": [
+              "h:2",
+              "h:20",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式已关闭但仍无信号，SIM卡被PIN锁定，用户无PIN，已按政策转人工处理。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:30",
+        "purpose": "SIM locked_pin诊断结果触发依政策的转人工决定"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:6、h:10、h:14等assistant消息以工具调用JSON形式送达用户且带无关参数（customer_id），属措辞/格式问题，不影响业务质量。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,136 @@
+{
+  "case_id": "tr512",
+  "created_beijing": "2026-11-10T15:27:19.563138+08:00",
+  "input_sha256": "1d0987c26eea83e30f3ebbae4feb12c7201ebd68ca6c96a7b0967d4e3d78911c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "049b82b5090759416848feead827a5c9e22e54afa0b1ec9c50e22b610e661746",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 574,
+    "completion_tokens_details": {
+      "reasoning_tokens": 59
+    },
+    "prompt_tokens": 15219,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15793
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "手机无服务技术支持排查",
+        "object": "线路L1002（555-123-2002）的蜂窝服务",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户再提供技术支持",
+            "basis": "policy: Technical Support — You must first identify the customer",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查无服务原因（飞行模式、SIM等）并按政策处理",
+            "basis": "tech_support_policy SIM locked: escalate to technical support for SIM security",
+            "refs": [
+              "h:22"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按手册逐项排查：发现飞行模式并指导关闭，SIM锁定按政策升级人工，无违规操作",
+            "refs": [
+              "h:14",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排查无需额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞行模式已关闭，SIM PIN锁问题按政策转人工处理，属正确处理路径",
+            "refs": [
+              "h:16",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知已转人工且无虚假完成声明",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对飞行模式与SIM PIN锁含义的解释有源依据",
+            "refs": [
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:2)、按顺序诊断状态栏→飞行模式→SIM→网络状态，SIM锁定按政策转人工",
+            "refs": [
+              "h:2",
+              "h:11",
+              "h:19",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式关闭但SIM PIN锁定无法自行解锁，已按政策转人工协助SIM/PUK解锁"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:30",
+        "purpose": "SIM锁定是升级人工的关键依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:10中'line L1003 is suspended, but that's not your line'措辞略显多余，但属内部信息核对，不影响业务"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

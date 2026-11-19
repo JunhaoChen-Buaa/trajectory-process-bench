@@ -1,0 +1,152 @@
+{
+  "case_id": "tr386",
+  "created_beijing": "2026-11-10T16:19:41.955003+08:00",
+  "input_sha256": "ede9e02d5e27a1c07b0393b39bbe6904c6c59cd0ba65c3fa1fc75e99a4f42c42",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "aefc5250d6b9492396f8d6c373ffb1ebbe08983add3e311defe72f4d5c0fa1e4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 686,
+    "completion_tokens_details": {
+      "reasoning_tokens": 32
+    },
+    "prompt_tokens": 14407,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15093
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复无法发送MMS的技术支持",
+        "object": "L1002 / 555-123-2002 的设备MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后进行MMS故障排查",
+            "basis": "policy: Technical Support - must first identify customer",
+            "refs": [
+              "h:1",
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按排查指南依次检查并修复：APN/MMSC、Wi-Fi Calling、应用权限、网络类型、数据连通",
+            "basis": "tech_support_policy MMS troubleshooting",
+            "refs": [
+              "h:13",
+              "h:17",
+              "h:35"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "穷尽可解决手段后如无法解决则转人工",
+            "basis": "policy: transfer if request cannot be handled within scope",
+            "refs": [
+              "h:53"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全程按MMS排查流程操作，对象为用户提供的正确线路L1002，最终按政策转人工",
+            "refs": [
+              "h:2",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无需要用户确认的付费/变更类操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "MMS仍未修复，但agent已按手册穷尽所有可尝试步骤后合规转人工，属依法必要转接",
+            "refs": [
+              "h:47",
+              "h:53",
+              "h:55"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "agent从未声称问题已修复，如实要求用户复测并最终转人工",
+            "refs": [
+              "h:31",
+              "h:43",
+              "h:56"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明如\"SMS和Storage是MMS所需权限\"、APN重置后需重启均有手册依据，未被反证",
+            "refs": [
+              "h:18",
+              "h:26",
+              "h:38"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验(h:2-h:5)，再按诊断顺序执行can_send_mms、状态栏、APN、Wi-Fi Calling、权限、测速等必要步骤",
+            "refs": [
+              "h:10",
+              "h:14",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "所有可自行执行的排查步骤已完成，问题未解决，已成功转接人工客服处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:53",
+        "to": "h:55",
+        "purpose": "转人工请求与实际转接成功对应"
+      },
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户号码555-123-2002对应正确线路L1002"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户报告的\"Cellular Data permission\"非手册列出的MMS必要权限，agent未授予该权限属合理判断，不构成遗漏。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

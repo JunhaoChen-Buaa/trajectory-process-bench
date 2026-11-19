@@ -1,0 +1,152 @@
+{
+  "case_id": "tr346",
+  "created_beijing": "2026-11-10T15:59:35.600745+08:00",
+  "input_sha256": "73222d5c1a65ca12d7f6c443893646753afd64e7f1559920b08fd6efa393cd6d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5dd6c7dceecb38d50de6482055dc6e5bc9fd1842216b0d1cba09772f775a2683",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 837,
+    "completion_tokens_details": {
+      "reasoning_tokens": 122
+    },
+    "prompt_tokens": 13151,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13988
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "笔记本电脑换货（i7/8GB/1TB SSD）",
+        "object": "订单 #W2905754 中的 Laptop（item 3478699712）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "用户拒绝支付差价换货，改为要求转人工调查定价/发错货问题"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先通过姓名+邮编验证身份",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换货需同一产品不同可选且可用的规格，差价需用户确认支付方式",
+            "basis": "policy: Exchange delivered order",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "无法处理的要求转人工",
+            "basis": "policy: transfer if request cannot be handled",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核对了订单delivered状态和产品变体，报价的15-inch i7/8GB/1TB SSD black (9844888101, $2459.74) 确实可用且差价$167.87计算正确；用户拒付差价后未违规执行",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "换货未获确认即被用户拒绝，未执行任何写入操作",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "换货未完成是因用户明确拒绝支付差价并要求转人工，Agent依法拒改价并转人工处理，属正确处理",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明系统记录的已购/已发规格，明确表示不能改价或免差价，转人工前说明选项，无虚假完成声明",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "订单中Laptop确为15-inch/i5/16GB/512GB SSD ($2291.87)，差价2459.74-2291.87=$167.87准确，均有源依据",
+            "refs": [
+              "h:11",
+              "h:13"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "完成身份验证、状态核对、变体查询，并按policy提醒换货只能执行一次需确认全部商品",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "换货未执行（用户拒绝差价），订单保持delivered，已按用户要求成功转人工调查争议"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:14",
+        "purpose": "可用变体与价格是报价依据"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "用户要求转人工触发转接"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户主张'订错了货'但系统记录与其付款一致，Agent无法核实历史下单意图，转人工是合理边界处理"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

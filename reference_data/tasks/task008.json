@@ -1,0 +1,124 @@
+{
+  "domain": "airline",
+  "task_id": "37",
+  "original_task_digest": "7862b10ca8f2b08c412e2d319fc97e6b5b5b49d5302c39d59aeac402f3505741",
+  "sampling_stratum": "change",
+  "task": {
+    "id": "37",
+    "description": {
+      "purpose": "Test two cancellations requests, none allowed + 1 upgrade to business class.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "airline",
+        "reason_for_call": "You want to cancel two of your upcoming reservations (IFOYYZ and NQNU5R) and upgrade a third (M20IZO) to business class.",
+        "known_info": "You are Aarav Ahmed.\nYour user id is aarav_ahmed_6699.",
+        "unknown_info": null,
+        "task_instructions": "You want to use your credit card ending in 7334 to pay for all charges and are willing to comply with airline policies for the changes."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "37_1",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "M20IZO"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "37_2",
+          "requestor": "assistant",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "JFK",
+            "destination": "ATL",
+            "date": "2024-05-22"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "37_3",
+          "requestor": "assistant",
+          "name": "search_direct_flight",
+          "arguments": {
+            "origin": "ATL",
+            "destination": "MCO",
+            "date": "2024-05-22"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "37_4",
+          "requestor": "assistant",
+          "name": "update_reservation_flights",
+          "arguments": {
+            "reservation_id": "M20IZO",
+            "cabin": "business",
+            "flights": [
+              {
+                "flight_number": "HAT268",
+                "date": "2024-05-22"
+              },
+              {
+                "flight_number": "HAT010",
+                "date": "2024-05-22"
+              }
+            ],
+            "payment_id": "credit_card_9074831"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent does not cancel reservation NQNU5R since it is in the past.",
+        "Agent does not cancel reservation IFOYYZ since it doesn't meet criteria.",
+        "Agent upgrades M20IZO to business class."
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/airline.txt",
+  "policy_rule_index": "requirements/airline_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr085",
+    "tr086",
+    "tr087",
+    "tr088",
+    "tr089",
+    "tr090",
+    "tr091",
+    "tr092",
+    "tr093",
+    "tr094",
+    "tr095",
+    "tr096"
+  ]
+}

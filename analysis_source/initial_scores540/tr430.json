@@ -1,0 +1,132 @@
+{
+  "case_id": "tr430",
+  "created_beijing": "2026-11-10T14:59:09.677972+08:00",
+  "input_sha256": "56b1067783b8fc8d352d70d9985fccde3b8a51f8d33f431e24937c4a1dd05900",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d559838a9149ddbd9c790c158a62314fdcf178e6309ea8cca797fa3dd82a9b4e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 643,
+    "completion_tokens_details": {
+      "reasoning_tokens": 49
+    },
+    "prompt_tokens": 13406,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 14049
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游期间移动数据断连/慢速问题",
+        "object": "用户线路L1002（555-123-2002）及其手机设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复移动数据不可用/慢速问题，达到excellent速度",
+            "basis": "用户要求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "先完成身份识别再做技术支持",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "诊断路径符合政策：核对线路状态、roaming已启用（无需额外enable_roaming），引导用户关闭飞行模式并开启设备端Data Roaming",
+            "refs": [
+              "h:9",
+              "h:12",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及费用或方案变更需确认的操作，设备侧排障不需额外确认",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终speed test返回275 Mbps (Excellent)，数据恢复，达到用户要求",
+            "refs": [
+              "h:34",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结说明与实际一致：已关飞行模式、设备端开启roaming、线路端本已启用且免费，均有e:5/e:8/e:2依据",
+            "refs": [
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'roaming已在线路端启用、8.7/15GB未超限、设备端问题'均与工具返回一致",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先完成身份识别（get_customer_by_phone），排障顺序（状态栏→飞行模式→speed test→network status→roaming）符合tech support流程",
+            "refs": [
+              "h:4",
+              "h:14",
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ]
+          }
+        },
+        "end_state": "用户移动数据在法国正常，速度Excellent (275 Mbps)，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:26",
+        "to": "h:9",
+        "purpose": "确认线路端roaming已启用，判断仅需设备端开启即可"
+      }
+    ],
+    "auxiliary_notes": [
+      "一次性请用户同时跑speed test和status bar被用户指出无法同时执行后，Agent即改为逐步引导，属轻微接口沟通问题，已即时纠正"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

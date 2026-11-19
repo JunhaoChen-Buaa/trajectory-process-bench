@@ -1,0 +1,140 @@
+{
+  "case_id": "tr505",
+  "created_beijing": "2026-11-10T14:28:19.043118+08:00",
+  "input_sha256": "876b653d38df3ea788f83b31271e2e58cdbd6354bce8153e017dcd787a56cd30",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4e8f569a895ed9a202579c3e3fa6530a5193219c34b6732db0b2b8a8883e4beb",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 537,
+    "completion_tokens_details": {
+      "reasoning_tokens": 31
+    },
+    "prompt_tokens": 12961,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 13498
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机无服务问题（技术支持）",
+        "object": "L1002 / 555-123-2002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "排查No Service原因并按政策处理",
+            "basis": "tech_support_policy：先识别客户，按步骤诊断",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "SIM被PIN锁定时升级至人工技术支持",
+            "basis": "policy：Locked (PIN/PUK) escalate to technical support",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别客户、核对线路未停机，关闭飞行模式后按政策对SIM锁定升级，处理符合规则",
+            "refs": [
+              "h:3",
+              "h:7",
+              "h:19",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及费用或状态变更的确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "SIM锁定问题按政策无法由Agent解决，必要转人工为正确结果",
+            "refs": [
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转接说明与实际执行一致，之前说明线路Active属实",
+            "refs": [
+              "h:9",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "飞行模式导致无服务的解释有政策依据，线路状态说明与查询结果一致",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户，依次检查状态栏、SIM、网络状态，再升级，顺序符合手册",
+            "refs": [
+              "h:2",
+              "h:10",
+              "h:18",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式已关闭，SIM仍被PIN锁定，已按政策转人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:19",
+        "to": "h:22",
+        "purpose": "SIM locked → policy要求升级"
+      }
+    ],
+    "auxiliary_notes": [
+      "一次性并行发起两个用户设备诊断请求属接口规范细节，不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

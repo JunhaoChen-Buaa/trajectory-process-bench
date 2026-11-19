@@ -1,0 +1,175 @@
+{
+  "case_id": "tr001",
+  "created_beijing": "2026-11-10T15:28:23.419402+08:00",
+  "input_sha256": "dd6d726a3196f87e79cac4be03dc1291541fd125cdebb6ec30f15c538da24f3e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5af5baad109b778a2998c5507758d9aa96ab906ef3b098982ba976a937ab72ae",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 956,
+    "completion_tokens_details": {
+      "reasoning_tokens": 209
+    },
+    "prompt_tokens": 17367,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18323
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改订单FQ8APE：改乘客为本人、升舱经济舱、加3件行李",
+        "object": "reservation FQ8APE",
+        "request_refs": [
+          "h:12"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "乘客改为Omar Rossi (DOB 1970-06-06)，人数不变",
+            "basis": "policy: 修改乘客允许但不能改变人数；用户 h:12",
+            "refs": [
+              "h:12",
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "舱位从basic economy升为economy并支付差价",
+            "basis": "policy: basic economy可改舱且需补差价",
+            "refs": [
+              "h:12",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "添加3件托运行李",
+            "basis": "policy: 可加不可删行李",
+            "refs": [
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "更新数据库前列出详情并获得用户明确确认",
+            "basis": "policy: must obtain explicit user confirmation",
+            "refs": [
+              "h:18",
+              "h:20",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "三项变更均符合政策：乘客人数不变、basic economy允许改舱、仅加行李；改动仅针对FQ8APE。",
+            "refs": [
+              "h:13",
+              "e:7",
+              "e:8",
+              "e:9"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:18/h:20列出全部变更、金额$209及支付方式，用户h:19/h:21明确同意后执行。",
+            "refs": [
+              "h:18",
+              "h:19",
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认乘客、舱位economy、差价$209已从gift_card_8190333收取、行李3件0收费，均与约定一致。",
+            "refs": [
+              "e:7",
+              "e:8",
+              "e:9"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28对完成状态的说明与实际DB结果逐项一致。",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "差价$209=(155-71)+(185-60)与工具返回价一致；gold会员economy 3件免费行李说明符合policy。",
+            "refs": [
+              "h:18",
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id并定位reservation，查航班价格后再报价，步骤完整。",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:15"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FQ8APE最终为Omar Rossi、economy两段、3件免费行李，已收$209差价"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "e:8",
+        "purpose": "报价$209与实际扣款金额核对"
+      },
+      {
+        "from": "h:12",
+        "to": "h:28",
+        "purpose": "三项请求与完成说明核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "一次性同时调用多个查询工具（h:6、h:15）违反'一次一个工具调用'的接口规范，属辅助性问题，不影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

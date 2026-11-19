@@ -1,0 +1,244 @@
+{
+  "case_id": "tr228",
+  "created_beijing": "2026-11-10T14:47:16.677486+08:00",
+  "input_sha256": "85f0f5c96ff2114adee627204856328abea648c537907ac802a95bd86f5ae7a4",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "eb9297dd9fb188e252e7e5e3c73ca465e727f59d2348da9438166934dc83ec00",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1020,
+    "completion_tokens_details": {
+      "reasoning_tokens": 39
+    },
+    "prompt_tokens": 19832,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 20852
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "退货损坏平板",
+        "object": "订单#W2692684 中的 Tablet (3788616824)",
+        "request_refs": [
+          "h:1",
+          "h:25"
+        ],
+        "revisions": [
+          {
+            "ref": "h:25",
+            "change": "用户由换货改为退货（因同款不可换）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered 订单可退货，需确认订单、商品与退款方式",
+            "basis": "policy: Return delivered order",
+            "refs": [
+              "h:26"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单已 delivered，退货同一 item，退款至原 gift card，符合 policy",
+            "refs": [
+              "h:29"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列出订单、商品、退款方式后用户明确 yes",
+            "refs": [
+              "h:26",
+              "h:27"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB 实际状态变为 return requested，退款方式已记录",
+            "refs": [
+              "h:29"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知 return requested 并说明后续邮件，与实际一致",
+            "refs": [
+              "h:30"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "同款 unavailable 的说明与商品数据一致",
+            "refs": [
+              "h:24"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份与订单状态再操作",
+            "refs": [
+              "h:19"
+            ]
+          }
+        },
+        "end_state": "订单 #W2692684 状态 return requested，退款至 gift_card_7711863"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消充电器订单",
+        "object": "订单#W9373487 Portable Charger",
+        "request_refs": [
+          "h:31",
+          "h:37"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "pending 订单取消，原因为 no longer needed 或 ordered by mistake",
+            "basis": "policy: Cancel pending order",
+            "refs": [
+              "h:37"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "pending 订单按用户指定理由取消，退款 109.27 即时入 gift card",
+            "refs": [
+              "h:41"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "确认订单与理由后用户明确 yes",
+            "refs": [
+              "h:38",
+              "h:39"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB 显示 cancelled 并有 refund 入账",
+            "refs": [
+              "h:41"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明取消与即时退款，与实际一致",
+            "refs": [
+              "h:42"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "商品信息引用与订单数据一致",
+            "refs": [
+              "h:38"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查询订单状态确认 pending 再取消",
+            "refs": [
+              "h:17"
+            ]
+          }
+        },
+        "end_state": "#W9373487 已取消，$109.27 退回 gift card"
+      },
+      {
+        "group_id": "G3",
+        "goal": "退回运动鞋",
+        "object": "订单#W7449508 中的 Sneakers (6477915553)",
+        "request_refs": [
+          "h:43"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered 订单中指定商品退货，退款至原支付方式",
+            "basis": "policy: Return delivered order",
+            "refs": [
+              "h:46"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "delivered 订单仅退 sneakers，退款至原 gift card",
+            "refs": [
+              "h:49"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列明订单、商品、退款方式，用户明确 yes",
+            "refs": [
+              "h:46",
+              "h:47"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB 实际变为 return requested，仅该 item 记为退货",
+            "refs": [
+              "h:49"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明 return requested 与后续邮件",
+            "refs": [
+              "h:50"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "退款方式说明符合政策，用户仅有该 gift card",
+            "refs": [
+              "h:46"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "重新查询订单确认状态后操作",
+            "refs": [
+              "h:45"
+            ]
+          }
+        },
+        "end_state": "#W7449508 状态 return requested，退款至 gift_card_7711863"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:25",
+        "to": "h:26",
+        "purpose": "用户从换货改为退货，触发退货确认流程"
+      },
+      {
+        "from": "h:31",
+        "to": "h:37",
+        "purpose": "定位充电器订单并确认取消理由"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:38 确认消息中出现口误后自我更正（'Portable Charger (10-inch, 32GB, black) - wait, that's not right'），最终信息正确，属轻微措辞问题，不影响业务质量"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

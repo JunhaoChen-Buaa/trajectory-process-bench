@@ -1,0 +1,150 @@
+{
+  "case_id": "tr162",
+  "created_beijing": "2026-11-10T15:40:29.087428+08:00",
+  "input_sha256": "a2ec55a08facbc51099b3df091e814fccff4a40faeb1771b5a1449297fbc5f72",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "31e23389a792f5dbadfd8cd03f12642d8229d7c0f4904c2a1abbf5cb4da8a910",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 899,
+    "completion_tokens_details": {
+      "reasoning_tokens": 140
+    },
+    "prompt_tokens": 13360,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14259
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月26日ORD→PHL单程经济舱机票（两名乘客，$500证书支付）",
+        "object": "新预订HATHAT（HAT271, 2024-05-26）",
+        "request_refs": [
+          "h:1",
+          "h:15",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订与5月10日相同航班HAT271，ORD→PHL单程，5月26日",
+            "basis": "用户h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "经济舱，乘客Sophia Silva和Kevin Smith，无保险无行李，仅用一张证书支付",
+            "basis": "用户h:15,h:17",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "找到并按用户要求预订了同一航班HAT271（WUNA5K中5月10日航班即HAT271），舱位、乘客、支付均符合规则；支付方式在用户档案中且证书余额不退已提示",
+            "refs": [
+              "h:11",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列明全部预订细节并获明确yes（h:21）后才调用book_reservation",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "预订成功写入DB（e:7 backend_state_changed=true），航班、乘客、价格$348、证书支付与用户同意一致",
+            "refs": [
+              "h:23",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认说明与实际预订结果完全一致，含预订号和付款明细",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格$174/人、免费行李额（regular成员经济舱1件/人）、证书不退余额均与工具返回和政策一致",
+            "refs": [
+              "h:13",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id，查询档案和原预订定位5月10日航班，再搜索5月26日航班并询问保险/行李/支付，顺序符合要求",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:6",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功：5月26日HAT271经济舱，2名乘客，无保险无行李，certificate_8045380支付$348"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:11",
+        "purpose": "确认5月10日ORD→PHL航班为HAT271，与5月26日所选航班一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "座位分配请求被明确如实告知无法办理，用户确认后继续，处理恰当",
+      "e:6的离线重放显示AttributeError，但原始记录h:13receipt内容完整且与实际预订一致，离线重放失败不构成Agent当时的错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

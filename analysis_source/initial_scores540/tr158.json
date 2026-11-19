@@ -1,0 +1,152 @@
+{
+  "case_id": "tr158",
+  "created_beijing": "2026-11-10T16:22:33.310218+08:00",
+  "input_sha256": "133588475bea3b4b44d2fccb07e0d5ae6fb3a8e471bc2f952ad1947ab18eea5d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "07f612d289e58f9d919ac78952b832ef620dc84dc1fc9e030837b2a5b92430a7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 809,
+    "completion_tokens_details": {
+      "reasoning_tokens": 55
+    },
+    "prompt_tokens": 12837,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 13646
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订ORD→PHL 5月26日单程HAT271经济舱",
+        "object": "新预订HATHAT（用户sophia_silva_7557，2名乘客）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "补充乘客Kevin Smith、选economy、无行李无保险、指定用certificate付款"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订5月26日ORD→PHL与5月10日相同的航班HAT271",
+            "basis": "用户h:1 'I need to book a one-way flight from ORD to PHL on May 26...exact same flight'",
+            "refs": [
+              "h:1",
+              "h:11"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "经济舱、2名乘客（Sophia+Kevin）、0行李、无保险",
+            "basis": "用户h:15",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用$500 certificate付款$348并确认不可退余额",
+            "basis": "用户h:15/h:17及policy 'at most one travel certificate'",
+            "refs": [
+              "h:15",
+              "h:16",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "查到WUNA5K确认5月10日航班为HAT271（h:11），搜索结果确认5月26日该航班可用且economy有3座（h:13），对象正确",
+            "refs": [
+              "h:11",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16列出全部细节并征求确认，用户h:17明确同意$500 certificate",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:7/h:19显示预订成功：HAT271 ORD→PHL 5-26 economy，两乘客，$348扣certificate_8045380，与同意内容一致",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:20如实说明预订确认、预订号、航班、乘客和付款，与实际一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格$174×2=$348、certificate余额不退、舱位与余票说明均有搜索结果和用户数据支持",
+            "refs": [
+              "h:13",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id（h:2-4）、定位历史航班、搜索可用性、确认后再写库，顺序符合policy",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功，按用户要求完成，无副作用"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:11",
+        "purpose": "通过WUNA5K确认5月10日航班为HAT271 ORD→PHL"
+      }
+    ],
+    "auxiliary_notes": [
+      "搜索结果的flight date字段为null（工具返回格式），Agent据可用航班列表正确引用，不影响业务"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

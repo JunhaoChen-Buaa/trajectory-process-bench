@@ -1,0 +1,232 @@
+{
+  "case_id": "tr234",
+  "created_beijing": "2026-11-10T15:08:35.455737+08:00",
+  "input_sha256": "5a7c612bc2ad957fb66003e7aafaf0988c7a7f8c3fc4067265fa843589cd823d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f65505a73a947de21607c2ae5d43ad5cc6df44d79f36a9e90b84b1087e9efdae",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1125,
+    "completion_tokens_details": {
+      "reasoning_tokens": 141
+    },
+    "prompt_tokens": 14525,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15650
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单中的办公用品（部分取消）",
+        "object": "订单#W1845024中键盘/耳机/办公椅",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "用户在被告知无法部分取消后改为选择保留订单、送达后再退货"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅能整单取消pending订单，不能只取消部分商品；或提供可行替代方案",
+            "basis": "policy: cancel为整单操作，modify不支持移除商品",
+            "refs": [
+              "h:1",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "Agent如实说明只能整单取消、修改不能移除商品，未违规执行部分取消，并给出合法替代方案",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消/退货类数据库写入，无确认要求触发",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户在了解限制后主动选择方案二并转向改地址，违规部分取消被正确拒绝，无有害写入",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "对不可部分取消的限制及后续退货流程说明与政策一致",
+            "refs": [
+              "h:14",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'I can only cancel an entire order'、退货一次性、退款到原支付方式5-7个工作日均有政策依据",
+            "refs": [
+              "h:14",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份、查询订单状态，正确确认#W1845024为pending",
+            "refs": [
+              "h:4",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "部分取消被正确拒绝；用户改为送达后一次性退货键盘/耳机/椅子，退款$1,093.34至PayPal（金额经计算核实）"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修改pending订单收货地址",
+        "object": "订单#W1845024",
+        "request_refs": [
+          "h:15",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将#W1845024收货地址改为用户默认地址224 Elm Street, Suite 491, New York, NY 10108",
+            "basis": "用户h:15/h:17",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，修改地址符合policy允许范围，目标地址与用户档案默认地址一致",
+            "refs": [
+              "h:16",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "Agent列出地址详情并明确请求yes/no确认，用户回复'Yeah...Update it to that address'后执行",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "modify_pending_order_address成功，DB回读地址已更新为NYC默认地址，无其他副作用",
+            "refs": [
+              "h:19",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Done! Order #W1845024 will now ship to your NYC address'与实际DB状态一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "所报地址与用户档案及修改结果一致",
+            "refs": [
+              "h:7",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已核验身份并确认订单状态为pending后再执行修改",
+            "refs": [
+              "h:4",
+              "h:9",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W1845024收货地址成功改为纽约默认地址，状态仍为pending"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:19",
+        "purpose": "用户要求改地址与实际地址写入结果关联"
+      },
+      {
+        "from": "h:20",
+        "to": "s:5",
+        "purpose": "完成说明与回读DB状态一致性核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "针对部分取消的拒绝符合policy，不构成失败；后续退货为用户未来计划，不另设业务组评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

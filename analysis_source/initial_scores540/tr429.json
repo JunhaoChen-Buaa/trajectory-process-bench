@@ -1,0 +1,140 @@
+{
+  "case_id": "tr429",
+  "created_beijing": "2026-11-10T14:18:31.694623+08:00",
+  "input_sha256": "be4be259b9d37e32596a85e9b72abe7580e75d6b4e122dcabd4545f250523932",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "452f93ff983693798bbe6021dca322c3d83baf9e76541d7e5c8e78049e8ee74d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 585,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 14586,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15171
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复在国外(法国)的移动数据连接并达到优秀速度",
+        "object": "线路L1002 (555-123-2002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复移动数据断连/慢速问题，用户在国外需漫游可用",
+            "basis": "用户h:1 'in France right now'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "达到excellent数据速度",
+            "basis": "用户h:1 'excellent speed'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "核实线路侧漫游已启用、数据用量未超限",
+            "basis": "tech support policy roaming/data limit",
+            "refs": [
+              "h:14"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按诊断流程查账号、线路、用量与计划(h:5-h:13)，正确识别飞行模式与设备漫游关闭，未做违规操作",
+            "refs": [
+              "h:14",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "纯排障无需确认步骤，未涉及计费/方案变更",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞行模式关闭并开启设备数据漫游后测速275 Mbps Excellent (h:31)，问题实际解决且用户确认满意(h:34)",
+            "refs": [
+              "h:31",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "准确说明原因是飞行模式开启加上设备漫游关闭(h:33)，与实际状态一致，且建议保持设置",
+            "refs": [
+              "h:33"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "告知8.7/15GB未超限、线路侧漫游已启用均有工具依据(h:12,h:9)",
+            "refs": [
+              "h:27",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:4)，按政策逐一排查飞行模式、漫游、数据量、saver、VPN，并要求用户复测确认",
+            "refs": [
+              "h:14",
+              "h:21",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          }
+        },
+        "end_state": "设备飞行模式关闭、数据漫游开启，测速275 Mbps Excellent，问题解决，用户确认满意"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:9",
+        "purpose": "确认用户号码对应L1002且线路侧漫游已启用"
+      },
+      {
+        "from": "h:26",
+        "to": "h:29",
+        "purpose": "设备漫游关闭是残余问题，引导用户开启后速度达标"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent回复规范，无接口或措辞问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

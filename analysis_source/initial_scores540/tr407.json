@@ -1,0 +1,187 @@
+{
+  "case_id": "tr407",
+  "created_beijing": "2026-11-10T15:51:00.143716+08:00",
+  "input_sha256": "9f5111cf062d8df3025c1dcb523e392291b0017092feb79e683ccc1dc31a7033",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c421cc08079d58ccc6331cfab673c557064b9244460dd52200756d6d2a63ddf1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1454,
+    "completion_tokens_details": {
+      "reasoning_tokens": 345
+    },
+    "prompt_tokens": 16767,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 18221
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复海外(法国)无法发送MMS的问题",
+        "object": "John Smith名下与号码555-123-2002关联的线路及其手机",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断MMS不可发送的根因并按tech support流程逐项排查修复",
+            "basis": "tech_support_policy MMS章节",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在国外时应检查线路是否开启roaming，未开启则免费enable_roaming",
+            "basis": "policy: 'If it is not, you should enable it at no cost'",
+            "refs": [
+              "h:31"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "转人工前应穷尽所有可行排查手段",
+            "basis": "tech_support_policy: 'try all the possible ways...before transferring'",
+            "refs": [
+              "h:78"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "政策要求线路未开通roaming时由Agent调用enable_roaming免费开通，但Agent从未成功执行该工具(h:32用了占位参数报错，h:38仅把调用文本发给用户，实际只由用户在设备侧toggle_roaming)，且建议调用用了错误的line_id L1001而非用户号码555-123-2002对应的L1002",
+            "refs": [
+              "h:32",
+              "h:38",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "开启roaming为免费政策操作，无额外确认要求，用户已明确同意排查",
+            "refs": [
+              "h:31"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS最终仍不可发送(e:10,e:16)，且运营商侧线路roaming从未开通(L1002 roaming_enabled=false未被处理)，问题未解决，Agent在未完成关键修复的情况下转人工",
+            "refs": [
+              "h:42",
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent未声称问题已解决，如实转人工告知，未见虚假完成说明",
+            "refs": [
+              "h:80"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对数据余量(3.2/5GB)等说明与工具返回一致；未发现影响理解的错误事实陈述",
+            "refs": [
+              "h:61",
+              "h:62"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "MMS排查流程中从未检查messaging应用的storage/sms权限(check_app_permissions)，也未确认运营商侧线路roaming状态，即穷尽手段前已转人工",
+            "refs": [
+              "h:78"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "MMS问题未解决；用户设备数据漫游已开，但线路(L1002)运营商侧roaming仍未开通；已转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未为用户线路开通运营商侧roaming且使用错误line_id",
+        "basis": "policy要求'If it is not, you should enable it at no cost'；用户号码555-123-2002对应L1002(roaming_enabled=false)，Agent仅在h:32用占位参数失败、h:38发送未执行的调用文本并使用L1001，实际只由用户toggle了设备漫游",
+        "refs": [
+          "h:32",
+          "h:38",
+          "h:39"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "线路侧roaming始终未开通，海外数据/MMS前提未补齐"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未检查消息应用权限即提前转人工",
+        "basis": "tech_support_policy要求排查app permissions且'try all the possible ways...before transferring'；轨迹中无任何check_app_permissions调用，h:78直接转人工",
+        "refs": [
+          "h:65",
+          "h:77",
+          "h:78"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "可能遗漏可自助修复的根因，问题未解决即升级"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:31",
+        "to": "e:8",
+        "purpose": "用户在法国且号码555-123-2002需映射到线路L1002以确定enable_roaming对象"
+      },
+      {
+        "from": "h:38",
+        "to": "h:39",
+        "purpose": "Agent发送的enable_roaming文本未被系统执行，用户实际执行的是设备侧toggle_roaming"
+      },
+      {
+        "from": "h:77",
+        "to": "h:78",
+        "purpose": "确认转人工前的排查是否穷尽"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:32/h:38的enable_roaming调用文本以消息形式发给用户而非真实工具执行，属于接口使用不当的实质相关问题，已并入I1；多次重复调用同一已排除项(如check_vpn_status)属效率问题，不单独计分",
+      "用户号码555-123-2002对应线路为L1002而非Agent建议调用的L1001，属对象核对错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

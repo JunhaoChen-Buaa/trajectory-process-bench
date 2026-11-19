@@ -1,0 +1,129 @@
+{
+  "case_id": "tr121",
+  "created_beijing": "2026-11-10T15:57:19.025276+08:00",
+  "input_sha256": "17e6b06abe963499b7060677bc135b2cea5ea4f8b41dbe556c0655a3493ab1b8",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "e555dbf1c83585eb2900f9cbbb37c5e28ca6d98f25c2f2e0318c8e41fa9f0dc0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 771,
+    "completion_tokens_details": {
+      "reasoning_tokens": 192
+    },
+    "prompt_tokens": 12992,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13763
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消所有含超4小时航段的未来预订",
+        "object": "sophia_silva_7557名下5个预订",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查明各预订航班时长，取消符合条件的未来预订",
+            "basis": "用户要求",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "工具无法返回航班时刻/时长，无法核实4小时条件，转人工属合规处理；WUNA5K已飞行，部分航段已飞行的预订不可由Agent取消，符合policy的'If any portion of the flight has already been flown, the agent cannot help and transfer is needed'",
+            "refs": [
+              "h:22",
+              "e:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何数据库写入，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "实际转人工并附完整摘要，用户请求超出工具能力范围时转接可视为正确处理；未发生误取消",
+            "refs": [
+              "h:23",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "仅发送标准转接提示语，未虚假声称已取消任何预订",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "未向用户送达任何关于航班时长或资格的事实性说明",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id、逐一查询全部5个预订并核查各航班状态（含发现WUNA5K已落地），再做真实转接，必要步骤齐备",
+            "refs": [
+              "h:3",
+              "h:4",
+              "h:10",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "已核实全部预订并按合规流程转人工处理，无预订被取消或误改"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:22",
+        "purpose": "用户请求与转接摘要的对应依据"
+      },
+      {
+        "from": "h:9",
+        "to": "h:20",
+        "purpose": "WUNA5K航班已落地，判定部分已飞行不可取消"
+      }
+    ],
+    "auxiliary_notes": [
+      "get_flight_status工具确实不返回起飞/到达时刻，无法计算时长，转人工是合理选择；摘要信息准确完整"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

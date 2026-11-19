@@ -1,0 +1,296 @@
+{
+  "case_id": "tr171",
+  "created_beijing": "2026-11-10T15:01:45.726131+08:00",
+  "input_sha256": "1d4bfccbe053ce7a9ac1e8fa8ddff518df1581700aee938665a5e2843c0c9779",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "9ea27049055513459d9c24321794e9658909b25a223b1bf3eaa39ca9b9c3e016",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1113,
+    "completion_tokens_details": {
+      "reasoning_tokens": 49
+    },
+    "prompt_tokens": 6371,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 7484
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消第一个预订",
+        "object": "第一个预订",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按取消政策核验并办理取消",
+            "basis": "policy: Cancel flight 需 user id、reservation id 及理由",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "该请求本属Agent可办理范围，未尝试办理即转人工，违反'transfer if and only if the request cannot be handled'",
+            "refs": [
+              "h:1",
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进入办理，未触发确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "预订未被取消，业务未完成",
+            "refs": [
+              "h:3",
+              "h:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "未对取消结果做完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未对用户做事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "未获取user id/reservation id等必要步骤即转出",
+            "refs": [],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未取消，被不当转人工"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消第二个预订",
+        "object": "第二个预订",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按取消政策核验并办理取消",
+            "basis": "policy: Cancel flight 需 user id、reservation id 及理由",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "同样属可办理请求，未办理即转人工",
+            "refs": [
+              "h:1",
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未触发确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "预订未被取消",
+            "refs": [
+              "h:3",
+              "h:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "无事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "未执行必要核验步骤",
+            "refs": [],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未取消，被不当转人工"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将第三个预订改为直飞航班",
+        "object": "第三个预订",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查询可用直飞航班并在规则允许下改签",
+            "basis": "policy: Change flights 规则；用户要求nonstop",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "改签属Agent可办理，未查询即转人工",
+            "refs": [
+              "h:1",
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未触发确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "未改签",
+            "refs": [
+              "h:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "无事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "应先获取user id、reservation id并查询直飞航班，均未执行",
+            "refs": [
+              "h:1",
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "未改签，被不当转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "将本可自行办理的三项请求不当转人工",
+        "basis": "policy: 'transfer the user to a human agent if and only if the request cannot be handled within the scope of your actions'；用户三项请求（两个取消、一个改直飞）均在Agent能力范围内",
+        "refs": [
+          "h:1",
+          "h:2",
+          "h:4"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "三项业务均未办理，用户被无理由转出"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:2",
+        "purpose": "用户提出的三项请求与Agent立即转人工的对应关系"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接流程本身（先tool后标准话术）符合形式要求，问题在于不满足转接条件"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,358 @@
+{
+  "case_id": "tr358",
+  "created_beijing": "2026-11-10T15:49:28.956845+08:00",
+  "input_sha256": "67a3dab18557275b95fa26e6caed64e6bc683cc74e5d480064dffc97be01d8ad",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "574a83d90216f82793b752e634b210a8596674fff548212d04d02b86023e6a4b",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1568,
+    "completion_tokens_details": {
+      "reasoning_tokens": 56
+    },
+    "prompt_tokens": 20071,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 21639
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "同单自行车与拼图换货",
+        "object": "订单#W3916020的Bicycle和Jigsaw Puzzle",
+        "request_refs": [
+          "h:5",
+          "h:23"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "用户澄清拼图目标为1500片art intermediate，并选定large red mountain自行车"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换成同产品可用新变体，自行车换大框山地，拼图1500片art intermediate",
+            "basis": "policy: same product, available new item",
+            "refs": [
+              "h:5",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "差价退款至Visa ending 6791",
+            "basis": "用户要求",
+            "refs": [
+              "h:5",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "操作前列明细节并获明确yes确认，提醒全部换货商品",
+            "basis": "policy",
+            "refs": [
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "两件均换成同产品可用变体（5606522780、5546244844），对象与用户选择一致",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明商品、变体、退款卡号，用户回答yes",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态exchange requested，差价-14.96至credit_card_3951670，与同意内容一致",
+            "refs": [
+              "h:27",
+              "s:9"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知状态、邮件流程及$14.96退款，与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "可用性与价格说明与目录一致",
+            "refs": [
+              "h:19",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已提醒确认全部换货商品并核查状态delivered",
+            "refs": [
+              "h:13",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W3916020状态exchange requested，自行车与拼图换货申请成功，差价-14.96退Visa"
+      },
+      {
+        "group_id": "G2",
+        "goal": "相机换低分辨率同配置",
+        "object": "订单#W4689314的Digital Camera",
+        "request_refs": [
+          "h:5",
+          "h:23"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "用户确认使用Visa ending 6791而非原Mastercard"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换为20MP、3x zoom、SD card可用变体",
+            "basis": "用户要求+policy",
+            "refs": [
+              "h:5",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "退款至Visa ending 6791",
+            "basis": "用户要求",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "换为同产品可用8363011723（20MP/3x/SD），对象正确",
+            "refs": [
+              "h:28",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明细节与退款卡，用户确认",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "状态exchange requested，差价-71.59至credit_card_3951670（Visa）",
+            "refs": [
+              "h:29",
+              "s:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格与可用性说明有目录依据",
+            "refs": [
+              "h:21",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已核查delivered状态并确认全部商品",
+            "refs": [
+              "h:9",
+              "h:24"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "订单#W4689314状态exchange requested，相机换货成功，退款$71.59至Visa"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消滑板单品",
+        "object": "订单#W8855135中的Skateboard",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "用户撤回该目标：自行在网站取消整单，不需要Agent处理"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "若可办理需确认订单号与原因并确认后取消",
+            "basis": "policy",
+            "refs": [
+              "h:5"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确说明不能取消单品，仅可整单取消或改选项，符合policy",
+            "refs": [
+              "h:11",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何写入操作，用户已撤回目标",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "用户撤回要求自行处理，订单未被改动",
+            "refs": [
+              "h:23",
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认未改动#W8855135，与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "单品取消不可行的说明符合policy",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "未执行取消动作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户撤回该目标，订单#W8855135保持pending未动"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:13",
+        "purpose": "定位自行车与拼图所在订单及当前选项"
+      },
+      {
+        "from": "h:24",
+        "to": "h:25",
+        "purpose": "确认用户对两笔换货的同意"
+      },
+      {
+        "from": "h:26",
+        "to": "h:30",
+        "purpose": "核对完成说明与实际结果一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "身份验证按要求通过姓名+邮编完成（e:0），符合开头必须认证的政策"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

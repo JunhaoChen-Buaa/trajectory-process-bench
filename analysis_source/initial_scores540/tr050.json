@@ -1,0 +1,127 @@
+{
+  "case_id": "tr050",
+  "created_beijing": "2026-11-10T14:17:30.356213+08:00",
+  "input_sha256": "5edb682ea08e580724fb3a9ac517166951614525e9d5110d194feefd596b0d5b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "149e8e470400158e531f34f63b8d95a0c3f03d500be93ec841ce0a7b3351ee97",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 502,
+    "completion_tokens_details": {
+      "reasoning_tokens": 15
+    },
+    "prompt_tokens": 9959,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 10461
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将DF89BM去程改为直飞航班",
+        "object": "预订 DF89BM（basic economy，JFK-DTW）",
+        "request_refs": [
+          "h:7",
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "帮助用户将去程换为直飞航班并说明费用（若政策允许）",
+            "basis": "用户 h:13",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "Basic economy不可修改，Agent正确拒绝改签请求，policy明确'Basic economy flights cannot be modified'",
+            "refs": [
+              "h:14",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无任何写库操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "合法拒绝符合政策，未做错误写入，仅读取订单定位",
+            "refs": [
+              "e:0",
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知不可修改并给出保留/取消/新购票等选项，与实际政策一致",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于不可改签、取消不退款（超过24小时、无保险、非business）的说明均有政策依据",
+            "refs": [
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "正确获取user id、通过get_reservation_details定位订单后再答复",
+            "refs": [
+              "e:0",
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单保持原样，改签请求依政策被正确拒绝，用户结束会话"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:9",
+        "purpose": "确认DF89BM为basic economy，改签不可行"
+      }
+    ],
+    "auxiliary_notes": [
+      "每次查询均一次工具调用，符合接口规范"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

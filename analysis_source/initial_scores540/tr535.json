@@ -1,0 +1,158 @@
+{
+  "case_id": "tr535",
+  "created_beijing": "2026-11-10T14:32:42.832386+08:00",
+  "input_sha256": "cdcab7549ebb427ef35015e84819362eb08e3b8a40a280122738dd9ed764feeb",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "9bc4bec534b35785f22cf01629cdd498a282fe444f15d971ffc59d2b92cd21b4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 751,
+    "completion_tokens_details": {
+      "reasoning_tokens": 53
+    },
+    "prompt_tokens": 19844,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 20595
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机无信号(No Service)技术支持问题",
+        "object": "用户手机的蜂窝服务",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: 'Technical Support - You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按排障流程诊断并解决无服务问题(检查飞行模式/SIM/APN/线路状态等)",
+            "basis": "tech_support_policy 排障步骤",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "Agent从未识别客户身份，也未推进任何排障动作（如SIM/APN/线路状态核查），未按流程处理无服务问题",
+            "refs": [
+              "h:1",
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及操作的确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "对话结束时用户仍无信号，问题完全未解决",
+            "refs": [
+              "h:199"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "Agent未向用户发送任何完成或进展说明（只有工具调用，customer_visible不可读）",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "Agent未向用户做任何事实/政策说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明文要求技术支持先识别客户（get_customer_by_phone等），Agent从未执行；也未做任何后续排障步骤",
+            "refs": [
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "用户无信号问题未解决，身份未识别，未转人工，交互陷入循环"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未按政策先识别客户身份",
+        "basis": "policy: 'Technical Support: You must first identify the customer'",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "无法查询线路状态或继续有效排障"
+      },
+      {
+        "issue_id": "I2",
+        "title": "陷入重复调用循环，未推进排障",
+        "basis": "用户报告No Service后，Agent重复约100次发送check_status_bar调用，未做任何诊断或修复动作",
+        "refs": [
+          "h:2",
+          "h:198"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户问题始终未解决，也未转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:2",
+        "purpose": "用户报障后Agent仅重复状态栏检查，未识别身份"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent把设备端动作check_status_bar当作自身工具调用发送，属接口/流程异常，本质问题已并入I1/I2",
+      "循环期间Agent未向用户发送任何可见文字，用户无法获得指引"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

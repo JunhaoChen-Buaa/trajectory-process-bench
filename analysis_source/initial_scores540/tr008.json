@@ -1,0 +1,163 @@
+{
+  "case_id": "tr008",
+  "created_beijing": "2026-11-10T16:03:35.917665+08:00",
+  "input_sha256": "67bdbaa3d71409c50739e4b291f2e236e0175195d3fc35ef87fcbe3a039a36a0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "437e0b265888b09f9086c5274c3413f8d377aea27dcfe8953bfd29e2d02603b0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 830,
+    "completion_tokens_details": {
+      "reasoning_tokens": 106
+    },
+    "prompt_tokens": 16029,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16859
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改预订FQ8APE：升舱到经济舱、改乘客为本人、加3件托运行李",
+        "object": "预订FQ8APE（EWR→ORD单程）",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "舱位从basic economy升至economy且不改变航班，按差价用用户指定的礼品卡付款",
+            "basis": "policy: all reservations can change cabin without changing the flights",
+            "refs": [
+              "h:15",
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "乘客由Ivan Garcia改为Omar Rossi (1970-06-06)",
+            "basis": "用户要求 h:15",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "总行李3件，升级后gold经济舱3件免费，0件收费",
+            "basis": "policy: 3 free checked bags for each economy passenger (gold)",
+            "refs": [
+              "h:15",
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "三项修改均属policy允许范围：basic economy可不变航班改舱、可加行李、可改乘客信息；对象预订FQ8APE正确。",
+            "refs": [
+              "h:15",
+              "e:5",
+              "e:6",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在e:18前已逐项列出全部变更并获用户",
+            "refs": [
+              "h:16",
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认cabin=economy、乘客Omar Rossi、3件行李0收费，礼品卡按新价340-131=209收款，与同意方案一致。",
+            "refs": [
+              "h:23",
+              "h:19",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:24完成说明与实际DB状态逐项一致。",
+            "refs": [
+              "h:24",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "行李免费额度（gold+economy 3件免费）和差价付款说明均正确。",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按policy先取user id与reservation id、查询详情后再操作，顺序正常。",
+            "refs": [
+              "h:3",
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FQ8APE已成功改为economy舱、乘客Omar Rossi、3件免费行李，礼品卡扣209美元"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:16",
+        "to": "h:18",
+        "purpose": "确认后执行变更"
+      },
+      {
+        "from": "h:19",
+        "to": "h:23",
+        "purpose": "最终状态与完成说明核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16消息较长且含多次自我推理过程，属表述风格问题，不影响业务。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

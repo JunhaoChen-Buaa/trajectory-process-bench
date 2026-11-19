@@ -1,0 +1,161 @@
+{
+  "case_id": "tr348",
+  "created_beijing": "2026-11-10T14:36:49.628205+08:00",
+  "input_sha256": "5b2d091081bcb99e60a4df51423e76b2da0bf16cd8a6011f88366f4e79a4d4bf",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "180713a416d197d9d265da55751abddd971c601217275b2ef5804b3f6de40f95",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 832,
+    "completion_tokens_details": {
+      "reasoning_tokens": 92
+    },
+    "prompt_tokens": 16790,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 17622
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将32GB笔记本电脑换货为i7/8GB/1TB SSD款",
+        "object": "订单#W4073673中的Laptop（item 2216662955）",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "纠正目标订单：实际是32GB款，换货对象改为#W4073673"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换货对象为订单#W4073673中32GB款laptop（2216662955）",
+            "basis": "用户h:15、h:19",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换为新item i7/8GB/1TB SSD（9844888101，同产品、可用）",
+            "basis": "policy: same product, available new item；用户h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "差价$60.78退款到原信用卡",
+            "basis": "policy: payment method for price difference；用户h:19",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为delivered，同产品可用变体，操作对象与用户确认一致",
+            "refs": [
+              "h:17",
+              "h:18",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列出完整换货明细与差价后用户明确yes确认",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB实际状态为exchange requested，exchange_price_difference=-60.78，与新item价格2459.74-2520.52一致",
+            "refs": [
+              "h:21",
+              "e:6",
+              "s:6"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明状态为exchange requested、需退回原商品、信用卡退款5-7天，未虚构退款到账",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "新旧item选项与价格均与目录一致，差价计算正确",
+            "refs": [
+              "h:13",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先认证身份、查订单delivered状态，并提醒exchange只能一次、确认是否还有其他商品",
+            "refs": [
+              "h:4",
+              "h:14",
+              "h:18"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "#W4073673状态为exchange requested，换货申请成功，$60.78退款将按5-7个工作日退至原信用卡，等待用户按邮件退回旧机"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:17",
+        "purpose": "用户纠正32GB款后，Agent定位到正确订单#W4073673"
+      },
+      {
+        "from": "h:18",
+        "to": "h:19",
+        "purpose": "换货明细确认获得用户yes"
+      },
+      {
+        "from": "h:20",
+        "to": "h:21",
+        "purpose": "执行换货并核对实际写入状态与差价"
+      }
+    ],
+    "auxiliary_notes": [
+      "初次误以#W2905754的16GB款为目标（h:14），但在用户纠正后（h:15）立即核对另一订单并改正，未造成误操作副作用"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

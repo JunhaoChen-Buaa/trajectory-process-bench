@@ -1,0 +1,157 @@
+{
+  "case_id": "tr342",
+  "created_beijing": "2026-11-10T14:45:39.744539+08:00",
+  "input_sha256": "8d17846e91aef93df3d3296053d6b637a479d9076627bcd3ca960da84042ba11",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7418300b6a55fc883e44e367d73b7048096df828446b5bbe82f59a1bc8f0c8f1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 746,
+    "completion_tokens_details": {
+      "reasoning_tokens": 30
+    },
+    "prompt_tokens": 15200,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15946
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "换货已送达订单中的笔记本电脑",
+        "object": "订单 #W2905754 的 Laptop（3478699712 → 9844888101）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换到同产品、用户要求的 i7/8GB/1TB SSD 且可用的型号",
+            "basis": "policy: same product different option, available new item",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "操作前列明详情并获用户明确确认，差价支付方式确认",
+            "basis": "policy: explicit confirmation before exchange",
+            "refs": [
+              "h:14",
+              "h:16",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "完成说明与实际状态一致（exchange requested，邮件指引，差价$167.87扣信用卡）",
+            "basis": "policy 与 h:19 实际结果",
+            "refs": [
+              "h:19",
+              "h:20"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单已送达、目标型号9844888101为同产品可用变体（i7/8GB/1TB，$2459.74），对象正确。",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "两次列出换货详情、差价和支付方式，用户明确回答“Yeah, proceed”。",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态变为exchange requested，差价$167.87记到credit_card_3677959，与用户同意一致。",
+            "refs": [
+              "h:19",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知“exchange has been requested”及邮件指引，与实际exchange requested状态一致，无虚假完成表述。",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "现有配置i5/16GB说明与订单一致，新型号选项与目录一致，价差$167.87计算正确。",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "身份通过姓名+邮编核验，查询订单状态，并按要求提醒是否还有其他商品需一并换货。",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W2905754状态为exchange requested，差价$167.87将扣Mastercard，后续邮件指引退回原机"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:16",
+        "purpose": "确认所报型号9844888101选项与用户要求i7/8GB/1TB一致且可用"
+      },
+      {
+        "from": "h:19",
+        "to": "h:20",
+        "purpose": "核对完成说明与实际DB状态一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户h:15误以为原机为32GB RAM，Agent如实纠正为16GB，无实质问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

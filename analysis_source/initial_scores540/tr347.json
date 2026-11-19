@@ -1,0 +1,195 @@
+{
+  "case_id": "tr347",
+  "created_beijing": "2026-11-10T14:28:07.919145+08:00",
+  "input_sha256": "c44deeca28d1d29d4329e8ec021a7975f5c8155f6d4a7a242c738e09828dd8e8",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bd7d8b845717be836845b94461551cf7e99510d60fdaacd62c4973372ab19c87",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1239,
+    "completion_tokens_details": {
+      "reasoning_tokens": 251
+    },
+    "prompt_tokens": 8062,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 9301
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将已购15英寸32GB笔记本电脑换货为i7/8GB/1TB SSD配置",
+        "object": "用户Lei Wilson的笔记本订单",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先通过邮箱或姓名+邮编认证用户身份",
+            "basis": "policy: authenticate via email or name + zip",
+            "refs": [
+              "h:4",
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "查找用户实际订单并确认状态为delivered后才可换货",
+            "basis": "policy: check status before exchange action",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "换货为同产品不同选项且可用的新品，确认全部换货项目后再一次性操作",
+            "basis": "policy: exchange to available new item of same product",
+            "refs": [
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "无法处理时转人工",
+            "basis": "policy: transfer if request cannot be handled",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "从未查到用户真实订单就用占位订单号#W0000000调用换货工具，且提议'create a new order for the exchange'超出政策允许范围（政策仅允许对已交付订单换货）",
+            "refs": [
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何成功的换货/退货数据库操作，确认环节未到达实质操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换货未办理，订单未找到，用户需求完全未满足，仅转人工",
+            "refs": [
+              "h:15",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "对用户声称'seems that you don't have an order'与'需要创建新订单/提供退货标签'，均为未经查询核实且不可执行的说明",
+            "refs": [
+              "h:4",
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "在未调用get_user_details查看用户订单列表的情况下断言用户没有该订单，无源依据；还询问不存在的gift card余额，用户否认持有礼品卡",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "认证后未执行必要的订单查找步骤（get_user_details/get_order_details核验真实订单与状态），直接用未核实的订单号反复重试",
+            "refs": [
+              "h:6",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "换货未完成；身份已认证；转人工（用户要求且Agent无法处理），原需求留给人工处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未查找真实订单即用占位订单号反复调用换货工具，业务未办理",
+        "basis": "policy: 'check its status before taking the action'；工具返回'Order not found'且未尝试get_user_details列出用户订单",
+        "refs": [
+          "h:10",
+          "h:11",
+          "h:14",
+          "h:15"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "换货完全未办理，多次无效重试"
+      },
+      {
+        "issue_id": "I2",
+        "title": "向用户作出无依据的错误事实陈述与不可兑现承诺",
+        "basis": "用户订单未查询即断言'you don't have an order'（h:4/h:12）；承诺'create a new order'与'提供退货标签'，均超出可执行范围",
+        "refs": [
+          "h:4",
+          "h:12",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户，引发用户不满与转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:7",
+        "purpose": "姓名+邮编认证成功，得到用户ID"
+      },
+      {
+        "from": "h:10",
+        "to": "h:11",
+        "purpose": "用未核实的订单号调用退货工具失败，证明订单未查找"
+      }
+    ],
+    "auxiliary_notes": [
+      "转人工本身符合政策（用户明确要求且问题无法在Agent权限内解决），但转人工前的多次无效重试源于未先查询订单，已计入I1。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

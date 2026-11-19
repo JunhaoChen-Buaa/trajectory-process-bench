@@ -1,0 +1,172 @@
+{
+  "case_id": "tr387",
+  "created_beijing": "2026-11-10T15:04:33.368522+08:00",
+  "input_sha256": "b984a08a2d4722a554ec06095dcd5f81ed37004002019ca3fd9993071eb57624",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ad366a3dfbe00145791fb081b681d2a84822444cbff7cb75e0af107423556e0b",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1052,
+    "completion_tokens_details": {
+      "reasoning_tokens": 231
+    },
+    "prompt_tokens": 11832,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 12884
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复无法发送MMS的问题",
+        "object": "用户手机的MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: Technical Support - 'You must first identify the customer.'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "q2",
+            "content": "按MMS排查流程检查所有可能原因（Wi-Fi Calling、应用权限等）后再考虑转人工",
+            "basis": "tech_support_policy MMS章节及policy: 'try your best to resolve the issue before transferring'",
+            "refs": [
+              "h:31"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "修复后确认MMS可以发送",
+            "basis": "用户要求 'I need it fixed' h:1",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "在仍有未排查的MMS可能原因（Wi-Fi Calling、messaging应用权限）时即转人工，违反 'try your best to resolve the issue before transferring'",
+            "refs": [
+              "h:29",
+              "h:31",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排查类操作无需单独确认条款",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS仍未修复，且本可通过检查应用权限等进一步排查而未做；仅完成转接，问题未解决",
+            "refs": [
+              "h:30",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转接说明与实际一致，未虚假宣称已修复",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户做有影响的政策或事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "技术支持开始前从未识别客户身份（未做任何customer lookup），且MMS排查清单中应用权限、Wi-Fi Calling步骤被跳过",
+            "refs": [
+              "h:2",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "问题未解决，已转接人工；身份未核验，剩余排查步骤（应用权限、Wi-Fi Calling）未执行"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "技术支持前未识别客户身份",
+        "basis": "policy: 'You must first identify the customer.' 全程无任何customer lookup工具调用",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "跳过必要身份核验步骤，后续操作对象未确认归属"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未完成全部MMS排查即过早转人工",
+        "basis": "policy: 'try your best to resolve the issue before transferring'；MMS清单要求检查Wi-Fi Calling与应用权限，h:30仍无法发MMS后直接转接h:32",
+        "refs": [
+          "h:29",
+          "h:30",
+          "h:31",
+          "h:32"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "messaging应用权限等可能根因未排查，用户问题未解决即转出"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:30",
+        "to": "h:32",
+        "purpose": "MMS仍不可用的情况下未继续排查权限/Wi-Fi Calling即转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "APN设置本身正确（MMSC URL已设置，h:5），Agent仍指示重置APN且未要求随后reboot_device；因设置未变化未造成实际影响，属流程瑕疵。Agent直接发送设备侧工具调用而非引导用户操作，为接口形式问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

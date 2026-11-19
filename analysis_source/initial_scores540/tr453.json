@@ -1,0 +1,145 @@
+{
+  "case_id": "tr453",
+  "created_beijing": "2026-11-10T14:37:49.054510+08:00",
+  "input_sha256": "9adf7235749ec680ad2815b85c589cbf0e58a903fca7368f02c5d36c1f550d3e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7a8f37948fb2cf489eac93bae4d24d2a44779a1957bc91390dfa82ba5ad606ef",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 694,
+    "completion_tokens_details": {
+      "reasoning_tokens": 44
+    },
+    "prompt_tokens": 14077,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14771
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游期间移动数据慢/不可用问题",
+        "object": "用户线路 L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查明数据慢/断开原因并修复，使数据恢复正常",
+            "basis": "用户请求 \"mobile data useless/slow, in France\"",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "漫游场景需核对线路是否启用roaming，必要时免费启用",
+            "basis": "policy: \"check if the line is roaming enabled... enable it at no cost\"",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "先核身，确认目标线路L1002（与号码匹配），检查roaming已启用、数据量未超限，再指导设备侧修复，符合政策。",
+            "refs": [
+              "h:5",
+              "h:11",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "设备设置指导与只读查询无需用户确认流程。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "开启数据漫游并切换4g_5g_preferred后测速275 Mbps Excellent，数据恢复正常。",
+            "refs": [
+              "h:24",
+              "h:28",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结修复原因（设备漫游关闭、2G），并以测速结果为依据说明已解决，与实际一致。",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "线路侧roaming已启用（h:11）与设备侧关闭的区分说明准确；8.7/15GB未超限属实。",
+            "refs": [
+              "h:11",
+              "h:14",
+              "h:16",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（get_customer_by_phone），核对目标线路与roaming状态及用量，再按手册引导设备诊断与修复并验证。",
+            "refs": [
+              "h:4",
+              "h:13",
+              "h:19",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "数据漫游已开启、网络模式4g_5g_preferred，测速275 Mbps Excellent，问题已解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:11",
+        "purpose": "确认用户号码555-123-2002对应L1002而非L1001"
+      },
+      {
+        "from": "h:20",
+        "to": "h:26",
+        "purpose": "设备显示2G及roaming关闭，引导对应修复"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16中一次要求用户同时做两项检查被用户指出无法并行，Agent随后改为逐项指导（h:18），属轻微交互措辞问题，不影响业务质量"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

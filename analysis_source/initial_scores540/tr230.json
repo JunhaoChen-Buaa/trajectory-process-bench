@@ -1,0 +1,180 @@
+{
+  "case_id": "tr230",
+  "created_beijing": "2026-11-10T14:37:25.267305+08:00",
+  "input_sha256": "033db87d1e751a24787ccbc55c7fa06d804cd273c2d043cfaf61b1ed769390e2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f95c7e447dec79ec79e2256344484f5c099136867953255f3a725c58c1fca49e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 922,
+    "completion_tokens_details": {
+      "reasoning_tokens": 96
+    },
+    "prompt_tokens": 13511,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14433
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "处理办公商品取消需求并修改订单收货地址",
+        "object": "订单 #W1845024",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "用户在得知无法部分取消后，将取消办公商品的要求撤回，改为修改收货地址，并保留送货后退货的后续计划"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验（name+zip）后再操作",
+            "basis": "policy: authenticate via name + zip code",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "如无法部分取消，将订单 #W1845024 收货地址改为 NYC 默认地址",
+            "basis": "用户 'just change the shipping address to my place in NYC'",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "说明不可部分取消订单、给出可行选项（整体取消或送达后部分退货）",
+            "basis": "policy: actions on whole orders; return delivered order items",
+            "refs": [
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "告知送达后退货退款可回到原支付方式 PayPal（非store credit）",
+            "basis": "policy: refund to original payment method; 用户 h:15/h:17",
+            "refs": [
+              "h:15",
+              "h:20"
+            ]
+          },
+          {
+            "id": "Q5",
+            "content": "改地址前列明细节并获用户明确确认",
+            "basis": "policy: list action details and obtain explicit confirmation",
+            "refs": [
+              "h:16",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝不可行的部分取消（pending订单只能整体取消），按规则执行了允许的地址修改，对象订单正确",
+            "refs": [
+              "h:14",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "改地址前列出NYC地址细节并获用户明确同意 'Yeah, change it to the NYC address'",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:5写库成功，DB回读地址已变为224 Elm Street NYC，与用户要求一致；后续退货由用户自行在送达后处理，非本次义务",
+            "refs": [
+              "e:5",
+              "s:5"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Order #W1845024 now ships to...' 与实际写库结果一致，退款说明符合政策",
+            "refs": [
+              "h:20",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'partial cancellation isn't possible' 符合政策（仅整单操作），5–7 business days 的PayPal退款时限有政策依据",
+            "refs": [
+              "h:14",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先经 name+zip 核验身份，再查询三单确认状态，符合政策的顺序要求",
+            "refs": [
+              "h:4",
+              "h:5",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单 #W1845024 保持pending，收货地址已改为NYC默认地址；部分取消已解释不可行，用户计划送达后自办部分退货，退款将回PayPal"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:17",
+        "purpose": "用户确认地址修改并追问退款方式"
+      },
+      {
+        "from": "h:18",
+        "to": "s:5",
+        "purpose": "写库调用与回放DB状态核对地址实际变更"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent主动说明了无法部分取消并给出替代方案，处理质量良好；'re-order the hiking items'为建议性选项，未涉虚构信息"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

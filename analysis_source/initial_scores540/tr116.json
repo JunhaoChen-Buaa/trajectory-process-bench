@@ -1,0 +1,158 @@
+{
+  "case_id": "tr116",
+  "created_beijing": "2026-11-10T14:31:16.131954+08:00",
+  "input_sha256": "2ced2a55218f0600c9572a8d33d25267a13d05b8b138f02ebe2f6ed23decfc7e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "98015b34a3cc64b0a5d3e71d58aafe2c92c52c1b5925b19103875a525a26b56d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1409,
+    "completion_tokens_details": {
+      "reasoning_tokens": 606
+    },
+    "prompt_tokens": 14742,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16151
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "清理与实际行程冲突的重复预订",
+        "object": "sophia_martin_4574 名下 5月17日/22日的重复预订（涉 5BGGWZ、FDZ0T5、HSR97W、PUNERT）",
+        "request_refs": [
+          "h:1",
+          "h:21",
+          "h:23"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "用户拒绝指定具体预订号，坚持按行程清理并主动要求转人工"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按用户行程（5/17 达纽约、5/22 离波士顿）识别并处理冲突预订",
+            "basis": "用户要求 h:21/h:23",
+            "refs": [
+              "h:21",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "不得修改 Ivan Brown/Emma Li 的 SE9KEL",
+            "basis": "用户要求 h:21",
+            "refs": [
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "含已飞航段的预订（5BGGWZ 5/10 航段）不得经 API 取消，需转人工",
+            "basis": "policy 'if any portion of the flight has already been flown... transfer is needed'",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "遵守不修改他人预订、不取消含已飞航段预订的规则；在用户明确要求人工后按规定转接",
+            "refs": [
+              "h:21",
+              "h:23",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何数据库更新操作，无确认要求触发",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "未完成取消，但政策规定的必要转人工属正确处理，且用户明确要求人工",
+            "refs": [
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明 5BGGWZ 含已飞航段需转人工，并以标准转接语收尾，无虚假完成声明",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对预订内容的总结与工具返回一致，5/10 航段已过的判断正确",
+            "refs": [
+              "h:19",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "取得 user id、逐一查询全部预订后分析，转接时先调用工具再发送规定消息",
+            "refs": [
+              "h:4",
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "转接人工处理；无任何取消或修改写入，SE9KEL 未被触碰"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:19",
+        "to": "h:22",
+        "purpose": "5BGGWZ 含 5/10 已飞航段，据此判断该预订不能经 API 取消"
+      },
+      {
+        "from": "h:23",
+        "to": "h:24",
+        "purpose": "用户明确要求人工，是转接的政策依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "助手多条 customer_visible 消息冗长且夹杂内部推理痕迹（如 'Wait, I need to be careful here'），属措辞/流程规范问题，不计业务 fail。可取消的预订（如 HSR97W）或可由 Agent 直接处理后再转接，但因用户主动要求人工且存在含已飞航段的预订，转接整体可接受。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

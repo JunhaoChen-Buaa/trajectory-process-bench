@@ -1,0 +1,150 @@
+{
+  "case_id": "tr256",
+  "created_beijing": "2026-11-10T15:44:44.597887+08:00",
+  "input_sha256": "d8badf01788698c0104781ef2ac8c56a61ee7c740686b232eddf04d76306692e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "cefa2ea412bde5231fe016657c7b12c5bbb274c694a3760179d8e300ac0e5cd2",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 717,
+    "completion_tokens_details": {
+      "reasoning_tokens": 34
+    },
+    "prompt_tokens": 13162,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13879
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "待发货订单中耳 buds 改为蓝色同型号",
+        "object": "订单 #W5061109 的 Wireless Earbuds（3694871183→8555936349）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先通过 email 或姓名+邮编完成身份认证",
+            "basis": "policy: authenticate user identity",
+            "refs": [
+              "h:1",
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "pending 订单可将商品改为同产品不同选项的可用 item",
+            "basis": "policy: Modify items",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "修改前列明细并获用户明确确认，含差价退款方式及仅此一件提醒",
+            "basis": "policy: explicit confirmation, remind all items",
+            "refs": [
+              "h:12",
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "同产品换蓝色变体 8555936349（可用、$226.49），差价退款至 paypal，符合 modify items 规则",
+            "refs": [
+              "h:9",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:12 列明新旧 item、退款额与方式，用户在 h:13 明确确认 yes 并选择 paypal",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "回放核验 s:4：item 已改为 8555936349（blue/8h/IPX4），退款 $30.18 入 paypal，状态 pending (item modified)，字段与请求一致",
+            "refs": [
+              "h:15",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:16 的完成说明与实际结果一致，含 5-7 工作日退款提示",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "差价 -$30.18 计算正确（226.49-256.67），新 item 价格与目录一致",
+            "refs": [
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "邮箱不可得后用姓名+邮付认证（e:0），查询订单状态为 pending 后才操作，符合政策",
+            "refs": [
+              "h:4",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "耳 buds 已成功换为蓝色 8555936349，$30.18 退款至 PayPal，订单状态 pending (item modified)"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "确认内容与用户同意对应"
+      },
+      {
+        "from": "h:14",
+        "to": "h:15",
+        "purpose": "调用与实际写入结果一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16 称 'refund has been processed' 且提示 5-7 business days，与工具返回 refund 记录一致，无矛盾"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

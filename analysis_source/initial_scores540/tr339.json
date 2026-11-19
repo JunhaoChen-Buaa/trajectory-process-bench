@@ -1,0 +1,168 @@
+{
+  "case_id": "tr339",
+  "created_beijing": "2026-11-10T15:16:53.004412+08:00",
+  "input_sha256": "89e9b415da8b1bd6b21142290dfc0e862e63b4e282b009433540d20f30ce589a",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f33290fe88f0b2ea62f89ddd3cc83e16ecefbd7c86ed18baddbbfb039e170994",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 987,
+    "completion_tokens_details": {
+      "reasoning_tokens": 202
+    },
+    "prompt_tokens": 7616,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 8603
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "笔记本电脑换货（i7/8GB/1TB）",
+        "object": "订单中的laptop商品",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "确认订单状态delivered后可将同产品不同选项换货",
+            "basis": "policy: exchange delivered order",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "应通过用户档案查到其订单，而非虚构订单号",
+            "basis": "tools: get_user_details可查用户订单；policy不得编造信息",
+            "refs": [
+              "h:5",
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "Agent从未获用户提供订单号却自行用占位订单号#W0000000查询，属于编造操作参数（h:12、h:14），未按真实流程定位订单。",
+            "refs": [
+              "h:12",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何换货操作，未到确认环节。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换货未办理；且在可通过get_user_details查询用户订单的情况下直接转人工，未用尽自身工具能力。",
+            "refs": [
+              "h:14",
+              "h:15",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "向用户仅声明已找到user ID（属实），未虚构订单已找到或换货完成。",
+            "refs": [
+              "h:12",
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未对订单状态、换货资格等做任何事实说明。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "用户不能提供订单号后，正确必要步骤是get_user_details查看其订单列表，Agent却直接编造订单号查询，未做该查找。",
+            "refs": [
+              "h:5",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "换货未办理，订单未能定位，已转人工。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "虚构订单号#W0000000进行查询且未查用户档案定位订单",
+        "basis": "policy禁止编造信息；工具get_user_details可查用户订单，用户已提供姓名+zip并成功定位用户(h:11)",
+        "refs": [
+          "h:11",
+          "h:12",
+          "h:14"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "订单无法定位，换货无法推进，导致不必要转人工。"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未用尽自身工具即转人工，换货未完成",
+        "basis": "policy仅在自身工具无法处理时转人工；此场景可用get_user_details定位订单",
+        "refs": [
+          "h:17",
+          "h:18"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "业务未办理，依赖人工处理。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "已定位用户，之后应查用户订单而非编造订单号"
+      },
+      {
+        "from": "h:15",
+        "to": "h:18",
+        "purpose": "订单查询失败后应先查用户档案，而非直接转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12与h:16在用户可见消息中内嵌了工具调用文本，且h:2的get_item_details调用使用了自然语言占位参数，均为纯接口规范问题，不影响上述业务判定。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,157 @@
+{
+  "case_id": "tr240",
+  "created_beijing": "2026-11-10T16:16:38.128436+08:00",
+  "input_sha256": "3a87180cae6f6bbd096590ecc78b209b1ba8b1cae97d445a860cf11c541b0753",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "59a1dc29aa02301c79a0bd567c717935a92c20be15e65c0e9f9b1638b13540c1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 742,
+    "completion_tokens_details": {
+      "reasoning_tokens": 73
+    },
+    "prompt_tokens": 13907,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14649
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "订单部分取消诉求与发货地址修改",
+        "object": "订单 #W1845024",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "用户在得知不可部分取消后撤回取消诉求，改为修改发货地址"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "说明是否可部分取消订单（政策仅允许整单取消）",
+            "basis": "policy: An order can only be cancelled if its status is 'pending'；取消针对整单",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "将 #W1845024 发货地址改为用户 NYC 默认地址，原 Seattle 地址不再使用",
+            "basis": "用户 h:15",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝不可行的部分取消（政策无部分取消），随后按政策执行了允许的待处理订单地址修改，对象与内容正确",
+            "refs": [
+              "h:14",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "修改前列出前后地址详情并请求确认，用户明确同意（h:17），对象与地址一致",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "modify_pending_order_address 成功，回读地址确为 224 Elm Street NYC，离线重放哈希一致，无额外副作用",
+            "refs": [
+              "e:5",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知地址已更新、状态仍为 pending、全部商品将寄往 NYC，与实际一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "政策说明准确：仅可整单取消、pending 可修改地址、退refund至原支付方式5-7工作日，均有依据",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先通过姓名+邮编完成身份核验（用户称无email），再查订单状态确认 pending 后才修改，顺序合规",
+            "refs": [
+              "h:4",
+              "h:9",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "部分取消被依政策正确拒绝；订单 #W1845024 发货地址已成功改为 NYC 默认地址，状态仍 pending，用户将自行退回办公类商品"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:14",
+        "purpose": "部分取消诉求被政策拒绝"
+      },
+      {
+        "from": "h:15",
+        "to": "h:19",
+        "purpose": "地址修改请求与实际执行结果"
+      },
+      {
+        "from": "h:17",
+        "to": "e:5",
+        "purpose": "用户确认与写入操作对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14 回复较冗长，重复说明同一政策点，属措辞问题，不影响业务"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

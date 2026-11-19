@@ -1,0 +1,208 @@
+{
+  "case_id": "tr129",
+  "created_beijing": "2026-11-10T15:36:09.706590+08:00",
+  "input_sha256": "1cea0f45a17b3570e3c1c7d5ce67418735b75d5e6b7d6cd6b3c52e4aa0ddfd6d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5fc7332e10c72c8231790bdf0bdaa6b9be21a7294b7a50133979cfac208de3d4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1412,
+    "completion_tokens_details": {
+      "reasoning_tokens": 386
+    },
+    "prompt_tokens": 13499,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14911
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消飞行时长超过4小时的未来预订",
+        "object": "用户未来预订中时长>4小时的航班（NM1VX1/KC18K6/S61CZX/H8Q05L中可能符合者）",
+        "request_refs": [
+          "h:1",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "识别未来预订中飞行时长超过4小时的预订并按取消规则办理取消",
+            "basis": "用户请求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "工具仅返回状态无起降时间，无法判定时长，Agent如实说明并按policy转人工（\"transfer the user ... if the request cannot be handled within the scope of your actions\"），未违规写入",
+            "refs": [
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何修改操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "业务未完成但属必要转人工：时长信息超出Agent工具能力范围，无法筛选目标预订",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知无法获取航班时长并说明转人工选项，无虚假完成说明",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于WUNA5K已飞行及取消规则资格的说明与查询结果和政策一致",
+            "refs": [
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已获取user id、逐条查询预订详情并核对航班状态，转接按规范执行",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "未取消任何预订，已如实说明并转人工处理"
+      },
+      {
+        "group_id": "G2",
+        "goal": "将时长≤3小时（含中转）的预订升舱为商务舱",
+        "object": "未来预订中总时长≤3小时的预订（可能涉及NM1VX1/KC18K6/S61CZX/H8Q05L）",
+        "request_refs": [
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "识别总时长≤3小时的预订并办理升舱至business",
+            "basis": "用户请求 h:23",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "时长无法判定导致无法确定升舱对象，属超出工具能力范围，转人工符合policy",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何升舱操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "未升舱但为必要转人工，与G1同一根因（时长数据缺失），属依法/必要转人工",
+            "refs": [
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "诚实说明能力限制并告知转人工，未声称升舱完成",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "未对升舱资格作虚假陈述；未提basic economy可换舱，属未展开而非错误说明",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "与G1共用查询证据，转接流程规范",
+            "refs": [
+              "h:4",
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "未升舱任何预订，已如实说明并转人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:22",
+        "purpose": "航班状态查询仅返回available等状态，支持Agent关于无法判定时长的说明"
+      },
+      {
+        "from": "h:20",
+        "to": "h:22",
+        "purpose": "WUNA5K两段均landed，支持已飞行不可取消的说明"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent一次性并行调用多个查询工具，属接口规范层面，不影响业务质量；转接summary完整准确。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

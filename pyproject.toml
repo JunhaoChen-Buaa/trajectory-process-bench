@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trajectory-process-bench"
+version = "0.1.0"
+description = "Evidence-linked process reliability evaluation of tool-using agents"
+requires-python = ">=3.12,<3.14"
+readme = "README.md"
+license = {file = "LICENSE"}
+
+[project.scripts]
+trajectory-bench = "trajectory_bench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+trajectory_bench = ["resources/*.txt", "resources/*.json"]
+
+[project.urls]
+Repository = "https://github.com/JunhaoChen-Buaa/trajectory-process-bench"

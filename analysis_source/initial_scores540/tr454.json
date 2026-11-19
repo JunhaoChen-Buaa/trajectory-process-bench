@@ -1,0 +1,151 @@
+{
+  "case_id": "tr454",
+  "created_beijing": "2026-11-10T14:17:15.978087+08:00",
+  "input_sha256": "41fc02525b8f5bee8b12d1dce4b5a42c8d334013ddd52db066ed39eca1176270",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4af3e202b3302a616edd6994327cd71835867d7c9435c431b23cddda569bc453",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 693,
+    "completion_tokens_details": {
+      "reasoning_tokens": 24
+    },
+    "prompt_tokens": 14442,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15135
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "法国漫游时移动数据慢的技术支持排查",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先核实客户身份",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查账户侧与设备侧数据慢原因（漫游启用、数据用量、Data Saver、VPN、网络模式、重启）",
+            "basis": "tech_support_policy 排查步骤",
+            "refs": [
+              "h:12",
+              "h:20",
+              "h:28",
+              "h:34"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "无法通过可用手段解决时转人工",
+            "basis": "policy: transfer if request cannot be handled within your actions",
+            "refs": [
+              "h:45"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅执行只读核验并按政策在排查穷尽后转人工，未做违规操作；确认了正确线路L1002对应555-123-2002",
+            "refs": [
+              "h:9",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及收费或账户变更的操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "问题（本地信号导致的速度限制）超出Agent可解决范围，穷尽账户与设备排查后必要转人工，属可正确处理",
+            "refs": [
+              "h:44",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "向用户说明各项检查结果并如实归因于当地信号强度，未虚假声称已修复；转人工按规范告知",
+            "refs": [
+              "h:44",
+              "h:48"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "漫游已启用(h:9)、用量8.7/15GB(h:11)、各项设置由用户确认，均与说明一致",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:31"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份验证（按手机号查到客户），并按手册依次检查漫游、用量、Data Saver、VPN、网络模式并要求重启后复测",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:20",
+              "h:28",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "排查完毕未发现账户/设置问题，按用户要求转接人工客服",
+        "issue_ids": []
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户提供的号码555-123-2002对应L1002，确认排查对象正确"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:38重启后重复get_customer_by_phone为多余调用，纯接口规范，不影响业务",
+      "reboot后未重新enable_roaming等检查，不影响；漫游侧事实未变"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

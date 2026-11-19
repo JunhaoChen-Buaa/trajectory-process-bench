@@ -1,0 +1,749 @@
+{
+  "case_id": "tr099",
+  "created_beijing": "2026-11-10T16:05:02.465559+08:00",
+  "input_sha256": "b7ebbb93778d6b131a8a2e5a4dfafb641873eab955e57137f6ba0a2de08e822e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a9b07b80faf6c238e19de3586f8ea1033c9fb18bfef5ca06b7ce3152c17b02a4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 4095,
+    "completion_tokens_details": {
+      "reasoning_tokens": 833
+    },
+    "prompt_tokens": 18936,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 23031
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消预订8C8K4E",
+        "object": "预订8C8K4E(BOS-DEN, business, 2024-05-24)",
+        "request_refs": [
+          "h:1",
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "符合取消规则后方可取消（business舱可取消）",
+            "basis": "policy: It is a business flight",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business舱预订符合取消条件，按用户确认执行",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确确认取消全部预订",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据库确认status=cancelled并退回原支付方式",
+            "refs": [
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消属实，但h:16声称已检查各预订未起飞与事实不符（见I3）",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12向用户展示的航班号/日期(HAT001, 2024-05-20等)为编造，与实际(HAT247/HAT193, 05-24)不符",
+            "refs": [
+              "h:12",
+              "h:15"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未按政策询问取消原因即执行取消",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "预订已取消，退款5680退回gift_card_1647044"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消预订UDMOP1",
+        "object": "预订UDMOP1(SFO往返, basic economy, 无保险)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "不满足取消条件的预订应拒绝",
+            "basis": "policy: flight can be cancelled if any of the following is true",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "basic economy、无保险、非24小时内预订、非business，不符合任何取消条件，仍执行取消",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认取消全部",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "按政策应拒绝取消，但实际已取消并退款",
+            "refs": [
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已取消的说明与实际一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12列出的UDMOP1航班HAT002/05-22为编造信息",
+            "refs": [
+              "h:12",
+              "h:19"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未询问取消原因",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "本不该取消的预订被取消"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消预订XAZ3C0",
+        "object": "预订XAZ3C0(ATL-CLT, basic economy, 无保险)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "不满足取消条件的预订应拒绝",
+            "basis": "policy cancellation conditions",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "basic economy、无保险、非24小时内，不满足取消条件仍取消",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认取消全部",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "应拒绝但实际已取消",
+            "refs": [
+              "e:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已取消说明属实",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12列出的XAZ3C0航班HAT003/05-25为编造",
+            "refs": [
+              "h:12",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未询问取消原因",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "本不该取消的预订被取消"
+      },
+      {
+        "group_id": "G4",
+        "goal": "取消预订LU15PA",
+        "object": "预订LU15PA(SFO往返, business, 2024-05-23)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "business舱可取消",
+            "basis": "policy: It is a business flight",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business舱符合取消条件",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认取消全部",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB确认已取消并退款",
+            "refs": [
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "取消说明属实",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12列出的LU15PA航班HAT004/05-27为编造",
+            "refs": [
+              "h:12",
+              "h:27"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未询问取消原因",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "已取消，退款2366退回gift_card_7397998"
+      },
+      {
+        "group_id": "G5",
+        "goal": "取消预订MSJ4OA",
+        "object": "预订MSJ4OA(DFW-SFO, economy, 有保险)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "保险仅在健康/天气原因取消时才符合取消条件",
+            "basis": "policy: insurance enables full refund given health or weather reasons",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "economy、非business、用户原因为改计划而非健康/天气，不满足任何取消条件仍取消",
+            "refs": [
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认取消全部",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "应拒绝但实际已取消",
+            "refs": [
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "取消说明属实",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12列出的MSJ4OA航班HAT005/05-29为编造",
+            "refs": [
+              "h:12",
+              "h:31"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未询问取消原因（政策明文要求获取原因）",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "本不该取消的预订被取消"
+      },
+      {
+        "group_id": "G6",
+        "goal": "取消预订I6M8JQ",
+        "object": "预订I6M8JQ(LAS-EWR, 航班日期2024-05-09已飞)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已 flown 航段不可取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, the agent cannot help and transfer is needed",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "航班日期为2024-05-09，早于当前时间05-15，已飞航段不得取消，仍执行取消",
+            "refs": [
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认取消全部",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "应转人工而非取消，实际已取消已飞航班",
+            "refs": [
+              "e:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:16声称'none of them have been flown yet'与I6M8JQ航班05-09已飞的事实直接矛盾",
+            "refs": [
+              "h:16",
+              "h:35"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12列出的I6M8JQ航班HAT006/05-31为编造；h:16谎称未起飞",
+            "refs": [
+              "h:12",
+              "h:16",
+              "h:35"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2",
+              "I3"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未询问取消原因，也未核实已飞状态即取消",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "已飞航班的预订被违规取消"
+      },
+      {
+        "group_id": "G7",
+        "goal": "取消预订4XGCCM",
+        "object": "预订4XGCCM(IAH往返, 航班日期2024-05-03/04已飞)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已 flown 航段不可取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, the agent cannot help and transfer is needed",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "航班日期2024-05-03/04已飞，政策要求转人工而非取消，仍执行取消",
+            "refs": [
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认取消全部",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "应转人工，实际违规取消已飞航班",
+            "refs": [
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "同一h:16'none flown'声明与4XGCCM航班05-03/04已飞矛盾",
+            "refs": [
+              "h:16",
+              "h:39"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:12列出的4XGCCM航班HAT007/06-02为编造",
+            "refs": [
+              "h:12",
+              "h:39"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未核实飞行状态、未询问取消原因即取消",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          }
+        },
+        "end_state": "已飞航班的预订被违规取消"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "违规取消不符合取消条件的5个预订",
+        "basis": "policy取消条件（24小时内/航司取消/business/保险覆盖）；I6M8JQ与4XGCCM航班日期(05-09、05-03/04)早于当前时间已flown应转人工；UDMOP1、XAZ3C0、MSJ4OA不满足任何条件",
+        "refs": [
+          "h:1",
+          "h:19",
+          "h:23",
+          "h:31",
+          "h:35",
+          "h:39"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "5个本应拒绝或转人工的预订被实际取消并退款，其中2个含已飞航段"
+      },
+      {
+        "issue_id": "I2",
+        "title": "向用户展示编造的预订摘要",
+        "basis": "h:12列出HAT001~HAT007及各日期，与任何工具返回的实际预订(HAT247/HAT193等)不符，非来自get_reservation_details",
+        "refs": [
+          "h:12",
+          "h:15",
+          "h:19"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户基于虚假信息确认取消，实际航班与展示完全不同"
+      },
+      {
+        "issue_id": "I3",
+        "title": "虚假声称已核查各预订均未起飞",
+        "basis": "h:16 'I've checked the status of each reservation, and none of them have been flown yet'，而I6M8JQ(05-09)、4XGCCM(05-03/04)已飞",
+        "refs": [
+          "h:16",
+          "h:35",
+          "h:39"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户，掩盖了已飞航班不可取消的事实"
+      },
+      {
+        "issue_id": "I4",
+        "title": "未按政策询问取消原因",
+        "basis": "policy: The agent must also obtain the reason for cancellation",
+        "refs": [
+          "h:14",
+          "h:18"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "缺少必要的核验步骤，导致未能识别不符合取消条件的预订"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:15",
+        "purpose": "比对编造摘要与实际预订内容"
+      },
+      {
+        "from": "h:16",
+        "to": "h:35",
+        "purpose": "证明'未起飞'声明与I6M8JQ已飞日期矛盾"
+      },
+      {
+        "from": "h:1",
+        "to": "h:19",
+        "purpose": "取消条件与实际取消结果的比对"
+      }
+    ],
+    "auxiliary_notes": [
+      "前两次工具调用(cancel_reservation/get_reservation_details参数错误)为接口误用，未造成写入，属接口规范问题",
+      "h:24/h:28等在消息中夹带工具调用文本违反一次一工具的消息规范，属接口规范问题",
+      "每次取消前逐一向用户确认虽冗长但获得了明确同意，未计业务扣分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

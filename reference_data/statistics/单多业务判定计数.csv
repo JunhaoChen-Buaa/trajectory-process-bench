@@ -1,0 +1,9 @@
+﻿domain,grouping,n,pass,fail,unknown,pass_rate
+all,single,349,215,123,11,0.636094674556213
+all,multiple,191,76,97,18,0.4393063583815029
+retail,single,88,55,33,0,0.625
+retail,multiple,92,49,42,1,0.5384615384615384
+airline,single,83,40,37,6,0.5194805194805194
+airline,multiple,97,26,54,17,0.325
+telecom,single,178,120,53,5,0.6936416184971098
+telecom,multiple,2,1,1,0,0.5

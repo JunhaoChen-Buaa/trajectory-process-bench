@@ -1,0 +1,153 @@
+{
+  "case_id": "tr157",
+  "created_beijing": "2026-11-10T15:03:04.225974+08:00",
+  "input_sha256": "c5d54dd3560154902e8b116e069249413b97911a10221b2c650cc6c61f544d51",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "034c4b0b40929b0d615d4eb7d5ac70650aad8a72772b43f5e708c28c9a8011e5",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 769,
+    "completion_tokens_details": {
+      "reasoning_tokens": 63
+    },
+    "prompt_tokens": 13543,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 14312
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月26日ORD→PHL单程机票（HAT271，两名乘客）",
+        "object": "新预订HATHAT（HAT271, ORD-PHL, economy）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "增加第二乘客Kevin Smith，不需要保险"
+          },
+          {
+            "ref": "h:17",
+            "change": "不要托运行李，用travel certificate付款"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订5月26日HAT271 ORD→PHL单程，与5月10日所乘航班相同",
+            "basis": "用户h:1，原航班HAT271见h:11"
+          },
+          {
+            "id": "Q2",
+            "content": "两名乘客、无保险、无托运行李、用证书付款$348，需用户确认后执行",
+            "basis": "用户h:15/h:17与policy确认要求",
+            "refs": [
+              "h:15",
+              "h:17",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确找到原航班HAT271并按可订的economy下单，未改出发地目的地，单证书付款符合规则",
+            "refs": [
+              "h:13",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在h:20列出完整订单细节（乘客、行李0、保险无、证书$348）后获用户\"Yes, confirm it\"",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "book_reservation成功，DB回读e:8与同意内容一致：HAT271 2024-05-26 economy、两乘客、0行李、无保险、certificate_8045380扣$348",
+            "refs": [
+              "h:23",
+              "e:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认说明与实际预订结果完全一致；座位问题如实说明需订后自行选择，未虚假承诺",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$174×2=$348正确，免费行李数（economy每乘客1件）正确，证书余额不退还的提示符合policy",
+            "refs": [
+              "h:14",
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user_id，查询原预订确认5月10日航班，搜索航班可用性后再报价，顺序符合policy",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功写入数据库，内容与用户确认完全一致"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:11",
+        "purpose": "确认5月10日所乘航班为HAT271"
+      },
+      {
+        "from": "h:20",
+        "to": "h:23",
+        "purpose": "用户确认内容与实际预订一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "座位选择（aisle/middle相邻）超出Agent可执行范围，Agent已如实说明并引导订后自选，属合理处理"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

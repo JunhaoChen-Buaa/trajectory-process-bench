@@ -1,0 +1,171 @@
+{
+  "case_id": "tr338",
+  "created_beijing": "2026-11-10T14:21:06.261868+08:00",
+  "input_sha256": "9377a13501bc5dd517d16de19301b562daaa9c351d9de5df68f16782115924a6",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "175dadad2daed05ee7dd036b62cb2b227b6f32f887ca847747d471f83c2c88d7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1141,
+    "completion_tokens_details": {
+      "reasoning_tokens": 205
+    },
+    "prompt_tokens": 13074,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14215
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "笔记本电脑换货（i7/8GB/1TB SSD）",
+        "object": "订单 #W2905754 中的 Laptop（item 3478699712）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "用户拒绝所查到的当前商品信息并要求转人工，换货未确认执行"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先核验身份（email或姓名+邮编）",
+            "basis": "policy: authenticate via email or name + zip code",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换货须为同产品可用变体，报价差价并获明确确认",
+            "basis": "policy: exchange to available new item of same product, confirm details (yes)",
+            "refs": [
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "提醒换货每订单只能一次、确认是否所有商品都已列出",
+            "basis": "policy: exchange can only be done once, remind to confirm all items",
+            "refs": [
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "用户对订单数据有争议要求人工处理时应转人工",
+            "basis": "policy: transfer if request cannot be handled within scope",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "查到唯一匹配可用变体 9844888101（15-inch, i7, 8GB, 1TB SSD, black, $2459.74），同产品变体、报价差价 $167.87 正确，未违规写入",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "用户始终未确认，换货工具未被调用，无操作需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "换货未执行（用户提出数据争议并要求转人工），属用户撤回而非Agent遗漏",
+            "refs": [
+              "h:15",
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent仅描述系统显示的商品信息并复述待确认方案，未虚假声称换货已完成，转人工送达标准话术",
+            "refs": [
+              "h:14",
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "当前商品 $2291.87、i5/16GB/512GB 与系统一致，目标变体可用且价格 $2459.74、差价 $167.87 计算正确；称 #W3826449 无 laptop 与系统相符",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按 policy 先用姓名+邮编完成身份核验，查订单状态（delivered）后查产品变体，并在 h:14 提醒一次性确认全部换货商品；争议后正确真实转人工",
+            "refs": [
+              "h:3",
+              "h:11",
+              "h:14",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "换货未执行，订单保持 delivered；因用户对系统数据提出争议，已按其要求转人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:13",
+        "purpose": "用户要求的 i7/8GB/1TB 配置需对照产品变体目录确认匹配项 9844888101 可用"
+      },
+      {
+        "from": "h:11",
+        "to": "h:16",
+        "purpose": "核对 Agent 向用户复述的当前 laptop 信息与订单实际数据一致"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "用户明确要求人工处理，核对转人工符合 policy"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16 中将 #W2905754 一并列为 'other orders' 属轻微措辞不当，未影响结论",
+      "Agent 未查询第三个订单 #W4073673，但仅对已查订单做断言，且用户诉求已转入人工核实数据，不构成实质遗漏"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

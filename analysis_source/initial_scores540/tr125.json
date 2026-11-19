@@ -1,0 +1,265 @@
+{
+  "case_id": "tr125",
+  "created_beijing": "2026-11-10T15:49:46.897872+08:00",
+  "input_sha256": "f0eb56c510334c5336201891b7adc3a54dcec8654f2743ed06a3104d5a918389",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "250b01b8bd58da90c10a744726446e3eda30a71c97db6ad5d95849698dba88b8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2046,
+    "completion_tokens_details": {
+      "reasoning_tokens": 720
+    },
+    "prompt_tokens": 21229,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 23275
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消含超4小时航段的未来预订（S61CZX）",
+        "object": "预订S61CZX",
+        "request_refs": [
+          "h:1",
+          "h:33",
+          "h:35"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "逐单核查未来预订中是否有>4小时航段并按用户要求处理",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:32"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "S61CZX取消需符合取消规则：保险仅覆盖健康/天气原因，'change of plans'不可取消",
+            "basis": "policy cancel rules & insurance条款",
+            "refs": [
+              "h:33",
+              "h:35"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别仅S61CZX符合>4小时条件，且按规则拒绝'change of plans'原因的取消（保险仅覆盖健康/天气）",
+            "refs": [
+              "h:32",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "按规则不得执行取消，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝取消属正确处理，数据库无写入符合应有结果",
+            "refs": [
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "未谎称已取消，明确说明规则限制并询问原因",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:32对取消条件与保险覆盖的说明与政策一致",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取user id、逐一查询预订与航段状态、获取取消原因等必要步骤均完成",
+            "refs": [
+              "h:3",
+              "h:10",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "S61CZX未被取消（按政策不可取消），核查与拒绝过程正确，但会话以转人工结束"
+      },
+      {
+        "group_id": "G2",
+        "goal": "将时长≤3小时的未来预订升级为商务舱",
+        "object": "NM1VX1、KC18K6、H8Q05L（及WUNA5K）",
+        "request_refs": [
+          "h:33",
+          "h:35"
+        ],
+        "revisions": [
+          {
+            "ref": "h:35",
+            "change": "用户坚持要求升级并要求转人工，未撤回升级目标"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "基本经济舱预订可在不换航班的情况下改舱为商务舱",
+            "basis": "policy: 'all reservations, including basic economy, can change cabin without changing the flights'",
+            "refs": [
+              "h:33"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "NM1VX1/KC18K6/H8Q05L均为basic economy但航班未飞，按政策可改舱，Agent错误地拒绝办理改舱",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未推进到任何改舱操作，未产生需确认的动作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "符合条件的改舱完全未办理，用户明确要求的目标未达成",
+            "refs": [
+              "h:34",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent如实告知认为无法升级，未虚假声称已办理",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:34称basic economy 'cannot be modified at all (no cabin changes)'，与政策'including basic economy, can change cabin'直接矛盾",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询各预订详情与航班状态以判断资格，未触发确认步骤",
+            "refs": [
+              "h:4",
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "所有升级均未办理，其中三个basic economy预订本可依政策改舱但被错误拒绝，会话以转人工结束"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "错误告知basic economy不能改舱，导致符合政策的商务舱升级被拒绝",
+        "basis": "policy: 'all reservations, including basic economy, can change cabin without changing the flights'；对比h:34 'no cabin changes'",
+        "refs": [
+          "h:33",
+          "h:34"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "NM1VX1/KC18K6/H8Q05L的升级请求未办理，用户需求落空"
+      },
+      {
+        "issue_id": "I2",
+        "title": "对政策允许/应拒绝的请求不当转人工",
+        "basis": "policy: 'You should deny user requests that are against this policy'及'transfer if and only if the request cannot be handled within the scope'；升级可办、取消应直接拒绝",
+        "refs": [
+          "h:35",
+          "h:36",
+          "h:38"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "会话终止，未按政策以拒绝/办理方式收尾"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:33",
+        "to": "h:34",
+        "purpose": "用户升级请求与Agent错误拒绝的对照"
+      },
+      {
+        "from": "h:34",
+        "to": "h:36",
+        "purpose": "基于错误资格判断导致不必要转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:33中用户要求报价升级总费用，Agent未给出；因Agent当时认为均不可升级，属未深入询问，随I1连带",
+      "转人工流程本身符合规范（先工具后固定话术）"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

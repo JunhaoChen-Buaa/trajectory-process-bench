@@ -1,0 +1,146 @@
+{
+  "case_id": "tr103",
+  "created_beijing": "2026-11-10T14:20:37.570515+08:00",
+  "input_sha256": "2fee35a836d9d6e6b0f320c1b4d3754efebe64333b8e0e436400b50c9caed338",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4c185fe74b9758989499d3d3a12c8c89bc60f51c23ebe5dff66d246c758aed19",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 685,
+    "completion_tokens_details": {
+      "reasoning_tokens": 114
+    },
+    "prompt_tokens": 7955,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 8640
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消全部未出行航班预订",
+        "object": "amelia_davis_8890 的7个预订",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "核实用户ID并定位预订",
+            "basis": "policy: must obtain user id and reservation id",
+            "refs": [
+              "h:1",
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "获取取消原因并按政策判断是否可取消",
+            "basis": "policy: obtain reason; cancel only if conditions met",
+            "refs": [
+              "h:8",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "不符合条件时拒绝请求；用户明确要求人工时转接",
+            "basis": "policy: deny against policy; transfer if explicitly asked",
+            "refs": [
+              "h:9",
+              "h:11"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "reason 'give up seats'不符合任何取消条件，正确拒绝且未违规执行取消",
+            "refs": [
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "业务依法未办理，拒绝属正确处理，未产生副作用",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知无法办理，无虚假完成声明",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:8要求取消原因符合政策；未发送错误事实说明",
+            "refs": [
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取用户ID并查到预订列表，询问取消原因，用户明确要求人工后按流程转接",
+            "refs": [
+              "h:6",
+              "h:8",
+              "h:12",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "未取消任何预订；因不满足取消条件正确拒绝，并按用户要求转人工"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:10",
+        "purpose": "取消原因不符合政策条件与拒绝操作关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2存在一次格式错误的cancel_reservation调用（将指令文本当作reservation_id），后端报错未造成写入，属接口规范问题，不计业务fail"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

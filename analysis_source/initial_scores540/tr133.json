@@ -1,0 +1,179 @@
+{
+  "case_id": "tr133",
+  "created_beijing": "2026-11-10T14:27:44.607631+08:00",
+  "input_sha256": "497042e7a1088c36fea3a5d565fef0533447fce30406cd41028f3665d2706663",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4a4ecbbe528c5a714e06c6c222291fe101208716e25d90861f71fe13e1acf86e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 878,
+    "completion_tokens_details": {
+      "reasoning_tokens": 63
+    },
+    "prompt_tokens": 9699,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 10577
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消预订PEP4E0并退款（后续替代请求：改期5月22日、补购保险、转人工）",
+        "object": "预订 PEP4E0（CLT→DTW→PHX，2024-05-20，basic economy，无保险）",
+        "request_refs": [
+          "h:1",
+          "h:5",
+          "h:10",
+          "h:12"
+        ],
+        "revisions": [
+          {
+            "ref": "h:5",
+            "change": "用户在取消退款被拒后改提改期到5月22日的替代要求"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订PEP4E0并获得全额退款",
+            "basis": "用户要求 'I need a full refund'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "如不能退款，将航班改到2024-05-22",
+            "basis": "用户 'change this flight to May 22nd'",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "为现有预订追加旅行保险",
+            "basis": "用户 'add insurance to my reservation'",
+            "refs": [
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "不符合条件的请求应拒绝；无法处理时转人工",
+            "basis": "policy 'You should deny user requests that are against this policy'; 转人工条款",
+            "refs": [
+              "h:1",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "三项请求（取消/改期/加保险）均不符合policy条件，Agent正确拒绝并核查了预订详情（e:0），改期搜索也真实执行（e:1,e:2）。",
+            "refs": [
+              "h:3",
+              "h:4",
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无任何数据库写入操作，未触发确认要求。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "未取消预订是policy要求的正确结果（booked 2024-05-05、basic economy、无保险、航班未取消），拒绝与转人工均属正确处理。",
+            "refs": [
+              "h:3",
+              "h:4",
+              "e:3"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent向用户明确说明无法退款的原因并列出四项条件，与实际状态一致，未虚构办理成功。",
+            "refs": [
+              "h:4",
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "引用的取消条件、basic economy不可改、保险不可事后加均符合policy原文，预订事实（$128、无保险）与工具返回一致。",
+            "refs": [
+              "h:3",
+              "h:4",
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取预订详情核实条件，用户最终要求找人处理且问题超出Agent权限，真实调用transfer_to_human_agents并发送标准话术（e:3,h:15）。",
+            "refs": [
+              "h:2",
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订PEP4E0未取消未改动，用户被转接人工客服；所有拒绝均符合policy。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:4",
+        "purpose": "取消请求与policy条件核查结果关联"
+      },
+      {
+        "from": "h:12",
+        "to": "h:15",
+        "purpose": "转人工请求与实际转接确认"
+      }
+    ],
+    "auxiliary_notes": [
+      "搜索返回的航班date字段为null属接口展示细节，不影响业务判断。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

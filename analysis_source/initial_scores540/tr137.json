@@ -1,0 +1,313 @@
+{
+  "case_id": "tr137",
+  "created_beijing": "2026-11-10T15:11:46.963870+08:00",
+  "input_sha256": "c82f21cb33f7bbf9e514513c09927bc3ddaa3cac62143972f3aae509468ff3ef",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d4c817cb6c8db83c0452ca511b201bd8c84312371aab15606b17b96f3facf456",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1613,
+    "completion_tokens_details": {
+      "reasoning_tokens": 353
+    },
+    "prompt_tokens": 10665,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 12278
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消PEP4E0并获全额退款",
+        "object": "预订PEP4E0",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按政策核验退订资格，仅在不满足条件时拒绝",
+            "basis": "policy: basic economy, no insurance, booked >24h 不可取消",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消前获取user id与reservation id",
+            "basis": "policy: Cancel flight 前置步骤",
+            "refs": [
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核对预订后正确判断不符四项任一取消条件并拒绝，未违规写入。",
+            "refs": [
+              "h:5",
+              "h:6",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消操作，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝取消属正确处理；用户坚持后真实转人工符合政策。",
+            "refs": [
+              "h:7",
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已向用户说明不可取消及各项理由，与实际状态一致。",
+            "refs": [
+              "h:7",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "所列取消条件与2024-05-05创建、无保险、basic economy等事实均有h:5依据。",
+            "refs": [
+              "h:5",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取用户ID和预订ID并查询双方详情后才作判断，顺序符合要求。",
+            "refs": [
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订保持未取消，用户被真实转接人工处理例外申请"
+      },
+      {
+        "group_id": "G2",
+        "goal": "将PEP4E0航班改至2024-05-22",
+        "object": "预订PEP4E0航班",
+        "request_refs": [
+          "h:8"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "basic economy不可改期，应拒绝",
+            "basis": "policy: Basic economy flights cannot be modified",
+            "refs": [
+              "h:8"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别basic economy不可修改并拒绝，未执行违规改签。",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行改签，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝即正确结果，预订未被误改。",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知用户改期不可行及原因，无虚假完成说明。",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "“basic economy flights cannot be modified”有政策依据且预订cabin确为basic_economy。",
+            "refs": [
+              "h:5",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "在拒绝改期前真实搜索了5月22日两段航班，属合理核实。",
+            "refs": [
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "改期请求被正确拒绝，预订未变"
+      },
+      {
+        "group_id": "G3",
+        "goal": "为PEP4E0追加旅行保险",
+        "object": "预订PEP4E0保险",
+        "request_refs": [
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q4",
+            "content": "不得在初始预订后追加保险，应拒绝",
+            "basis": "policy: The user cannot add insurance after initial booking",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策拒绝追加保险，无违规操作。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行操作，无需确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "拒绝即正确结果，保险状态未变。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明保险仅可在初始预订时购买，与实际一致。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明有政策明文依据，预订确无保险。",
+            "refs": [
+              "h:5",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "本项无额外政策要求步骤。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "追加保险被正确拒绝，预订保持无保险"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:7",
+        "purpose": "预订cabin/创建时间/保险状态作为拒绝取消的依据"
+      },
+      {
+        "from": "h:8",
+        "to": "h:12",
+        "purpose": "改期请求与basic economy拒改的对应"
+      },
+      {
+        "from": "h:13",
+        "to": "h:14",
+        "purpose": "追加保险请求与政策拒绝的对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:10/h:11与e:2/e:3结构化返回字段格式不完全一致（receipt_exact=false），属纯接口表示差异，不影响业务判断；离线重放显示AttributeError但成功事件账本与回执一致，未见实质搜索失败。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

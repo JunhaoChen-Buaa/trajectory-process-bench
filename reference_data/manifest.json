@@ -1,0 +1,14 @@
+{
+  "title": "基于交互轨迹的智能体过程可靠性评测基准",
+  "version": "v6",
+  "upstream_commit": "989d3285ae669e49503324bdb9981bf14fccedeb",
+  "task_count": 45,
+  "trajectory_count": 540,
+  "business_groups": 874,
+  "language": "en",
+  "task_sampling": "Fixed native English registry pools; exclude saved prior episode attempts; exclude active semantic-judge criteria; round-robin strata and SHA256 ranking. Reference action names used only for strata, never exposed to agent/reviewer.",
+  "reference_provenance": "Assistant/model-assisted source evidence review; not independent human gold.",
+  "reference_aggregation_verified": true,
+  "new_business_runs": 0,
+  "new_model_calls": 0
+}

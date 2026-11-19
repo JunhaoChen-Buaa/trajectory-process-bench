@@ -1,0 +1,240 @@
+{
+  "case_id": "tr305",
+  "created_beijing": "2026-11-10T15:24:45.359929+08:00",
+  "input_sha256": "457d7b81968fbe136f2d8edcb78dcce308d22bd4929be076e1d936d213e3dd37",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "38e84fbe05371aa7d774ba01d0455209c28bcd09c1bffc3fa5c3625759933898",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 996,
+    "completion_tokens_details": {
+      "reasoning_tokens": 25
+    },
+    "prompt_tokens": 16136,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 17132
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消整单 #W3289292",
+        "object": "订单 #W3289292（Hiking Boots/Wristwatch/Mechanical Keyboard）",
+        "request_refs": [
+          "h:18"
+        ],
+        "revisions": [
+          {
+            "ref": "h:18",
+            "change": "用户由想退部分物品转为确认取消整单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单需为pending且用户确认订单与原因后取消",
+            "basis": "policy: cancel only pending; confirm order id and reason",
+            "refs": [
+              "h:18",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，取消原因'no longer needed'符合允许选项，对象正确。",
+            "refs": [
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:21/h:23 列出订单、原因与退款方式，用户明确yes确认。",
+            "refs": [
+              "h:23",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB重放确认状态cancelled且退款$2,468.70到PayPal。",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已告知取消成功及5-7个工作日退款，与实际一致。",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "仅pending可取消、整单级取消、PayPal 5-7天退款均符合政策。",
+            "refs": [
+              "h:17",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先邮箱验证身份，取消前核对状态并确认原因。",
+            "refs": [
+              "h:4",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单已取消，退款$2,468.70至PayPal。"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消整单 #W9722559",
+        "object": "订单 #W9722559（Portable Charger/Luggage Set/Fleece Jacket/Running Shoes）",
+        "request_refs": [
+          "h:18",
+          "h:20"
+        ],
+        "revisions": [
+          {
+            "ref": "h:20",
+            "change": "用户接受整单取消，放弃保留行李箱的意图"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单需为pending且用户确认整单取消与原因",
+            "basis": "policy: cancel only pending; confirm order id and reason",
+            "refs": [
+              "h:20",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，原因'no longer needed'合规，用户明确同意包含Luggage Set的整单取消。",
+            "refs": [
+              "h:16",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:19已警示Luggage Set也会被取消，用户在h:20确认；h:23再次确认yes。",
+            "refs": [
+              "h:19",
+              "h:20",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB重放确认状态cancelled且退款$943.83到PayPal。",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致，含总额$3,412.53及到账时间。",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "整单级取消、仅pending可取消、退款时效说明均有政策依据。",
+            "refs": [
+              "h:17",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "身份验证与状态核查完成，确认流程充分。",
+            "refs": [
+              "h:4",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单已取消，退款$943.83至PayPal。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:19",
+        "to": "h:20",
+        "purpose": "Luggage Set随整单取消的警示获得用户确认"
+      },
+      {
+        "from": "h:23",
+        "to": "h:24",
+        "purpose": "取消前的明确yes确认"
+      }
+    ],
+    "auxiliary_notes": [
+      "#W7284266为processed状态不可取消，Agent正确拒绝并说明，属合规拒绝不计fail。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

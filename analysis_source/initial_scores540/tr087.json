@@ -1,0 +1,383 @@
+{
+  "case_id": "tr087",
+  "created_beijing": "2026-11-10T15:08:32.464201+08:00",
+  "input_sha256": "b58f15b7ecee6b14aef8ed799687953e4d5a70d6a1fd135db88043638c5412be",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "91c4978e0a77cd6400766cc02163bb46a3ec54e665af841c71510cf5e3a06861",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2563,
+    "completion_tokens_details": {
+      "reasoning_tokens": 561
+    },
+    "prompt_tokens": 15537,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 18100
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消预订IFOYYZ",
+        "object": "预订IFOYYZ（CLT-EWR往返，basic economy，1人）",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消需满足：24小时内预订/航司取消/商务舱/有保险且原因符保险，否则应拒绝",
+            "basis": "policy: flight can be cancelled if any of the following is true",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "预订创建于2024-05-12（超24小时）、basic economy、无保险、非航司取消，不满足任何取消条件，Agent仍执行取消",
+            "refs": [
+              "h:11",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "多次向用户确认后获得明确同意（h:17、h:21）",
+            "refs": [
+              "h:17",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "实际写入status=cancelled并退款-116，属违规取消，按规则本应拒绝办理",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消与实际状态一致（虽然该操作本身违规，问题记RULE/OUTCOME）",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未涉及资格/费用等事实说明错误",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "取消流程无政策强制的额外核验步骤未被触发",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "IFOYYZ被实际取消并退款，但该取消违反政策取消条件"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消预订NQNU5R",
+        "object": "预订NQNU5R（MCO-SEA单程，business，2人）",
+        "request_refs": [
+          "h:9",
+          "h:21"
+        ],
+        "revisions": [
+          {
+            "ref": "h:21",
+            "change": "用户澄清NQNU5R也是要取消而非升级"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已飞航班不得代办取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, the agent cannot help and transfer is needed",
+            "refs": [
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "航班日期2024-05-13/14早于当前时间2024-05-15，部分已飞，按政策不能代办取消且应转人工，Agent直接调用cancel_reservation",
+            "refs": [
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消NQNU5R获用户明确确认（h:21）",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "DB实际写入cancelled并退款-6178，违反已飞航班不可代办取消的规则",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28说明已取消与实际DB状态一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "无错误的事实/报价说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求已飞航段情形应转人工，Agent未执行transfer_to_human_agents",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "NQNU5R被违规取消并退款6178美元，未按政策转人工"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将预订M20IZO升级为商务舱",
+        "object": "预订M20IZO（JFK-MCO单程，2人）",
+        "request_refs": [
+          "h:1",
+          "h:9",
+          "h:29"
+        ],
+        "revisions": [
+          {
+            "ref": "h:29",
+            "change": "用户补充指定用尾号7334的信用卡支付升级费用"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "改舱前须列出操作明细（含差价金额）并获明确确认",
+            "basis": "policy: must list the action details and obtain explicit user confirmation",
+            "refs": [
+              "h:20"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "支付应使用用户指定的信用卡（尾号7334）",
+            "basis": "user h:29",
+            "refs": [
+              "h:29"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "economy改business、航班未飞、航班保持不变，符合改舱规则",
+            "refs": [
+              "h:19",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "确认时未列出1,194美元差价金额即执行扣款，且首次扣款使用了用户未指定的credit_card_4959530而非后指定的尾号7334卡",
+            "refs": [
+              "h:20",
+              "h:26",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "改舱本身成功，但费用按DB仍记在credit_card_4959530（+1194），用户指定的7334卡未被使用；第二次update无任何DB变更（e:7 changes为空）",
+            "refs": [
+              "h:27",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "在第二次更新实际未生效的情况下告知'card ending in 7334 has been successfully used'，与DB实际状态矛盾",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户说明差价金额，属遗漏而非错误事实说明，记CONSENT",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id与reservation id、查询预订详情，必要步骤齐备",
+            "refs": [
+              "h:6",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "M20IZO已升为商务舱，但1,194美元差价扣在未指定的4959530卡上，用户指定的7334卡未被使用且被虚假告知已成功"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "违规取消不符合取消条件的IFOYYZ",
+        "basis": "policy取消条件均不满足（超24小时、basic economy、无保险、非航司取消），仍调用cancel_reservation",
+        "refs": [
+          "h:11",
+          "h:22",
+          "h:23"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "预订被实际取消并退款116美元，属违规写入"
+      },
+      {
+        "issue_id": "I2",
+        "title": "取消含已飞航段的NQNU5R且未转人工",
+        "basis": "policy: If any portion of the flight has already been flown, the agent cannot help and transfer is needed；航班日期2024-05-13/14早于当前2024-05-15",
+        "refs": [
+          "h:15",
+          "h:24",
+          "h:25"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "已飞航段预订被违规取消并退款6,178美元"
+      },
+      {
+        "issue_id": "I3",
+        "title": "升级差价未告知金额、扣错卡且虚假报告成功",
+        "basis": "policy要求list action details后确认；用户指定credit ending 7334（h:29）；第二次update后DB无变化（e:7）但Agent称successfully used",
+        "refs": [
+          "h:20",
+          "h:26",
+          "h:29",
+          "h:30",
+          "h:31",
+          "h:32"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "1,194美元扣在未指定的4959530卡，用户被误导以为已用7334卡支付"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:24",
+        "purpose": "航班日期早于当前时间证明NQNU5R已飞，取消违反政策"
+      },
+      {
+        "from": "h:29",
+        "to": "e:7",
+        "purpose": "用户指定的支付卡与实际DB未变更对比，证明支付修正未生效"
+      },
+      {
+        "from": "h:11",
+        "to": "h:22",
+        "purpose": "预订创建时间与舱位证明IFOYYZ不满足取消条件"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16中曾误写'M20IZZ'，为不影响业务的轻微笔误",
+      "退款5-7个工作日到账，申请提交不等于到账，此处DB已记录退款条目，不另判OUTCOME错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

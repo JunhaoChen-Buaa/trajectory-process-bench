@@ -1,0 +1,168 @@
+{
+  "case_id": "tr345",
+  "created_beijing": "2026-11-10T14:39:03.661447+08:00",
+  "input_sha256": "dcd482f6c0e0e742df8b1aafe4b9c02904cae13fa7ac0702c240dfc62f7e9f8c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "32253f62ff8f35f5834761dddf964116360f866150007ff97d285d72595f5cc0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 873,
+    "completion_tokens_details": {
+      "reasoning_tokens": 42
+    },
+    "prompt_tokens": 16918,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17791
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "已送达订单中笔记本电脑换货",
+        "object": "订单#W4073673中的Laptop(item 2216662955)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户身份经name+zip核验",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:2",
+              "h:3",
+              "h:4"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "将Laptop换成i7/8GB RAM/1TB SSD/black的同产品可用变体",
+            "basis": "用户要求h:1；policy: same product, different option, available",
+            "refs": [
+              "h:1",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "差价$60.78退款到Mastercard ending 1531",
+            "basis": "用户确认h:17,h:19",
+            "refs": [
+              "h:17",
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "操作前列明细节并获得明确yes确认，且提醒只能换一次",
+            "basis": "policy: explicit confirmation; exchange only once",
+            "refs": [
+              "h:18",
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为delivered(h:11)，新item 9844888101为同产品、可用、目标配置正确(h:13)，参数与确认一致(e:6)。",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:18列明换入配置、差价$60.78、退款卡、一次性提醒后，用户明确回复yes式确认(h:19)。",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB实况：状态变exchange requested，exchange_items=[2216662955]→new 9844888101，差价-60.78到credit_card_3677959(e:6,s:6)，与同意内容一致。",
+            "refs": [
+              "h:21",
+              "e:6"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:22如实告知已确认exchange requested、换入配置、退款及后续邮件，与实际状态一致。",
+            "refs": [
+              "h:22",
+              "h:21"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$2,459.74、差价$60.78(2520.52−2459.74)及配置i7/8GB/1TB/black均与目录h:13一致。",
+            "refs": [
+              "h:13",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先核验身份(h:4)，查订单状态delivered(h:8-11)，查产品变体(h:12)，并提醒只能换一次及确认全部商品(h:18)。",
+            "refs": [
+              "h:4",
+              "h:11",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W4073673状态为exchange requested，换入item 9844888101，差价$60.78将退回Mastercard ending 1531。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:19",
+        "purpose": "确认细节与用户明确同意的对应关系"
+      },
+      {
+        "from": "h:13",
+        "to": "h:20",
+        "purpose": "新变体配置/价格与换货调用的核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14首次未告知差价金额属沟通顺序问题，随后h:16已补充并确认，不影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

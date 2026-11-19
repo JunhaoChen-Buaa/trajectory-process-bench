@@ -1,0 +1,233 @@
+{
+  "case_id": "tr061",
+  "created_beijing": "2026-11-10T14:29:53.454914+08:00",
+  "input_sha256": "00292c3dde77a0fb6d2c6d96c94dcef2b59b2642e88f422c986ffbc7085ec5ac",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "cea4fb0a4a993fb54357c381d31145f0da9722af54ecf3d1c47267f9c66d5d6e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1314,
+    "completion_tokens_details": {
+      "reasoning_tokens": 188
+    },
+    "prompt_tokens": 14203,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15517
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改OWZ4XL航班为5月21日直飞",
+        "object": "预订OWZ4XL（EWR→LAX，basic economy）",
+        "request_refs": [
+          "h:7",
+          "h:14"
+        ],
+        "revisions": [
+          {
+            "ref": "h:24",
+            "change": "用户接受无法改签的结论，转为预订新直飞航班，不再坚持修改OWZ4XL"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "basic economy不可修改航班；若升级舱位，仅可改舱不改航班",
+            "basis": "policy: 'Basic economy flights cannot be modified'",
+            "refs": [
+              "h:14",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "Agent正确告知basic economy不可改航班，仅提供舱位升级选项，未违规调用修改API",
+            "refs": [
+              "h:15",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何修改操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "OWZ4XL保持原状，违规修改被正确拒绝，属依法拒绝",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明该预订不可修改、不可取消（列出四条资格条件均不满足），与实际一致",
+            "refs": [
+              "h:17",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于basic economy限制和取消资格的说明均有policy依据且正确",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id和reservation id、查询预订详情，顺序合规",
+            "refs": [
+              "h:4",
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "OWZ4XL保持不变，改签请求因basic economy限制被合规拒绝"
+      },
+      {
+        "group_id": "G2",
+        "goal": "为新直飞HAT041预订3人新预订",
+        "object": "新预订HATHAT（HAT041，EWR→LAX，2024-05-21）",
+        "request_refs": [
+          "h:18",
+          "h:24"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "预订HAT041直飞3名乘客（Ivan/Olivia/Lei），basic economy，无保险",
+            "basis": "用户h:24、h:26",
+            "refs": [
+              "h:24",
+              "h:26"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "订前列出详情并获明确确认，付款方式须在profile中",
+            "basis": "policy确认要求与支付规则",
+            "refs": [
+              "h:25",
+              "h:26"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "3乘客、basic economy、profile内礼品卡支付、无保险，均符合规则；silver会员basic economy免费行李说明正确",
+            "refs": [
+              "h:25",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "订前列出全部详情并询问保险与付款方式，用户明确确认（h:26）后才调用预订",
+            "refs": [
+              "h:25",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "预订成功写入HATHAT，3×$53=$159用gift_card_7344518支付，乘客与航班与确认一致",
+            "refs": [
+              "e:6",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认信息与实际DB结果完全一致，含预订号、价格、乘客，并说明OWZ4XL保持不变",
+            "refs": [
+              "h:29",
+              "e:6"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "HAT041航班时间、价格、座位数来自真实搜索结果；行李津贴说明正确",
+            "refs": [
+              "h:21",
+              "h:25"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先搜索航班并展示，主动询问是否需要保险及是否添加行李，符合政策要求",
+            "refs": [
+              "h:19",
+              "h:25"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "新预订HATHAT成功建立并按用户确认内容支付$159"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:14",
+        "to": "h:15",
+        "purpose": "改签请求触发basic economy不可修改规则的说明"
+      },
+      {
+        "from": "h:26",
+        "to": "e:6",
+        "purpose": "用户确认与实际预订写入对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent道歉措辞略显主观（'I'm sorry to hear about your mom'），属轻微措辞问题，不影响业务评分",
+      "offline_database_facts中搜索的AttributeError为离线回放问题，实际执行e:5搜索成功，不构成Agent错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,269 @@
+{
+  "case_id": "tr040",
+  "created_beijing": "2026-11-10T15:10:16.001751+08:00",
+  "input_sha256": "71483ff2a944da1a23ff3a45bf91516c4ab22e9ddfb990b180a9f4142721a795",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "2c31b8f8d3c3413d2ee0c90085a08cf128e7c9720b3e18056392707c15fc85fd",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2672,
+    "completion_tokens_details": {
+      "reasoning_tokens": 1268
+    },
+    "prompt_tokens": 25524,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 28196
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改返程航班为5月27日最快方案",
+        "object": "预订OBUT9V返程段（DEN→IAH）",
+        "request_refs": [
+          "h:1",
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "返程改为2024-05-27，选最快方案，若不可用则次快",
+            "basis": "用户h:21",
+            "refs": [
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "更新预订前须列出明细并获明确确认",
+            "basis": "policy: obtain explicit user confirmation",
+            "refs": [
+              "h:28"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "搜索结果HAT229 economy座位为0，仍将其作为最快方案推进并提交更新，被后端拒绝（recovered后改用HAT290+HAT175）",
+            "refs": [
+              "h:25",
+              "h:28",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "用户确认的是HAT229+HAT266方案（h:28-29），实际写入HAT290+HAT175时未重新列出明细取得明确确认，h:35仅同意付款方式变更",
+            "refs": [
+              "h:28",
+              "h:35",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最快方案不可用后按用户预设改为次快HAT290+HAT175于5-27，DB确认写入，$59差价经用户同意用信用卡收取",
+            "refs": [
+              "h:37",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:40如实说明新航班、$59信用卡扣款及行李更新，与实际DB状态一致",
+            "refs": [
+              "h:40",
+              "h:37"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "各方案时长与差价计算（选项4退$14、选项5补$59）均有搜索结果依据，座位数与免费行李说明正确",
+            "refs": [
+              "h:26",
+              "h:28",
+              "h:25"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取user id、定位预订、搜索直飞与中转航班、列出明细确认，顺序完整",
+            "refs": [
+              "h:4",
+              "h:14",
+              "h:22",
+              "h:24",
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "返程改为HAT290+HAT175（2024-05-27），信用卡收$59差价；付款方式争议转人工，用户原要求的$6礼品卡因余额不足无法使用"
+      },
+      {
+        "group_id": "G2",
+        "goal": "为预订增加1件托运行李",
+        "object": "预订OBUT9V行李数",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "行李从1件增至2件，silver会员economy享2件免费，不产生非免费行李",
+            "basis": "policy baggage allowance",
+            "refs": [
+              "h:21",
+              "h:28"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "economy silver会员2件免费额度内增加，nonfree_baggages保持0，符合规则",
+            "refs": [
+              "h:28",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "增加行李明细已在h:28列出并获用户确认",
+            "refs": [
+              "h:28",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB显示total_baggages由1变为2，无额外费用",
+            "refs": [
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:40告知行李已更新为2件且均免费，与实际一致",
+            "refs": [
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "silver会员economy 2件免费的说明与政策一致",
+            "refs": [
+              "h:26",
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "在更新前确认了行李需求与免费额度说明",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "行李已增至2件且免费，办理完成"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "向经济舱0座航班HAT229提交改签",
+        "basis": "搜索结果显示HAT229 economy座位0（h:25），Agent仍确认为最快方案并提交，后端报Not enough seats（h:31）",
+        "refs": [
+          "h:25",
+          "h:28",
+          "h:31"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": true,
+        "effect": "一次失败的更新尝试，随后改用次快方案，未造成错误写入"
+      },
+      {
+        "issue_id": "I2",
+        "title": "实际改签航班与用户确认方案不符且未重新确认",
+        "basis": "policy要求更新前列明细并获yes；h:28确认的是HAT229+HAT266，实际写入HAT290+HAT175（h:36），仅付款方式另获同意（h:35）",
+        "refs": [
+          "h:28",
+          "h:35",
+          "h:36"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "最终航班虽符合用户'次快即可'的预设意图，但未按规则就新航班明细取得明确确认"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:25",
+        "to": "h:28",
+        "purpose": "HAT229 economy座位0却被确认为最快方案"
+      },
+      {
+        "from": "h:35",
+        "to": "h:36",
+        "purpose": "用户同意改用信用卡与实际扣款对应"
+      },
+      {
+        "from": "h:21",
+        "to": "h:37",
+        "purpose": "用户'最快不可用则次快'要求与最终写入航班对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:26为超长内部推理式消息且customer_visible=true，送达用户的措辞冗长混乱，属表现层问题，不作为业务fail依据；h:28关于退$14的说明当时对选项4计算正确，最终按选项5实收$59并向用户如实告知，未构成虚假完成说明。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,3 @@
+# Preserve exact bytes of frozen JSON, policies, upstream files, and manifests.
+# Disabling text normalization does not disable ordinary text diffs.
+* -text

@@ -1,0 +1,5 @@
+便携重算（从benchmark目录执行，不调用API）
+python -X utf8 analysis/score_comparison/compare_scores.py --raw-scores analysis_source/initial_scores540 --reference reference_data/reference/annotations.jsonl --run-index reference_data/run_index.json --out results/score_comparison
+
+analysis_source/comparison_sources.json 与 initial_scores540 目录并列，保存540个原始输出的冻结hash及必要元数据。脚本在这些hash通过后计算原首轮协议下的527同批对照，并另外检查与当前发布版格式校验的兼容性。
+reference_data/inputs 保留原评分输入，供机械引用校验，不调用模型。参考标签只用于本离线对照，不进入新轨迹的评分输入。

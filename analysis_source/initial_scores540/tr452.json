@@ -1,0 +1,142 @@
+{
+  "case_id": "tr452",
+  "created_beijing": "2026-11-10T16:16:35.387274+08:00",
+  "input_sha256": "daf222b958d494c1c960445cc0946e41be1ca1186f67d1715f7b1a8e4c8ab21f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0db72fe19e77d2f5f7bf18abba3192618920930887341a96fddad3b3423441f1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 629,
+    "completion_tokens_details": {
+      "reasoning_tokens": 32
+    },
+    "prompt_tokens": 13095,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13724
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游期间移动数据不可用/过慢问题",
+        "object": "L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: Technical Support—You must first identify the customer",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并修复手机侧数据漫游关闭与2G网络问题，并验证数据恢复",
+            "basis": "tech_support_policy: Addressing Data Roaming Problems / Optimizing Network Mode Preferences",
+            "refs": [
+              "h:12",
+              "h:16",
+              "h:20",
+              "h:24"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策流程操作：核对正确line（L1002对应号码555-123-2002），线上已漫游启用，指导用户开启手机数据漫游并切4G/5G，未越权操作",
+            "refs": [
+              "h:9",
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本次为故障排查指导，政策不要求额外确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游开启、切5G后speed test为275 Mbps Excellent（e:7），用户确认已修复（h:29）",
+            "refs": [
+              "h:26",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实测一致： Excellent速度测试后确认问题解决，无虚假完成",
+            "refs": [
+              "h:24",
+              "h:26",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "8.7/15.0GB未超限与数据一致（e:3）；说明line已漫游启用与h:9一致",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别身份、查询正确线路与用量，再诊断并指导修复、验证结果，顺序合规",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "手机数据漫游已开启并切至4G/5G，实测275 Mbps，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户号码555-123-2002对应L1002而非L1001"
+      }
+    ],
+    "auxiliary_notes": [
+      "多line查询L1001后正确切换到L1002，属于合理核验，无问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

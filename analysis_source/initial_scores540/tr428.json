@@ -1,0 +1,154 @@
+{
+  "case_id": "tr428",
+  "created_beijing": "2026-11-10T14:38:20.677356+08:00",
+  "input_sha256": "5d915dafaf9deb13518c19f8869e7f78d1b9dbf10f54847d361807b77dc39879",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f0a9d35231c161a1116c569c38fa9e5af5583b9b64895ec59e9b3431d5493cc1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 650,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 14980,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 15630
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游下移动数据问题并达到极佳速度",
+        "object": "L1002 (555-123-2002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先完成客户身份识别",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并解决移动数据不可用/慢的问题，最终达到Excellent速度",
+            "basis": "用户短引：need excellent speed",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "境外使用时确认线路已开通roaming，未开通则免费开通",
+            "basis": "policy: roaming enabled at no cost",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅指导用户端设备操作（关飞行模式、开数据漫游），均符合政策；线路L1002本身roaming已开启无需enable_roaming，对象正确。",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:16",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "均为用户自己设备上的免费/本地操作，无需额外确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞行模式关闭、数据漫游开启后，speed test 275 Mbps Excellent (e:12)，问题实际解决。",
+            "refs": [
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结准确（关闭飞行模式、开启数据漫游），并基于实测Excellent结果告知已解决。",
+            "refs": [
+              "h:48",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量8.7/15GB (h:11)、线路roaming已开启 (h:9) 等说明均有工具数据支持。",
+            "refs": [
+              "h:11",
+              "h:12",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份识别(h:5)，再逐项排查：状态栏、网络状态、Data Saver、VPN、网络模式、APN，最后速度测试确认，符合技术支持流程。",
+            "refs": [
+              "h:4",
+              "h:13",
+              "h:21",
+              "h:45"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户移动数据在法国漫游下正常工作，实测275 Mbps Excellent速度，问题解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:22",
+        "to": "h:25",
+        "purpose": "发现手机端数据漫游关闭，指导用户开启"
+      },
+      {
+        "from": "h:46",
+        "to": "h:48",
+        "purpose": "以实测Excellent速度作为解决依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent逐项让用户检查每类设置、每次一个请求，流程清晰；轻微冗余不影响业务评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

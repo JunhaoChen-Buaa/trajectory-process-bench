@@ -1,0 +1,176 @@
+{
+  "case_id": "tr382",
+  "created_beijing": "2026-11-10T14:56:54.863755+08:00",
+  "input_sha256": "8455762c3bc8f11eb672ddbf31fa4ea721970ab53816a0db359c1637f1939445",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d132d6c66dd03312cdb707452b6022d9d2ab5fe786ff1c6b8f62ce48db8a5f19",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1043,
+    "completion_tokens_details": {
+      "reasoning_tokens": 117
+    },
+    "prompt_tokens": 18441,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19484
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复MMS无法发送",
+        "object": "John Smith线路L1002(555-123-2002)手机与账户",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先验证身份再进行技术支持",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按排障流程恢复蜂窝服务、数据连接并最终MMS可发送",
+            "basis": "tech_support_policy: MMS需要服务与移动数据; can_send_mms验证",
+            "refs": [
+              "h:1",
+              "h:87"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "针对用户提供的号码对应线路L1002处理漫游与数据超限问题，按价格确认后执行",
+            "basis": "policy: 'the line associated with the phone number the user provided'; 数据补充需确认价格",
+            "refs": [
+              "h:3",
+              "h:67",
+              "h:74",
+              "h:75"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "免费为出国用户开通漫游、按$2/GB补充2GB均符合政策，操作对象为用户号码555-123-2002对应的L1002，正确。",
+            "refs": [
+              "h:74",
+              "h:76",
+              "h:78"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确同意开通漫游并选择补充2GB@$2/GB（'I'll refuel 2 GB at $2.00 per GB'）后才执行。",
+            "refs": [
+              "h:75",
+              "h:76",
+              "h:78"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "SIM重插、网络模式切换、Wi-Fi Calling关闭、权限授予、漫游开通与设备侧toggle_roaming后，speed test 275 Mbps且can_send_mms成功（e:25,e:26），问题彻底解决。",
+            "refs": [
+              "h:84",
+              "h:86",
+              "h:87"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "最终说明'SIM reseated…MMS sending again'与实际状态一致，并如实提醒$4.00账单费用。",
+            "refs": [
+              "h:80",
+              "h:88"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量15.1/15GB与$2/GB报价有L1002和P1002查询依据（e:20,e:21）；曾基于L1001说'usage looks fine'属对象口误但随后纠正并给出正确信息。",
+            "refs": [
+              "h:57",
+              "h:71",
+              "h:73",
+              "h:74"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份验证，再按SIM→网络模式→APN→Wi-Fi Calling→权限→数据连接→漫游的排障顺序推进，并在国外场景核查线路漫游开通状态。",
+            "refs": [
+              "h:2",
+              "h:12",
+              "h:22",
+              "h:30",
+              "h:34",
+              "h:44",
+              "h:58",
+              "h:68",
+              "h:69"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS恢复可用，线路L1002漫游已开通并补充2GB数据，$4.00费用计入账单，用户确认解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:71",
+        "purpose": "用户号码555-123-2002对应线路L1002，后续漫游与数据操作对象核验"
+      },
+      {
+        "from": "h:67",
+        "to": "h:74",
+        "purpose": "用户身处国外触发漫游核查义务"
+      },
+      {
+        "from": "h:75",
+        "to": "h:76",
+        "purpose": "用户同意开通漫游与补充数据后再执行"
+      }
+    ],
+    "auxiliary_notes": [
+      "早期get_data_usage误查L1001并在h:58说'data usage looks fine'，属于对象口误，随后通过L1001/L1002逐线核查纠正，未造成误导性结果；记为轻微边界说明。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

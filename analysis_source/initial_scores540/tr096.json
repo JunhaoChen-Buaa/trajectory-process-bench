@@ -1,0 +1,286 @@
+{
+  "case_id": "tr096",
+  "created_beijing": "2026-11-10T15:46:02.506958+08:00",
+  "input_sha256": "0e929980a54579edab8b8d1a07fd0aaa76ca0985ef498c035feb67cf0f127ea7",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "74e3e7821121c0f711332485a145b0e15c23cee16b644cf150a14dc3f921fe6c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1594,
+    "completion_tokens_details": {
+      "reasoning_tokens": 257
+    },
+    "prompt_tokens": 13976,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15570
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消预订IFOYYZ",
+        "object": "IFOYYZ",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按政策判断IFOYYZ是否可取消（basic economy、无保险、超24小时不满足任一取消条件则拒绝）",
+            "basis": "policy: flight can be cancelled if any of the following is true",
+            "refs": [
+              "h:11",
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确核对：basic economy、无保险、booked 2024-05-12超过24小时，均不满足取消条件，拒绝正确",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行更新操作，无需确认"
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝并转人工是正确处理，用户亦接受",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知不能通过API取消并说明各条件逐项核对",
+            "refs": [
+              "h:16"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对booking时间、cabin、insurance的说明均与h:11一致",
+            "refs": [
+              "h:11",
+              "h:16"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已询问取消原因（change of plans），并完成真实转接",
+            "refs": [
+              "h:15",
+              "h:20"
+            ]
+          }
+        },
+        "end_state": "IFOYYZ未被取消，因不满足任何取消条件，已转人工处理"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消预订NQNU5R",
+        "object": "NQNU5R",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "若航班已飞过，则不能代为取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, the agent cannot help and transfer is needed",
+            "refs": [
+              "h:13",
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核对NQNU5R航班日期2024-05-13/14早于当前2024-05-15，已飞过，拒绝并转人工正确",
+            "refs": [
+              "h:13",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消操作"
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝并成功转接人工，用户表示理解",
+            "refs": [
+              "h:17",
+              "h:21"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明该预订因航班已飞需人工协助",
+            "refs": [
+              "h:22"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "日期已过的判断与预订数据一致",
+            "refs": [
+              "h:13"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先get_reservation_details核实再真实transfer_to_human_agents并送达转接话术",
+            "refs": [
+              "h:12",
+              "h:20",
+              "h:22"
+            ]
+          }
+        },
+        "end_state": "NQNU5R未取消，已转人工处理"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将M20IZO升级为商务舱",
+        "object": "M20IZO",
+        "request_refs": [
+          "h:1",
+          "h:16",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅改舱不改航班，JFK-ATL-MCO 2024-05-22保持不变",
+            "basis": "policy: can change cabin without changing the flights",
+            "refs": [
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "操作前列明细节并获得用户确认及支付方式",
+            "basis": "policy: must list the action details and obtain explicit user confirmation",
+            "refs": [
+              "h:16",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "差价按商务舱现价支付，用profile内支付方式",
+            "basis": "policy: user pays the difference; payment method must be in user profile",
+            "refs": [
+              "h:17",
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅改cabin为business、航班不变，航班2024-05-22未飞，符合改舱规则",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "已列明升级细节并询问支付方式，用户明确选择7334尾号信用卡确认执行",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB实际变为business，差价1194=(430+412)*2-490正确收取到credit_card_9074831",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Successfully upgraded'与实际状态一致",
+            "refs": [
+              "h:22"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对可用支付方式与改舱可行性的说明均有据",
+            "refs": [
+              "h:16"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已获取user id与reservation详情、核验未飞、确认支付方式后再调用",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:16"
+            ]
+          }
+        },
+        "end_state": "M20IZO已成功升为business舱，收取差价$1194"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:16",
+        "purpose": "IFOYYZ取消条件逐项核对依据"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "用户确认支付方式7334与实际调用payment_id对应"
+      },
+      {
+        "from": "h:19",
+        "to": "h:22",
+        "purpose": "实际升舱结果支撑完成说明"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16 assistant消息冗长且含多次自我纠正的思考式表述，属沟通风格问题，不影响业务判断正确性",
+      "transfer summary中提及用户为silver member属转接说明，无实质影响"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

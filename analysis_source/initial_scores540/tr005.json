@@ -1,0 +1,164 @@
+{
+  "case_id": "tr005",
+  "created_beijing": "2026-11-10T14:53:02.262685+08:00",
+  "input_sha256": "d1440e9f20e01af6ca2c7092e367b17e8e6e6daae3ba29af1b570a2db33f0c62",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a65422161f2ca5e225b88403b1ad86b896cd07272fa0a57b2a13785380f0ce22",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 844,
+    "completion_tokens_details": {
+      "reasoning_tokens": 67
+    },
+    "prompt_tokens": 13873,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14717
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改FQ8APE预订：加3个托运行李、改乘客为Omar Rossi、尝试升舱",
+        "object": "预订FQ8APE（EWR→ORD，basic economy）",
+        "request_refs": [
+          "h:12"
+        ],
+        "revisions": [
+          {
+            "ref": "h:16",
+            "change": "用户接受升舱不可行，确认只执行加行李和改乘客名"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "为预订添加3个托运行李，正确计算费用并收取",
+            "basis": "policy: gold member 2 free checked bags per basic economy passenger, extra $50",
+            "refs": [
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "乘客由Ivan Garcia改为Omar Rossi（人数不变）",
+            "basis": "policy: 可以修改乘客但不能改变人数",
+            "refs": [
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "升舱请求按政策拒绝（basic economy不能修改）",
+            "basis": "policy: Basic economy flights cannot be modified",
+            "refs": [
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "行李计算正确（gold+basic economy=2免费，1件$50），改乘客合规，拒绝升舱符合 'basic economy flights cannot be modified'，拒取消重订也符合取消条件。",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在h:17列明两项操作、$50费用与gift_card_8190333后，用户h:18明确确认 'Go ahead and process both'。",
+            "refs": [
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认乘客改为Omar Rossi(1970-06-06)、行李3/1非免费、$50已入账（e:5,e:6,s:6），升舱未执行（正确）。",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:22如实说明两项已完成、升舱未变，与实际状态一致。",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "行李费用$50、升级限制、取消条件说明均有政策和数据依据。",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查用户与预订详情确认对象和会员等级，更新前征得确认，无遗漏必要步骤。",
+            "refs": [
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "FQ8APE乘客已改为Omar Rossi，行李为3个（1个付费$50用gift_card_8190333支付），仍为basic economy，升舱被正确拒绝。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:13",
+        "purpose": "会员等级gold支持免费行李数计算"
+      },
+      {
+        "from": "h:9",
+        "to": "h:15",
+        "purpose": "预订有保险但理由不符合，拒绝取消重订"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent一次发出两个工具调用（h:19），属接口规范层面，未影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

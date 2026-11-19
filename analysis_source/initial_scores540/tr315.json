@@ -1,0 +1,203 @@
+{
+  "case_id": "tr315",
+  "created_beijing": "2026-11-10T15:30:59.558708+08:00",
+  "input_sha256": "7b9103f345d3927246c0cad4e2cb4b683164f977fd6beaee9683dbf5925575dd",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c1130846c084d6c7c2f956592eb3c27f85229cbdb0578dda312a123a1f2dfa62",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1474,
+    "completion_tokens_details": {
+      "reasoning_tokens": 448
+    },
+    "prompt_tokens": 12079,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13553
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改订单商品（书架改4英尺），后改为取消订单",
+        "object": "订单 #W7999678 / 书架",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:37",
+            "change": "用户撤回换货要求，改为取消整个订单（reason: ordered by mistake）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份认证（通过邮箱）后才可执行任何操作",
+            "basis": "policy: authenticate at beginning",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "原订单中书架应改为4英尺同材质同颜色",
+            "basis": "用户 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "取消前需列出订单详情并获用户明确确认(yes)",
+            "basis": "policy: obtain explicit user confirmation (yes)",
+            "refs": [
+              "h:37"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "最终按用户改为的取消请求执行，对象 #W7999678 正确、状态 pending、理由 allowed；换货因订单无书架未执行属如实情况",
+            "refs": [
+              "h:37",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "取消 #W7999678 前未列出取消详情并取得明确 yes，仅凭用户 h:37 的模糊意向直接调用 cancel",
+            "refs": [
+              "h:37",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单实际变为 cancelled 且 321.18 已退款至 gift_card（离线重放 s:7 哈希验证）；换货部分因订单中不存在书架而无法办理",
+            "refs": [
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已告知订单已取消且退款即时到账 gift card，与实际状态一致",
+            "refs": [
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "错误声称'If you'd like to add a bookshelf to your order, I can help you with that'——政策不允许向订单添加商品，属无依据的程序虚构",
+            "refs": [
+              "h:16",
+              "h:36"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "认证前就调用了 modify_pending_order_items（h:2，order #W0000000），违反'开头必须先认证'；且未先查订单就发起写操作",
+            "refs": [
+              "h:2",
+              "h:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          }
+        },
+        "end_state": "#W7999678 已取消并退款 321.18 至 gift card；书架换货未办理（订单中无书架）；用户自行重新下单"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "取消订单前未按政策取得明确确认",
+        "basis": "policy: 'list the action details and obtain explicit user confirmation (yes)'；h:37 仅表达意向，h:38 直接执行",
+        "refs": [
+          "h:37",
+          "h:38",
+          "h:39"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "订单被取消且退款已发生，未经规范确认流程，结果恰符合用户最终意向但流程违规"
+      },
+      {
+        "issue_id": "I2",
+        "title": "虚构'可向订单添加书架'的能力",
+        "basis": "policy 仅支持 modify item options/cancel 等，无添加商品功能",
+        "refs": [
+          "h:16",
+          "h:36"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户对可行方案的理解"
+      },
+      {
+        "issue_id": "I3",
+        "title": "身份认证前调用修改订单工具",
+        "basis": "policy: 'At the beginning... authenticate the user identity'",
+        "refs": [
+          "h:2",
+          "h:3"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": true,
+        "effect": "调用失败(Order not found)，未造成写入，后续已认证",
+        "notes": "该次调用还使用了臆造订单号 #W0000000"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:37",
+        "to": "h:39",
+        "purpose": "取消请求与实际执行结果关联"
+      },
+      {
+        "from": "h:2",
+        "to": "h:3",
+        "purpose": "认证前的写操作尝试及其失败结果"
+      }
+    ],
+    "auxiliary_notes": [
+      "多次虚构格式的内联工具调用文本（h:8,h:12,h:20,h:28,h:32）发送给用户属接口规范问题，不影响业务评分",
+      "未查用户另一订单 #W8835847 是否含书架即断定找不到正确订单，属可商榷的查询完整性问题，未列为实质fail"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

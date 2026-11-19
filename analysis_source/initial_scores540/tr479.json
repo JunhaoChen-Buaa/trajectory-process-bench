@@ -1,0 +1,184 @@
+{
+  "case_id": "tr479",
+  "created_beijing": "2026-11-10T14:58:52.663163+08:00",
+  "input_sha256": "822c3f1da19445aaf3714962876835ae9d21082a374044bcdbf464535bca0868",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0bfb9998f4b510188a8b2979066daa9b2f6c7b00f90cab66dd85716df00f90d7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1091,
+    "completion_tokens_details": {
+      "reasoning_tokens": 211
+    },
+    "prompt_tokens": 12397,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13488
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查移动数据无连接及速度慢问题",
+        "object": "用户手机的数据连接（设备侧排障）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "修复移动数据无连接问题",
+            "basis": "用户主诉 'mobile data... stops working altogether'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "提升数据速度至可用水平",
+            "basis": "用户 'so slow it's barely usable'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "技术支持前须先识别客户身份",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "仅在无法自行解决时才转人工",
+            "basis": "policy: transfer 'if and only if the request cannot be handled within the scope of your actions'",
+            "refs": [
+              "h:38"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "通过设备侧排障流程（speed test→network status→VPN→roaming→data saver）定位并解决了问题，符合tech support手册流程。",
+            "refs": [
+              "h:6",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排障类操作无需额外确认要求。",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终速度测试达275 Mbps Excellent，连接与速度问题均已实际解决。",
+            "refs": [
+              "h:33",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent未做虚假完成声明，用户自行确认了结果。",
+            "refs": [
+              "h:35"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "各项诊断结果均来自设备工具返回，无无源事实陈述。",
+            "refs": [
+              "h:8",
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求技术支持必须先识别客户（'You must first identify the customer'），Agent全程未做客户查找核验；另外问题已解决后仍发起不必要的转人工，违反'仅在无法处理时转接'。",
+            "refs": [
+              "h:2",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "数据连接恢复，速度达Excellent（275 Mbps），用户满意；但未经身份核验且问题解决后仍被转人工。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "技术支持前未识别客户身份",
+        "basis": "policy要求 'You must first first identify the customer'，对话中无任何客户查找/核验工具调用",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "未核验账户/线路归属即提供支持并引导更改漫游设置。"
+      },
+      {
+        "issue_id": "I2",
+        "title": "问题已解决后发起不必要的转人工",
+        "basis": "policy：仅在请求超出可处理范围时转接；h:36 在速度已达Excellent、用户表达感谢后仍调用 transfer_to_human_agents",
+        "refs": [
+          "h:35",
+          "h:36",
+          "h:38"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户被无必要转接，会话以转人工结束。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:34",
+        "purpose": "用户初始数据问题对应最终Excellent速度结果"
+      },
+      {
+        "from": "h:35",
+        "to": "h:36",
+        "purpose": "问题已解决后仍转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14 中Agent输出的toggle_roaming调用带 customer_id:null/line_id:null 等无效参数，且用户是否漫游从未确认；但实际设备侧toggle成功且问题随之缓解，属纯接口/流程瑕疵。",
+      "Agent从未确认用户是否在国外，直接建议开启数据漫游缺乏前提核实，已并入I1/I2的流程瑕疵说明，不再单独计实质fail。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

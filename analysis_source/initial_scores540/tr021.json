@@ -1,0 +1,162 @@
+{
+  "case_id": "tr021",
+  "created_beijing": "2026-11-10T14:38:42.894772+08:00",
+  "input_sha256": "50555d5f43ba7dcb36fb39c99a840759954457b64f21ff1fc75cd716ec22ae89",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4c3096081dc86d745b5317da90cc2db3adedb371b6c4340c5c758a2708cf5858",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 777,
+    "completion_tokens_details": {
+      "reasoning_tokens": 74
+    },
+    "prompt_tokens": 11052,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 11829
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "更改Z7GOZK返程航班，后改为取消预订",
+        "object": "预订 Z7GOZK",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:11",
+            "change": "因basic economy不可改签，用户改为要求凭健康原因+旅行保险取消整个预订"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "拒绝修改basic economy预订",
+            "basis": "policy: 'Basic economy flights cannot be modified'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消需符合规则（未飞+保险覆盖健康原因）并先获用户确认",
+            "basis": "policy 取消规则与确认要求",
+            "refs": [
+              "h:11",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "退款169美元回原支付方式（gift card）5-7个工作日",
+            "basis": "policy refund 条款",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别basic economy不可修改（h:10），取消符合未飞+保险健康原因规则，对象Z7GOZK正确",
+            "refs": [
+              "h:7",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明详情并获用户明确确认 'go ahead and cancel it'（h:15-16）",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:6确认Z7GOZK状态为cancelled且退款-169已入gift_card_2200803",
+            "refs": [
+              "e:6",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:19如实说明已取消及退款金额与去向，与实际状态一致",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "basic economy不可修改及保险可全额退说明均有policy依据且与数据库一致（insurance=yes）",
+            "refs": [
+              "h:10",
+              "h:15",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按policy先取user id并定位reservation id，取消前核验两航班均未飞（e:4/e:5），获取取消原因",
+            "refs": [
+              "h:2",
+              "h:12",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "Z7GOZK已取消，$169退款至gift_card_2200803；返程修改请求因basic economy限制无法办理，用户改为取消"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:10",
+        "to": "h:11",
+        "purpose": "拒绝修改直接导致用户改为取消请求"
+      },
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "取消操作的确认链"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent曾主动建议book new one-way替代方案，属轻微业务建议，未造成实际影响；用户搜索航班等均未触发。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

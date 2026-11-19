@@ -1,0 +1,151 @@
+{
+  "case_id": "tr063",
+  "created_beijing": "2026-11-10T15:13:32.537146+08:00",
+  "input_sha256": "2a0728eba82aaa35c10f9da64a4e91ea5363ca7daefdca4c02928b88c42e5a16",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "606b47da8765c3edd383f3fb6f1dab6ebaa1e3ad89afd19a0b952536818b0944",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1006,
+    "completion_tokens_details": {
+      "reasoning_tokens": 177
+    },
+    "prompt_tokens": 11061,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12067
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "查找并修改EWR→BOS 5月21日的航班预订",
+        "object": "用户的某条预订（EWR→BOS, 2024-05-21）",
+        "request_refs": [
+          "h:1",
+          "h:13",
+          "h:33"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户不知道预订ID时应使用可用工具帮助定位预订",
+            "basis": "policy: 'If the user doesn't know their reservation id, the agent should help locate it using available tools'",
+            "refs": [
+              "h:9",
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q1b",
+            "content": "定位预订后协助用户修改航班",
+            "basis": "用户请求 h:1 'I need to make a change to it'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "未执行任何违规更新操作，转人工符合'无法在能力范围内处理'的条件（尽管部分源于自身未用尽工具）。",
+            "refs": [
+              "h:42"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何更新数据库的操作，无确认要求触发。",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "修改业务最终未办理，预订始终未定位到；最终实际状态是不清楚——用户对预订的描述无法核实，修改未完成。",
+            "refs": [
+              "h:35",
+              "h:44"
+            ],
+            "requirement_ids": [
+              "Q1b"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent如实告知系统查不到该预订ID并说明转人工，无虚假完成声明。",
+            "refs": [
+              "h:28",
+              "h:44"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "搜索结果为空（h:15/h:19）与告知一致；silver会员信息有get_user_details依据（h:39）。",
+            "refs": [
+              "h:16",
+              "h:40"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "用户资料中已列出4个预订号（h:7: 'reservations': ['OWZ4XL','F3IQK1','8WMF4C','L2H5FP']），Agent未逐一查询即可定位EWR→BOS 5月21日的预订，却直接转人工，遗漏原政策要求的'用可用工具帮助定位'。",
+            "refs": [
+              "h:7",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          }
+        },
+        "end_state": "预订未定位，修改未办理，转交人工；人工转接本身有效但本可通过查询用户名下4个预订完成。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未查询用户名下已知预订即转人工，遗漏定位预订的必要步骤",
+        "basis": "policy 'the agent should help locate it using available tools'；h:7已返回reservations列表但Agent未查询任何一条",
+        "refs": [
+          "h:7",
+          "h:41",
+          "h:42"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "本可通过4次查询定位并办理的修改业务被迫转人工，用户等待且业务未完成"
+      },
+      {
+        "issue_id": "I2",
+        "title": "修改请求最终未办理",
+        "basis": "用户h:1要求修改航班，对话结束时预订仍未定位",
+        "refs": [
+          "h:1",
+          "h:44"
+        ],
+        "root_cause": "mixed",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "业务目标未达成，其中部分根因是Agent未用尽定位手段（见I1），部分是用户提供的预订ID确实不存在于系统"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:42",
+        "purpose": "用户资料中的预订列表本可用于定位，但Agent未使用即转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2用'your user ID'作为参数调用get_user_details属纯接口调用不当，未产生业务影响；h:10/h:30向get_reservation_details传入不支持的user_id参数为接口误用（auxiliary，非业务fail）。"
+    ]
+  },
+  "validation_errors": [
+    "fail_missing_issue:OUTCOME",
+    "fail_missing_issue:STEPS"
+  ],
+  "mechanical_fence_removal": false
+}

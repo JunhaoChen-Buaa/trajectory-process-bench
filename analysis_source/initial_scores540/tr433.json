@@ -1,0 +1,230 @@
+{
+  "case_id": "tr433",
+  "created_beijing": "2026-11-10T14:38:13.462008+08:00",
+  "input_sha256": "d11088a3f27fbbed1d297fe75d0b91b4401c4ee00a09e809152023adcdfede1d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0b6c7670ce5c8a539484124cd1c320e002e446d829683853daea5fd1f0c48a9c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1076,
+    "completion_tokens_details": {
+      "reasoning_tokens": 58
+    },
+    "prompt_tokens": 16378,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 17454
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "数据流量充值（超出套餐限额）",
+        "object": "L1002（555-123-2002）",
+        "request_refs": [
+          "h:14"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "询问充值量、确认价格后为对应线路充值，最多2GB",
+            "basis": "policy: Data Refueling步骤",
+            "refs": [
+              "h:13",
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "充值前用户确认价格（$2.00/GB，2GB=$4.00）",
+            "basis": "policy: Confirm the price",
+            "refs": [
+              "h:15",
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别L1002线路超限（15.1/15GB），按政策充值2GB未超上限，对象正确",
+            "refs": [
+              "h:11",
+              "h:13",
+              "e:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前明确报价$4.00并获用户同意（h:16）",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "refuel_data成功添加2GB并收$4.00，与同意内容一致",
+            "refs": [
+              "e:6",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已成功充值且建议重启，与实际状态一致",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15GB限额、15.1GB已用、$2.00/GB报价均有工具依据",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已询问充值量、确认价格、按线路执行，顺序符合政策",
+            "refs": [
+              "h:13",
+              "h:15",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002成功充值2GB数据，收$4.00"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修复法国境内移动数据故障（无服务/慢速）",
+        "object": "用户设备（L1002线路）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "诊断并恢复法国境外的移动数据连接",
+            "basis": "用户h:1短引'我需要它修好'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "依次按手册排查数据开关、网络模式、Data Saver、VPN、roaming，均为政策允许步骤",
+            "refs": [
+              "h:23",
+              "h:29",
+              "h:33",
+              "h:37",
+              "h:49"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排障指导无需确认，用户自行执行设备操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终speed test达275Mbps Excellent，数据恢复正常",
+            "refs": [
+              "e:15",
+              "h:55"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结的修复项与实际执行一致，且以实际测速为据",
+            "refs": [
+              "h:57"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'境外需开启roaming'有手册依据；线路侧L1002 roaming已启用（h:8），仅设备侧需打开，说明正确",
+            "refs": [
+              "h:8",
+              "h:47",
+              "h:49"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证基础连接再逐步排查，超限已通过充值解决，无遗漏必要步骤",
+            "refs": [
+              "h:45",
+              "h:49"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "数据连接恢复，5G excellent 275Mbps"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:49",
+        "purpose": "法国境外漫游需求关联到roaming修复"
+      },
+      {
+        "from": "h:11",
+        "to": "h:17",
+        "purpose": "超限事实关联充值操作"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:15与h:13之间政策要求先确认价格再执行，Agent实际做法正确；用户设备操作逐一引导，节奏良好"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,10 @@
+﻿automatic,reviewed,n
+fail,fail,175
+fail,pass,4
+fail,unknown,17
+pass,fail,32
+pass,pass,283
+pass,unknown,10
+unknown,fail,4
+unknown,pass,1
+unknown,unknown,1

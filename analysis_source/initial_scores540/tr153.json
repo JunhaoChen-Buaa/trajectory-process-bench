@@ -1,0 +1,123 @@
+{
+  "case_id": "tr153",
+  "created_beijing": "2026-11-10T15:09:10.577290+08:00",
+  "input_sha256": "64d314fdb03c584cf23702ac3f918b1ecaac74959d28ca6b823b5a6308f1423e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6b4783416b5cf111dff4dbf2df76bb2032f92ea301f4cbbaaa429c8999c62ea4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 466,
+    "completion_tokens_details": {
+      "reasoning_tokens": 17
+    },
+    "prompt_tokens": 8333,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 8799
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消预订并退款",
+        "object": "预订 3RK2T9",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订3RK2T9并退款，理由为生病（保险覆盖原因）",
+            "basis": "用户请求",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "记录显示 insurance: no，不满足任何取消条件，Agent按政策拒绝取消正确",
+            "refs": [
+              "h:5",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝并转人工处理争议记录，属于合规结果",
+            "refs": [
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明记录显示无保险并解释政策条件，未虚假承诺完成",
+            "refs": [
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "基于工具返回 insurance: no 说明，有源依据",
+            "refs": [
+              "h:5",
+              "h:7"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取了用户ID与预订ID、取消原因（生病），并查询了预订与用户详情",
+            "refs": [
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未取消，因记录无保险且用户属silver成员但理由为健康原因需保险；已转人工处理记录争议"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:5",
+        "purpose": "取消请求需核对预订保险与舱位信息以判断资格"
+      }
+    ],
+    "auxiliary_notes": [
+      "摘要中 'departed 2024-05-19/20' 措辞略欠准确（应为 'departing'），属轻微措辞，不影响评价"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

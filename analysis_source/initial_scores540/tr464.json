@@ -1,0 +1,156 @@
+{
+  "case_id": "tr464",
+  "created_beijing": "2026-11-10T15:24:53.834418+08:00",
+  "input_sha256": "bfaa9e8a8ebaad92a405667eca2c13270a5edee2253b6987b564fba068df006c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "759f15c235dbef3001d1ef7447c5bbea56f13feeddc2f511e251d8e9bf4d0e48",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 728,
+    "completion_tokens_details": {
+      "reasoning_tokens": 42
+    },
+    "prompt_tokens": 14609,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15337
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游下移动数据不可用/慢速问题",
+        "object": "用户线路 L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后排查并修复移动数据问题",
+            "basis": "Technical Support: You must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在境外需启用线路漫游（免费）并指导设备侧设置",
+            "basis": "policy: roaming traveling outside home network, enable at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超限时按政策加量（最多2GB，$2/GB），确认价格后执行",
+            "basis": "policy Data Refueling",
+            "refs": [
+              "h:26",
+              "h:32"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确定位用户线路L1002并按政策启用漫游、引导开关data/roaming、超限后按规则加量",
+            "refs": [
+              "h:9",
+              "h:10",
+              "h:16",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户确认加2GB并复述价格'$4, right? Go ahead'后才执行refuel_data",
+            "refs": [
+              "h:32",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游启用、设备端两项开关打开、加2GB后测速275Mbps Excellent，问题解决",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结说明与实际状态一致，最终确认excellent speed属实",
+            "refs": [
+              "h:36",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "计划限额、单价、最多2GB等报价均有工具返回依据（P1002 refuel price 2.0/GB）",
+            "refs": [
+              "h:31",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验、先查线路再启用漫游、无连接后按排查路径查用量与计划，顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002漫游已启用，设备data/roaming开启，加量2GB后测速Excellent（275Mbps），业务完成"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户号码555-123-2002对应线路L1002后再操作"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户消息h:41中含格式损坏的伪工具调用'###STOP###'并报错，属用户/会话侧噪音，非Agent错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

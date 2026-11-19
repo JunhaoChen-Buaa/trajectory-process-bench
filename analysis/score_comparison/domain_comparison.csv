@@ -1,0 +1,4 @@
+﻿level,key,label,total_records,paired_complete,technical_unscored,automatic_pass,automatic_fail,automatic_unknown,automatic_na,automatic_rate_denominator,automatic_pass_rate,reviewed_pass,reviewed_fail,reviewed_unknown,reviewed_na,reviewed_rate_denominator,reviewed_pass_rate,review_minus_auto_percentage_points,verdict_agree,verdict_disagree,agreement,automatic_pass_to_reviewed_fail,automatic_fail_to_reviewed_pass
+domain,retail,零售,180,176,4,106,68,2,0,174,0.6091954022988506,102,73,1,0,175,0.5828571428571429,-2.6338259441707756,166,10,0.9431818181818182,6,1
+domain,airline,航空,180,176,4,95,77,4,0,172,0.5523255813953488,66,88,22,0,154,0.42857142857142855,-12.375415282392026,127,49,0.7215909090909091,23,2
+domain,telecom,电信,180,175,5,124,51,0,0,175,0.7085714285714285,120,50,5,0,170,0.7058823529411765,-0.26890756302520025,166,9,0.9485714285714286,3,1

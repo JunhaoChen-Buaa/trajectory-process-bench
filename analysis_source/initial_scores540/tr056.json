@@ -1,0 +1,144 @@
+{
+  "case_id": "tr056",
+  "created_beijing": "2026-11-10T15:32:13.822427+08:00",
+  "input_sha256": "fb24eeaebf108597041dfe37a6439aa29f3e24803321bab721fa519289c6dd23",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0b43ecfdfa313caaff2e95bc818fc3499776d4c234ca4353c8bba3d9a7d7dbd5",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1266,
+    "completion_tokens_details": {
+      "reasoning_tokens": 600
+    },
+    "prompt_tokens": 13483,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14749
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将5月17日JFK→DTW航班改为直飞",
+        "object": "预订DF89BM（basic economy，JFK-DTW往返）",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "增加预算约束：总费用须低于$100且不买全新航班"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "若预订为basic economy则不能改航班（policy: 'Basic economy flights cannot be modified'）",
+            "basis": "policy",
+            "refs": [
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "在预算约束下寻求可行方案",
+            "basis": "用户 h:17",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "Agent正确识别basic economy不可改航班，也未在规则外操作；拒绝符合policy",
+            "refs": [
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何需确认的写操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "按policy该预订确实不满足改签或取消条件，未办理是合规结果而非失败；数据库无任何变更",
+            "refs": [
+              "h:18",
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知用户无法改签/取消且原因，未虚假声称完成；用户在h:21亦接受",
+            "refs": [
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "引用的取消条件、直飞航班及价格均与工具返回一致（h:15），会员等级与保险事实正确",
+            "refs": [
+              "h:15",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取user id、查三个预订定位目标、搜索直飞航班，顺序合规；h:21中 supervisor请求附###STOP###终止，Agent无回复机会，不判遗漏",
+            "refs": [
+              "h:4",
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "DF89BM保持原basic economy一 stop航班不变，Agent依policy拒绝改签与取消，用户接受"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:9",
+        "purpose": "定位用户目标预订DF89BM及其basic economy舱位"
+      },
+      {
+        "from": "h:17",
+        "to": "h:15",
+        "purpose": "评估预算约束下直飞选项的可行性"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16和h:18将大量内部推理（'let me re-read...'、反复自我纠正）直接送达用户，表述冗长混乱，属措辞与接口规范问题，不影响业务结论",
+      "Agent曾提及'先升舱再改航班'的路径为推测性说明，后未推进，不构成实质事实错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

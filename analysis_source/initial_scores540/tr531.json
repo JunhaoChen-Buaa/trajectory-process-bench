@@ -1,0 +1,155 @@
+{
+  "case_id": "tr531",
+  "created_beijing": "2026-11-10T16:12:55.444682+08:00",
+  "input_sha256": "23332478d2526fab2277464a2a79a7bf81ef775d074153d24e3823aaba42bd30",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4458a1bd55946369810c100b28f44c67a6e0a753ca6839cbbf60f8de0b97755f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 835,
+    "completion_tokens_details": {
+      "reasoning_tokens": 100
+    },
+    "prompt_tokens": 11607,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 12442
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无信号/无服务问题",
+        "object": "用户手机（SIM卡识别/蜂窝服务）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复无服务问题，尽一切可能手段后再转人工",
+            "basis": "policy: technical support; transfer only if cannot be handled",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "技术支持须先识别客户身份",
+            "basis": "policy: 'You must first identify the customer.'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按无服务排查流程处理（飞行模式、SIM检查/重插），SIM仍检测不到后按政策转人工，无违规操作",
+            "refs": [
+              "h:10",
+              "h:24",
+              "h:32"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排查类操作无需确认",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "问题未解决，但根因是设备侧SIM无法识别，Agent按政策转人工属正确处理；然而未做客户识别这一必要前提步骤",
+            "refs": [
+              "h:30",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转人工提示与实际一致，无虚假完成声明",
+            "refs": [
+              "h:34"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "未向用户做出有误的事实/政策说明",
+            "refs": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明文'Technical Support: You must first identify the customer.'，全程未做客户识别即开始技术支持",
+            "refs": [
+              "h:1",
+              "h:2"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "未解决；SIM卡检测不到，已按政策转人工客服"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "无服务问题最终未解决（SIM硬件检测不到）",
+        "basis": "check_sim_status 返回 'No SIM card detected' 重插后仍无改善，问题超出Agent工具能力，依政策转人工",
+        "refs": [
+          "h:22",
+          "h:30",
+          "h:33"
+        ],
+        "root_cause": "unknown",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户无服务问题未修复，需人工跟进；属设备/后端层面而非Agent操作错误"
+      },
+      {
+        "issue_id": "I2",
+        "title": "技术支持前未识别客户身份",
+        "basis": "policy 明文 'Technical Support: You must first identify the customer.'，全程无 get_customer_by_* 调用",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "违反技术支持必要前置步骤，无法核验线路状态（如停机原因）"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:22",
+        "to": "h:30",
+        "purpose": "重插SIM后复查仍检测不到，确认排查手段已用尽"
+      },
+      {
+        "from": "h:30",
+        "to": "h:32",
+        "purpose": "确认无法用现有工具解决后依政策转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent多次将 check_status_bar 等设备端工具作为assistant消息发出（h:2、h:4等），用户实际自行执行；接口形式不规范但不影响业务结果。",
+      "在确认服务恢复前即建议 toggle_data（h:16）顺序欠妥，但服务恢复是数据的前提，未造成误导性后果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

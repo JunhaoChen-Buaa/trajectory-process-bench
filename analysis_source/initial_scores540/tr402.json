@@ -1,0 +1,131 @@
+{
+  "case_id": "tr402",
+  "created_beijing": "2026-11-10T15:48:33.656412+08:00",
+  "input_sha256": "38eded768fc33e5e474808080e359f275051f4ef68098aaa1f1aba8bdee51e6f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ffb76743d2673043eb1764d024e824e706416968b9d4a1daf43f2a8dde86f97d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 537,
+    "completion_tokens_details": {
+      "reasoning_tokens": 19
+    },
+    "prompt_tokens": 12867,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13404
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决MMS无法发送问题（境外技术支持）",
+        "object": "线路L1002（555-123-2002）的MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复MMS发送问题",
+            "basis": "用户请求：can't send MMS messages",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策流程排查：境外免费开启漫游（h:10）、引导用户开设备漫游并切换网络模式，对象L1002正确",
+            "refs": [
+              "h:10",
+              "h:16",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持无需额外确认，漫游开启免费且政策要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "can_send_mms确认可发送（e:8），问题解决",
+            "refs": [
+              "h:25",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际一致：开启线路漫游、设备漫游、网络模式切换，均有依据",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "2G不支持MMS、境外需开漫游均为政策依据的正确说明",
+            "refs": [
+              "h:16",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "技术支持前已验证身份（h:3-5），按手册顺序诊断排查",
+            "refs": [
+              "h:2",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "线路漫游已开启，设备漫游与4G/5G模式已设置，MMS可正常发送"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:10",
+        "purpose": "确认用户号码对应L1002后再开漫游"
+      },
+      {
+        "from": "h:19",
+        "to": "h:21",
+        "purpose": "2G-only诊断依据网络模式检查结果"
+      }
+    ],
+    "auxiliary_notes": [
+      "先查L1001再查L1002属合理核对号码归属，非错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

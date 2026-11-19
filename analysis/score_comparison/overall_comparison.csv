@@ -1,0 +1,2 @@
+﻿level,key,label,total_records,paired_complete,technical_unscored,automatic_pass,automatic_fail,automatic_unknown,automatic_na,automatic_rate_denominator,automatic_pass_rate,reviewed_pass,reviewed_fail,reviewed_unknown,reviewed_na,reviewed_rate_denominator,reviewed_pass_rate,review_minus_auto_percentage_points,verdict_agree,verdict_disagree,agreement,automatic_pass_to_reviewed_fail,automatic_fail_to_reviewed_pass
+all,all,all,540,527,13,325,196,6,0,521,0.6238003838771593,288,211,28,0,499,0.5771543086172345,-4.664607525992482,459,68,0.8709677419354839,32,4

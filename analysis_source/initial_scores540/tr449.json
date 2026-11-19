@@ -1,0 +1,135 @@
+{
+  "case_id": "tr449",
+  "created_beijing": "2026-11-10T15:54:20.291672+08:00",
+  "input_sha256": "f100358eb39846065c2e18dc67e4b6bfeb487963d11ce38546b6425fba7bece0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0fda7fa29758cb055a1cda62037eff767fd91a173bc7be4ddbd4dc7fd5ed6af8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 654,
+    "completion_tokens_details": {
+      "reasoning_tokens": 39
+    },
+    "prompt_tokens": 13891,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14545
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国境内手机移动数据不可用/过慢问题",
+        "object": "用户手机(线路L1002)的移动数据连接",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复用户在法国的移动数据连接",
+            "basis": "用户自述 'mobile data is being absolutely useless... in France'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全部步骤均在政策允许范围：先识别客户，检查线路漫游状态与数据用量，通过用户设备侧工具诊断并修复",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断与设备设置变更属技术支持，政策无额外确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "设备开启数据漫游并切换4G/5G后，speed test返回275 Mbps Excellent，数据连接实际恢复",
+            "refs": [
+              "h:28",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知问题已修复与实际结果一致，并如实复述所做操作",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'8.7/15GB未超量'、'2G慢且不适合'、'设备需开漫游才能在法国用数据'均有工具返回与政策依据",
+            "refs": [
+              "h:13",
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先识别客户，核实线路(L1002对应555-123-2002)漫游已启用后，再排查设备侧原因并引导用户操作",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:10",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "移动数据已恢复：数据漫游开启、4G/5G优先，测速275 Mbps Excellent"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:22",
+        "purpose": "设备显示Data Roaming OFF与2G，是诊断结论的依据"
+      },
+      {
+        "from": "h:32",
+        "to": "h:34",
+        "purpose": "测速成功支持最终完成说明"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作(toggle_roaming、set_network_mode_preference)由用户在其设备执行，属正常技术支持流程，非Agent遗漏",
+      "h:35中的乱码工具调用为用户模拟器终止符异常，与Agent办理质量无关"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

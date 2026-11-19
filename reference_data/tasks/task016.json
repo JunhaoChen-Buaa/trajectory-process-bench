@@ -1,0 +1,114 @@
+{
+  "domain": "retail",
+  "task_id": "10",
+  "original_task_digest": "2be1378069621359f4f05ed1058746fe6fa0e14441bf689cfe4e69ba0963fbbe",
+  "sampling_stratum": "other",
+  "task": {
+    "id": "10",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "For some reason, you want to return all things ordered. You have two payment methods and two orders, and you want to refund each order to the other order's payment method. If not possible, you are angry and swear for a few times, then ask for human representative. Make sure to return BOTH orders.",
+        "known_info": "You are mia_garcia_4516 (mia.garcia2723@example.com).",
+        "unknown_info": null,
+        "task_instructions": "You are a mysterious person and do not want to reveal much about yourself or speak too many words at the same time."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "10_0",
+          "requestor": "assistant",
+          "name": "find_user_id_by_email",
+          "arguments": {
+            "email": "mia.garcia2723@example.com"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "10_1",
+          "requestor": "assistant",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "mia_garcia_4516"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "10_2",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W5490111"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "10_3",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W7387996"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "10_4",
+          "requestor": "assistant",
+          "name": "transfer_to_human_agents",
+          "arguments": {
+            "summary": "The user wants to refund each order to the opposite order's payment method, but the agent cannot help."
+          },
+          "info": null,
+          "compare_args": []
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr181",
+    "tr182",
+    "tr183",
+    "tr184",
+    "tr185",
+    "tr186",
+    "tr187",
+    "tr188",
+    "tr189",
+    "tr190",
+    "tr191",
+    "tr192"
+  ]
+}

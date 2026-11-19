@@ -1,0 +1,439 @@
+{
+  "case_id": "tr356",
+  "created_beijing": "2026-11-10T16:06:01.432384+08:00",
+  "input_sha256": "634ddcca42918760603d8f3ef48229f7ba0d12994f65b729c86898adf1bb41b6",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f1d1fd390b9e6e34082b6a7cc720f47f3833edb0f9307f1bab4b7566e07ff80c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2983,
+    "completion_tokens_details": {
+      "reasoning_tokens": 815
+    },
+    "prompt_tokens": 26388,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 29371
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消滑板（待发货订单）",
+        "object": "订单 #W8855135 中的滑板",
+        "request_refs": [
+          "h:7",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅取消滑板；取消前须列明动作细节并获用户明确确认",
+            "basis": "policy: cancel pending order需确认；用户 h:7 'cancel a skateboard'",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "政策只能整单取消，Agent未先披露订单含4件商品、未确认整单范围即执行整单取消，超出用户'仅取消滑板'的对象范围",
+            "refs": [
+              "h:11",
+              "h:23",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "确认仅针对滑板（'no longer needed'），Agent未告知该订单还含净化器、靴子、瑜伽垫，用户对整单取消无有效同意",
+            "refs": [
+              "h:23",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "整单被取消且不可逆，Air Purifier/Hiking Boots/Yoga Mat被误取消，用户被迫自行重新下单（recovered=false）",
+            "refs": [
+              "h:25",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:32及h:34如实说明整单已取消及退款1058.79到信用卡，无虚假完成声明",
+            "refs": [
+              "h:32",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "取消状态、退款金额与方式均与h:25一致",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已核验订单状态pending（h:11）并取得取消原因",
+            "refs": [
+              "h:11",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "整单#W8855135已取消，全款1058.79退至Visa，三件非目标商品被误取消需用户重购"
+      },
+      {
+        "group_id": "G2",
+        "goal": "换货自行车为大车架",
+        "object": "订单 #W3916020 自行车 7758198585→5606522780",
+        "request_refs": [
+          "h:7",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换成同产品更大车架的可用型号",
+            "basis": "policy exchange规则；用户 h:23",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "5606522780为同产品唯一可用large车架，用户已同意可接受mountain类型",
+            "refs": [
+              "h:17",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22已列明换货细节，用户h:23明确确认'bike larger frame is what I need'并指定Visa付款",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "换货已提交，状态exchange requested，差价-14.96退至Visa（e:10哈希校验一致）",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:32准确说明换货内容、状态及退款项",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对车型/价格/退款说明与目录一致",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已提醒每单换货只能一次并收集该单全部换货项合并调用",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "#W3916020换货申请成功，含自行车与拼图，差价14.96退Visa"
+      },
+      {
+        "group_id": "G3",
+        "goal": "换相机为低分辨率20MP",
+        "object": "订单 #W4689314 相机 5996159312→8363011723",
+        "request_refs": [
+          "h:7",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换成20MP且选较便宜的可用型号",
+            "basis": "用户 h:23 'I'll take the cheaper one, the 2823.96 one'",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "8363011723为20MP可用、价格2823.96，与用户指定完全一致",
+            "refs": [
+              "h:21",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户在h:23明确选定该型号及Visa付款",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "换货请求提交成功，差价-71.59至Visa（e:11）",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:32说明与实际一致",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "低分辨率选项与价格说明与目录一致",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查订单状态delivered并查询产品变体",
+            "refs": [
+              "h:9",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "#W4689314换货至20MP相机，差价71.59退Visa"
+      },
+      {
+        "group_id": "G4",
+        "goal": "两个拼图换为1500片（多1000片、偏好艺术主题）",
+        "object": "#W3916020 与 #W5416052 的拼图 4068787148→5546244844",
+        "request_refs": [
+          "h:7",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "换为比现有500片多1000片、同难度、优先艺术主题的可用拼图",
+            "basis": "用户 h:23",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "5546244844为1500片/art/intermediate且可用，匹配用户要求",
+            "refs": [
+              "h:19",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户h:23指定'同难度多1000片、艺术主题优先'并确认Visa",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "两单换货均成功提交，差价分别-14.96和-0.42退Visa",
+            "refs": [
+              "h:27",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:32/h:34准确说明1500片art主题及退款",
+            "refs": [
+              "h:32",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "原500片与新1500片说明正确，回应了用户质疑",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查两个订单并确认各自拼图需分别换货，合并调用符合一次限制",
+            "refs": [
+              "h:13",
+              "h:15",
+              "h:26",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "两个订单的拼图均换至5546244844（1500片/art/intermediate），退款至Visa"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未确认范围即整单取消，误取消订单中其他三件商品",
+        "basis": "policy要求取消前列明细节并获确认；用户仅要求'cancel a skateboard'(h:7/h:23)，订单实际含4件商品(h:11)，用户事后表示'I didn't ask for that'(h:35)",
+        "refs": [
+          "h:7",
+          "h:11",
+          "h:23",
+          "h:33",
+          "h:35"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "Air Purifier、Hiking Boots、Yoga Mat被不可逆取消，用户需自行重购；滑板取消及全款退款本身符合用户意图"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:23",
+        "to": "h:11",
+        "purpose": "用户仅指定滑板，但该订单含4件商品，取消范围与确认不符"
+      },
+      {
+        "from": "h:24",
+        "to": "h:25",
+        "purpose": "取消调用导致整单状态cancelled并全款退款"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:22为assistant大段内部推理式消息送达用户，措辞冗长但未影响业务正确性",
+      "三笔换货均未经最终汇总后的单独'yes'确认，但用户在h:23对每项细节作了明确选定，视为语义等价确认"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

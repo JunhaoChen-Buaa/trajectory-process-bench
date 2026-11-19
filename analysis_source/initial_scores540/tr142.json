@@ -1,0 +1,147 @@
+{
+  "case_id": "tr142",
+  "created_beijing": "2026-11-10T16:03:05.103431+08:00",
+  "input_sha256": "74739367cebb80cc9d1e70c79c94aec25ba4d7abf2ea9444e9122d51cbe77536",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "2d4d0f740ffb98a48eab532c72a27815bde31ee2d651bc7bdafd8ce53ecb605c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 564,
+    "completion_tokens_details": {
+      "reasoning_tokens": 12
+    },
+    "prompt_tokens": 8092,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 8656
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消基础经济舱预订并获全额退款",
+        "object": "reservation PEP4E0",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:7",
+            "change": "若不能退款则改期至5月22日（替换要求）"
+          },
+          {
+            "ref": "h:9",
+            "change": "退而要求补购旅行保险"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "依法依规处理取消/退款请求",
+            "basis": "policy: basic economy、无保险、超过24小时不可取消",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "无法处理且用户要求人工时正确转接",
+            "basis": "policy: transfer rules",
+            "refs": [
+              "h:11"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订确为basic economy、2024-05-05下单、无保险，拒绝取消/改期/补保险均符合policy限制",
+            "refs": [
+              "h:5",
+              "h:6",
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何数据库更新操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝属正确处理；用户随后要求人工，转接成功(e:1)",
+            "refs": [
+              "h:6",
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知不可取消及各项限制原因，与实际状态一致",
+            "refs": [
+              "h:6",
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对取消条件、basic economy不可改、不可事后加保险的说明均有policy依据",
+            "refs": [
+              "h:6",
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id并查询预订详情核实事实后再答复，转接流程符合要求",
+            "refs": [
+              "h:4",
+              "h:5",
+              "h:12",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订保持未取消状态；依规拒绝后成功转接人工，用户问题转由人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:6",
+        "purpose": "核实预订属性以支持依规拒绝"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户对身份验证不耐烦属情绪表达，Agent仍按流程核实，无需扣分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

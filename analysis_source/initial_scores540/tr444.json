@@ -1,0 +1,173 @@
+{
+  "case_id": "tr444",
+  "created_beijing": "2026-11-10T15:48:56.510992+08:00",
+  "input_sha256": "657452f08f5d3227dfe4ee33b5ef32760a9361745354477c4ce15c8207222b4f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "55cbc891967f7ae55c0aebca453c46f301a2e6f79fe76f2247410d78634a6364",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 878,
+    "completion_tokens_details": {
+      "reasoning_tokens": 97
+    },
+    "prompt_tokens": 16938,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17816
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游时移动数据慢/不稳定问题并加注数据",
+        "object": "线路L1002 (555-123-2002)",
+        "request_refs": [
+          "h:1",
+          "h:19"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户并核对线路/漫游/用量状态",
+            "basis": "tech_support_policy: You must first identify the customer",
+            "refs": [
+              "h:2",
+              "h:3",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "超出套餐流量限额时按需加注数据（≤2GB，确认价格）",
+            "basis": "policy: Confirm the price; max 2GB refuel",
+            "refs": [
+              "h:18",
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "系统排查慢速数据原因（Data Saver、VPN、网络模式、APN、Wi-Fi Calling、SIM、漫游开关）",
+            "basis": "tech_support_policy 排查步骤",
+            "refs": [
+              "h:22",
+              "h:44"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "无法解决时转人工",
+            "basis": "policy: try best before transferring",
+            "refs": [
+              "h:55",
+              "h:58"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别L1002对应555-123-2002，加注2GB未超上限且用户未要求换套餐，处理符合政策。",
+            "refs": [
+              "h:9",
+              "h:19",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在报价$2/GB后用户同意加2GB（'willing to add 2 GB'），金额与实际收费$4一致。",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "加注成功（refuel success, $4），其余排查无果后转人工属于政策允许的正确结局，不能强求模型恢复'excellent'速度。",
+            "refs": [
+              "h:21",
+              "h:49",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'successfully added 2 GB'与实际一致；未声称问题已解决，明确进入转人工。",
+            "refs": [
+              "h:22",
+              "h:60"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$2/GB与P1002费率一致，'15.1 vs 15.0 GB'、'roaming already enabled'均有工具返回依据。",
+            "refs": [
+              "h:10",
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份识别（get_customer_by_phone），确认价格后加注，随后按手册逐项排查并最终真实转接，顺序完整。",
+            "refs": [
+              "h:4",
+              "h:14",
+              "h:22",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "2GB数据加注完成并收$4，各项设置核查无异常，问题未解决，已转人工技术支持。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:19",
+        "purpose": "价格确认与用户同意对应"
+      },
+      {
+        "from": "h:20",
+        "to": "h:21",
+        "purpose": "加注请求与实际成功结果对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查中多次要求用户重复已确认的检查项（如check_network_status、check_data_restriction_status），属效率/接口层面的冗长，不构成业务错误。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

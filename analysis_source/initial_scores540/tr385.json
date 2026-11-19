@@ -1,0 +1,160 @@
+{
+  "case_id": "tr385",
+  "created_beijing": "2026-11-10T16:07:36.750136+08:00",
+  "input_sha256": "ffa7a6c5fd14e42508d0844d04c61d0de55d98e0b72ead40559236077909bdfe",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "35a7af2ba9601a39b9d37155e3447fd6cfa251379f0232c349f9c395b3e0f216",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 763,
+    "completion_tokens_details": {
+      "reasoning_tokens": 45
+    },
+    "prompt_tokens": 15842,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16605
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS无法发送问题（技术支持）",
+        "object": "L1002线路（555-123-2002）设备上的消息应用",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前先识别客户",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按MMS排障流程诊断并修复：网络类型、APN/MMSC、Wi-Fi Calling、应用权限",
+            "basis": "tech_support_policy MMS troubleshooting",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "修复后验证MMS可发送",
+            "basis": "tech_support_policy: can_send_mms() can be used to check",
+            "refs": [
+              "h:27",
+              "h:53"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别C1001并核对到L1002（555-123-2002），排查顺序符合MMS排障手册，修复动作均由用户在设备端按政策执行。",
+            "refs": [
+              "h:5",
+              "h:13",
+              "h:43"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "MMS技术支持无确认要求，设备操作均由用户自行执行。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "授予storage与sms权限后can_send_mms确认可发送（h:55），用户核心诉求解决。",
+            "refs": [
+              "h:51",
+              "h:55",
+              "h:56"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际验证结果一致，且如实说明根因为缺失权限。",
+            "refs": [
+              "h:55",
+              "h:57"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于2G不适合MMS、MMSC正常、Wi-Fi Calling关闭不影响、需storage与sms权限的说明均有政策依据并与诊断结果吻合。",
+            "refs": [
+              "h:23",
+              "h:35",
+              "h:39",
+              "h:43"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户、核对线路、检查数据用量，再按网络→APN→Wi-Fi Calling→权限顺序排查，符合政策要求。",
+            "refs": [
+              "h:4",
+              "h:15",
+              "h:19",
+              "h:31",
+              "h:35",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "消息应用补齐storage与sms权限，MMS验证可正常发送，问题解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:13",
+        "purpose": "确认用户号码555-123-2002对应线路L1002，确定排障对象"
+      },
+      {
+        "from": "h:41",
+        "to": "h:55",
+        "purpose": "权限缺失是根因，授权后MMS验证通过"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8中agent首次将555-123-2002当作主联系号码而非线路号码，随后通过查L1001-L1003核实并定位到L1002，处理得当，属合理的身份/线路澄清，非错误。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

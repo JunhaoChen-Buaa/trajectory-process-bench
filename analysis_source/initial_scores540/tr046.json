@@ -1,0 +1,169 @@
+{
+  "case_id": "tr046",
+  "created_beijing": "2026-11-10T16:17:17.631996+08:00",
+  "input_sha256": "94e8b161c83889d937d0a3a826ad449620cd04bbb5a4bd5dd05dbc91c1d2674f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "763274fab11123d495397076ed6b4775bd84dd3303285e0d87d8982e1a288540",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 985,
+    "completion_tokens_details": {
+      "reasoning_tokens": 140
+    },
+    "prompt_tokens": 18048,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 19033
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改OBUT9V返程航班至5月27日最快选项并加1件行李",
+        "object": "预订OBUT9V（IAH-DEN往返，economy）",
+        "request_refs": [
+          "h:1",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "返程改为2024-05-27最快（含中转时间）的economy组合",
+            "basis": "用户：'I need the return to be on May 27... fastest trip possible... stay in economy'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "增加1件托运行李（合计2件）",
+            "basis": "用户：'I need to add one more checked bag'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "差价用余额最小且足够支付的单张礼品卡支付",
+            "basis": "用户：'use the one with the smallest balance'",
+            "refs": [
+              "h:23",
+              "h:25"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "修改前列出细节并获用户确认",
+            "basis": "policy：'must list the action details and obtain explicit user confirmation'",
+            "refs": [
+              "h:22",
+              "h:24"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "经济舱可改且保持origin/destination/trip type不变；选了6小时最快组合HAT290+HAT175，保持出程不变，符合规则。",
+            "refs": [
+              "h:26",
+              "e:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22、h:24列明航班、行李、差价及付款方式，用户h:23、h:25明确同意（含付款方式变更经用户确认）。",
+            "refs": [
+              "h:22",
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认返程改为HAT290+HAT175 (5-27)，差价$59正确（312−253）记入gift_card_7091239，行李2件全部免费写入。",
+            "refs": [
+              "e:8",
+              "e:9",
+              "s:9"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30完成说明与实际DB状态一致：新返程航班、2件免费行李、$59 charged to gift card。",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "$59差价计算正确（$312−$253），silver经济舱2件免费行李的说明正确；最小余额礼品卡为$6（gift_card_7480005）判断正确。",
+            "refs": [
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "获取user_id后按政策检索预订列表定位OBUT9V，搜索直飞与一站中转后推荐，符合必要步骤。",
+            "refs": [
+              "h:4",
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "OBUT9V返程已改为5月27日HAT290+HAT175（economy），行李增至2件（免费），$59差价已从gift_card_7091239扣除。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:26",
+        "purpose": "用户要求最快5-27返程与实际改签调用关联"
+      },
+      {
+        "from": "h:23",
+        "to": "h:24",
+        "purpose": "礼品卡余额判断依据用户指示"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:22仅展示3个中转组合（共5个），但已包含最快选项且用户只要求最快，属可接受的筛选呈现，不影响评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

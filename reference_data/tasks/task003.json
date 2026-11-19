@@ -1,0 +1,111 @@
+{
+  "domain": "airline",
+  "task_id": "20",
+  "original_task_digest": "2904c55856f716c8bdc22e8f3c8ae3b27c9d4340208ddfda0c6ae486b81a5261",
+  "sampling_stratum": "book",
+  "task": {
+    "id": "20",
+    "description": {
+      "purpose": "Book a flight with time and payment constraints.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "airline",
+        "reason_for_call": "You want to fly from New York to Seattle on May 20 (one way).",
+        "known_info": "Your name is Mia Li.\nYour user id is mia_li_3668.",
+        "unknown_info": null,
+        "task_instructions": "You do not want to fly before 11am est.\n\nYou want to fly in economy.\n\nYou prefer direct flights but one stopover also fine.\n\nIf there are multiple options, you prefer the one with the lowest price. \n\nYou have 3 baggages.\n\nYou do not want insurance.\n\nYou want to use your two certificates to pay. \n\nIf only one certificate can be used, you prefer using the larger one, and pay the rest with your 7447 card.\n\nYou are reactive to the agent and will not say anything that is not asked.\n\nYour birthday is in your user profile so you do not prefer to provide it."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "20_0",
+          "requestor": "assistant",
+          "name": "book_reservation",
+          "arguments": {
+            "user_id": "mia_li_3668",
+            "origin": "JFK",
+            "destination": "SEA",
+            "flight_type": "one_way",
+            "cabin": "economy",
+            "flights": [
+              {
+                "flight_number": "HAT136",
+                "date": "2024-05-20"
+              },
+              {
+                "flight_number": "HAT039",
+                "date": "2024-05-20"
+              }
+            ],
+            "passengers": [
+              {
+                "first_name": "Mia",
+                "last_name": "Li",
+                "dob": "1990-04-05"
+              }
+            ],
+            "payment_methods": [
+              {
+                "payment_id": "certificate_7504069",
+                "amount": 250
+              },
+              {
+                "payment_id": "credit_card_4421486",
+                "amount": 5
+              }
+            ],
+            "total_baggages": 3,
+            "nonfree_baggages": 0,
+            "insurance": "no"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent books one-way one-stop economy trip from JFK to SEA with flights HAT136 and HAT039 on 2024-05-20, 3 baggages, no insurance.",
+        "Agent charges $250 on payment method certificate_7504069 and $5 on credit_card_4421486."
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/airline.txt",
+  "policy_rule_index": "requirements/airline_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr025",
+    "tr026",
+    "tr027",
+    "tr028",
+    "tr029",
+    "tr030",
+    "tr031",
+    "tr032",
+    "tr033",
+    "tr034",
+    "tr035",
+    "tr036"
+  ]
+}

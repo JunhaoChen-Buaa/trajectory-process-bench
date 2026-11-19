@@ -1,0 +1,174 @@
+{
+  "case_id": "tr490",
+  "created_beijing": "2026-11-10T15:15:41.719895+08:00",
+  "input_sha256": "a82866032eb8704dddc6e569a0983817cfe43f6ae3b82937d765e3c8aec3c86f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6d163e6c26d58ada689e07704701d9be5247085de444e750ccb4f61e943c667a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 914,
+    "completion_tokens_details": {
+      "reasoning_tokens": 131
+    },
+    "prompt_tokens": 17653,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18567
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复线路555-123-2002的服务（补缴逾期账单并解除暂停，随后排除设备故障）",
+        "object": "线路L1002（电话555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查明无服务原因：线路因逾期账单被暂停",
+            "basis": "policy: line can be suspended due to overdue bill",
+            "refs": [
+              "h:1",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "发送逾期账单B1234321的付款请求，用户支付后确认状态为Paid再告知",
+            "basis": "policy: Always check that the bill status is updated to PAID",
+            "refs": [
+              "h:12",
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "付清逾期账单后恢复L1002（合同未到期，可解除暂停），并提醒重启设备",
+            "basis": "policy: lift suspension after overdue bills paid",
+            "refs": [
+              "h:28",
+              "h:30"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "恢复后仍无信号，按流程排查：airplane mode、SIM、APN设置并指导修复",
+            "basis": "tech support policy",
+            "refs": [
+              "h:35",
+              "h:42",
+              "h:50"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "账单确为Overdue后才发请求(e:3,e:4)，付清后才resume合同期未过的L1002(e:8,e:9)，符合政策。",
+            "refs": [
+              "h:11",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "发送付款请求前获得用户明确同意（h:13），金额$65与账单一致。",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "账单Paid、线路Active(e:8,e:9)，最终设备显示excellent信号且数据可用(h:56)。",
+            "refs": [
+              "h:27",
+              "h:56"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "付款确认前先核实Paid状态(h:22,h:27)，最终总结与实际一致(h:58)。",
+            "refs": [
+              "h:22",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "暂停原因、账单金额、APN错误的说明均有工具返回依据(e:2,e:3,e:15)。",
+            "refs": [
+              "h:12",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份(h:4)、查线路/账单、确认Paid后resume、提醒重启(h:30)，排查顺序airplane→SIM→APN合理。",
+            "refs": [
+              "h:4",
+              "h:30",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "账单B1234321已付清，L1002已恢复Active，设备重启并修正APN后信号与数据恢复正常"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:14",
+        "purpose": "确认账单Overdue后才发送付款请求"
+      },
+      {
+        "from": "h:27",
+        "to": "h:28",
+        "purpose": "确认Paid后才resume线路"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作（重启、切换飞行模式、重置APN等）均由用户执行，Agent指导正确，非接口问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

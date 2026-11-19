@@ -1,0 +1,151 @@
+{
+  "case_id": "tr024",
+  "created_beijing": "2026-11-10T14:55:12.886223+08:00",
+  "input_sha256": "6f1bba85b23c6251ad8e3cd7743c066d8daab4e28aa77ef8793a953a14dde8a2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "41910c1ee7452d9405371f79569a49167b1532462ca8c762f69781fd600a5179",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 786,
+    "completion_tokens_details": {
+      "reasoning_tokens": 119
+    },
+    "prompt_tokens": 11349,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 12135
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "更改Z7GOZK返程航班（后改为取消订单）",
+        "object": "Z7GOZK订单（EWR-IAH往返，2024-05-28）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "因basic economy不能改航班，用户撤回改签要求，改为凭旅行保险取消整单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "basic economy航班不可修改",
+            "basis": "policy: \"Basic economy flights cannot be modified\"",
+            "refs": [
+              "h:1",
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "有保险且取消原因为健康原因时可整单取消，退款回原支付方式",
+            "basis": "policy取消规则及退款条款",
+            "refs": [
+              "h:13",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝basic economy改签（符合Q1），随后按保险健康原因规则合法取消",
+            "refs": [
+              "h:12",
+              "h:16",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明订单、原因和退款去向并获用户明确yes确认",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB重放确认订单状态cancelled且$169退款入gift_card_2200803",
+            "refs": [
+              "h:19",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消、退款5-7工作日到账，与实际状态一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "basic economy不可改签、保险全额退款等说明均有政策依据；flight状态'available'仅说明未起飞，措辞稍混但结论正确",
+            "refs": [
+              "h:12",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id与订单信息，取消前确认原因，顺序符合政策",
+            "refs": [
+              "h:2",
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "Z7GOZK已成功取消，$169退款至gift_card_2200803（5-7个工作日），改签需求由用户自行撤回"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:13",
+        "purpose": "basic economy信息导致用户撤回改签改为取消"
+      },
+      {
+        "from": "h:16",
+        "to": "h:19",
+        "purpose": "确认后执行取消"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16中把原因归为'other reasons'但按保险健康原因处理，属措辞层面，无实质影响；h:12回复冗长且内部推理式表述较多，属表述质量 auxiliary 说明"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,131 @@
+{
+  "domain": "retail",
+  "task_id": "34",
+  "original_task_digest": "1de1c70c99797f6c827dea4ff30459d21b9ae745aa9eaa4b02a11681c3f00606",
+  "sampling_stratum": "modify",
+  "task": {
+    "id": "34",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You had a work-from-home situation and ordered three home office items along with some hiking items, so that you can go back to your parent's place at Seattle to remote work and enjoy outdoor life. But your company just announced that you will be back to the office soon. If cancelling partial items is possible with the agent, you want to return the office items (your forgot what) and keep the hiking items. You want to know the total amount you will get back, and you want to get the refund on your original payment method. If cancelling partial items is not possible, just change the address to your NYC place and you will return the items later.",
+        "known_info": "You are an interesting guy called Noah Patel, living in the Big Apple in 10108.",
+        "unknown_info": "You don't have an email",
+        "task_instructions": "You are a funny guy but recently the WFH situation made you a bit anxious."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "34_0",
+          "requestor": "assistant",
+          "name": "find_user_id_by_name_zip",
+          "arguments": {
+            "first_name": "Noah",
+            "last_name": "Patel",
+            "zip": "10108"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "34_1",
+          "requestor": "assistant",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "noah_patel_6952"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "34_2",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W6111398"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "34_3",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W7043598"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "34_4",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W1845024"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "34_5",
+          "requestor": "assistant",
+          "name": "modify_pending_order_address",
+          "arguments": {
+            "order_id": "#W1845024",
+            "address1": "224 Elm Street",
+            "address2": "Suite 491",
+            "city": "New York",
+            "country": "USA",
+            "state": "NY",
+            "zip": "10108"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": [],
+      "reward_basis": [
+        "DB"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr229",
+    "tr230",
+    "tr231",
+    "tr232",
+    "tr233",
+    "tr234",
+    "tr235",
+    "tr236",
+    "tr237",
+    "tr238",
+    "tr239",
+    "tr240"
+  ]
+}

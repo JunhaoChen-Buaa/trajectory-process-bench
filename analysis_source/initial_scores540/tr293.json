@@ -1,0 +1,267 @@
+{
+  "case_id": "tr293",
+  "created_beijing": "2026-11-10T14:20:12.575181+08:00",
+  "input_sha256": "20f3a5547f6282f88c60d42ed1aa22fc2c5eb348dcd06f3ce756c3b772b61b8f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "8c57ba4a72a7f615c9a5e35fb9df6902d3ff7ac325c0a2fe5e90827c05e4f6a7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1454,
+    "completion_tokens_details": {
+      "reasoning_tokens": 255
+    },
+    "prompt_tokens": 19451,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 20905
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待发货订单背包商品选项",
+        "object": "订单 #W5270061 的 Backpack",
+        "request_refs": [
+          "h:1",
+          "h:18"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "撤回台灯修改，仅保留背包修改"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "背包改为 grey/medium/polyester/laptop 可售同产品变体",
+            "basis": "policy: same product but different product option, available new item",
+            "refs": [
+              "h:18",
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "差价 $10.84 通过 PayPal 支付",
+            "basis": "用户 h:25",
+            "refs": [
+              "h:23",
+              "h:25"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "修改前列明细节并获明确 yes 确认，且提醒一次性修改全部商品",
+            "basis": "policy: obtain explicit user confirmation; remind all items",
+            "refs": [
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选 item 5917587651 为同产品可用变体，价格/选项与用户要求一致",
+            "refs": [
+              "h:21",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24 列明全部细节（含差价与 PayPal、一次性提醒），用户 h:25 明确 yes",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "回读状态 items/0 与支付记录 $10.84 paypal_7729105 与请求一致（execution_field_comparisons 均相等）",
+            "refs": [
+              "h:27",
+              "s:8"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30 汇总与实际状态一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "变体价格 $212.79、差价 $10.84 说明与目录数据一致",
+            "refs": [
+              "h:22",
+              "h:21"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核对 pending 状态并查询商品变体再执行",
+            "refs": [
+              "h:13",
+              "h:19"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "背包已改为 grey/medium/polyester，$10.84 已从 PayPal 收取，状态 pending (item modified)"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修改订单收货地址为默认地址",
+        "object": "订单 #W5270061 的收货地址",
+        "request_refs": [
+          "h:1",
+          "h:18"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "收货地址改为默认地址 159 Hickory Lane, Suite 995, Charlotte, NC 28243",
+            "basis": "用户 h:18 + profile 默认地址",
+            "refs": [
+              "h:18",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "操作前列明细节并获明确确认",
+            "basis": "policy: obtain explicit user confirmation",
+            "refs": [
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "policy 明文 modify items 后 \"will not be able to modify or cancel the order anymore\"，Agent 在 h:26 改商品后再调 modify_pending_order_address 违反该限制；应先改地址再改商品",
+            "refs": [
+              "h:26",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24 列明地址细节，h:25 用户确认",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "回读状态地址已为 Charlotte 默认地址，与请求一致",
+            "refs": [
+              "h:29",
+              "s:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30 地址更新说明与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "地址与 profile 一致，无虚假陈述",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "核对 pending 状态并确认细节后执行，顺序问题已记 RULE",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "地址已更新为 Charlotte 默认地址，但执行顺序违反商品修改后不可再修改的政策"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "商品修改后仍修改订单地址，违反一次修改限制",
+        "basis": "policy: modify items 后 \"The agent will not be able to modify or cancel the order anymore\"；却在 h:26 之后调用 modify_pending_order_address (h:28)",
+        "refs": [
+          "h:26",
+          "h:28"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "地址实际已改成功（后端接受），但操作顺序违反政策限制；正确顺序应先改地址再改商品"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:9",
+        "purpose": "确认 Charlotte 默认地址来源"
+      },
+      {
+        "from": "h:26",
+        "to": "h:28",
+        "purpose": "证明地址修改发生在商品修改之后，违反顺序限制"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12 一次消息中并发四个 get_order_details 调用，属纯接口规范问题，不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

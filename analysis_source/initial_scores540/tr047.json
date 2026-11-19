@@ -1,0 +1,305 @@
+{
+  "case_id": "tr047",
+  "created_beijing": "2026-11-10T15:12:46.557244+08:00",
+  "input_sha256": "b631369bd904ea77cfc474e4ea729826a7d2390e5e1c7344054f29c8835518a2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "2b495272fddfca70772962f1e4fb7125b614d354ec325220ed1596cdf017d8d2",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2470,
+    "completion_tokens_details": {
+      "reasoning_tokens": 807
+    },
+    "prompt_tokens": 21764,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 24234
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "更换OBUT9V返程航班为5月27日最快航班（经济舱）",
+        "object": "预订OBUT9V的返程段",
+        "request_refs": [
+          "h:1",
+          "h:33"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将返程改为5月27日DEN→IAH最快的经济舱组合",
+            "basis": "用户h:33 'fastest one possible on May 27...stay in economy'",
+            "refs": [
+              "h:33"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "不改出发地/目的地/行程类型，且同一预订舱位一致",
+            "basis": "policy Modify flight",
+            "refs": []
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选HAT290+HAT175（总时长6小时）确为h:48选项中最快的经济舱组合，且保持economy、不改起讫地",
+            "refs": [
+              "h:48",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "多次调用前用户均明确确认（h:50、h:60、h:66），对象与舱位一致",
+            "refs": [
+              "h:50",
+              "h:66"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "四次update_reservation_flights均因把flights传成JSON字符串而报错（e.g. 'str' object has no attribute 'flight_number'），返程未改，随后即转人工，属Agent自身可修复的错误而非超出能力范围",
+            "refs": [
+              "h:51",
+              "h:52",
+              "h:68"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知无法继续并如实转人工（h:71），未虚假声称完成",
+            "refs": [
+              "h:71"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:49对'最快'的说明与h:48时刻表一致（14:00-20:00共6小时为最短）",
+            "refs": [
+              "h:48",
+              "h:49"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "update_reservation_flights要求传入整个预订的全部航班数组（含未变的去程HAT078/HAT118），Agent遗漏了去程段；且反复失败的原因是其自身参数格式错误，按policy 'transfer...only if the request cannot be handled within your scope'，此时转人工不当",
+            "refs": [
+              "h:51",
+              "h:67",
+              "h:71"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "返程航班未变更，用户被转人工"
+      },
+      {
+        "group_id": "G2",
+        "goal": "为OBUT9V增加1件托运行李并用最小余额礼品卡支付",
+        "object": "预订OBUT9V的行李数量",
+        "request_refs": [
+          "h:33"
+        ],
+        "revisions": [
+          {
+            "ref": "h:60",
+            "change": "确认使用gift_card_7480005（余额6美元）作为支付卡"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "增加1件托运行李",
+            "basis": "用户h:33 'add one more checked bag'",
+            "refs": [
+              "h:33"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "silver会员economy乘客有2件免费额，加1件后total=2、nonfree=0，不应收费",
+            "basis": "policy checked bag allowance",
+            "refs": [
+              "h:7",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "Agent两次把nonfree_baggages设为1并准备用仅6美元的gift_card_7480005支付50美元，违反silver+economy行李免费规则（该行李本应免费）",
+            "refs": [
+              "h:53",
+              "h:63",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户多次明确确认加包及用最小余额礼品卡（h:33、h:50、h:60、h:66），语义等价",
+            "refs": [
+              "h:60"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "update_reservation_baggages同样因字符串参数报错（h:64、h:70），行李未加，最终转人工而非修复自身参数错误",
+            "refs": [
+              "h:63",
+              "h:64",
+              "h:70"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明无法继续并转人工（h:71），无虚假完成声明",
+            "refs": [
+              "h:71"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:59正确列出三张礼品卡余额并正确识别最小余额卡",
+            "refs": [
+              "h:58",
+              "h:59"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查询用户资料核对礼品卡余额等必要步骤已做；确认环节由CONSENT评估",
+            "refs": [
+              "h:57",
+              "h:59"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "行李未增加，用户被转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "反复以字符串形式传flights/数值参数导致更新全部失败，未修复即转人工",
+        "basis": "工具错误 \"Error: 'str' object has no attribute 'flight_number'\"；policy 'transfer...if and only if the request cannot be handled within the scope of your actions'",
+        "refs": [
+          "h:34",
+          "h:35",
+          "h:52",
+          "h:62",
+          "h:64",
+          "h:68",
+          "h:70",
+          "h:71"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "航班与行李两项修改均未写入，业务未完成"
+      },
+      {
+        "issue_id": "I2",
+        "title": "update_reservation_flights遗漏未变更的去程段",
+        "basis": "工具schema要求flights数组包含'ENTIRE new reservation'的航班",
+        "refs": [
+          "h:51",
+          "h:67"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "即使参数格式正确也会导致去程段丢失，属错误的调用构造"
+      },
+      {
+        "issue_id": "I3",
+        "title": "将应免费的行李计为付费且用余额不足的礼品卡",
+        "basis": "policy silver会员economy乘客2件免费行李；用户余额6美元gift_card_7480005，nonfree=1需50美元",
+        "refs": [
+          "h:53",
+          "h:63",
+          "h:59",
+          "h:7"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "若调用成功将多收50美元并可能支付失败；本次因参数错误未实际写入"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:33",
+        "to": "h:48",
+        "purpose": "将'最快'要求与搜索结果对照确定正确选项"
+      },
+      {
+        "from": "h:7",
+        "to": "h:53",
+        "purpose": "silver会员行李免费额用于判断nonfree取值"
+      },
+      {
+        "from": "h:59",
+        "to": "h:63",
+        "purpose": "最小余额礼品卡确认与实际支付参数对照"
+      }
+    ],
+    "auxiliary_notes": [
+      "最初h:2用占位符'your_user_id'查询属于无效调用，随后已纠正；h:41把去程航班列为'5月27日可选选项'表述易混淆，但用户当轮纠正且未影响后续判断，属轻微措辞问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

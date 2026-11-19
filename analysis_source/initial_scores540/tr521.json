@@ -1,0 +1,142 @@
+{
+  "case_id": "tr521",
+  "created_beijing": "2026-11-10T15:13:51.752773+08:00",
+  "input_sha256": "0cfbee094a3ae14b10fb69ef4e1556023e2f461eff13cb1ff77b255772172316",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "e3f2cac663c684f54cafdc8ec0172d1d331199dbb2c022de21a9a073773749d2",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 723,
+    "completion_tokens_details": {
+      "reasoning_tokens": 78
+    },
+    "prompt_tokens": 17607,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18330
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复555-123-2002线路服务（解除停机+排障）",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断无服务原因并恢复线路服务",
+            "basis": "用户 h:1 'No Service...I need this sorted out'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "确认B1234321为Overdue后付款、解除L1002停机（合同未到期），并按技术支持流程处理飞行模式与SIM问题，符合政策",
+            "refs": [
+              "h:12",
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "发送$65付款请求前获得用户明确同意（h:14），实际请求金额一致",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "付款后账单状态Paid（h:24），线路恢复Active（h:26），最终SIM重插后信号Excellent、5G、Data Enabled，服务完全恢复",
+            "refs": [
+              "h:24",
+              "h:26",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "各阶段说明与实际状态一致，且正确提醒reboot_device（h:27），最终确认服务恢复属实",
+            "refs": [
+              "h:27",
+              "h:52"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "将停机归因于逾期账单有据（B1234321 Overdue），排障中关于飞行模式和SIM的解释均与设备检查结果一致",
+            "refs": [
+              "h:12",
+              "h:41",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按政策完成客户识别、账单状态与金额核验、付款请求流程、恢复前确认Paid、恢复后提醒重启及逐项排障",
+            "refs": [
+              "h:5",
+              "h:12",
+              "h:23",
+              "h:39",
+              "h:44"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "逾期账单B1234321已付清，L1002线路恢复Active，用户设备经重插SIM后服务完全恢复（Excellent/5G/数据开启）"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "确认逾期账单是停机归因和付款方案依据"
+      },
+      {
+        "from": "h:24",
+        "to": "h:25",
+        "purpose": "确认付款完成后再恢复线路，符合政策顺序"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备端重启后出现飞行模式与SIM丢失属设备侧状况，Agent正确引导用户自行执行toggle_airplane_mode与reseat_sim_card，不能视为Agent未直接操作"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

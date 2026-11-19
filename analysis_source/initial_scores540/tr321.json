@@ -1,0 +1,187 @@
+{
+  "case_id": "tr321",
+  "created_beijing": "2026-11-10T14:42:02.277911+08:00",
+  "input_sha256": "e44ff79234b49596d93e627154ea13a07615224bd1bff7d9de84e567f6665946",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7ca822b7b5dda76def3c38d154436f145f7bcb7ad9984a53789ce61a68729159",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 839,
+    "completion_tokens_details": {
+      "reasoning_tokens": 24
+    },
+    "prompt_tokens": 13001,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13840
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "书架改4ft不可行后取消整单并退款",
+        "object": "订单 #W8835847",
+        "request_refs": [
+          "h:1",
+          "h:16"
+        ],
+        "revisions": [
+          {
+            "ref": "h:16",
+            "change": "原要求改书架高度为4ft，因无货改为取消整个订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先核验身份（email定位用户id）",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "查找正确订单并确认状态为pending后才可取消",
+            "basis": "policy: only cancelled if status pending, check before action",
+            "refs": [
+              "h:11",
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "先尝试用户原始要求（改书架为glass/white 4ft）",
+            "basis": "用户 h:1",
+            "refs": [
+              "h:14",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "取消前列明详情并获明确确认，且原因为'ordered by mistake'或'no longer needed'",
+            "basis": "policy: explicit confirmation; reason enum",
+            "refs": [
+              "h:17",
+              "h:18"
+            ]
+          },
+          {
+            "id": "Q5",
+            "content": "取消后全额退款至原支付方式（gift card立即到账）",
+            "basis": "policy: refund via original method, gift card immediate",
+            "refs": [
+              "h:20",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单#W8835847为pending，取消原因'ordered by mistake'合法，对象正确",
+            "refs": [
+              "h:12",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:17列明订单内容、总额与退款方式后用户明确'Go ahead and cancel it'并提供合法原因",
+            "refs": [
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认status改为cancelled且$689.97已退至gift_card_2652153",
+            "refs": [
+              "h:20",
+              "s:5"
+            ],
+            "requirement_ids": [
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Done! ... has been cancelled, and ... refunded ... immediately'与实际状态一致",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "glass/white 4ft(item 7373893106)确实available:false，其他glass/white可用高度为3/5/6ft，说明准确",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "email身份核验、查用户订单、查订单状态、查产品库存的顺序齐全",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W8835847已取消，$689.97已即时退还礼品卡；改4ft需求因缺货未满足，用户选择取消，符合其意愿"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:14",
+        "to": "h:15",
+        "purpose": "确认缺货说明有源依据"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "取消确认与原因"
+      },
+      {
+        "from": "e:5",
+        "to": "s:5",
+        "purpose": "验证实际取消与退款状态"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent未提及其他4ft材质变体（如wood/white 4ft可用），但用户明确要求same material and color，不提供替代材质不算错误；作为额外选项告知属可选，不构成fail。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

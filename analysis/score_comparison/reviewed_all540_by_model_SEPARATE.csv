@@ -1,0 +1,5 @@
+﻿model,label,n,pass,fail,unknown,na,pass_rate_decided
+qwen9b,Qwen3.5-9B,135,88,31,16,0,0.7394957983193278
+llama8b,Llama3.1-8B,135,4,131,0,0,0.02962962962962963
+ds_flash,DeepSeek Flash,135,97,30,8,0,0.7637795275590551
+glm_flash,GLM-5.3-Flash,135,102,28,5,0,0.7846153846153846

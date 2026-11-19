@@ -1,0 +1,130 @@
+{
+  "case_id": "tr409",
+  "created_beijing": "2026-11-10T16:02:49.605812+08:00",
+  "input_sha256": "9dbf0a0df59808fbcdaed321dda0dfb23181de594ad94c9e4f0bc726f7c71d3d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a3ced987859016ca7a1e48220fd82835765b8cb4db344e2f1494b392e712456c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 627,
+    "completion_tokens_details": {
+      "reasoning_tokens": 35
+    },
+    "prompt_tokens": 16041,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 16668
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复国外MMS发送故障",
+        "object": "用户线路L1002（555-123-2002）及设备D1002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复用户在法国（漫游）发送MMS的能力",
+            "basis": "用户 h:1 'I can't send MMS messages'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support手册顺序排查：SIM→漫游（线路L1002已roaming enabled，符合h:9）→APN/MMSC→Wi-Fi Calling，对象线路正确。",
+            "refs": [
+              "h:9",
+              "h:19",
+              "h:23",
+              "h:27",
+              "h:44"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持流程无需事前确认，用户按指引自行执行设备操作。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终 can_send_mms 返回 'can send MMS messages'（h:48），用户确认可用，问题已解决。",
+            "refs": [
+              "h:48",
+              "h:49"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:50的总结与实际各步骤结果一致，未虚构完成状态。",
+            "refs": [
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'Your line is already roaming-enabled on our side' 与 h:9 roaming_enabled=true 相符；各故障解释均有诊断数据支持。",
+            "refs": [
+              "h:9",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先完成身份识别（h:2-h:5），并核实了提供号码对应的线路L1002，随后按手册诊断顺序推进。",
+            "refs": [
+              "h:3",
+              "h:5",
+              "h:9",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "SIM重新插好后服务恢复、开启漫游、重置APN并关闭Wi-Fi Calling后，MMS发送成功，问题彻底解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "核实用户号码555-123-2002对应线路L1002及其roaming状态"
+      }
+    ],
+    "auxiliary_notes": [
+      "诊断类设备操作由用户在设备侧执行，属正常技术支持流程，非Agent遗漏。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

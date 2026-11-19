@@ -1,0 +1,223 @@
+{
+  "case_id": "tr017",
+  "created_beijing": "2026-11-10T15:51:26.509229+08:00",
+  "input_sha256": "f07552e044933ece014a253aff2568f3c32b58955e4c12efa609b1cc8916a514",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "43d89773fcd44f54bd13b40516121b8703f3e1c32d6cbb898590f82f403ba156",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 860,
+    "completion_tokens_details": {
+      "reasoning_tokens": 71
+    },
+    "prompt_tokens": 10591,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 11451
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改Z7GOZK返程航班",
+        "object": "预订Z7GOZK的返程HAT207",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "basic economy不可修改航班",
+            "basis": "policy: Basic economy flights cannot be modified",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策拒绝修改basic economy返程，符合限制",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何修改操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "违规请求被正确拒绝，无法规应完成的修改",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知basic economy cannot be modified，与政策一致",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "正确说明该预订为basic economy且不可改，有h:7数据支持",
+            "refs": [
+              "h:7",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已获取user id并查到reservation Z7GOZK后才判断",
+            "refs": [
+              "h:3",
+              "h:7"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "修改请求因basic economy规则被正确拒绝，预订未改"
+      },
+      {
+        "group_id": "G2",
+        "goal": "凭旅行保险取消预订Z7GOZK",
+        "object": "预订Z7GOZK",
+        "request_refs": [
+          "h:11"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "有保险且健康原因可取消",
+            "basis": "policy: travel insurance covers health/weather cancellation",
+            "refs": [
+              "h:11",
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "退款回原支付方式5-7个工作日",
+            "basis": "policy refund条款",
+            "refs": [
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "保险yes、健康原因，符合取消条件，未提前 flown",
+            "refs": [
+              "h:7",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:12列出取消对象与理由并询问，用户明确同意yes",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB确认status=cancelled且gift_card退回$169",
+            "refs": [
+              "h:15",
+              "s:4"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:16告知已取消及$169退款5-7个工作日，与实际一致",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "正确说明保险覆盖健康原因取消及退款时效",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查预订确认保险后才请求取消理由与确认",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "Z7GOZK已取消，$169退款至gift_card_2200803"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:10",
+        "purpose": "确认basic economy以拒绝修改"
+      },
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "保险与健康原因支持取消资格"
+      },
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "退款实际情况与告知一致"
+      }
+    ],
+    "auxiliary_notes": []
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

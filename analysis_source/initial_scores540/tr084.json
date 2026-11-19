@@ -1,0 +1,244 @@
+{
+  "case_id": "tr084",
+  "created_beijing": "2026-11-10T16:20:33.110135+08:00",
+  "input_sha256": "a0852a2e7e5f70c136c6af581522cf44564d806a748f5cbb5d5a327ffd8a0d66",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ee056b9c976ff2cf65c6ef19afccfc2cbbf9c12de85d6794fd9ee7e586bcaa1a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1165,
+    "completion_tokens_details": {
+      "reasoning_tokens": 96
+    },
+    "prompt_tokens": 16948,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 18113
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消5月22日JFK-MCO订单",
+        "object": "订单M20IZO",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消订单M20IZO（change of plans）",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "不满足取消条件时不得执行取消",
+            "basis": "policy: flight can be cancelled only if any of the following is true",
+            "refs": [
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单economy、无保险、非24h内、航班未取消，四条件均不满足，Agent正确拒绝取消，符合policy限制",
+            "refs": [
+              "h:7",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何写操作，无确认要求触发",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝未违规执行取消，符合政策应有结果；用户silver身份不影响取消规则",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明无法通过API取消并解释原因，未虚假宣称完成",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对silver会员权益的说明（行李额等适用，不影响取消规则）与policy一致",
+            "refs": [
+              "h:14",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查user、查订单、核对两段航班状态、询问取消原因均按政策执行",
+            "refs": [
+              "e:0",
+              "e:1",
+              "e:2",
+              "e:3",
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单M20IZO未取消，依规拒绝；用户主动转向下一事项，未要求强制转人工后继续"
+      },
+      {
+        "group_id": "G2",
+        "goal": "预订5月24日JFK-SFO单程经济舱机票",
+        "object": "新订单HATHAT",
+        "request_refs": [
+          "h:19",
+          "h:23",
+          "h:27"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "选择第二便宜的economy选项（HAT069+HAT258，$290）",
+            "basis": "用户要求 second cheapest",
+            "refs": [
+              "h:23",
+              "h:27"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "1名乘客、无行李、无保险、用尾号7334信用卡付$290",
+            "basis": "用户要求",
+            "refs": [
+              "h:27",
+              "h:29"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "实际写入HATHAT为HAT069+HAT258 economy $290、单乘客、0行李、无保险，与确认内容一致",
+            "refs": [
+              "e:6",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在h:30完整列出所有细节后用户明确确认'Go ahead and book it'",
+            "refs": [
+              "h:30",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB实际状态与确认的方案完全一致：航班、价格123+167=290、乘客、支付方式均正确",
+            "refs": [
+              "e:6",
+              "s:6"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:34的完成说明与实际写入结果逐项一致",
+            "refs": [
+              "h:34",
+              "e:6"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "搜索结果和价格汇总（直接$163最便宜，中转$290次便宜）与工具返回一致；silver行李额说明正确",
+            "refs": [
+              "h:26",
+              "h:25",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按政策收集trip type、cabin、乘客信息、行李、保险、支付方式并确认后下单",
+            "refs": [
+              "h:22",
+              "h:28",
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单HATHAT成功预订，实际状态与用户确认内容一致"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:23",
+        "to": "h:26",
+        "purpose": "用户要求第二便宜选项，Agent据此汇总报价"
+      },
+      {
+        "from": "h:30",
+        "to": "e:6",
+        "purpose": "确认内容与实际写入订单一致性"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在h:12/h:14/h:16/h:18重复确认取消原因，略显冗长，属措辞问题不影响业务质量",
+      "offline_flight_options显示重放时搜索报AttributeError，但实际执行返回正常且订单价格与当日目录一致，不影响评价"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

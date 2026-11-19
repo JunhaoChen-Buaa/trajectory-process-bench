@@ -1,0 +1,133 @@
+{
+  "case_id": "tr426",
+  "created_beijing": "2026-11-10T16:10:03.144471+08:00",
+  "input_sha256": "d3d18ff1e80b61d1ecf6ef0ac154f11f330b0951da48fcfd971f439f05485c58",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "2c752cd2d7684addc128824de00639071fb3721196f601463b6f6af4eaaa1d5a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 679,
+    "completion_tokens_details": {
+      "reasoning_tokens": 48
+    },
+    "prompt_tokens": 13170,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13849
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游移动数据并达到优秀速度",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "排查并恢复在法国的移动数据连接",
+            "basis": "用户请求 'mobile data is being a nightmare'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "数据速度需达到优秀",
+            "basis": "用户要求 'excellent speed'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support流程排查：先验证身份(e:0)、确认线路L1002 roaming已启用(e:2)、引导用户关飞行模式并开数据漫游，均符合政策",
+            "refs": [
+              "h:10",
+              "h:16",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排查与设备侧设置无需政策要求的额外确认，未产生费用",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终speed test返回275 Mbps Excellent (e:9)，用户确认满意",
+            "refs": [
+              "h:32",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:34总结与实际状态一致：飞行模式已关、漫游已开、速度优秀，'your line already had roaming enabled at no cost' 与L1002 roaming_enabled=true相符(e:2)",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'plan limit isn't the issue (8.7 GB of 15 GB)' 与P1002 limit 15GB(e:6)、L1002用量8.7GB(e:2)一致",
+            "refs": [
+              "h:24",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "完成了必要步骤：身份核验(e:0)、核对线路roaming状态(e:2)、逐步诊断（状态栏→速度测试→网络状态→漫游开关→复测），顺序合理",
+            "refs": [
+              "h:4",
+              "h:9",
+              "h:26",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "移动数据在法国恢复正常，速度275 Mbps（优秀），无费用产生"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "e:2",
+        "purpose": "用户号码555-123-2002对应L1002，确认是正确业务对象且roaming已启用"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户曾误跑check_status_bar而非speed test，Agent礼貌纠正（h:12），属交互层面，非业务问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

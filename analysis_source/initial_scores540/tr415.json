@@ -1,0 +1,205 @@
+{
+  "case_id": "tr415",
+  "created_beijing": "2026-11-10T14:22:23.126235+08:00",
+  "input_sha256": "d70dadedc9385d0d8327f53326a50a3f80a5734af82c5716f6b2fa951fd5a54f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5176d3110490347b3ec3ab78a7eb9cc485b680da174fd04c08737ae85b14f867",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1586,
+    "completion_tokens_details": {
+      "reasoning_tokens": 451
+    },
+    "prompt_tokens": 13825,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15411
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复 abroad 无法发送 MMS 的问题",
+        "object": "用户手机的 MMS 功能（含蜂窝/漫游/APN 前提）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: 'Technical Support: You must first identify the customer.'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "MMSC URL 未设置时应引导 reset_apn_settings 并随后 reboot_device",
+            "basis": "tech_support_policy: 'If check_apn_settings() shows MMSC URL is not set, guide the user to use reset_apn_settings... must be instructed to use reboot_device()'",
+            "refs": [
+              "h:8"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "不提供工具或政策之外的信息（如虚构的 MMSC URL）",
+            "basis": "policy: 'should not provide any information... not provided by the user or available tools'",
+            "refs": [
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "最终使用户可以发送 MMS 或在用尽手段后正确转人工",
+            "basis": "用户请求与 tech support 转人工规则",
+            "refs": [
+              "h:1",
+              "h:48"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "MMSC URL 未设置时未按政策引导 reset_apn_settings+reboot，而是让用户手填一个编造的 URL；enable_roaming 用占位符参数（'your_customer_id'）调用失败。",
+            "refs": [
+              "h:10",
+              "h:32",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本业务无强制确认要求，用户按指引自行操作设备。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "结束时 can_send_mms 仍失败（e:9），MMS 问题未解决；政策要求的 reset APN + reboot 路径未被尝试。",
+            "refs": [
+              "h:45",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent 未虚报完成，明确转人工说明；对 URL 也提示了不确定性（h:14）。",
+            "refs": [
+              "h:14",
+              "h:50"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "编造 'for most carriers in France should be http://mms.commbase.net:8080'，无任何工具或政策依据，违反不提供政策外信息的要求。",
+            "refs": [
+              "h:14",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "全程未按政策先识别客户身份，导致无法查询/核验线路漫游并正确调用 enable_roaming。",
+            "refs": [
+              "h:1",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "SIM 重插与设备侧漫游开启后蜂窝连接恢复，但 MMS 仍不可用，已转人工，问题未解决。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未按政策使用 reset_apn_settings+reboot 路径，MMS 未修复",
+        "basis": "tech_support_policy: 'guide the user to use reset_apn_settings... must be instructed to use reboot_device()'；最终 can_send_mms 仍失败",
+        "refs": [
+          "h:8",
+          "h:42",
+          "h:46"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "政策规定的修复路径未尝试，问题最终未解决并转人工。"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未先识别客户身份即开展技术支持",
+        "basis": "policy: 'Technical Support: You must first identify the customer.'",
+        "refs": [
+          "h:1",
+          "h:32"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "enable_roaming 以占位符参数失败（h:33），无法核验/开启线路漫游。"
+      },
+      {
+        "issue_id": "I3",
+        "title": "向用户编造无依据的 MMSC URL",
+        "basis": "policy: 'should not provide any information... not provided by the user or available tools'；h:14 提供未经核实的 URL 并被写入（h:42）",
+        "refs": [
+          "h:14",
+          "h:42"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户将编造 URL 写入 APN 设置，修复无效。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:8",
+        "to": "h:42",
+        "purpose": "MMSC 未设置应触发 reset+reboot，而实际写入了编造 URL"
+      },
+      {
+        "from": "h:1",
+        "to": "h:32",
+        "purpose": "未识别身份导致 enable_roaming 用占位符失败"
+      }
+    ],
+    "auxiliary_notes": [
+      "多次重复同一诊断工具调用（check_status_bar/check_network_status）属流程冗余，不影响业务评分；设备侧工具由用户执行，不构成 Agent 缺陷。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

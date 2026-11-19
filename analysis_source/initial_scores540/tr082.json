@@ -1,0 +1,227 @@
+{
+  "case_id": "tr082",
+  "created_beijing": "2026-11-10T15:22:11.544685+08:00",
+  "input_sha256": "a00130d4bc9ee6e589d55123464e3a78b9dcc0feada158b70967fde2ba4b1a22",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "69c337d059475e77150edf1e34ff2e06d4c7dc17e8c3f36688c9f71a13616988",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1111,
+    "completion_tokens_details": {
+      "reasoning_tokens": 130
+    },
+    "prompt_tokens": 14776,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15887
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消5月22日JFK→MCO订单并退款",
+        "object": "订单M20IZO",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "若不符合取消条件应拒绝退款",
+            "basis": "policy:取消需满足24小时内/航司取消/商务舱/保险",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单2024-05-12创建、经济舱、无保险、非航司取消，均不满足条件，依法拒绝",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何修改操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "正确未取消、未退款，符合政策应有结果",
+            "refs": [
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明不符合任何取消资格标准，与实际一致",
+            "refs": [
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "silver权益只涉行李额的说法与policy一致",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user_id再查定位订单、询问取消原因，顺序符合policy",
+            "refs": [
+              "h:3",
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单M20IZO未取消、无退款，符合政策"
+      },
+      {
+        "group_id": "G2",
+        "goal": "预订5月24日JFK→SFO经济舱航班",
+        "object": "新订单HATHAT（HAT069+HAT258）",
+        "request_refs": [
+          "h:17"
+        ],
+        "revisions": [
+          {
+            "ref": "h:21",
+            "change": "要求查看更多选项并指定经济舱第二便宜"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订JFK→SFO 5月24日经济舱第二便宜选项",
+            "basis": "用户h:21/h:25",
+            "refs": [
+              "h:21",
+              "h:25"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "乘客Aarav Ahmed一名、无行李、无保险",
+            "basis": "用户h:25",
+            "refs": [
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "单程经济舱、原profile中的信用卡支付，符合所有预订规则",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "已列明航班、价格、行李、保险并获用户确认支付方式（h:25,h:27）后才调用预订",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单HATHAT成功创建，$290扣至Mastercard 7334，无行李无保险，与约定一致",
+            "refs": [
+              "e:4",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "确认信息与实际DB状态完全一致（$290、航班、乘客）",
+            "refs": [
+              "h:30",
+              "h:29"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "$290确为经济舱第二便宜（163/290/300/304），报价有据",
+            "refs": [
+              "h:24",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按用户要求补查了经停航班，收集乘客、保险、行李信息",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "新订单HATHAT成功预订并扣款$290"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:10",
+        "purpose": "取消原因与拒绝依据关联"
+      },
+      {
+        "from": "h:25",
+        "to": "e:4",
+        "purpose": "用户确认的预订内容与实际写入订单核对"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:24中Agent排序表述略显凌乱（先误排后又重新排序），最终报价正确，属措辞问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

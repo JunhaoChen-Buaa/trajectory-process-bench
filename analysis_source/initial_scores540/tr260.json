@@ -1,0 +1,156 @@
+{
+  "case_id": "tr260",
+  "created_beijing": "2026-11-10T14:40:05.189369+08:00",
+  "input_sha256": "7b7771b127fec5bf51159de53973f9047cc73b8169705d63815c860bab7670d8",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "21038f670cf752d1c004c9058123b1e4f3a6ccbe362a04a704a5b819db1dd9fc",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 723,
+    "completion_tokens_details": {
+      "reasoning_tokens": 15
+    },
+    "prompt_tokens": 13284,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 14007
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待处理订单中的耳机颜色（白换蓝）",
+        "object": "订单 #W5061109 中的 Wireless Earbuds",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将无线耳机换成蓝色且价格不高于原价",
+            "basis": "用户要求 price stays same or down",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q1b",
+            "content": "先认证身份再办理",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:2",
+              "h:4"
+            ]
+          },
+          {
+            "id": "Q1c",
+            "content": "列出修改明细并获得明确确认，提醒一次性修改",
+            "basis": "policy: explicit user confirmation (yes)",
+            "refs": [
+              "h:12",
+              "h:14"
+            ]
+          }
+        ],
+        "requirements_note": "",
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，新item 8555936349为同产品可用蓝色变体，价格更低，符合规则；执行对比显示存储值与请求一致 (e:4/s:4)",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "已列出明细并获用户明确 'yes' 类确认 'Go ahead and make the change' (h:15)，含退款方式与金额",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1c"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB复核：item变为blue/$226.49，退款$30.18入gift_card，状态pending (item modified)，与同意结果一致",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:18的完成说明与实际DB状态一致，并正确告知后续不可再改",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格、差价$30.18、选项及可用性均与产品目录一致",
+            "refs": [
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按name+zip认证(e:0)，查订单确认pending状态，提供选项并提醒一次性修改，顺序符合政策",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1b",
+              "Q1c"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单 #W5061109 状态为 pending (item modified)，耳机已换为蓝色 8555936349 ($226.49)，$30.18 已退款至 gift_card_3406421"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:13",
+        "purpose": "用户原请求与所选变体及退款方式对应"
+      },
+      {
+        "from": "h:16",
+        "to": "s:4",
+        "purpose": "执行后DB状态验证实际结果"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在h:2先要求邮箱，用户表示不记得后才改用姓名+邮编，符合政策允许的顺序"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

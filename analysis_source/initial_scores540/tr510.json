@@ -1,0 +1,129 @@
+{
+  "case_id": "tr510",
+  "created_beijing": "2026-11-10T15:50:18.673993+08:00",
+  "input_sha256": "9fbf0b97b9c23234bc7a7de0cab9f266dc9502d7c3949a768a80100955b07665",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "27642c2e1651bc0cec0aa1e311d47eee5f06dffe1f9b78326d84e5b165e8bd7f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 605,
+    "completion_tokens_details": {
+      "reasoning_tokens": 32
+    },
+    "prompt_tokens": 11992,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12597
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查手机无服务问题",
+        "object": "线路 555-123-2002 (L1002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按技术支持流程诊断无服务原因（飞行模式、SIM、APN、线路状态）",
+            "basis": "tech_support_policy: Troubleshooting Service Problems",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "SIM锁定需升级人工处理",
+            "basis": "policy: 'If it shows Locked…escalate to technical support'",
+            "refs": [
+              "h:18"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "先查账户与线路确认Active（h:5,h:7），再按流程排查飞行模式、SIM，发现锁定后按政策转接，未做任何违规操作。",
+            "refs": [
+              "h:12",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "纯诊断与转接，无需用户确认的写操作。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户设备侧操作（e:3-e:5）诊断到SIM锁定，属Agent不可解锁情形，按政策转接人工（e:6成功）是正确结局。",
+            "refs": [
+              "e:6"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转接时按政策发送了标准转接话术，未虚假声称问题已解决。",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明飞行模式会禁用无线连接、线路状态Active均有依据（h:10,h:7），无错误事实说明。",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（h:2），再按顺序检查飞行模式→SIM状态，SIM锁定即按政策升级，顺序符合手册。",
+            "refs": [
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "SIM锁定无法由Agent解锁，已按政策成功转接人工处理。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:20",
+        "purpose": "SIM锁定是转接人工的直接依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent未向用户复述SIM状态结果细节（结果由用户设备侧自行看到），不影响业务质量。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,161 @@
+{
+  "case_id": "tr468",
+  "created_beijing": "2026-11-10T14:27:38.985809+08:00",
+  "input_sha256": "a84f202fab4a09a88cee04438346635ed483c39bf95d268bd1c03ebe96ede149",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d3ea617e2c077723e46575946ac2bdb5fe8c26d31e331ddf34ab7cb350a5a5c9",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 730,
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_tokens": 17692,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 18422
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "法国漫游时移动数据无法连接/速度慢的修复",
+        "object": "线路L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户在法国，线路未开漫游时应免费开通漫游",
+            "basis": "policy: 'If it is not, you should enable it at no cost'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按排障流程定位并恢复数据连接，达到用户要求的正常速度",
+            "basis": "tech_support_policy 排障流程",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据加油需确认价格且不超过2GB",
+            "basis": "policy Data Refueling",
+            "refs": [
+              "h:64"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核对正确线路L1002（555-123-2002）后免费enable_roaming，超量后按规则2GB加油，均符合政策",
+            "refs": [
+              "h:9",
+              "h:10",
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加油前明确报价$2/GB并经用户确认'2 GB'后执行",
+            "refs": [
+              "h:64",
+              "h:65"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终speed test 275 Mbps Excellent，数据恢复且达用户要求速度",
+            "refs": [
+              "h:70",
+              "h:71"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结四项修复与实际操作一致，且在确认速度后描述，与实际状态相符",
+            "refs": [
+              "h:72",
+              "h:70"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "告知'已超出数据限额'与get_data_usage(15.1/15.0)一致，报价与P1002单价一致",
+            "refs": [
+              "h:61",
+              "h:63",
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验(h:3-5)、系统侧开漫游、逐步排障（数据开关/漫游/APN/省流/VPN/网络模式/SIM/Wi-Fi通话）后定位限额原因，顺序合理完整",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:60"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002漫游已开通、手机数据与漫游开启、加油2GB($4)，最终275Mbps Excellent，数据在法国正常可用"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:10",
+        "purpose": "确认用户号码对应L1002后再开漫游"
+      },
+      {
+        "from": "h:61",
+        "to": "h:64",
+        "purpose": "限额事实支撑加油报价"
+      },
+      {
+        "from": "h:65",
+        "to": "h:66",
+        "purpose": "用户确认2GB后执行加油"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:73用户侧出现格式异常的工具调用(###STOP###)与Agent无关，不影响评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

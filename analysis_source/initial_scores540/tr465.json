@@ -1,0 +1,162 @@
+{
+  "case_id": "tr465",
+  "created_beijing": "2026-11-10T14:28:04.234225+08:00",
+  "input_sha256": "dcdabf0bd3d6832f4292f3281ec083891cea9dfed1eaabc51097cc5b462eaf91",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "68d989664a5897210f50ba933fd7c292a29d99544d668ffd917dd88f915ab0b1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 760,
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_tokens": 15172,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15932
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复在法国漫游时移动数据不可用/慢的问题",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复在法国的移动数据且达到excellent速度",
+            "basis": "用户h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "境外用户线路未开漫游时免费启用roaming",
+            "basis": "policy: enable roaming at no cost",
+            "refs": [
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超限后按用户选择加2GB流量并确认价格",
+            "basis": "policy Data Refueling + 用户h:34",
+            "refs": [
+              "h:33",
+              "h:34"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "技术支持前先识别客户",
+            "basis": "policy Technical Support",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策免费开通漫游(h:13)、引导设备端开启数据/漫游并重启、超限后确认价格后refuel 2GB $4(h:38-40)，对象L1002正确。",
+            "refs": [
+              "h:13",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "启用漫游(h:11)和refuel 2GB $4.00(h:38)均获用户明确同意后再执行。",
+            "refs": [
+              "h:11",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游已启用、2GB已加、最终speed test 275Mbps Excellent(h:43)，达到用户要求的excellent速度。",
+            "refs": [
+              "h:40",
+              "h:43"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致，且以speed test验证后才确认成功(h:41,h:45)。",
+            "refs": [
+              "h:41",
+              "h:45"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量15.1/15.0GB超限的说明有get_data_usage依据(h:32)，价格$2/GB与P1002一致(h:36)。",
+            "refs": [
+              "h:32",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:2-3)，诊断后按漫游→设备设置→超限→refuel顺序处理，超限前告知两个选项(h:33)。",
+            "refs": [
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "漫游免费启用，2GB流量加购$4.00，设备端数据/漫游开启并重启，测速excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:29",
+        "to": "h:32",
+        "purpose": "测速无连接后查询数据用量定位超限根因"
+      },
+      {
+        "from": "h:33",
+        "to": "h:40",
+        "purpose": "用户选择refuel并同意价格后成功加购"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:6中Agent在一次回复中同时发起三个get_details_by_id调用，违反policy"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

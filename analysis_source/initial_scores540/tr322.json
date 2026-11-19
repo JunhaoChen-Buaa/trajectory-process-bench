@@ -1,0 +1,141 @@
+{
+  "case_id": "tr322",
+  "created_beijing": "2026-11-10T15:48:56.330196+08:00",
+  "input_sha256": "416f3102dd9c7d1ebaf7c5dc61ed556c38fda8da9facfd0645c83583cb93908c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "75746c290931be4be36cb43237dfcad3dfed2a85ee891a06bb47ac5670a20679",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 685,
+    "completion_tokens_details": {
+      "reasoning_tokens": 41
+    },
+    "prompt_tokens": 13009,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 13694
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将订单#W8835847中的书架换为4英尺同材质颜色版本",
+        "object": "订单#W8835847中的Bookshelf（glass/white/5ft）",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "因4ft玻璃白色款缺货，用户撤回换货要求，改为取消整个订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "尝试将书架改为4英尺、同材质同颜色的可用款式",
+            "basis": "用户h:7",
+            "refs": [
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "缺货时如实告知不可换并提供等价处理（用户改为取消）",
+            "basis": "用户h:17",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "换货目标不可行（h:15中7373893106 available:false）如实拒绝，后续取消pending订单符合规则",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前确认订单号、原因（ordered by mistake）和退款方式，用户明确yes（h:20-h:21）",
+            "refs": [
+              "h:18",
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认订单状态cancelled且689.97退款至礼品卡（e:5/s:5）",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消且立即退款，与实际状态一致",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "缺货说明和可用的4ft替代款式及价格与h:15目录一致",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先邮箱验证身份（h:4-h:5），行动前查询订单状态为pending并确认原因，顺序正确",
+            "refs": [
+              "h:4",
+              "h:13"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W8835847已取消，$689.97已退回礼品卡；原换货目标因缺货未执行，属用户撤回"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "4ft玻璃白色款available:false是拒绝换货的依据"
+      },
+      {
+        "from": "h:21",
+        "to": "e:5",
+        "purpose": "用户确认对应实际取消写入"
+      }
+    ],
+    "auxiliary_notes": [
+      "换货与取消为同一连续请求的演变，归为一组；取消原因是政策允许的ordered by mistake"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

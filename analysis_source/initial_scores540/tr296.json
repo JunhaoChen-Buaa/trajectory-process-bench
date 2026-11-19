@@ -1,0 +1,224 @@
+{
+  "case_id": "tr296",
+  "created_beijing": "2026-11-10T14:34:53.186236+08:00",
+  "input_sha256": "9daf0595e0eca3afb96d36fdd2c2c7fcaf6b5f088d166058869e09d4fbcc3479",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "997fe4259f35638601943ba8c33a5d64f8a1fb2add86ee231a2b033a38b7564f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 987,
+    "completion_tokens_details": {
+      "reasoning_tokens": 51
+    },
+    "prompt_tokens": 20281,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 21268
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待发货订单收货地址",
+        "object": "订单 #W5270061",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [
+          {
+            "ref": "h:9",
+            "change": "澄清为改订单地址而非默认地址"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "pending订单可将收货地址改为Charlotte默认地址",
+            "basis": "policy: modify shipping address for pending order",
+            "refs": [
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending（h:11），地址修改合法且对象正确",
+            "refs": [
+              "h:11",
+              "e:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明新旧地址后用户明确确认'Go ahead and make those changes'",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB实际存储地址已改为159 Hickory Lane，Charlotte",
+            "refs": [
+              "h:29",
+              "s:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30如实说明地址修改完成，与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未涉及报价或政策事实说明"
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已先通过email缺失后name+zip完成身份核验",
+            "refs": [
+              "e:0"
+            ]
+          }
+        },
+        "end_state": "订单#W5270061收货地址已改为Charlotte默认地址"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修改待发货订单背包商品选项",
+        "object": "订单 #W5270061 中背包 item 2492465580",
+        "request_refs": [
+          "h:19"
+        ],
+        "revisions": [
+          {
+            "ref": "h:19",
+            "change": "撤回台灯修改，仅保留背包；付款方式由礼品卡改为PayPal"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "背包改为grey/medium/polyester/laptop且可用，差价用PayPal支付",
+            "basis": "用户h:19与policy同产品不同选项",
+            "refs": [
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "提醒用户确认所有需修改的商品（只能调用一次）",
+            "basis": "policy: remind customer to confirm all items to be modified",
+            "refs": []
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "新item 5917587651为同产品可用变体，价格$212.79，台灯按撤回处理",
+            "refs": [
+              "h:21",
+              "e:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明新背包选项、$10.84差价与PayPal，用户h:25明确确认",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB实际写入options与价格均与目标一致，PayPal扣款$10.84",
+            "refs": [
+              "h:29",
+              "s:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30如实汇报背包修改、付款与状态变化",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "差价$10.84计算正确（212.79-201.95），一次修改限制说明正确",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已提醒一次修改限制并确认所有修改项，再执行",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ]
+          }
+        },
+        "end_state": "背包已改为5917587651，PayPal支付差价$10.84，状态pending (item modified)"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:19",
+        "to": "h:24",
+        "purpose": "用户撤回台灯修改及选PayPal与最终确认内容关联"
+      },
+      {
+        "from": "e:9",
+        "to": "h:30",
+        "purpose": "实际写入结果与客户送达说明一致性"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:24中Agent对政策'一次修改后能否改地址'反复自我推断，措辞冗长但最终地址先改、商品后改的顺序正确，属接口/表达层面的auxiliary问题，不构成业务错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

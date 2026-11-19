@@ -1,0 +1,178 @@
+{
+  "case_id": "tr438",
+  "created_beijing": "2026-11-10T14:35:14.390249+08:00",
+  "input_sha256": "ed37bda49bd4b0eb494a0c992d6e6e09ce52b7ccfc5131deecc9ffb4e8af3f08",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "1001a4e1714a39969f49391a32e77e51cf2ce2163024dcba23512e10d157b065",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 862,
+    "completion_tokens_details": {
+      "reasoning_tokens": 117
+    },
+    "prompt_tokens": 13726,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 14588
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游期间移动数据中断/过慢问题",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先核实客户身份（技术支持要求）",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断超量导致断网并给出充值/换套餐两个选项",
+            "basis": "policy Data Plan Limits Reached",
+            "refs": [
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "充值前确认价格并获用户同意（最多2GB，按plan费率）",
+            "basis": "policy: Confirm the price",
+            "refs": [
+              "h:13",
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "排查慢速：检查Data Saver、VPN、网络模式、网络状态，必要时重启；无法解决则转人工",
+            "basis": "tech_support_policy Troubleshooting Mobile Data Problems",
+            "refs": [
+              "h:24",
+              "h:34"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确核对L1002超量(15.1>15.0)，充值2GB符合上限，troubleshooting与转人工均合规",
+            "refs": [
+              "h:11",
+              "h:18",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "报价$2/GB×2=$4后用户明确同意(h:17)，价格与plan返回一致",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "充值成功($4, 2GB)恢复断网；慢速问题经排查无法进一步解决，按政策合理转人工",
+            "refs": [
+              "h:19",
+              "h:35",
+              "h:37"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已加2GB/$4与实际一致；对慢速如实说明配置正常并转接，未虚假承诺excellent",
+            "refs": [
+              "h:20",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "超量、费率、roaming已启用均与工具返回一致",
+            "refs": [
+              "h:11",
+              "h:15",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验，逐项让用户执行设备侧诊断（Data Saver/VPN/网络模式/网络状态），重启后仍good才转人工",
+            "refs": [
+              "h:2",
+              "h:24",
+              "h:32",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "已充值2GB($4)恢复数据连接；速度仅good无法改善，已转人工处理网络侧问题"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "超量诊断依据"
+      },
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "价格确认依据"
+      },
+      {
+        "from": "h:35",
+        "to": "h:36",
+        "purpose": "排查无果后转人工依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "e:0返回email字段为john.smith@example.com与姓名不符，疑为离线数据瑕疵，未影响身份核验与办理，不影响评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

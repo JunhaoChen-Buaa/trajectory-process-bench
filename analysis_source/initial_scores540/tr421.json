@@ -1,0 +1,139 @@
+{
+  "case_id": "tr421",
+  "created_beijing": "2026-11-10T14:56:44.047137+08:00",
+  "input_sha256": "1fd5c8e865c2c318a6351bfe0fb13399771eb0f2959c78be84a78fdb50d9d56b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "1815532da3176c11e1982ee7fdf810bcbbc1859c5c23a1a1daaeab4051071f36",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 624,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13652,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14276
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游时移动数据不可用/慢的问题",
+        "object": "用户线路 L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复用户在国外时的移动数据连接",
+            "basis": "tech_support_policy: airplane mode、data roaming 排查步骤",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "确认线路上漫游已启用（line roaming enabled），必要时免费开启",
+            "basis": "policy: 'check if the line is roaming enabled. If it is not, you should enable it at no cost'",
+            "refs": [
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "核实速度达到用户要求的 excellent 后才结束",
+            "basis": "用户要求 'I need excellent speed'",
+            "refs": [
+              "h:1",
+              "h:27"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按技术支持流程依次关闭飞行模式(h:17)、开启设备漫游(h:21)，线路 L1002 本身已 roaming_enabled(h:8) 无需后端操作，符合政策。",
+            "refs": [
+              "h:8",
+              "h:17",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排查类操作无需确认流程。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户确认飞行模式已关、漫游已开，speed test 返回 275 Mbps Excellent (h:27)，数据恢复正常。",
+            "refs": [
+              "h:23",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际一致：飞行模式与漫游为根因，速度测试证实 excellent (h:29)。",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对飞行模式与漫游影响的解释符合政策文档；'8.7/15 GB 未超限' 有数据依据(h:11)。",
+            "refs": [
+              "h:11",
+              "h:13"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:4)，再通过 check_network_status 诊断(h:15)，逐步排查并验证，顺序正确。",
+            "refs": [
+              "h:4",
+              "h:15"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式关闭、设备漫游开启，速度 275 Mbps Excellent，问题解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:8",
+        "to": "h:21",
+        "purpose": "线路 L1002 已 roaming_enabled，仅需开启设备端数据漫游"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧 toggle_airplane_mode/toggle_roaming/run_speed_test 由用户执行，符合政策中用户设备操作流程，非 Agent 遗漏。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

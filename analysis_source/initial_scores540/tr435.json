@@ -1,0 +1,188 @@
+{
+  "case_id": "tr435",
+  "created_beijing": "2026-11-10T14:49:32.759626+08:00",
+  "input_sha256": "e8cd8388a6619dd626a1f98ad55a61caa63ea322a049756d412d0ec65a4ed237",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ea5f23dd6e6b5a6c0c1b72bd978c005d03782c33c00feb2ff963c8b7ec3a5edd",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1381,
+    "completion_tokens_details": {
+      "reasoning_tokens": 292
+    },
+    "prompt_tokens": 17431,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18812
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复用户在法国的移动数据问题",
+        "object": "用户手机 555-123-2002 对应线路及设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户再提供技术支持",
+            "basis": "policy: 'Technical Support: You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并解决国外漫游下数据不可用（含线路漫游开启与设备端 roaming 开启）",
+            "basis": "tech_support_policy: 'guide them to use toggle_roaming…check that the line…is roaming enabled'",
+            "refs": [
+              "h:1",
+              "h:65"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "enable_roaming 被施加到 L1001（号码 555-123-2001），而非用户提供的 555-123-2002 对应线路（L1002），对象错误；也未按规则处理设备端 Data Roaming 仍为 Off",
+            "refs": [
+              "h:35",
+              "h:88",
+              "h:90"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本次技术支持无需单独确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "问题未解决：最后一次 speed test 仍 'No Connection'，设备端 Data Roaming 仍关闭即转人工；enable_roaming 写入的是错误线路，未产生正确效果",
+            "refs": [
+              "h:60",
+              "h:88",
+              "h:92"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent 未虚假宣称已修复，转人工说明与实际（仍未修好）一致",
+            "refs": [
+              "h:92",
+              "h:94"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "向用户陈述的状态（在限额内、roaming 关闭等）均有工具结果依据",
+            "refs": [
+              "h:55",
+              "h:88"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求技术支持先识别客户，但 Agent 在未识别身份的情况下先完成大量排障操作（h:5–h:31），后才查客户",
+            "refs": [
+              "h:5",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          }
+        },
+        "end_state": "用户移动数据在法国仍不可用；线路 L1001 被误开漫游（副作用），用户被转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "对错误线路开启漫游",
+        "basis": "用户号码 555-123-2002 对应 L1002，而 enable_roaming 参数为 line_id L1001",
+        "refs": [
+          "h:35",
+          "h:90",
+          "h:91"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "写入错误对象，用户线路漫游未通过后端开启（副作用：L1001 漫游被误开）"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未指导用户开启设备端 Data Roaming 即转人工",
+        "basis": "tech_support_policy 要求 'guide them to use toggle_roaming()'；h:88 显示 Data Roaming Enabled: No，speed test 'No Connection'",
+        "refs": [
+          "h:60",
+          "h:88",
+          "h:92"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户问题未解决即终止，需要人工接手"
+      },
+      {
+        "issue_id": "I3",
+        "title": "未先识别客户即提供技术支持",
+        "basis": "policy: 'Technical Support: You must first identify the customer'；排障在 h:5 起已开始，识别在 h:32 之后",
+        "refs": [
+          "h:5",
+          "h:32"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "违反流程顺序，但后续完成了识别"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:35",
+        "to": "h:90",
+        "purpose": "用户提供号码 555-123-2002，而 enable_roaming 用了 L1001"
+      },
+      {
+        "from": "h:88",
+        "to": "h:92",
+        "purpose": "设备端 roaming 仍关闭且无连接的情况下即转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2/h:4 等 assistant 名义发出的设备工具调用未被执行（用户未发送），h:48 check_data_usage、h:70 误开 Data Saver、h:80 check_roaming_status 为虚构/无效调用，经 e:15/e:16 已纠正 Data Saver，未造成持久损害；频繁冗余的 check_status_bar 重复调用属接口效率问题",
+      "第一次按 1234567890 查客户失败后及时改用正确号码识别，处理得当"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

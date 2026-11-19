@@ -1,0 +1,142 @@
+{
+  "case_id": "tr517",
+  "created_beijing": "2026-11-10T16:13:59.928238+08:00",
+  "input_sha256": "d0d50ee0e11d6bc696413d262139ab7de97f9fd84f70a80f29c904fca20905a0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "fb417e79ca1cc617acc0a0f327275e312b8c8c80a2d6cc24c8442824a260f897",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 657,
+    "completion_tokens_details": {
+      "reasoning_tokens": 43
+    },
+    "prompt_tokens": 17030,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17687
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复线路555-123-2002的服务（解决No Service）",
+        "object": "L1002 / 555-123-2002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复用户线路的蜂窝服务",
+            "basis": "用户主诉 h:1；tech support政策",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别线路为L1002，因逾期账单暂停；确认合同未到期后先收款再resume_line，符合'lift suspension after user has paid all their overdue bills'",
+            "refs": [
+              "h:9",
+              "h:12",
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "发送$65付款请求前获用户同意（'Go ahead and send the payment request for the $65'），付款由用户本人接受并执行",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "账单B1234321已Paid，L1002恢复Active，最终状态栏显示Excellent/5G/Data Enabled，服务已恢复",
+            "refs": [
+              "h:24",
+              "h:26",
+              "h:44"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'suspension lifted—now Active'与resume_line返回一致，并如实告知需重启设备；后续故障排查说明与实际诊断一致",
+            "refs": [
+              "h:27",
+              "h:33",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'overdue bill B1234321 $65导致暂停'与账单Overdue状态一致；Airplane Mode与SIM missing的解释均有手册依据",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验账单overdue与金额，付款后确认status为Paid才resume（'Always check that the bill status is updated to PAID'），恢复后提醒重启设备，符合政策顺序",
+            "refs": [
+              "h:12",
+              "h:23",
+              "h:25",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "欠费已付清，L1002恢复Active，用户重启并关闭飞行模式、重插SIM后服务恢复"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:24",
+        "to": "h:25",
+        "purpose": "确认账单Paid后才执行resume_line"
+      },
+      {
+        "from": "h:39",
+        "to": "h:43",
+        "purpose": "SIM missing诊断引导reseat_sim_card"
+      }
+    ],
+    "auxiliary_notes": [
+      "付款由用户设备侧工具完成，属正常流程，非Agent遗漏"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

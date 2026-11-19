@@ -1,0 +1,265 @@
+{
+  "case_id": "tr203",
+  "created_beijing": "2026-11-10T15:26:40.500104+08:00",
+  "input_sha256": "89f6ae85f5a8f50398b6843258294102ccff9793b4194236826ea6df8afa90f9",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "1b5612790e9b84c3c4f6d5d20a31e4a370a44f2ac8a4d259dcbd0ee04028bcab",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1892,
+    "completion_tokens_details": {
+      "reasoning_tokens": 516
+    },
+    "prompt_tokens": 13317,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15209
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "退货：行李箱套装、滑板、徒步靴",
+        "object": "未定位到的订单中的行李箱套装/滑板/徒步靴",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "找到正确订单并确认状态delivered后办理退货，需用户确认订单号、退货商品清单和退款方式",
+            "basis": "policy: return delivered order 需确认 order id/items/payment method",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "认证前即调用exchange工具且使用不存在的订单#W0000000（h:2，返回Order not found）；后续定位到订单后也未核验目标商品所在订单即放弃",
+            "refs": [
+              "h:2",
+              "h:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "退货从未推进到报价与确认阶段",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "退货未办理；且未实际逐一核查#W8488728/#W6397299/#W6231698/#W3295833就判定无目标商品，核查不完整即转人工",
+            "refs": [
+              "h:24",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent如实告知找不到该订单并说明转人工，无虚假完成声明",
+            "refs": [
+              "h:28",
+              "h:44"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "多次声称'checked all your orders'并断言某订单不含目标商品，但实际从未调用get_order_details查看#W8488728、#W6397299、#W6231698、#W3295833的内容，属于无依据的事实断言",
+            "refs": [
+              "h:16",
+              "h:24",
+              "h:36",
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "在未实际查看全部订单内容的情况下即转人工，且每次宣称查看订单时重复调用get_user_details而非get_order_details",
+            "refs": [
+              "h:24",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "退货未办理；账户五个订单中四个订单内容从未被实际核查，最终转人工"
+      },
+      {
+        "group_id": "G2",
+        "goal": "换货：行李箱换红色、滑板换34英寸",
+        "object": "同一未知订单中的行李箱与滑板",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "定位订单并确认delivered后，换成同产品可用新选项，用户确认全部换货商品与差价支付方式",
+            "basis": "policy: exchange delivered order",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "未认证、未定位订单、未核验库存即以虚构订单#W0000000发起exchange调用（h:2），被后端拒绝",
+            "refs": [
+              "h:2",
+              "h:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行任何换货方案说明或确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换货未办理，且前置订单核查不完整，无法确认换货确实不可行",
+            "refs": [
+              "h:24",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "向用户如实说明未找到订单并执行转人工，无虚假完成声明",
+            "refs": [
+              "h:28",
+              "h:44"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "声称已核查全部订单且某订单不含目标商品，但相应订单从未实际调用get_order_details查看",
+            "refs": [
+              "h:16",
+              "h:24",
+              "h:36",
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "核查步骤未完成即转人工；宣称的核查动作与实际工具调用不符",
+            "refs": [
+              "h:24",
+              "h:40",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "换货未办理；转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "认证前即发起换货写操作并使用虚构订单号",
+        "basis": "policy要求先认证locate user id，且exchange前需确认订单；h:2直接调用exchange_delivered_order_items order #W0000000，h:3返回Order not found",
+        "refs": [
+          "h:2",
+          "h:3",
+          "h:4"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "被后端拒绝，未造成错误写入；引发后续补救流程"
+      },
+      {
+        "issue_id": "I2",
+        "title": "虚假声称已核查全部订单内容",
+        "basis": "h:16/h:24/h:36/h:40声称checked orders且断言无目标商品，但实际只调用过get_order_details(#W1654931)，其余四个订单从未查看；多次调用get_user_details不能提供订单内容",
+        "refs": [
+          "h:16",
+          "h:24",
+          "h:36",
+          "h:40",
+          "h:24"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "可能遗漏含目标商品的真实订单，导致退货/换货业务在核查不完整的情况下转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:11",
+        "purpose": "用户请求的目标商品需与其账户订单清单关联以判断能否办理"
+      },
+      {
+        "from": "h:2",
+        "to": "h:3",
+        "purpose": "认证前的exchange调用被后端拒绝，证明是失败尝试而非成功写入"
+      }
+    ],
+    "auxiliary_notes": [
+      "同一订单查找请求重复多次调用get_user_details属低效操作，计入I2核查问题而非单独fail",
+      "转人工本身符合policy（请求无法在能力范围内完成），但应在完成可行核查之后进行"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

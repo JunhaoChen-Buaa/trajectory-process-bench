@@ -1,0 +1,159 @@
+{
+  "case_id": "tr036",
+  "created_beijing": "2026-11-10T15:11:01.203748+08:00",
+  "input_sha256": "8d9e9e33f0d3743204dde48f3f11dfc0237f175e8487b027365d76931c0c8bfd",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d632765cdef060d1b4d47046d08e81533e29ea95b44239d9a86e73838f0b628c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 784,
+    "completion_tokens_details": {
+      "reasoning_tokens": 71
+    },
+    "prompt_tokens": 15848,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16632
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日纽约到西雅图单程经济舱机票",
+        "object": "新预订（reservation HATHAT，乘客Mia Li）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "增加出发时间限制：不飞11:00 EST之前出发的航班"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订JFK→SEA 2024-05-20单程经济舱，出发晚于11am EST",
+            "basis": "用户要求 h:1/h:7/h:17",
+            "refs": [
+              "h:1",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "乘客为Mia Li，3件免费行李，无保险",
+            "basis": "用户要求 h:7/h:19",
+            "refs": [
+              "h:7",
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "支付用一个证书（$250）+信用卡7447补$5，且需明确确认后下单",
+            "basis": "policy 'at most one travel certificate' 与确认要求",
+            "refs": [
+              "h:23",
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选HAT136+HAT039出发19:00满足时间限制，经济舱、单程、JFK-SEA均合规，证书限用一个符合政策",
+            "refs": [
+              "h:18",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "完整列出航班、乘客、行李、支付明细后用户明确同意'Go ahead and book it'",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "预订成功创建HATHAT，航班/乘客/行李/支付与确认一致，DB回放无差异",
+            "refs": [
+              "e:5",
+              "s:5"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28告知的预订详情与实际写入状态一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格$255、gold经济舱3件免费行李、证书不可退余额等说明均有源依据且正确",
+            "refs": [
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user_id并查询用户详情，搜索了JFK/LGA/EWR直飞及中转，收集乘客信息并询问保险与行李",
+            "refs": [
+              "e:0",
+              "e:1",
+              "e:2",
+              "e:3",
+              "e:4"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功创建，航班、乘客、支付均符合用户要求"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "时间限制修改后重新筛选满足11am后出发的航班"
+      },
+      {
+        "from": "h:25",
+        "to": "e:5",
+        "purpose": "用户确认与实际下单参数一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16、h:18、h:24等送达消息中包含大量内部推演文字（如'Let me re-read...'），措辞冗长属纯接口规范问题，不影响业务正确性"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

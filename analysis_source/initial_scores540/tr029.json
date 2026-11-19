@@ -1,0 +1,157 @@
+{
+  "case_id": "tr029",
+  "created_beijing": "2026-11-10T15:59:29.039576+08:00",
+  "input_sha256": "24133b2b322d6d6548f4d95af67fe57e74e33668cb93d61c99b32b902881ea12",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "972a713344902e9834d26d87bec860c55a148437e4f46e1f955aaad94a133e4d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 779,
+    "completion_tokens_details": {
+      "reasoning_tokens": 55
+    },
+    "prompt_tokens": 19319,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 20098
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日纽约到西雅图单程经济舱机票",
+        "object": "新预订 HATHAT（Mia Li，JFK→SEA 经ATL）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:10",
+            "change": "排除11点前起飞的直飞，改寻其他选项（对原要求的细化）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订JFK到SEA 5月20日单程，11点后出发的选项",
+            "basis": "用户要求 h:1/h:10",
+            "refs": [
+              "h:1",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "经济舱、仅本人、3件托运、无保险",
+            "basis": "用户 h:15/h:23",
+            "refs": [
+              "h:15",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "付款：一张证书+一张信用卡，且须为档案内支付方式",
+            "basis": "policy: 'Each reservation can use at most one travel certificate'",
+            "refs": [
+              "h:23",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选HAT136+HAT039满足时间偏好、非basic economy可订、证书限用一张规则已正确执行，$250+$5支付拆分与报价一致。",
+            "refs": [
+              "h:14",
+              "h:20",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "最终摘要（h:26）列明航班/舱位/乘客/行李/保险/付款后获用户明确yes（h:27）。",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "book_reservation成功写入，返回预订HATHAT与确认方案完全一致，证书与信用卡扣款正确。",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30的确认说明与实际预订状态一致，包括预订号与付款明细。",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$255/261/384与查询价格一致，gold会员经济舱3件免费行李说明正确。",
+            "refs": [
+              "h:20",
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id并查询档案，收集乘客/行李/保险/付款信息后才确认下单，顺序完整。",
+            "refs": [
+              "h:4",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功：HAT136+HAT039 2024-05-20 经济舱，Mia Li，3件免费行李，无保险，$250证书+$5信用卡支付。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:29",
+        "purpose": "报价$255与实际预订两段价格152+103一致"
+      },
+      {
+        "from": "h:26",
+        "to": "h:27",
+        "purpose": "最终确认摘要与用户yes对应"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14中选项D先被截断再更正，属措辞/表述瑕疵，不影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

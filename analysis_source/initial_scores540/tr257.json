@@ -1,0 +1,152 @@
+{
+  "case_id": "tr257",
+  "created_beijing": "2026-11-10T15:42:29.068205+08:00",
+  "input_sha256": "bce381822654419bd69ddf08148e21346e55985cf1e0a8bdb5f3a6cbe5b895e1",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "80648ce58d491a7345edfa019d0c21fa8f25ec4366140deafbd1a3052e15e3e7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 615,
+    "completion_tokens_details": {
+      "reasoning_tokens": 6
+    },
+    "prompt_tokens": 12445,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13060
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将耳机换成蓝色8小时/IPX4款",
+        "object": "订单#W5061109中的Wireless Earbuds",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "pending订单中同产品换为可用的蓝色8h/IPX4新item",
+            "basis": "policy: same product, different option, available",
+            "refs": [
+              "h:5",
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "差价$30.18退回用户指定的PayPal",
+            "basis": "用户h:11",
+            "refs": [
+              "h:11"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "操作前列明细并获明确确认，提醒仅能修改一次",
+            "basis": "policy: explicit confirmation",
+            "refs": [
+              "h:10"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "选了同产品可用变体8555936349，状态为pending，符合政策。",
+            "refs": [
+              "h:7",
+              "e:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:10列出明细并提醒一次性，用户h:11明确同意且指定PayPal。",
+            "refs": [
+              "h:10",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认item已改为blue/8h/IPX4、$226.49，$30.18退款已记入PayPal。",
+            "refs": [
+              "e:3",
+              "s:3"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:14如实说明状态pending (item modified)、新规格与退款，与实际一致。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格与选项说明与目录一致，差价$30.18计算正确。",
+            "refs": [
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份、查订单状态和产品目录，均在操作前完成。",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W5061109状态为pending (item modified)，耳机已换成蓝色8h/IPX4（$226.49），$30.18退款至PayPal。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:12",
+        "purpose": "用户选择的变体与实际modify调用的新item_id一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "交易金额以浮点30.180000000000007记录，属显示精度问题，不影响业务。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

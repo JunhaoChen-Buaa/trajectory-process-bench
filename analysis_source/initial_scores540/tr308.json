@@ -1,0 +1,137 @@
+{
+  "case_id": "tr308",
+  "created_beijing": "2026-11-10T14:56:27.430953+08:00",
+  "input_sha256": "56c79665fde22c8c733fa456747b73cde86e5fd43855bf155c9f77e97b4e2bf7",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f42cc629841c8ac850374c3a1d74804dcc0e49abb1630e313e0a61a6933437a6",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 550,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 15657,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16207
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单 #W3289292",
+        "object": "订单 #W3289292",
+        "request_refs": [
+          "h:21"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单状态为pending才可取消",
+            "basis": "policy: can only be cancelled if its status is 'pending'",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "需用户确认订单号和原因（no longer needed/ordered by mistake）",
+            "basis": "policy: user needs to confirm the order id and the reason",
+            "refs": [
+              "h:22",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，取消理由'no longer needed'合规，对象正确。",
+            "refs": [
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列明订单、金额、理由并请求确认，用户明确yes。",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单状态变为cancelled，退款$2468.70至原PayPal。",
+            "refs": [
+              "h:25",
+              "s:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知已取消及5-7个工作日退款时限，与实际一致。",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对状态、金额、退款时限的说明均有依据且正确。",
+            "refs": [
+              "h:15",
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验身份、查订单状态后取消，顺序符合要求。",
+            "refs": [
+              "h:5",
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单已取消，PayPal退款$2468.70在5-7个工作日内处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:22",
+        "to": "h:23",
+        "purpose": "取消操作前的用户确认"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户最初想取消部分商品（h:21），Agent正确说明只能整单取消并获用户同意取消整单；政策只允许取消/修改整单，处理合理。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

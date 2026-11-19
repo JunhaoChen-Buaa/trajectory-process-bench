@@ -1,0 +1,115 @@
+{
+  "case_id": "tr496",
+  "created_beijing": "2026-11-10T14:23:42.130616+08:00",
+  "input_sha256": "f73ba848c8a684837df62806365998a03a7101288c9f9b3a7a322e152449cefe",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bf3e7409f86aef19572f8cf4203841055d7425a16fa7539d6d448a961a73d42e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 448,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 14921,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15369
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机无服务问题",
+        "object": "线路L1002(555-123-2002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并排除设备侧原因(飞行模式/SIM/APN)直到服务恢复",
+            "basis": "tech support policy排障流程",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按排障手册逐步处理：核对线路Active后引导飞行模式关闭、SIM重插、APN重置并重启，流程符合原规则。",
+            "refs": [
+              "h:10",
+              "h:14",
+              "h:22",
+              "h:38"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排障操作无需用户确认流程。",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "重启后信号Excellent、5G、数据可用且测速275Mbps，服务实际恢复。",
+            "refs": [
+              "h:44",
+              "h:48"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际状态一致，基于重启后状态栏和测速确认。",
+            "refs": [
+              "h:50"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对线路状态、APN异常、飞行模式影响的说明均有工具返回依据。",
+            "refs": [
+              "h:9",
+              "h:36"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按phone number完成身份识别，再核对线路状态，随后按手册顺序排障。",
+            "refs": [
+              "h:4",
+              "h:8",
+              "h:10"
+            ]
+          }
+        },
+        "end_state": "手机服务恢复：信号Excellent、5G、移动数据正常"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户提供的号码对应线路L1002，用于核对线路状态"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧操作均由用户在其手机执行，Agent以引导方式完成，符合工具分工，非错误。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

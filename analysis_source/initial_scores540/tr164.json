@@ -1,0 +1,158 @@
+{
+  "case_id": "tr164",
+  "created_beijing": "2026-11-10T14:30:22.686461+08:00",
+  "input_sha256": "92972c12f5f019ae07786eddc27fcd95db7bff96c8b096474357b22be3d1ca56",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "aad0f27111222dc49fc89e28db31bc391049b6d9b0c2954a895ac3f4d616ef99",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1019,
+    "completion_tokens_details": {
+      "reasoning_tokens": 220
+    },
+    "prompt_tokens": 17021,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 18040
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月26日ORD-PHL单程航班",
+        "object": "新预订（HAT271，economy，2名乘客，certificate_8045380付款）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查找用户5月10日乘坐的ORD-PHL航班并在5月26日预订同一航班",
+            "basis": "用户要求 find what I took that day and book me on the same one",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "单程、economy、两乘客（Sophia Silva、Kevin Smith）、无行李、无保险",
+            "basis": "用户消息",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "总价不超过$500，否则只订自己一人；用一张certificate支付",
+            "basis": "用户消息",
+            "refs": [
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "通过WUNA5K核实5月10日乘坐HAT271并预订同航班5月26日，舱位/乘客/行李/保险均符合用户要求，economy每个乘客1免费行李但用户不要行李未添加，符合policy 'Do not add checked bags that the user does not need'",
+            "refs": [
+              "h:15",
+              "h:17",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在预订前列出全部详情（航班、乘客、行李、付款$348、无保险）并获得用户明确yes确认",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "预订成功写入DB，返回与确认内容一致：HAT271 economy双乘客无行李无保险，certificate_8045380收取$348，总价低于$500上限",
+            "refs": [
+              "h:23",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "已告知预订成功及reservation ID HATHAT，摘要与实际DB状态一致",
+            "refs": [
+              "h:24",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$174 economy来自search_direct_flight实际返回；正确说明座位选择系统不支持，属诚实披露",
+            "refs": [
+              "h:17",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id并查user details、逐个查预订找到5月10日航班、搜索5月26日航班，顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:5",
+              "h:15",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT已成功创建：5月26日HAT271 ORD→PHL economy，Sophia Silva与Kevin Smith两名乘客，无行李无保险，certificate_8045380支付$348"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:22",
+        "purpose": "确认5月10日乘坐HAT271为预订同一航班的依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:18的可见回复含大量内部独白且内容重复截断，属措辞/接口规范问题，不影响业务正确性",
+      "用户座位偏好（aisle+middle）系统不支持，Agent已诚实说明，不属业务错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,126 @@
+{
+  "case_id": "tr145",
+  "created_beijing": "2026-11-10T15:18:17.024470+08:00",
+  "input_sha256": "39f8fc051f1d31127c1285dafc8cfa86727f0f018044206c7a4c5772466806e0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "e9df20f788dbc628302cbdb97c2b03ebb82381d498bbc7e867755f1441ddb71f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 555,
+    "completion_tokens_details": {
+      "reasoning_tokens": 10
+    },
+    "prompt_tokens": 7546,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 8101
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消机票并退款",
+        "object": "预订 3RK2T9（MCO-SFO 经PHX，basic economy，2乘客）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订需满足24小时内预订/航司取消/商务舱/有保险且病因覆盖之一",
+            "basis": "policy: flight can be cancelled if any of the following is true",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "记录显示5月2日预订、无保险、basic economy、非航司取消，均不满足任一取消条件，正确拒绝（h:3,h:4）",
+            "refs": [
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何修改/取消操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝取消并转人工核实用户争议属于正确处理，未做违规写入",
+            "refs": [
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知不符合四项取消条件，未声称已完成任何取消或退款",
+            "refs": [
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "依据系统记录 insurance=no、created 2024-05-02、basic economy 陈述事实，均有工具返回支撑；用户声称有保险但记录无据",
+            "refs": [
+              "h:3",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取预订详情核实再判断，用户争议记录且要求人工时按规则转人工并按流程发送转接语",
+            "refs": [
+              "h:2",
+              "h:6",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未被取消，无退款；已转人工核实用户保险争议，符合政策"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:3",
+        "purpose": "用户取消退款请求与系统记录（无保险、非24小时内）比对"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接summary详实准确，包含争议点，属良好实践"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

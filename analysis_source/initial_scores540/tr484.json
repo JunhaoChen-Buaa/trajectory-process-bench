@@ -1,0 +1,175 @@
+{
+  "case_id": "tr484",
+  "created_beijing": "2026-11-10T14:49:53.358359+08:00",
+  "input_sha256": "1a1cd9df0408271c0af1e89fca35ce53f252bf5e917fa8c3172a8220ce94cfc5",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ce2de2217a5592854004d807bcfcaaad91b4db8d263b797925e060b07d0015fc",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 819,
+    "completion_tokens_details": {
+      "reasoning_tokens": 51
+    },
+    "prompt_tokens": 17883,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18702
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复L1002线路服务（处理欠费、恢复停机线路并排除故障）",
+        "object": "线路L1002（电话555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "识别客户并诊断No Service原因",
+            "basis": "tech_support_policy: You must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "欠费导致停机：确认账单overdue、发送付款请求、付款后恢复线路",
+            "basis": "policy: lift suspension after user has paid all overdue bills",
+            "refs": [
+              "h:9",
+              "h:11"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "恢复线路后指导重启设备",
+            "basis": "policy: user will have to reboot their device to get service",
+            "refs": [
+              "h:22"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "按排障流程检查SIM/网络/APN，修复错误APN并重启",
+            "basis": "tech_support_policy: incorrect APN -> reset_apn_settings + reboot_device",
+            "refs": [
+              "h:48",
+              "h:50"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核对B1234321确为Overdue后才发送付款请求，付款后恢复线路，符合停机解除规则（合同到期日2026年未过期）。",
+            "refs": [
+              "h:11",
+              "h:12",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "付款由用户自行执行确认（h:19），线路恢复无需额外政策确认。",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "账单已付、L1002恢复Active，重启并关闭飞行模式、重置APN后状态栏显示Excellent 5G，服务恢复。",
+            "refs": [
+              "h:18",
+              "h:21",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际一致：线路恢复、APN问题修复、服务恢复均与工具结果相符。",
+            "refs": [
+              "h:22",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "停机原因、$65金额、飞行模式影响及APN错误解释均有工具依据。",
+            "refs": [
+              "h:14",
+              "h:28",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查客户、核对账单状态再发付款请求，付款后恢复并提醒重启，排障顺序（状态栏→SIM→网络→模式→APN→重置+重启）符合手册。",
+            "refs": [
+              "h:10",
+              "h:34",
+              "h:42",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "B1234321已付款，L1002恢复Active，设备显示Excellent信号/5G/数据开启，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "确认账单overdue后才发送付款请求"
+      },
+      {
+        "from": "h:18",
+        "to": "h:20",
+        "purpose": "付款完成后才恢复线路"
+      },
+      {
+        "from": "h:48",
+        "to": "h:50",
+        "purpose": "APN显示broken，指导重置并重启"
+      }
+    ],
+    "auxiliary_notes": [
+      "多次非必要调用check_status_bar属接口层面冗余，不影响业务质量"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

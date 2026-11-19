@@ -1,0 +1,107 @@
+{
+  "domain": "retail",
+  "task_id": "69",
+  "original_task_digest": "0039ba5fdf115d21c8729d3d94818040bdb860b2c2d5975bb9fb7e4a89f29c78",
+  "sampling_stratum": "cancel",
+  "task": {
+    "id": "69",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You want to return an item you just received: a laptop. You think that you ordered it around April 2023 but are not sure. You want to return it because you found a better deal elsewhere. You want to return it for a full refund. If it cannot be returned, see if it can be canceled.",
+        "known_info": "You are emma_smith_8564 living in New York, New York, 10192.",
+        "unknown_info": "You do not remember your email address",
+        "task_instructions": "You are polite and friendly."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "69_0",
+          "requestor": "assistant",
+          "name": "find_user_id_by_name_zip",
+          "arguments": {
+            "first_name": "Emma",
+            "last_name": "Smith",
+            "zip": "10192"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "69_1",
+          "requestor": "assistant",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "emma_smith_8564"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "69_2",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W2417020"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "69_3",
+          "requestor": "assistant",
+          "name": "cancel_pending_order",
+          "arguments": {
+            "order_id": "#W2417020",
+            "reason": "no longer needed"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr265",
+    "tr266",
+    "tr267",
+    "tr268",
+    "tr269",
+    "tr270",
+    "tr271",
+    "tr272",
+    "tr273",
+    "tr274",
+    "tr275",
+    "tr276"
+  ]
+}

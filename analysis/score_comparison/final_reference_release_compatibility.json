@@ -1,0 +1,4525 @@
+{
+  "summary": {
+    "n": 540,
+    "valid": 494,
+    "invalid": 46,
+    "warning_cases": 7,
+    "error_case_ids": [
+      "tr003",
+      "tr009",
+      "tr011",
+      "tr015",
+      "tr019",
+      "tr020",
+      "tr027",
+      "tr048",
+      "tr052",
+      "tr060",
+      "tr063",
+      "tr079",
+      "tr080",
+      "tr094",
+      "tr095",
+      "tr099",
+      "tr100",
+      "tr105",
+      "tr108",
+      "tr111",
+      "tr120",
+      "tr123",
+      "tr125",
+      "tr129",
+      "tr136",
+      "tr147",
+      "tr165",
+      "tr167",
+      "tr169",
+      "tr183",
+      "tr187",
+      "tr191",
+      "tr292",
+      "tr315",
+      "tr336",
+      "tr349",
+      "tr359",
+      "tr367",
+      "tr384",
+      "tr431",
+      "tr440",
+      "tr467",
+      "tr482",
+      "tr495",
+      "tr518",
+      "tr531"
+    ],
+    "warning_case_ids": [
+      "tr114",
+      "tr290",
+      "tr343",
+      "tr350",
+      "tr491",
+      "tr503",
+      "tr511"
+    ],
+    "interpretation": "Read-only mechanical release-validator compatibility of final540 historical source-reviewed references; no field changes or semantic relabeling"
+  },
+  "cases": [
+    {
+      "case_id": "tr001",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr002",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr003",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[0].scores.STEPS.requirement_ids:unknown_id:Q5",
+        "groups[1].scores.STEPS.requirement_ids:unknown_id:Q5",
+        "groups[2].scores.STEPS.requirement_ids:unknown_id:Q5"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr004",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr005",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr006",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr007",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr008",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr009",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[0].scores.RULE.requirement_ids:unknown_id:Q2",
+        "groups[0].scores.RULE.requirement_ids:unknown_id:Q3",
+        "groups[1].scores.RULE.requirement_ids:unknown_id:Q2",
+        "groups[1].scores.RULE.requirement_ids:unknown_id:Q3",
+        "groups[2].scores.RULE.requirement_ids:unknown_id:Q2",
+        "groups[2].scores.RULE.requirement_ids:unknown_id:Q3"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr010",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr011",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[2].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr012",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr013",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr014",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr015",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[2].severity:invalid_severity",
+        "issues[4].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr016",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr017",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr018",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr019",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[0].revisions[0]:change_required"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr020",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr021",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr022",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr023",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr024",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr025",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr026",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr027",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr028",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr029",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr030",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr031",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr032",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr033",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr034",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr035",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr036",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr037",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr038",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr039",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr040",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr041",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr042",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr043",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr044",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr045",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr046",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr047",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr048",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr049",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr050",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr051",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr052",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr053",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr054",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr055",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr056",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr057",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr058",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr059",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr060",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr061",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr062",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr063",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr064",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr065",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr066",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr067",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr068",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr069",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr070",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr071",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr072",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr073",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr074",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr075",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr076",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr077",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr078",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr079",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[0].requirements[1]:missing_or_duplicate_requirement_id",
+        "groups[0].requirements[2]:missing_or_duplicate_requirement_id",
+        "groups[0].requirements[3]:missing_or_duplicate_requirement_id"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr080",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr081",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr082",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr083",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr084",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr085",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr086",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr087",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr088",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr089",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr090",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr091",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr092",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr093",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr094",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr095",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[1].scores.CONSENT.requirement_ids:unknown_id:Q1b"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr096",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr097",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr098",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr099",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[3].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr100",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity",
+        "issues[1].severity:invalid_severity",
+        "issues[2].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr101",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr102",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr103",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr104",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr105",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity",
+        "groups[0].revisions[0]:change_required",
+        "groups[1].revisions[0]:change_required",
+        "groups[2].revisions[0]:change_required",
+        "groups[3].revisions[0]:change_required",
+        "groups[4].revisions[0]:change_required"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr106",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr107",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr108",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr109",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr110",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr111",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr112",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr113",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr114",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[2].scores.REPORT.refs:empty_applicable_evidence"
+      ]
+    },
+    {
+      "case_id": "tr115",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr116",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr117",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr118",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr119",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr120",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity",
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr121",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr122",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr123",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[3].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr124",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr125",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr126",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr127",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr128",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr129",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "evidence_links[1].to:nonexistent_ref"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr130",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr131",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr132",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr133",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr134",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr135",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr136",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[0].revisions[0]:change_required",
+        "groups[0].revisions[1]:change_required"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr137",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr138",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr139",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr140",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr141",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr142",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr143",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr144",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr145",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr146",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr147",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity",
+        "issues[2].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr148",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr149",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr150",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr151",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr152",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr153",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr154",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr155",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr156",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr157",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr158",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr159",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr160",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr161",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr162",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr163",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr164",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr165",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr166",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr167",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "groups[0].requirements[1]:missing_or_duplicate_requirement_id"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr168",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr169",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr170",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr171",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr172",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr173",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr174",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr175",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr176",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr177",
+      "model_alias": "ds_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr178",
+      "model_alias": "glm_flash",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr179",
+      "model_alias": "llama8b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr180",
+      "model_alias": "qwen9b",
+      "domain": "airline",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr181",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr182",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr183",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr184",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr185",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr186",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr187",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "issues[2].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr188",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr189",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr190",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr191",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "issues[2].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr192",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr193",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr194",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr195",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr196",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr197",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr198",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr199",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr200",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr201",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr202",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr203",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr204",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr205",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr206",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr207",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr208",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr209",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr210",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr211",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr212",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr213",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr214",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr215",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr216",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr217",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr218",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr219",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr220",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr221",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr222",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr223",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr224",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr225",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr226",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr227",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr228",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr229",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr230",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr231",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr232",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr233",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr234",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr235",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr236",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr237",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr238",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr239",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr240",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr241",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr242",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr243",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr244",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr245",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr246",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr247",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr248",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr249",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr250",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr251",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr252",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr253",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr254",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr255",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr256",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr257",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr258",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr259",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr260",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr261",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr262",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr263",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr264",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr265",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr266",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr267",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr268",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr269",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr270",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr271",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr272",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr273",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr274",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr275",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr276",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr277",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr278",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr279",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr280",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr281",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr282",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr283",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr284",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr285",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr286",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr287",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr288",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr289",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr290",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[1].scores.STEPS.refs:empty_applicable_evidence"
+      ]
+    },
+    {
+      "case_id": "tr291",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr292",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "groups[0].requirements[1]:missing_or_duplicate_requirement_id"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr293",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr294",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr295",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr296",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr297",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr298",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr299",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr300",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr301",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr302",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr303",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr304",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr305",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr306",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr307",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr308",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr309",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr310",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr311",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr312",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr313",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr314",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr315",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr316",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr317",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr318",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr319",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr320",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr321",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr322",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr323",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr324",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr325",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr326",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr327",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr328",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr329",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr330",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr331",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr332",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr333",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr334",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr335",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr336",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr337",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr338",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr339",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr340",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr341",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr342",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr343",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[0].scores.FACT.refs:empty_applicable_evidence"
+      ]
+    },
+    {
+      "case_id": "tr344",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr345",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr346",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr347",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr348",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr349",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr350",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[2].requirements:not_separately_recorded"
+      ]
+    },
+    {
+      "case_id": "tr351",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr352",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr353",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr354",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr355",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr356",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr357",
+      "model_alias": "ds_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr358",
+      "model_alias": "glm_flash",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr359",
+      "model_alias": "llama8b",
+      "domain": "retail",
+      "valid": false,
+      "errors": [
+        "evidence_links[2].to:nonexistent_ref"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr360",
+      "model_alias": "qwen9b",
+      "domain": "retail",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr361",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr362",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr363",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr364",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr365",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr366",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr367",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity",
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr368",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr369",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr370",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr371",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr372",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr373",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr374",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr375",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr376",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr377",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr378",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr379",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr380",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr381",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr382",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr383",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr384",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr385",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr386",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr387",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr388",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr389",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr390",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr391",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr392",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr393",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr394",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr395",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr396",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr397",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr398",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr399",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr400",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr401",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr402",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr403",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr404",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr405",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr406",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr407",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr408",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr409",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr410",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr411",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr412",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr413",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr414",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr415",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr416",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr417",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr418",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr419",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr420",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr421",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr422",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr423",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr424",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr425",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr426",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr427",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr428",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr429",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr430",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr431",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr432",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr433",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr434",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr435",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr436",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr437",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr438",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr439",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr440",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr441",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr442",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr443",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr444",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr445",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr446",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr447",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr448",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr449",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr450",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr451",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr452",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr453",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr454",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr455",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr456",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr457",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr458",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr459",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr460",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr461",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr462",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr463",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr464",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr465",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr466",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr467",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "evidence_links[1].to:nonexistent_ref"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr468",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr469",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr470",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr471",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr472",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr473",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr474",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr475",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr476",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr477",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr478",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr479",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr480",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr481",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr482",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr483",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr484",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr485",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr486",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr487",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr488",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr489",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr490",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr491",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[0].scores.FACT.refs:empty_applicable_evidence"
+      ]
+    },
+    {
+      "case_id": "tr492",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr493",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr494",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr495",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[1].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr496",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr497",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr498",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr499",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr500",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr501",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr502",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr503",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[0].scores.FACT.refs:empty_applicable_evidence"
+      ]
+    },
+    {
+      "case_id": "tr504",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr505",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr506",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr507",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr508",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr509",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr510",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr511",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "groups[0].scores.FACT.refs:empty_applicable_evidence"
+      ]
+    },
+    {
+      "case_id": "tr512",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr513",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr514",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr515",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr516",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr517",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr518",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "groups[0].requirements[1]:missing_or_duplicate_requirement_id",
+        "groups[0].requirements[2]:missing_or_duplicate_requirement_id",
+        "groups[0].requirements[3]:missing_or_duplicate_requirement_id",
+        "groups[0].scores.RULE.requirement_ids:unknown_id:Q2",
+        "groups[0].scores.RULE.requirement_ids:unknown_id:Q3",
+        "groups[0].scores.CONSENT.requirement_ids:unknown_id:Q3",
+        "groups[0].scores.OUTCOME.requirement_ids:unknown_id:Q3",
+        "groups[0].scores.OUTCOME.requirement_ids:unknown_id:Q4",
+        "groups[0].scores.REPORT.requirement_ids:unknown_id:Q3",
+        "groups[0].scores.STEPS.requirement_ids:unknown_id:Q2",
+        "groups[0].scores.STEPS.requirement_ids:unknown_id:Q3"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr519",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr520",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr521",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr522",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr523",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr524",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr525",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr526",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr527",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr528",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr529",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr530",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr531",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": false,
+      "errors": [
+        "issues[0].severity:invalid_severity"
+      ],
+      "warnings": []
+    },
+    {
+      "case_id": "tr532",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr533",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr534",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr535",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr536",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr537",
+      "model_alias": "ds_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr538",
+      "model_alias": "glm_flash",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr539",
+      "model_alias": "llama8b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "case_id": "tr540",
+      "model_alias": "qwen9b",
+      "domain": "telecom",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    }
+  ]
+}

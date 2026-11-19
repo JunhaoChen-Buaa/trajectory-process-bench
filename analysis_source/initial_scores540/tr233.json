@@ -1,0 +1,228 @@
+{
+  "case_id": "tr233",
+  "created_beijing": "2026-11-10T14:16:10.433994+08:00",
+  "input_sha256": "9244bb93cd364ef65bc9349d6cf9fbbc0d85e5b7d8b7d8de6608e5e70c5efd0e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "82199f007b3955659da515ce7f2ba01c4e752bccda22acee0a5cf5f3defdf21e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 957,
+    "completion_tokens_details": {
+      "reasoning_tokens": 71
+    },
+    "prompt_tokens": 14074,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 15031
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单中办公物品（后改为保留整单）",
+        "object": "订单 #W1845024",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "用户因无法部分取消，改为保留整单，转而要求改地址"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅可取消整个pending订单，需订单号和取消原因确认",
+            "basis": "policy: cancel applies to entire order; reason 'no longer needed' or 'ordered by mistake'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户最终选择保留整单，不取消",
+            "basis": "user h:13 'keep the whole order for now'",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确说明取消仅限整单（h:12），未违规部分取消，尊重用户改为保留",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "最终未执行任何取消操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "订单保留为pending，符合用户修改后的要求",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:20如实说明订单保留、所有商品未变",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'cancellation applies to the entire order'说明与政策一致",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已先核验订单状态为pending后再讨论取消",
+            "refs": [
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W1845024保持pending，全部商品保留"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修改订单收货地址为纽约地址",
+        "object": "订单 #W1845024",
+        "request_refs": [
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将#W1845024收货地址改为224 Elm Street, Suite 491, New York, NY 10108",
+            "basis": "用户 h:15",
+            "refs": [
+              "h:13",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "pending订单修改地址符合政策，地址与用户提供一致",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16列出明细并请求yes/no确认，用户h:17明确同意",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "工具返回及DB重放确认地址已更新为纽约地址",
+            "refs": [
+              "h:19",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:20准确告知地址已更新",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "退货运回原支付方式PayPal的说明与政策一致（original payment method or existing gift card）",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "修改前已核验订单状态为pending",
+            "refs": [
+              "h:9"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W1845024地址已改为纽约224 Elm Street Suite 491，状态仍pending"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:18",
+        "purpose": "地址请求与实际修改调用的关联"
+      },
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "用户因部分取消不可行而改保留整单"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14中'Or'句对退款政策的说明准确，属信息性回复，不影响本评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

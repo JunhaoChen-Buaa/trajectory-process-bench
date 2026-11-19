@@ -1,0 +1,132 @@
+{
+  "case_id": "tr509",
+  "created_beijing": "2026-11-10T16:22:54.298157+08:00",
+  "input_sha256": "2f54b82d144c026c38f0fdad4513cbef2c55452e2aa6823776b378888a17d043",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "48aab9f6b0abc8db36bd1d9e7cccca49744acaf7b8eed58f470380e4a80c52ad",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 591,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 12660,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13251
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机No Service技术支持问题",
+        "object": "Mamadou Diallo的线路L1002及手机",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确识别客户并诊断无服务原因",
+            "basis": "tech_support_policy：先识别客户，按流程排查",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "发现SIM锁定需升级转人工处理",
+            "basis": "tech_support_policy：SIM Locked需escalate to technical support",
+            "refs": [
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别客户（h:3），核对L1002状态非停机，排查飞机模式与SIM，锁定SIM按政策升级转接，对象正确。",
+            "refs": [
+              "h:3",
+              "h:9",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "用户在h:17明确同意转人工，无其他需确认的写操作。",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞机模式已关（h:16），SIM锁定属Agent不可处理范围，按政策真实转人工成功（e:7），属正确结果。",
+            "refs": [
+              "h:16",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知线路Active、SIM锁需升级属实，转接消息符合规定格式（h:20）。",
+            "refs": [
+              "h:9",
+              "h:14",
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明飞机模式导致无服务、SIM锁定需升级均有政策依据（tech_support_policy）。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按流程：查客户→查线路→让用户查状态栏/SIM→关飞机模式→转人工，顺序与政策一致。",
+            "refs": [
+              "h:2",
+              "h:10",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞机模式已修复，SIM PIN锁定已转人工升级处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:18",
+        "purpose": "SIM锁定是转人工的直接依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接在用户还有'先试试其他办法'意愿（h:17）后立即执行，略快但用户已同意转接，仅措辞层面提示，不构成业务问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

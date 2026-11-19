@@ -1,0 +1,317 @@
+{
+  "case_id": "tr224",
+  "created_beijing": "2026-11-10T15:22:38.347362+08:00",
+  "input_sha256": "2184be5c92a97d1e1eeb012bd8d318b1133f50242cc1f1fd81fbb17b9bdcba5c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5dab24e55d206adc8deaaf82ebda7a31107f2b40b1576cc32c8cf6a3ec8ac9ff",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1377,
+    "completion_tokens_details": {
+      "reasoning_tokens": 39
+    },
+    "prompt_tokens": 18375,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 19752
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "退货平板（订单#W2692684）",
+        "object": "Tablet item 3788616824, order #W2692684",
+        "request_refs": [
+          "h:1",
+          "h:21"
+        ],
+        "revisions": [
+          {
+            "ref": "h:21",
+            "change": "用户由换同款改为退货（同款不可用）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered订单可退货，退款到原支付方式或已有礼品卡",
+            "basis": "policy: Return delivered order",
+            "refs": [
+              "h:15",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单已delivered，仅退指定tablet，退款到原礼品卡，符合规则",
+            "refs": [
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列出细节并在执行前获得用户yes确认",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态变为return requested且return_payment_method_id为gift_card",
+            "refs": [
+              "s:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明'return requested'并将收到邮件，与实际状态一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "正确说明同款不可用及可用变体，与产品数据一致",
+            "refs": [
+              "h:20",
+              "e:5"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先认证、查订单状态再操作",
+            "refs": [
+              "h:6",
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "#W2692684状态为return requested，退款至gift_card_7711863"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消充电宝订单#W9373487",
+        "object": "Portable Charger order #W9373487",
+        "request_refs": [
+          "h:21",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "pending订单可取消，理由仅限'no longer needed'或'ordered by mistake'",
+            "basis": "policy: Cancel pending order",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单pending，理由为'no longer needed'，合规",
+            "refs": [
+              "h:13",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在h:22询问理由与确认，用户h:23明确yes",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态cancelled且$109.27退款入礼品卡",
+            "refs": [
+              "s:7"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明已取消且礼品卡即时退款，与实际一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "礼品卡即时退款说明符合政策",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "取消前已核查状态并索取合规理由",
+            "refs": [
+              "h:13",
+              "h:22"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "#W9373487已取消，退款$109.27即时入礼品卡"
+      },
+      {
+        "group_id": "G3",
+        "goal": "退回运动鞋（订单#W7449508）",
+        "object": "Sneakers item 6477915553, order #W7449508",
+        "request_refs": [
+          "h:29",
+          "h:35"
+        ],
+        "revisions": [
+          {
+            "ref": "h:35",
+            "change": "明确仅退运动鞋不含浓缩咖啡机，退款入礼品卡"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "delivered订单可部分退货，退款到礼品卡",
+            "basis": "policy: Return delivered order",
+            "refs": [
+              "h:33",
+              "h:35"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered，仅退指定sneakers，退款至已有礼品卡",
+            "refs": [
+              "h:33",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:34询问退货范围与付款方式，用户h:35确认",
+            "refs": [
+              "h:34",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态return requested，仅该item在return_items",
+            "refs": [
+              "s:10"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明'return requested'并邮件跟进，与实际一致",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "提供订单与item信息准确",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查询确认订单状态为delivered再执行",
+            "refs": [
+              "h:32",
+              "h:33"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "#W7449508状态return requested，仅退sneakers，退款至礼品卡"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:21",
+        "to": "h:23",
+        "purpose": "用户撤回换货改为退货，并新增取消充电宝"
+      },
+      {
+        "from": "h:29",
+        "to": "h:33",
+        "purpose": "定位运动鞋所在订单"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户退款方式说'wherever it goes'，原支付即礼品卡，无需额外确认争议，处理合理。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

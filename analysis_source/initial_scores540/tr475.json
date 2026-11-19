@@ -1,0 +1,205 @@
+{
+  "case_id": "tr475",
+  "created_beijing": "2026-11-10T15:39:46.943614+08:00",
+  "input_sha256": "2ccdd234742ab3a0a1a1fefa2c5324022b94e0f9cfdc378ebf4f601ff557d381",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "80493ae76821ec67012a2f3164e84ecb336028c71ea7c57ad68ea851b1b9905e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1980,
+    "completion_tokens_details": {
+      "reasoning_tokens": 764
+    },
+    "prompt_tokens": 16743,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 18723
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "境外(法国)移动数据故障排查",
+        "object": "用户号码555-123-2002对应的线路及手机设备",
+        "request_refs": [
+          "h:1",
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "旅行境外时若线路未开通roaming应免费开通",
+            "basis": "policy: 'you should enable it at no cost'",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "开通roaming应针对用户提供的电话号码对应的line",
+            "basis": "policy: 'the line associated with the phone number the user provided'",
+            "refs": [
+              "h:5",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "设备侧Data Roaming关闭时应指导用户toggle_roaming",
+            "basis": "tech_support_policy: 'guide them to use toggle_roaming()'",
+            "refs": [
+              "h:23",
+              "h:33"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "Agent未核对电话号码555-123-2002对应线路，对L1001执行了enable_roaming(e:2)，而该号码实际对应L1002（roaming本已开通），对L1001属误改对象副作用。",
+            "refs": [
+              "e:1",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "policy要求免费开通roaming，无需用户确认流程，未触发确认项。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终设备roaming打开、测速275Mbps正常(e:16,e:17,e:18)，数据问题实际解决且无用户可见费用。",
+            "refs": [
+              "h:64",
+              "h:66",
+              "h:70"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "最终向用户确认问题已解决与实际状态一致；中间'resolved by enabling data roaming'的转人工摘要未送达用户且随后即致谢，不构成对用户的虚假完成说明。",
+            "refs": [
+              "h:71",
+              "h:74"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "多次以'temporary glitch'(h:36,h:52,h:56,h:62)解释设备端roaming仍显示关闭，实为设备侧toggle_roaming本就关闭，误导用户并拖延解决；且所称'roaming was already enabled'针对的并非用户号码对应线路。",
+            "refs": [
+              "h:36",
+              "h:52"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "开通roaming前未查询并核对用户号码对应线路（必要步骤）；且多次拒绝指导用户执行设备端toggle_roaming(h:23,h:33,h:53)，直到用户自行操作才恢复。",
+            "refs": [
+              "h:18",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "用户手机数据恢复正常（roaming开启，测速Excellent）；但L1001被错误开通roaming（副作用），实际线路L1002本已开通，问题最终由用户自行开启设备roaming解决。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未核对号码与线路映射，对错误线路L1001开通roaming",
+        "basis": "policy要求针对'phone number the user provided'的line操作；用户号码555-123-2002对应L1002而非L1001(e:1,e:2)",
+        "refs": [
+          "h:13",
+          "h:15",
+          "h:18"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "L1001被不必要地开通roaming（额外副作用），而真正线路L1002本已开通，开通操作对解决问题无实际作用"
+      },
+      {
+        "issue_id": "I2",
+        "title": "将设备端roaming关闭误称为'temporary glitch'并拒绝指导toggle_roaming",
+        "basis": "tech_support_policy：用户在外漫游且数据不通应'guide them to use toggle_roaming()'；设备多次显示Data Roaming Enabled: No(h:22,h:32)",
+        "refs": [
+          "h:36",
+          "h:52",
+          "h:56"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": true,
+        "effect": "多轮无效重复enable_roaming并拖延，最终由用户自行toggle_roaming解决"
+      },
+      {
+        "issue_id": "I3",
+        "title": "问题已解决后仍发起转人工",
+        "basis": "policy仅当无法在能力范围内处理时才转人工；h:71用户确认一切正常后h:72仍transfer_to_human_agents",
+        "refs": [
+          "h:71",
+          "h:72"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "多余转接，未对用户业务造成实质影响"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "e:1",
+        "purpose": "用户确认号码555-123-2002，查询返回line_ids含L1001-L1003但未映射到具体号码"
+      },
+      {
+        "from": "e:2",
+        "to": "h:22",
+        "purpose": "对L1001开通roaming后设备仍显示roaming关闭，说明开通对象或层面错误"
+      },
+      {
+        "from": "h:53",
+        "to": "e:16",
+        "purpose": "用户要求toggle_roaming被Agent绕过后，用户自行开启才恢复连接"
+      }
+    ],
+    "auxiliary_notes": [
+      "同一enable_roaming调用重复6次(e:4,e:7,e:10,e:12,e:13,e:15)属操作效率问题，归入I2的根因，不单独计业务fail",
+      "转人工后仍发送致谢消息(h:74)未按TRANSFER流程话术，属接口规范问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

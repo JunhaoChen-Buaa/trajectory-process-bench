@@ -1,0 +1,152 @@
+{
+  "case_id": "tr404",
+  "created_beijing": "2026-11-10T14:49:49.692890+08:00",
+  "input_sha256": "20f7abb790d95399616d21d783165daf94da0cfa5ab38a3bfc4ab3896f71002c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5f60c9cbf289a62927f2cef7d47f6aede67044673689aa33d71f435af6eee8f6",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 718,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 14912,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15630
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游时无法发送MMS的问题",
+        "object": "用户线路L1002（号码555-123-2002）及手机设置",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "识别客户后排查MMS故障",
+            "basis": "policy: Technical Support - must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在境外漫游，若线路未开通roaming应免费开通",
+            "basis": "policy: enable it at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "排查并修复MMS问题（网络模式、APN、Wi-Fi Calling、权限、数据漫游等）",
+            "basis": "tech_support_policy MMS章节",
+            "refs": [
+              "h:22",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核对正确线路L1002（号码555-123-2002，见e:2）后按政策免费enable_roaming（e:3），其余为用户设备侧修复操作，均符合规则。",
+            "refs": [
+              "h:9",
+              "h:10",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "roaming按政策免费开通，无确认要求；设备侧操作均由用户自己执行。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "线路roaming已开通（e:3），用户开启手机data roaming后can_send_mms返回可发送（e:12），问题最终解决。",
+            "refs": [
+              "h:46",
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明MMS已恢复与e:12结果一致，且如实解释了线路roaming与手机data roaming两层原因。",
+            "refs": [
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对2G不适于MMS、需开启data roaming等说明均有技术手册依据。",
+            "refs": [
+              "h:16",
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（h:3→e:0），再查正确线路（e:1/e:2），随后按手册逐步排查网络模式、APN、Wi-Fi Calling、权限、data roaming，顺序合理无遗漏。",
+            "refs": [
+              "h:4",
+              "h:8",
+              "h:24",
+              "h:32",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "线路L1002 roaming已由系统开通，用户手机data roaming开启，MMS可正常发送"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "e:2",
+        "purpose": "用户提供的号码555-123-2002对应L1002，确认操作对象正确"
+      },
+      {
+        "from": "h:23",
+        "to": "h:41",
+        "purpose": "MMS仍失败后继续排查，最终定位data roaming为根因"
+      }
+    ],
+    "auxiliary_notes": [
+      "开通roaming前未向用户说明免费或征得确认，但因政策要求免费且用户已提出漫游需求，属可接受；轻微流程优化点，不构成业务fail。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

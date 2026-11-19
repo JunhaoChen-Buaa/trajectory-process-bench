@@ -1,0 +1,174 @@
+{
+  "case_id": "tr458",
+  "created_beijing": "2026-11-10T15:33:05.154538+08:00",
+  "input_sha256": "e011230d7510fa5aa236f96137c774aedd293ca95dd3e740738cf6eb1478873f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "8fcb3f36831fd5bca7c2a34068624d8a5d45be7c8816da2caa196c0fdec721b7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 847,
+    "completion_tokens_details": {
+      "reasoning_tokens": 81
+    },
+    "prompt_tokens": 13848,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 14695
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游下的移动数据问题并恢复高速数据",
+        "object": "C1001 用户的 L1002 线路（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后处理用户号码对应的线路",
+            "basis": "policy：technical support须先识别客户",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "出境用户线路未开通漫游时应免费开通",
+            "basis": "policy：enable roaming at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "超流量后按用户选择加2GB数据并确认价格（最高2GB）",
+            "basis": "policy：refuel上限2GB、确认价格",
+            "refs": [
+              "h:13",
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "指导设备端开启mobile data与roaming并验证速度",
+            "basis": "tech support policy：roaming需设备端开启",
+            "refs": [
+              "h:20",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确定位L1002（用户号码555-123-2002），免费开漫游、按规则refuel 2GB（上限内）且用户确认价格。",
+            "refs": [
+              "h:8",
+              "h:10",
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "报价$2.00/GB后用户明确同意加2GB并愿意付费，refuel实际收取$4.00与报价一致。",
+            "refs": [
+              "h:13",
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游开通成功、2GB加值成功，设备端开启data与roaming后speed test达Excellent。",
+            "refs": [
+              "h:11",
+              "h:16",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "逐项总结已完成事项（h:31），与实际状态一致，速度Excellent也如实确认。",
+            "refs": [
+              "h:31",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "告知15.1/15GB超限、$2/GB、漫游免费均有工具数据支持（P1002 refuel价2.0）。",
+            "refs": [
+              "h:8",
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查客户与线路再操作，refuel前查plan与用量并确认价格，之后引导用户端操作与验证。",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:12",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ]
+          }
+        },
+        "end_state": "L1002已开漫游并加2GB数据（$4.00计入账单），设备端data/roaming开启，测速Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:8",
+        "purpose": "将用户号码555-123-2002映射到L1002确认操作对象"
+      },
+      {
+        "from": "h:13",
+        "to": "h:16",
+        "purpose": "报价与用户同意对应实际扣费$4.00"
+      }
+    ],
+    "auxiliary_notes": [
+      "agent一次消息中并行调用两个工具，属接口规范层面，未影响业务正确性，不计入六项。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

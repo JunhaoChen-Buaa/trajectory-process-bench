@@ -1,0 +1,136 @@
+{
+  "case_id": "tr364",
+  "created_beijing": "2026-11-10T14:40:43.491874+08:00",
+  "input_sha256": "098a33720fa83700c41406f5b78190e09f432937a62d77292721e4cde1f16ce2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b35ff382369b2a1bc41b7a7c35e0b12fb3b01b574470eb35514c00a63b96336e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 654,
+    "completion_tokens_details": {
+      "reasoning_tokens": 57
+    },
+    "prompt_tokens": 19681,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 20335
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS无法发送的技术支持",
+        "object": "客户John Smith手机号555-123-2002对应线路L1002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复messaging app无法发送MMS的问题",
+            "basis": "用户请求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全程按tech support政策排查：airplane mode、SIM、data开关、网络模式、APN/MMSC、Wi-Fi Calling、app权限、数据超限，最终用refuel_data解决且未违反限制(≤2GB)",
+            "refs": [
+              "h:12",
+              "h:80"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充数据前明确报价($2/GB，2GB=$4)并获得用户确认，对象为L1002正确",
+            "refs": [
+              "h:80",
+              "h:81"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终can_send_mms返回可发送，MMS问题实际解决；超限根因(15.1/15.0GB)经get_data_usage确认后正确处理",
+            "refs": [
+              "h:77",
+              "h:83",
+              "h:86"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明“added 2GB…$4.00 charge”与工具实际返回一致，无虚假完成声明",
+            "refs": [
+              "h:84"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据上限15.0GB、用量15.1GB、$2/GB均有get_data_usage与P1002详情依据",
+            "refs": [
+              "h:77",
+              "h:79"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "技术支持前已通过电话号完成客户识别；各诊断/修复步骤按手册顺序执行，reset APN后要求重启",
+            "refs": [
+              "h:2",
+              "h:40"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS发送恢复正常；线路L1002已充2GB数据并计费$4.00"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:7",
+        "purpose": "用户号码555-123-2002对应线路L1002，确认排查对象正确"
+      },
+      {
+        "from": "h:80",
+        "to": "h:83",
+        "purpose": "充数据报价与用户确认对应实际扣费$4.00"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:74在用户已提交check_network_status结果后要求重复运行同一检查，属冗余沟通，未影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

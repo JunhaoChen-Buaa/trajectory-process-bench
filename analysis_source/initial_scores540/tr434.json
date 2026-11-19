@@ -1,0 +1,162 @@
+{
+  "case_id": "tr434",
+  "created_beijing": "2026-11-10T15:15:59.058866+08:00",
+  "input_sha256": "71ac9ccab900a30dc4645fa5b7ec95803986b66ff342efb1d95fe48f925aa96b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6212a9a8e388e05d530ae8d14915fdc3949ebcfd4398e1d82c78134a2a5f511d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 824,
+    "completion_tokens_details": {
+      "reasoning_tokens": 75
+    },
+    "prompt_tokens": 15662,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 16486
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复并优化境外移动数据（含2GB流量充值）",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "修复移动数据不可用/缓慢问题",
+            "basis": "用户h:1 'mobile data is being really flaky'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "充值2GB数据，$2.00/GB",
+            "basis": "用户确认h:13，政策'maximum 2GB'",
+            "refs": [
+              "h:12",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "达到快速/Excellent速度",
+            "basis": "用户h:13、h:40",
+            "refs": [
+              "h:13",
+              "h:40"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别线路L1002，确认超额后按政策充值2GB（上限内），Roaming已在服务端启用无需另开；诊断步骤均符合tech support政策。",
+            "refs": [
+              "h:11",
+              "h:12",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前已告知价格$2.00/GB，用户明确同意'fine with refueling 2 GB at $2.00/GB'。",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "充值成功（e:4成功写入$4.00），最终速度测试275 Mbps Excellent，用户确认满意。",
+            "refs": [
+              "e:4",
+              "e:14",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致：充值金额、数据开启、5G、漫游、Data Saver关闭、VPN断开、Excellent速度均与evidence吻合，且如实提示剩余额度风险。",
+            "refs": [
+              "h:51"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "超额15.1/15GB、$2/GB、线路已roaming enabled等说明均有工具数据依据（h:9、h:11、e:2）。",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "技术支持前已通过电话号查询身份（h:2-h:5）；充值前核对了用量与限额；逐项引导排障并复测。",
+            "refs": [
+              "h:4",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "2GB充值完成（$4.00），数据连接恢复，5G+漫游开启，速度275 Mbps（Excellent），用户满意结束。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "充值报价与用户确认对应"
+      },
+      {
+        "from": "h:39",
+        "to": "h:49",
+        "purpose": "优化前后速度对比证明问题解决"
+      }
+    ],
+    "auxiliary_notes": [
+      "e:4的receipt_exact=false仅因JSON格式差异，内容一致，不影响业务评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

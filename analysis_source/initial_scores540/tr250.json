@@ -1,0 +1,144 @@
+{
+  "case_id": "tr250",
+  "created_beijing": "2026-11-10T15:18:30.972151+08:00",
+  "input_sha256": "20902bffcfa5e913c6c122767d52ecc41ebc688f8c711c982bd0995147b4bb39",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "cc02ded57265895758f04bb65364a875f5cae7389e0fd0071e3abb4928dc9d3c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 523,
+    "completion_tokens_details": {
+      "reasoning_tokens": 34
+    },
+    "prompt_tokens": 8172,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 8695
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "查询订单并取消整单（后撤回）",
+        "object": "订单 #W4284542",
+        "request_refs": [
+          "h:1",
+          "h:11"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "用户撤回取消请求，订单保持不变"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先通过邮箱或姓名+邮编验证身份",
+            "basis": "policy: authenticate at beginning",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "仅可整单取消pending订单，退款只能回原支付方式",
+            "basis": "policy: Cancel pending order",
+            "refs": [
+              "h:11",
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "取消需用户确认订单号和原因，且用户最终撤回，订单不应被改",
+            "basis": "policy + 用户 h:13",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确说明只能整单取消且退款仅回原支付方式，未执行违规操作",
+            "refs": [
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "用户未确认取消，撤回请求，无需确认",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户撤回后订单保持pending未变更，符合用户意愿",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明订单仍为pending且未做任何更改",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "取消规则与退款方式说明均符合policy",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已按要求完成身份验证并查询订单状态",
+            "refs": [
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          }
+        },
+        "end_state": "订单 #W4284542 保持pending，未取消未修改，用户撤回请求后结束"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "退款方式规则与用户要求的关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "身份验证先于任何业务操作，流程规范"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

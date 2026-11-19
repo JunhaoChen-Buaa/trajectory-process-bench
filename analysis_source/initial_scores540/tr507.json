@@ -1,0 +1,125 @@
+{
+  "case_id": "tr507",
+  "created_beijing": "2026-11-10T15:27:41.431418+08:00",
+  "input_sha256": "cbd97a14068ec5287777d334531285da5f0d2fcefa361e031336ec69c2f11156",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3923ff5a22458b81df28a6497f9c4ecdd34f461191e5a00e6bce72abbec48f74",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 535,
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_tokens": 12729,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13264
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排除手机No Service故障",
+        "object": "Mamadou Diallo 的手机/线路 555-123-2002 (L1002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按技术支持流程诊断并解决手机无服务问题",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "依次关闭飞行模式、检查SIM，SIM锁定PIN按政策属需升级情形，处理符合规则",
+            "refs": [
+              "h:10",
+              "h:18",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断与设备端操作无需单独确认要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "SIM PIN锁定无法由Agent解决，按政策正确转人工，属于合法终止而非失败",
+            "refs": [
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "仅送达转接提示语，无虚假完成声明",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户做影响理解的业务事实陈述",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份查证(h:2)，按手册逐步诊断(飞行模式→SIM→重插SIM)后真实转接，顺序合理",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:29",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式已关闭；SIM仍为PIN锁定，按政策转人工处理，业务未在Agent侧完成但终止方式正确"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:18",
+        "to": "h:36",
+        "purpose": "SIM locked_pin为转人工的政策依据"
+      },
+      {
+        "from": "h:22",
+        "to": "h:36",
+        "purpose": "check_sim_status确认锁定后升级"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8、h:12等assistant消息以JSON形式呈现工具建议而非自然语言，属接口/措辞层面问题，不影响业务质量。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,182 @@
+{
+  "case_id": "tr399",
+  "created_beijing": "2026-11-10T15:34:58.540075+08:00",
+  "input_sha256": "91c3ca8966fe5692fff30f791dbe0a5705e5afddde1cced64aa06885a34a17b9",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4494059e274647616b39bbdda6c652b499fb8b356c644632f04ff7480aa83d14",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1623,
+    "completion_tokens_details": {
+      "reasoning_tokens": 642
+    },
+    "prompt_tokens": 15212,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 16835
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决境外漫游时无法发送MMS的技术支持问题",
+        "object": "用户手机（messaging应用的MMS功能）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户",
+            "basis": "policy: \"You must first identify the customer\"",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在境外时应检查线路是否启用漫游，未启用应免费为用户开通",
+            "basis": "policy: \"you should check if the line is roaming enabled. If it is not, you should enable it at no cost\"",
+            "refs": [
+              "h:1",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "按手册排查MMS常见原因（2G、APN/MMSC、权限、Wi-Fi Calling等），穷尽手段后再转人工",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "排查动作（关飞行模式不适用、漫游开关、网络模式、APN重置+重启、权限、VPN）均符合手册允许的操作，无违规写入",
+            "refs": [
+              "h:24",
+              "h:34",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排查无规则要求的确认环节",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "用户在法国漫游且设备侧漫游已开，但Agent从未核对线路的roaming_enabled也未免费开通，MMS最终未解决即转人工，按policy该步在Agent权限范围内可完成",
+            "refs": [
+              "h:13",
+              "h:16",
+              "h:42",
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "Agent无已完成说明，仅有规范的转人工话术",
+            "refs": [
+              "h:66"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "Agent送达用户的文本仅为工具调用占位与转人工话术，未作事实/政策性说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未执行识别客户这一强制前置步骤（全程未查客户身份），也未按policy检查线路漫游状态；手册要求的排查步骤基本覆盖（除线路漫游）",
+            "refs": [
+              "h:1",
+              "h:13",
+              "h:64"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "设备侧已开漫游、升至5G、APN重置并重启、权限检查/部分授权，但MMS仍未修复，线路漫游未核实/开通，已转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "技术支持前未识别客户身份",
+        "basis": "policy \"You must first identify the customer\"；全程无任何lookup调用，h:14还虚构了customer_id/line_id参数",
+        "refs": [
+          "h:1",
+          "h:14",
+          "h:64"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "无法核对用户号码对应的线路，导致后续漫游核对失去对象依据"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未检查并免费开通线路漫游即放弃并转人工",
+        "basis": "policy \"check if the line is roaming enabled. If it is not, you should enable it at no cost\"；用户在法国（h:1、h:13），设备漫游已开（h:16）但线路级漫游从未核实/启用，enable_roaming未被调用",
+        "refs": [
+          "h:13",
+          "h:16",
+          "h:42",
+          "h:64"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "MMS依赖漫游数据，问题在Agent可处理范围内未解决，转人工本可避免"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:13",
+        "purpose": "用户身处法国，触发境外漫游核对义务"
+      },
+      {
+        "from": "h:16",
+        "to": "h:64",
+        "purpose": "设备漫游已开但MMS仍失败，提示线路级漫游未核实即转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "grant 'data'权限报错（e:14）后改授'network'权限成功，但手册MMS部分仅要求storage/sms权限，network授权属手册外操作，未造成危害，仅记辅助说明",
+      "纯接口规范：Agent所有可见消息均为工具调用占位符，未向用户解释任何诊断结论，用户体验差但不构成业务fail"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

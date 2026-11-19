@@ -1,0 +1,5 @@
+﻿level,key,label,total_records,paired_complete,technical_unscored,automatic_pass,automatic_fail,automatic_unknown,automatic_na,automatic_rate_denominator,automatic_pass_rate,reviewed_pass,reviewed_fail,reviewed_unknown,reviewed_na,reviewed_rate_denominator,reviewed_pass_rate,review_minus_auto_percentage_points,verdict_agree,verdict_disagree,agreement,automatic_pass_to_reviewed_fail,automatic_fail_to_reviewed_pass
+model,qwen9b,Qwen3.5-9B,135,132,3,94,36,2,0,130,0.7230769230769231,88,29,15,0,117,0.7521367521367521,2.9059829059829068,108,24,0.8181818181818182,5,2
+model,llama8b,Llama3.1-8B,135,129,6,4,125,0,0,129,0.031007751937984496,4,125,0,0,129,0.031007751937984496,0.0,127,2,0.9844961240310077,1,1
+model,ds_flash,DeepSeek Flash,135,132,3,109,21,2,0,130,0.8384615384615385,95,29,8,0,124,0.7661290322580645,-7.233250620347398,113,19,0.8560606060606061,11,0
+model,glm_flash,GLM-5.3-Flash,135,134,1,118,14,2,0,132,0.8939393939393939,101,28,5,0,129,0.7829457364341085,-11.099365750528545,111,23,0.8283582089552238,15,1

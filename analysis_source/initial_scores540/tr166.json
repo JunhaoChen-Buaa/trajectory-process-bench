@@ -1,0 +1,156 @@
+{
+  "case_id": "tr166",
+  "created_beijing": "2026-11-10T14:26:58.762898+08:00",
+  "input_sha256": "c5f77c906632182ceae046e4c33c309553d497e39b0cb4919554b9169478ca76",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c9fbbafece2b6f9198d46c510a43a5ce431d6555bca468b2bbad13dd17123b96",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 763,
+    "completion_tokens_details": {
+      "reasoning_tokens": 41
+    },
+    "prompt_tokens": 13197,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13960
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月26日ORD→PHL单程经济舱机票（2名乘客）",
+        "object": "HAT271航班新预订（乘客Sophia Silva、Kevin Smith）",
+        "request_refs": [
+          "h:1",
+          "h:19"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订与5月10日相同的HAT271航班，2024-05-26 ORD→PHL",
+            "basis": "用户要求 'the exact same flight I took on May 10'",
+            "refs": [
+              "h:1",
+              "h:15",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "经济舱、乘客Sophia Silva和Kevin Smith(2001-04-12)、无行李、无保险",
+            "basis": "用户说明 'I want Economy. No bags, no insurance... Kevin Smith, DOB 2001-04-12'",
+            "refs": [
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用$500 certificate支付，订前需明确确认",
+            "basis": "policy 'must list the action details and obtain explicit user confirmation'",
+            "refs": [
+              "h:21",
+              "h:22",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "经济舱单程、两乘客、0行李无保险、用profile内证书支付，均符合policy；座位偏好已正确说明无法保证",
+            "refs": [
+              "h:20",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列出完整预订摘要后获得用户明确yes才调用book_reservation",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "工具返回success且DB回放一致（mechanical_state_differences为空），实际预订状态与确认内容完全相符",
+            "refs": [
+              "h:25",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "送达的确认信息（HATHAT、HAT271、$348证书扣款）与实际DB结果一致",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$174/人、总$348、$152余额不可退均与工具数据及policy相符",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id、查历史预订确认HAT271、搜索5月26日航班并询问保险，顺序符合policy",
+            "refs": [
+              "h:2",
+              "h:15",
+              "h:17",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功：HAT271，2024-05-26 ORD→PHL经济舱，2乘客，$348由certificate_8045380支付，无行李无保险"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:15",
+        "purpose": "通过WUNA5K确认5月10日乘坐的航班为HAT271"
+      }
+    ],
+    "auxiliary_notes": [
+      "回放数据显示e:6搜索的exact receipt不一致（receipt_exact=false），但内容一致且为只读操作，不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,204 @@
+{
+  "case_id": "tr155",
+  "created_beijing": "2026-11-10T14:30:35.603761+08:00",
+  "input_sha256": "48dc1a544605388812d14b4c1cf4753cee2a88b4511c2e837be6ad37b61b14b5",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3254dfa772ab6b0d818ea3e6218b195a5e13546c45040ae359d1d75a4959a694",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2185,
+    "completion_tokens_details": {
+      "reasoning_tokens": 1136
+    },
+    "prompt_tokens": 8463,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 10648
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消机票订单并获得退款",
+        "object": "预订 3RK2T9（MCO→SFO，basic economy，2名乘客）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按取消规则判断资格：basic economy、booking 于2024-05-02（超24小时）、系统显示 insurance=no、航班未由航司取消，均不满足取消条件，应拒绝",
+            "basis": "policy: cancel only if within 24hrs / airline cancelled / business / insurance covered",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "向用户如实说明保险与资格情况",
+            "basis": "policy与FACT要求",
+            "refs": [
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "若需转人工须先工具转接并告知",
+            "basis": "policy: transfer procedure",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "系统明确 insurance:no、basic economy、超24小时，不符合任何取消条件，Agent未核实规则即调用 cancel_reservation（因参数错误失败，无实际写入），且始终未按规则明确拒绝，recovered未完成",
+            "refs": [
+              "h:3",
+              "h:6",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未实际执行任何更新操作，无需确认"
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "取消与退款未办理；按政策本应拒绝（不满足任一取消条件），Agent却在错误告知有保险后因用户投诉转人工，未依法拒绝",
+            "refs": [
+              "h:12",
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:12 先称 'you do have travel insurance' 又自相矛盾称系统记录为 no，未给用户一致的资格结论，转接前也未说明无法取消的原因",
+            "refs": [
+              "h:12",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "向用户声称 'you do have travel insurance that covers the reason'，与预订记录 insurance:'no' 直接矛盾",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未使用 get_flight_status 等工具自行核验航班状态与保险事实，反而要求用户自行确认，导致资格判断依据缺失",
+            "refs": [
+              "h:8",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          }
+        },
+        "end_state": "订单未取消、无退款；用户被转接人工，Agent曾错误告知其有保险"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "错误告知用户拥有旅行保险",
+        "basis": "系统记录 insurance:'no'（h:11），Agent却称 'you do have travel insurance that covers the reason'（h:12）",
+        "refs": [
+          "h:11",
+          "h:12"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户对取消资格的理解，加剧争议并导致转人工"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未按取消规则拒绝请求且资格判断缺失",
+        "basis": "policy 取消需满足24小时内/航司取消/商务舱/保险覆盖之一；该单 basic economy、insurance:no、created 2024-05-02 均不满足（h:3,h:11）",
+        "refs": [
+          "h:3",
+          "h:6",
+          "h:12",
+          "h:14"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "违规尝试调用取消被参数错误拦截，未造成写入；最终以转人工替代明确的政策拒绝"
+      },
+      {
+        "issue_id": "I3",
+        "title": "未用工具核验关键事实，转由用户自证",
+        "basis": "Agent要求用户自行确认航班未起飞与保险情况（h:8），未使用可用的 get_flight_status/预订记录",
+        "refs": [
+          "h:8",
+          "h:9"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "第二次查记录虽核实保险为no，但结论传达混乱，未完成资格判断"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:12",
+        "purpose": "预订记录 insurance:no 与Agent告知有保险矛盾"
+      },
+      {
+        "from": "h:12",
+        "to": "h:14",
+        "purpose": "错误保险陈述引发用户投诉并转人工"
+      },
+      {
+        "from": "h:6",
+        "to": "h:7",
+        "purpose": "违规取消尝试因参数错误失败，无实际写入"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8 要求用户自行查询航班状态属流程不当，已计入STEPS；h:12 中'will need to check further'与同句'you do have insurance'自相矛盾，主要归入FACT/REPORT"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

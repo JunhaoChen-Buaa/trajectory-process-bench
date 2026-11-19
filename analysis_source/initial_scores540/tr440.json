@@ -1,0 +1,173 @@
+{
+  "case_id": "tr440",
+  "created_beijing": "2026-11-10T14:54:54.278041+08:00",
+  "input_sha256": "9445cff1e4cd237920fcaf4a89cd6fbf2b0441247edebcbb1526e667c84f7f3d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7ad6b476283716a4be090808842a546fce4a716b298f5af5d9b23d820db8f727",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1072,
+    "completion_tokens_details": {
+      "reasoning_tokens": 226
+    },
+    "prompt_tokens": 16086,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17158
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复在法国漫游时不可用/缓慢的移动数据（含2GB数据加油）",
+        "object": "L1002（555-123-2002，Priya Patil）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "核对客户身份与号码对应的line",
+            "basis": "policy: Customer Lookup",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断数据超限原因并提供加油/换套餐选项，加油上限2GB、按$2/GB确认价格",
+            "basis": "policy: Data Refueling",
+            "refs": [
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "逐步排查设备侧问题（数据开关、Data Saver、网络模式、VPN、数据漫游）恢复数据",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:22",
+              "h:30",
+              "h:34",
+              "h:46"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别L1002为用户号码对应line，超限加油2GB未超上限且价格$2/GB符合套餐费率；漫游线路L1002本身已启用roaming，无需额外开通。",
+            "refs": [
+              "h:9",
+              "h:11",
+              "e:5"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确同意'2 GB refuel, that's $4.00'后执行，对象与金额一致。",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "refuel成功加2GB计$4，设备侧各步骤后speed test达275 Mbps Excellent，数据问题实际解决。",
+            "refs": [
+              "e:5",
+              "e:14"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'successfully added 2 GB...charged $4.00'与工具返回一致，最终汇总准确描述各步骤与实际结果。",
+            "refs": [
+              "h:17",
+              "h:54"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'you've used 15.1 GB'与get_data_usage一致；'your line has roaming enabled'与L1002数据一致。",
+            "refs": [
+              "h:13",
+              "h:9",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "策略规定仅当check_vpn_status显示VPN连接且performance Poor时才断开VPN，Agent未做该检查即引导disconnect_vpn，属步骤顺序偏差（结果未受损，recovered后speed test达标）。",
+            "refs": [
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "L1002已加2GB数据（$4计入账单），设备数据开启、漫游开启、5G excellent，275 Mbps连接正常，用户确认问题解决后结束。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未按策略先check_vpn_status确认性能Poor即断开VPN",
+        "basis": "tech_support_policy: 'If check_vpn_status() shows VPN is ON and connected and performance level is Poor, guide the user to use disconnect_vpn()'",
+        "refs": [
+          "h:34"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": true,
+        "effect": "VPN被断开但最终速度测试Excellent，业务结果未受损；属步骤顺序偏差而非结果错误。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "用户对2GB/$4加油的确认对应refuel_data执行"
+      },
+      {
+        "from": "h:44",
+        "to": "h:47",
+        "purpose": "发现数据漫游关闭后引导toggle_roaming"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14中'我推荐先refuel'属轻微主观措辞，不影响结果，仅作辅助说明。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

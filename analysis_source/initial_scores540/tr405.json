@@ -1,0 +1,172 @@
+{
+  "case_id": "tr405",
+  "created_beijing": "2026-11-10T14:42:07.588399+08:00",
+  "input_sha256": "7f74ec49dc60129156703217096d0fc28a430cfe0c81b37a1d55da5753d9334d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7588c0e5db5fccefa1e16074e1f2cea88de9892710b5dada0ec71735274c860a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 740,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13789,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 14529
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复用户在法国无法发送MMS的问题",
+        "object": "线路L1002（555-123-2002）的MMS/漫游/网络设置",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "排查并修复用户 abroad 无法发送MMS的问题，按技术支持流程操作",
+            "basis": "tech support policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "因用户在境外漫游，检查线路roaming，若未开启则免费开启",
+            "basis": "policy: enable it at no cost for the user",
+            "refs": [
+              "h:11"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "指导用户开启设备data roaming、切换网络模式（2G不适合MMS）并验证MMS",
+            "basis": "tech support policy",
+            "refs": [
+              "h:19",
+              "h:20"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "针对正确线路L1002（与555-123-2002匹配），免费开启漫游并按政策指导设备端操作，符合规则",
+            "refs": [
+              "h:9",
+              "h:13",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "启用漫游前征得用户同意（\"Go ahead and enable it, please\"），设备端操作也均由用户主动执行",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "线路漫游已成功启用，用户设备roaming开启、切至5G，can_send_mms确认MMS可发送",
+            "refs": [
+              "h:14",
+              "h:22",
+              "h:23",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明与实际一致：roaming已启用且免费，最终确认问题解决；也如实建议用户测试",
+            "refs": [
+              "h:15",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对roaming禁用原因、2G不适合MMS、APN/MMSC正常的说明均有依据（h:17-h:18验证）",
+            "refs": [
+              "h:11",
+              "h:20",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户，核对正确线路的roaming状态，指导用户诊断（网络状态、APN）并验证修复，顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:9",
+              "h:16",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002漫游已在后端启用，用户设备data roaming开启、网络切至5G，MMS经can_send_mms验证可正常发送，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户提供的号码对应线路L1002且roaming原本关闭"
+      },
+      {
+        "from": "h:13",
+        "to": "h:14",
+        "purpose": "确认enable_roaming实际成功写入"
+      },
+      {
+        "from": "h:26",
+        "to": "h:27",
+        "purpose": "MMS修复结果验证"
+      }
+    ],
+    "auxiliary_notes": [
+      "Assistant在一条回复中同时请求用户多项设备检查，属措辞/流程组织问题，不影响业务结果"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

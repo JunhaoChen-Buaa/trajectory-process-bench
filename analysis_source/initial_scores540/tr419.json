@@ -1,0 +1,233 @@
+{
+  "case_id": "tr419",
+  "created_beijing": "2026-11-10T14:23:27.209802+08:00",
+  "input_sha256": "71588182abe143ca4762c04e9cdd4d423581b51531b002a0d6ee92dd94727b59",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b041603f4a361a434aa9843613052dabbe72ef7f16e291022bfa0db0de9d15a8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1625,
+    "completion_tokens_details": {
+      "reasoning_tokens": 292
+    },
+    "prompt_tokens": 17973,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19598
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复 abroad 状态下无法发送 MMS 的问题",
+        "object": "用户手机 messaging 应用的 MMS 功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决无法发送 MMS 的问题",
+            "basis": "用户 h:1 'can't send MMS messages'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy 'Technical Support: You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用户在国外时检查并(如未开启)免费开通线路漫游",
+            "basis": "policy 'If a user is traveling outside their home network, you should check if the line is roaming enabled... enable it at no cost'",
+            "refs": [
+              "h:1",
+              "h:51"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "按 MMS 排障清单核查 Wi-Fi Calling 等所有可能原因后再转人工",
+            "basis": "tech_support_policy 'Investigating Wi-Fi Calling Interference with MMS'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "各排障动作(SIM reseat、APN reset+reboot、roaming、权限、VPN等)均符合手册，对象正确，未做违规写入。",
+            "refs": [
+              "h:14",
+              "h:24",
+              "h:96"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "设备侧排障操作由用户自行执行，无需单独确认规则。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS 至终未修复(e:16 can_send_mms 仍失败)；线路侧漫游因未识别客户而未开通，转人工时也未交代该未完成事项。",
+            "refs": [
+              "h:61",
+              "h:52",
+              "h:53",
+              "h:96"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:58 向用户声称找到了 'John Doe' 客户，而实际查询返回空(e:14)，内容与实际结果矛盾且混乱。",
+            "refs": [
+              "h:58",
+              "h:57"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "同一消息中的'we were able to find a customer with the name John Doe'与查询结果空相矛盾，属无依据事实说明。",
+            "refs": [
+              "h:58",
+              "h:57"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未按'Technical Support: You must first identify the customer'先核实身份，且转人工前未按 MMS 清单检查 Wi-Fi Calling 状态。",
+            "refs": [
+              "h:52",
+              "h:54",
+              "h:92",
+              "h:96"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": [
+              "I2",
+              "I4"
+            ]
+          }
+        },
+        "end_state": "MMS 问题未解决，已转人工；线路侧漫游开通与客户身份核验均未完成，且向用户传达了错误身份信息。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "MMS 问题未解决即结束排障",
+        "basis": "用户 h:1 要求修复 MMS；e:16 'cannot send MMS messages' 后仅转人工",
+        "refs": [
+          "h:1",
+          "h:61",
+          "h:96"
+        ],
+        "root_cause": "unknown",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户未能发送图片消息，需人工继续处理"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未识别客户身份即尝试线路漫游开通且失败",
+        "basis": "policy 'You must first identify the customer'；enable_roaming 使用占位符参数报错 h:53 'Customer with ID your_customer_id not found'",
+        "refs": [
+          "h:52",
+          "h:53",
+          "h:54"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "线路侧漫游未开通，违反国外用户免费开通漫游要求"
+      },
+      {
+        "issue_id": "I3",
+        "title": "向用户虚假陈述已找到客户",
+        "basis": "h:58 'we were able to find a customer' vs e:14 get_customer_by_name 返回 []",
+        "refs": [
+          "h:58",
+          "h:57"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户收到与事实相反的身份信息，造成混淆"
+      },
+      {
+        "issue_id": "I4",
+        "title": "转人工前未检查 Wi-Fi Calling",
+        "basis": "tech_support_policy 'If check_wifi_calling_status() shows Wi-Fi Calling is ON...' 属 MMS 排障必要步骤；仅检查了 VPN(h:94)",
+        "refs": [
+          "h:92",
+          "h:96"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "漏掉手册列明的可能原因，排障未穷尽"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:58",
+        "to": "h:57",
+        "purpose": "核对'已找到客户'的说法与实际空查询结果矛盾"
+      },
+      {
+        "from": "h:52",
+        "to": "h:53",
+        "purpose": "未识别客户导致 enable_roaming 失败"
+      },
+      {
+        "from": "h:96",
+        "to": "h:94",
+        "purpose": "转人工前已检查 VPN 但未检查 Wi-Fi Calling"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:58 的输出混入了内部草稿式文本(如 'Here is the message to send to the user:')，属纯输出格式问题，记为辅助性瑕疵。",
+      "Agent 多次发出的内部工具调用名与实际执行名不一致(如 get_status_bar vs check_status_bar)，由用户侧正确执行，属接口规范问题，不影响业务评价。",
+      "排障流程本身(SIM、APN、roaming开关、权限、网络模式、VPN、Data Saver)覆盖较全面，仅漏 Wi-Fi Calling 一项。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

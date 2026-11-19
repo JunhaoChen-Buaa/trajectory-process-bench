@@ -1,0 +1,65 @@
+{
+  "domain": "airline",
+  "task_id": "31",
+  "original_task_digest": "d8dec411a7c04f510ae87fa9d8e80a95e97292b567fa897868477ad57efdba4f",
+  "sampling_stratum": "other",
+  "task": {
+    "id": "31",
+    "description": {
+      "purpose": "Test for flight change. Flight cannot be changed.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "airline",
+        "reason_for_call": "Your cat is really sick and you need to get back home sooner to take care of it. \nYou want to change your upcoming flight from JFK on May 17 to a nonstop flight.",
+        "known_info": "Your name is Daiki Lee.\nYour user id is daiki_lee_6144.",
+        "unknown_info": "You do not know your reservation id.",
+        "task_instructions": "You are willing to do the change only if it costs less than $100.\n\nYou do not want to buy a new flight."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent doesn't book any flight."
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/airline.txt",
+  "policy_rule_index": "requirements/airline_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr049",
+    "tr050",
+    "tr051",
+    "tr052",
+    "tr053",
+    "tr054",
+    "tr055",
+    "tr056",
+    "tr057",
+    "tr058",
+    "tr059",
+    "tr060"
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "domain": "airline",
+  "task_id": "39",
+  "original_task_digest": "71bea24787f4c86e452d3517b17bbbafeef1d5ff3a5fc6d9c6fe3d169d9f4983",
+  "sampling_stratum": "cancel",
+  "task": {
+    "id": "39",
+    "description": {
+      "purpose": "Check that agent doesn't cancel reservations if the refund is not applicable even if the user asks. Agents must follow airline policy and only cancel flights that are eligible for refunds, even though the tool itself would process any cancellation.\nAlso user is not a native English speaker.",
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "airline",
+        "reason_for_call": "You want to cancel all of your upcoming flights.",
+        "known_info": "You are Amelia Davis.\n\nYour user id is amelia_davis_8890.\n\n\nYou are French by birth and your English is not perfect.  \nYou occasionally insert French words when you communicate.",
+        "unknown_info": "You don't know any of your reservation ids.",
+        "task_instructions": "Even if the agent says you will not receive a refund for some of them, you want to proceed anyway so that you can give up your seat for someone else who needs it."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "39_0",
+          "requestor": "assistant",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "amelia_davis_8890"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_1",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_2",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "UDMOP1"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_3",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "XAZ3C0"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_4",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_5",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_6",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "I6M8JQ"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_7",
+          "requestor": "assistant",
+          "name": "get_reservation_details",
+          "arguments": {
+            "reservation_id": "4XGCCM"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_8",
+          "requestor": "assistant",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "8C8K4E"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_9",
+          "requestor": "assistant",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "LU15PA"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "39_10",
+          "requestor": "assistant",
+          "name": "cancel_reservation",
+          "arguments": {
+            "reservation_id": "MSJ4OA"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": [
+        "Agent cancels reservation 8C8K4E.",
+        "Agent cancels reservation LU15PA.",
+        "Agent cancels reservation MSJ4OA.",
+        "Agent does not cancel  any other reservation."
+      ],
+      "reward_basis": [
+        "DB",
+        "COMMUNICATE"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/airline.txt",
+  "policy_rule_index": "requirements/airline_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr097",
+    "tr098",
+    "tr099",
+    "tr100",
+    "tr101",
+    "tr102",
+    "tr103",
+    "tr104",
+    "tr105",
+    "tr106",
+    "tr107",
+    "tr108"
+  ]
+}

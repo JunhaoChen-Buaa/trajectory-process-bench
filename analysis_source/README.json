@@ -1,0 +1,8 @@
+{
+  "description": "First saved GLM scoring outputs, including format failures. Only the private raw_path metadata field was removed; parsed answers and validation errors are unchanged. No source reviews are merged.",
+  "source": "Historical first automatic scoring run; see comparison_sources.json for original and published hashes.",
+  "reference_annotations": "reference_data/reference/annotations.jsonl",
+  "pairing_index": "reference_data/run_index.json",
+  "count": 540,
+  "scope": "Paired retrospective comparison, not independent-test accuracy or new scoring runs"
+}

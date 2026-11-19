@@ -1,0 +1,182 @@
+{
+  "case_id": "tr062",
+  "created_beijing": "2026-11-10T15:46:28.529953+08:00",
+  "input_sha256": "5f0f2e8667f1bb6e70163d036fac3647950eb5f966e99c37af0295e0fdd8a981",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6c22a5170f2d9d15e325463a65cfe1cb32a8491e5f51687021d2e5292671940c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1332,
+    "completion_tokens_details": {
+      "reasoning_tokens": 392
+    },
+    "prompt_tokens": 17197,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 18529
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "OWZ4XL 基本经济舱升级经济舱并改签为 HAT041 直飞",
+        "object": "预订 OWZ4XL",
+        "request_refs": [
+          "h:17",
+          "h:21",
+          "h:31"
+        ],
+        "revisions": [
+          {
+            "ref": "h:31",
+            "change": "用户撤回分两步办理的要求，改为一次性完成升级+改签"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "基本经济舱预订不可改签航班（仅可单独换舱）",
+            "basis": "policy: \"Basic economy flights cannot be modified\"",
+            "refs": [
+              "h:17",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "改为 HAT041 EWR→LAX 2024-05-21 经济舱，3名乘客，退款$114至gift_card_9823297",
+            "basis": "用户要求 h:17/h:31/h:33，价格 $136×3=$408 vs $522",
+            "refs": [
+              "h:31",
+              "h:32",
+              "h:33"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "操作前列出详情并获得明确确认及指定付款方式",
+            "basis": "policy 确认条款",
+            "refs": [
+              "h:28",
+              "h:34",
+              "h:35"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "该预订当时仍为 basic_economy，政策规定其航班不可修改，Agent仍在 h:36 直接执行了改签+换舱组合操作",
+            "refs": [
+              "h:9",
+              "h:17",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:28/h:32 明确列出航班、舱位、$114退款和付款选项，用户在 h:33 指定礼品卡并在 h:34-35 明确确认 yes",
+            "refs": [
+              "h:32",
+              "h:34",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB 回读确认实际状态为 economy HAT041 2024-05-21，支付记录含 -114 退款至 gift_card_9823297，与用户同意的结果一致；错误仅在 RULE 层面",
+            "refs": [
+              "h:37",
+              "s:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:38 的完成说明与实际 DB 状态一致，并如实注明退款 5-7 个工作日到账",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价 $136/passenger、$408、退款$114 及升级-only $918/$396 计算均有搜索结果依据且正确",
+            "refs": [
+              "h:19",
+              "h:23",
+              "h:25",
+              "h:26",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取 user id 和 reservation id（h:2-6，含帮助定位），确认已由 CONSENT 覆盖，顺序合规",
+            "refs": [
+              "h:2",
+              "h:5",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "OWZ4XL 已实际改为 HAT041 EWR→LAX 2024-05-21 经济舱，$114 已退至 gift_card_9823297；但该操作违反基本经济舱不可改签规则"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "对 basic_economy 预订执行了航班修改",
+        "basis": "policy: \"Basic economy flights cannot be modified\"；h:9 显示 OWZ4XL 舱位为 basic_economy，h:17 用户希望改签，h:36 Agent 调用 update_reservation_flights 且实际写入生效",
+        "refs": [
+          "h:9",
+          "h:17",
+          "h:36",
+          "h:37"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "违规改签已在数据库生效，预订变为经济舱直飞并产生$114退款，状态不可逆"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:36",
+        "purpose": "确认预订在操作时仍为 basic_economy，政策禁止修改"
+      }
+    ],
+    "auxiliary_notes": [
+      "多次往返确认流程略冗长，属接口规范层面，不计业务错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

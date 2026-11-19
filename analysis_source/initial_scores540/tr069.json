@@ -1,0 +1,158 @@
+{
+  "case_id": "tr069",
+  "created_beijing": "2026-11-10T14:40:06.035294+08:00",
+  "input_sha256": "105a516cd2e2723812d49c8889b5483a07225d3b0f2724ad8f8505f02c336522",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "dcf5c601d6c9986d547a2879dd21d7dfcfafd0d62c32e7510c0a1ace9472675e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1031,
+    "completion_tokens_details": {
+      "reasoning_tokens": 305
+    },
+    "prompt_tokens": 11146,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12177
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "将5月21日EWR→LAX基本经济舱订单改为同日直飞",
+        "object": "订单OWZ4XL",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:12",
+            "change": "用户补充提出先升舱到economy再改航班的两步方案，愿付至多$100"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "尽量在不买新票的情况下把OWZ4XL改为5月21日EWR→LAX直飞",
+            "basis": "用户 h:1/h:12",
+            "refs": [
+              "h:1",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "policy规定'Basic economy flights cannot be modified. Other reservations can be modified'，升舱到economy后即可改签；Agent错误认定升舱不解锁改签并拒绝推进该路径，refs h:11、h:13",
+            "refs": [
+              "h:11",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何需确认的写操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "改签目标未完成，可行的升舱路径也未被尝试；因错误解读而拒绝+转人工不属依法拒绝",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "明确告知用户'Changing the cabin doesn't lift it'，该结论与policy原意相矛盾，属送达用户的错误完成性/结论说明",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "对政策'basic economy不可改'的适用范围给出无源依据的错误解读，实质影响用户对可选方案的理解",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "正确获取user id并查到订单细节，定位流程符合要求",
+            "refs": [
+              "h:3",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单OWZ4XL未做任何更改，仍为basic economy中转行程；已转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "错误解读政策：声称升舱到economy后仍不能改签，拒绝执行可行的两步方案",
+        "basis": "policy: 'Basic economy flights cannot be modified. Other reservations can be modified'；Agent h:13 'Changing the cabin doesn't lift it'",
+        "refs": [
+          "h:12",
+          "h:13",
+          "h:15"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户升级后改直飞的可行方案未被执行，业务目标未达成，且用户被误导转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:13",
+        "purpose": "用户提出先升舱再改签方案，Agent以错误政策解读拒绝"
+      },
+      {
+        "from": "h:7",
+        "to": "h:13",
+        "purpose": "订单确为basic economy，是判断政策适用前提"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在拒绝后主动提供新订票比较、升舱、转人工三选项，表达清晰；问题仅在政策解读错误，属实质业务错误而非接口规范问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,175 @@
+{
+  "case_id": "tr462",
+  "created_beijing": "2026-11-10T16:17:39.391890+08:00",
+  "input_sha256": "04e32f256b68a777f3a9fdb3a84c2429a9828e51bca141cf3317e001d452b12b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3ad974b598df8b52a758409b7e9847b05a439da61617143d00d297116a692980",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 895,
+    "completion_tokens_details": {
+      "reasoning_tokens": 103
+    },
+    "prompt_tokens": 13269,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14164
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游下移动数据不可用/慢的问题",
+        "object": "线路 L1002（号码 555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后处理用户号码对应的线路",
+            "basis": "Customer Lookup/Technical Support 需先识别客户",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在境外，若线路未开漫游应免费开通",
+            "basis": "policy: enable it at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "超出流量上限时按计划价格加购不超过2GB的流量并先确认价格",
+            "basis": "policy Data Refueling: max 2GB, confirm price",
+            "refs": [
+              "h:13",
+              "h:14",
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "指导用户开启设备端数据漫游与移动数据并验证速度",
+            "basis": "tech support guide",
+            "refs": [
+              "h:19",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按用户号码 555-123-2002 定位 L1002，免费开通漫游、按 $2/GB 加购2GB（≤2GB上限），均符合政策",
+            "refs": [
+              "h:9",
+              "h:10",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加购前明确确认 2GB=$4.00，用户回复“go ahead with the 2 GB”",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "roaming 成功开通、2GB 加购成功($4)、用户开启设备侧设置后测速 Excellent(275Mbps)",
+            "refs": [
+              "h:11",
+              "h:18",
+              "h:25",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际一致：三步修复总结及剩余1.9GB计算(17-15.1)准确",
+            "refs": [
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1GB用量/15GB上限、$2.00/GB、剩余1.9GB均有工具返回依据",
+            "refs": [
+              "h:9",
+              "h:12",
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份、检查线路与套餐详情，确认超限后提供两个选项并确认价格，流程顺序符合政策",
+            "refs": [
+              "h:4",
+              "h:8",
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002 漫游已开通，流量加购2GB($4)，设备端漫游与移动数据开启，测速 Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户号码映射到L1002确认操作对象正确"
+      },
+      {
+        "from": "h:14",
+        "to": "h:15",
+        "purpose": "加购价格确认与用户同意关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "设备侧 toggle_roaming/toggle_data/run_speed_test 由用户执行，符合技术支持协作流程，Agent 指引正确"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

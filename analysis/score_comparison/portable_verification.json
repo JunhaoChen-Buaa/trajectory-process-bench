@@ -1,0 +1,26 @@
+{
+  "portable_execution": "passed",
+  "isolated_python": true,
+  "explicit_inputs_only": true,
+  "comparison_tables_identical": [
+    "overall",
+    "by_model",
+    "by_domain",
+    "by_model_domain",
+    "transitions",
+    "rankings_all",
+    "rankings_by_domain",
+    "reviewed_all540_separate",
+    "release_validator_compatibility",
+    "final_reference_release_compatibility"
+  ],
+  "original_score_hashes": 540,
+  "complete_pairs": 527,
+  "technical_cases": 13,
+  "release_validator_original_complete_valid": 493,
+  "release_validator_original_complete_differences": 34,
+  "release_validator_final_reference_valid": 494,
+  "release_validator_final_reference_differences": 46,
+  "new_api_calls": 0,
+  "new_business_runs": 0
+}

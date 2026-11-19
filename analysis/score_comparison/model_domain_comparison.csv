@@ -1,0 +1,13 @@
+﻿level,key,label,total_records,paired_complete,technical_unscored,automatic_pass,automatic_fail,automatic_unknown,automatic_na,automatic_rate_denominator,automatic_pass_rate,reviewed_pass,reviewed_fail,reviewed_unknown,reviewed_na,reviewed_rate_denominator,reviewed_pass_rate,review_minus_auto_percentage_points,verdict_agree,verdict_disagree,agreement,automatic_pass_to_reviewed_fail,automatic_fail_to_reviewed_pass
+model_domain,qwen9b/retail,qwen9b/retail,45,44,1,31,12,1,0,43,0.7209302325581395,31,13,0,0,44,0.7045454545454546,-1.6384778012684897,41,3,0.9318181818181818,1,1
+model_domain,llama8b/retail,llama8b/retail,45,44,1,0,44,0,0,44,0.0,0,44,0,0,44,0.0,0.0,44,0,1.0,0,0
+model_domain,ds_flash/retail,ds_flash/retail,45,43,2,36,6,1,0,42,0.8571428571428571,34,8,1,0,42,0.8095238095238095,-4.761904761904756,38,5,0.8837209302325582,3,0
+model_domain,glm_flash/retail,glm_flash/retail,45,45,0,39,6,0,0,45,0.8666666666666667,37,8,0,0,45,0.8222222222222222,-4.444444444444451,43,2,0.9555555555555556,2,0
+model_domain,qwen9b/airline,qwen9b/airline,45,44,1,24,19,1,0,43,0.5581395348837209,18,13,13,0,31,0.5806451612903226,2.2505626406601698,25,19,0.5681818181818182,4,1
+model_domain,llama8b/airline,llama8b/airline,45,42,3,2,40,0,0,42,0.047619047619047616,2,40,0,0,42,0.047619047619047616,0.0,40,2,0.9523809523809523,1,1
+model_domain,ds_flash/airline,ds_flash/airline,45,45,0,33,11,1,0,44,0.75,22,17,6,0,39,0.5641025641025641,-18.58974358974359,33,12,0.7333333333333333,7,0
+model_domain,glm_flash/airline,glm_flash/airline,45,45,0,36,7,2,0,43,0.8372093023255814,24,18,3,0,42,0.5714285714285714,-26.578073089701004,29,16,0.6444444444444445,11,0
+model_domain,qwen9b/telecom,qwen9b/telecom,45,44,1,39,5,0,0,44,0.8863636363636364,39,3,2,0,42,0.9285714285714286,4.2207792207792245,42,2,0.9545454545454546,0,0
+model_domain,llama8b/telecom,llama8b/telecom,45,43,2,2,41,0,0,43,0.046511627906976744,2,41,0,0,43,0.046511627906976744,0.0,43,0,1.0,0,0
+model_domain,ds_flash/telecom,ds_flash/telecom,45,44,1,40,4,0,0,44,0.9090909090909091,39,4,1,0,43,0.9069767441860465,-0.21141649048626032,42,2,0.9545454545454546,1,0
+model_domain,glm_flash/telecom,glm_flash/telecom,45,44,1,43,1,0,0,44,0.9772727272727273,40,2,2,0,42,0.9523809523809523,-2.4891774891774965,39,5,0.8863636363636364,2,1

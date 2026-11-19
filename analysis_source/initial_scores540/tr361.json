@@ -1,0 +1,25 @@
+{
+  "case_id": "tr361",
+  "created_beijing": "2026-11-10T16:26:42.353608+08:00",
+  "input_sha256": "687ea3648563b97fd2ed41cecf9a1fd34b753502cba88e9230fcb83769b2f71e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "584443739b7e3bde72c4bcefc5b0fa406125de9bb2a2c20c5554704b0c64fbdd",
+  "finish_reason": "length",
+  "usage": {
+    "completion_tokens": 12288,
+    "completion_tokens_details": {
+      "reasoning_tokens": 119
+    },
+    "prompt_tokens": 17795,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 30083
+  },
+  "parsed": null,
+  "validation_errors": [
+    "parse:JSONDecodeError"
+  ],
+  "mechanical_fence_removal": false
+}

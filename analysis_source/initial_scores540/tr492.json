@@ -1,0 +1,153 @@
+{
+  "case_id": "tr492",
+  "created_beijing": "2026-11-10T15:38:26.966778+08:00",
+  "input_sha256": "e75b031c755a144d6d11653075be32bcccabc8b548bec628537fa939db270541",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f116d6821e3b8c50f95559886f0fdb525e3e985804f7735041cd42c7b194ce8a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1149,
+    "completion_tokens_details": {
+      "reasoning_tokens": 447
+    },
+    "prompt_tokens": 13839,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 14988
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并恢复无服务线路（因欠费停机）",
+        "object": "L1002（555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先确认客户身份",
+            "basis": "policy: Technical Support – must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "正确诊断停机原因并按欠费账单流程处理（查逾期账单、发付款请求）",
+            "basis": "policy: Line Suspension / Overdue Bill Payment",
+            "refs": [
+              "h:9",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "发送付款请求后告知用户查收付款请求（check_payment_request）",
+            "basis": "policy: Inform the user that a payment request has been sent",
+            "refs": [
+              "h:16"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "诊断为欠费停机正确，对象为用户号码对应线路L1002，处理符合停机/欠费规则",
+            "refs": [
+              "h:9",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "发送付款请求属流程步骤，policy未要求额外用户确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "账单已进入AWAITING PAYMENT，因无make_payment工具无法代付，转人工处理付款及复机属合理必要转接",
+            "refs": [
+              "e:6",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "对用户的说明为转接提示，未声称付款已完成或线路已恢复，无虚假完成说明",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户送达任何业务事实/报价说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "policy要求发送付款请求后告知用户查收付款请求，Agent未告知即转接，用户无从知道需接受付款请求",
+            "refs": [
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "账单B1234321已发付款请求并转人工处理付款与复机，但用户未被告知付款请求已发送及如何查收"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未告知用户付款请求已发送及查收方式即转接",
+        "basis": "policy: 'Inform the user that a payment request has been sent. They should check their payment requests'；实际直接转人工（h:18→h:20）",
+        "refs": [
+          "h:16",
+          "h:18",
+          "h:20"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户未收到付款流程指引，可能无法及时接受付款请求完成缴费与复机"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:13",
+        "purpose": "线路停机与逾期账单的因果关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接摘要中称agent不能直接处理付款，与当前可用工具集一致（无make_payment），转接本身合理"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

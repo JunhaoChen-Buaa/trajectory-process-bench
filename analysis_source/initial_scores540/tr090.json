@@ -1,0 +1,350 @@
+{
+  "case_id": "tr090",
+  "created_beijing": "2026-11-10T14:45:35.788107+08:00",
+  "input_sha256": "87f8edd3e2ad17170357e6d1ee8e0a5a0cbac358f907174036836655a72c6074",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6b9fc90aced65ef618737d9de303f8064ce818ac5fb87b82c9e001e6b8d5a4b9",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1797,
+    "completion_tokens_details": {
+      "reasoning_tokens": 189
+    },
+    "prompt_tokens": 13726,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 15523
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消IFOYYZ预订",
+        "object": "IFOYYZ（CLT–EWR 往返，basic economy）",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按取消规则判断能否取消并如实处理",
+            "basis": "policy: 24小时内/航司取消/商务舱/保险才可取消",
+            "refs": [
+              "h:7",
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订为basic economy、2024-05-12创建（超24小时）、无保险，不符合任何取消条件，Agent正确拒绝",
+            "refs": [
+              "h:9",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝，预订未被取消，符合政策",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "向用户清晰说明不可取消的三项理由，与事实一致",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "引用的预订日期、舱位、保险状态均与查询结果一致",
+            "refs": [
+              "h:9",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询预订详情核实规则",
+            "refs": [
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "IFOYYZ依规未取消，拒绝理由已向用户说明"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消NQNU5R预订",
+        "object": "NQNU5R（MCO–SEA，已 flown）",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "已 flown 的预订不能由Agent取消，需转人工",
+            "basis": "policy: 'If any portion of the flight has already been flown, the agent cannot help and transfer is needed.'",
+            "refs": [
+              "h:7",
+              "h:11"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确判断航班已 flown 不可取消",
+            "refs": [
+              "h:11",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "未取消，符合政策应有状态",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明两段航班（5月13-14日）已 flown",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明与预订数据一致",
+            "refs": [
+              "h:11",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策明文要求已 flown 情形 'transfer is needed'，但Agent未调用 transfer_to_human_agents，仅口头拒绝",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "NQNU5R未取消，但未按政策转人工，由Agent自行拒绝"
+      },
+      {
+        "group_id": "G3",
+        "goal": "将M20IZO升舱为商务舱",
+        "object": "M20IZO（JFK–MCO 经ATL，2乘客）",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "同航班升舱为business，2名乘客，支付差价",
+            "basis": "policy: Change cabin; 差价支付",
+            "refs": [
+              "h:7",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "更新数据库前列出详情并获得明确确认，指定付款卡",
+            "basis": "policy confirmation要求；用户指定尾号7334",
+            "refs": [
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "economy预订可升舱，未改航班与舱位统一，价格按当前商务舱价430/412×2正确，差价$1,194计算正确",
+            "refs": [
+              "h:13",
+              "h:15",
+              "h:17",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列出详情并获得用户明确同意'Go ahead and charge the $1,194 to the card ending in 7334'，实际用的正是credit_card_9074831",
+            "refs": [
+              "h:20",
+              "h:21",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB重放确认舱位已改为business、两段航班不变、收取$1,194到指定卡",
+            "refs": [
+              "s:6",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'All done... now in business class... $1,194 was charged' 与实际DB状态一致",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$430/$412与搜索结果和最终写入价格一致",
+            "refs": [
+              "h:15",
+              "h:17",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查询预订、搜索航班核实价格后再执行，顺序正确",
+            "refs": [
+              "h:12",
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "M20IZO已成功升为business并收取$1,194"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "已 flown 预订拒绝时未按政策转人工",
+        "basis": "policy: 'If any portion of the flight has already been flown, the agent cannot help and transfer is needed.' NQNU5R航班已于5月13-14 flown（h:11），Agent仅口头拒绝（h:20）未调用transfer_to_human_agents",
+        "refs": [
+          "h:11",
+          "h:20"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户被拒绝但未获得政策规定的转人工途径"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:20",
+        "purpose": "IFOYYZ拒绝理由依据预订详情"
+      },
+      {
+        "from": "h:11",
+        "to": "h:20",
+        "purpose": "NQNU5R已flown的判断与转人工义务"
+      },
+      {
+        "from": "h:15",
+        "to": "h:22",
+        "purpose": "商务舱价格依据"
+      },
+      {
+        "from": "h:21",
+        "to": "h:22",
+        "purpose": "确认与付款卡选择"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:18中Agent提到其他两个取消'as explained above'，但此前并未解释，属措辞/流程瑕疵，已在h:19用户追问后补正",
+      "h:18/h:20重复确认两次为冗余但合规"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

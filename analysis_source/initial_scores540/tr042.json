@@ -1,0 +1,165 @@
+{
+  "case_id": "tr042",
+  "created_beijing": "2026-11-10T16:14:51.556979+08:00",
+  "input_sha256": "7e189c427f495b3edff8bc7fd544386cca98488f8cb17088c16348c48f1bf239",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "9fcc6835b49078397ca05e1d13152bf5a01ff8095af05db3e5a2626b5cc69460",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1281,
+    "completion_tokens_details": {
+      "reasoning_tokens": 457
+    },
+    "prompt_tokens": 17999,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 19280
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改OBUT9V返程航班并加1件托运行李",
+        "object": "预订OBUT9V的返程两段航班及行李数",
+        "request_refs": [
+          "h:1",
+          "h:17"
+        ],
+        "revisions": [
+          {
+            "ref": "h:23",
+            "change": "因最小余额礼品卡余额不足，将付款方式改为次小余额礼品卡"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将返程改为5月27日、可行选项中最快组合（含中转时间）",
+            "basis": "用户h:17 'fastest trip possible'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "增加1件托运行李（silver+economy免2件，故免费）",
+            "basis": "policy行李额度表+用户h:17",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用余额次小的礼品卡支付改签差额",
+            "basis": "用户h:17/h:23",
+            "refs": [
+              "h:17",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "操作前列出详情并获得用户确认",
+            "basis": "policy 'must list the action details and obtain explicit user confirmation'",
+            "refs": [
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅改返程、保持economy、不改出发/目的地/行程类型，符合'modified without changing the origin, destination, and trip type'；所选HAT290+HAT175（14:00–20:00，6小时）确为搜索结果中经济舱有座的最快组合",
+            "refs": [
+              "h:21",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列出航段、$59差额、行李、付款卡，用户明确'Yes, proceed'",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认返程改为HAT290/HAT175（2024-05-27）、$59记入gift_card_7091239、行李增至2件，与同意结果一致",
+            "refs": [
+              "h:27",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30的完成说明（航段、$59、2件免费行李）与实际存储状态一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "$312 vs $253差额$59、silver经济舱2件免费额度的报价均有源数据支持；HAT229组合经济舱0座故称不可选亦正确",
+            "refs": [
+              "h:21",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id并逐个查询定位预订OBUT9V，再搜索直飞与中转航班，顺序符合要求",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "返程已改为5月27日HAT290+HAT175，收$59至gift_card_7091239，行李共2件（免费），与用户确认一致"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:22",
+        "purpose": "用户最快/日期/行李/付款要求与报价核对"
+      },
+      {
+        "from": "h:24",
+        "to": "h:26",
+        "purpose": "确认后的执行参数一致性"
+      }
+    ],
+    "auxiliary_notes": [
+      "中间查询了多个无关预订（OI5L9G等）以定位用户所述预订，属查找过程，无副作用；搜索工具返回receipt_exact=false但内容一致，不影响业务判分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

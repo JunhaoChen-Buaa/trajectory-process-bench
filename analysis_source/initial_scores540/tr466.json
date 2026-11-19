@@ -1,0 +1,179 @@
+{
+  "case_id": "tr466",
+  "created_beijing": "2026-11-10T14:37:43.724147+08:00",
+  "input_sha256": "d5e76f3f5f4bf1a3c95dcfe5b6d070d209083ac924ba172be104372cdcb26d3b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "8302af21e0994db0227475995d5316777a1fb2fcfb0df21446bf37e23882dd72",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 753,
+    "completion_tokens_details": {
+      "reasoning_tokens": 17
+    },
+    "prompt_tokens": 13593,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14346
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国旅行期间移动数据不可用/慢",
+        "object": "线路L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确识别客户并定位线路",
+            "basis": "policy Customer Lookup/Technical Support",
+            "refs": [
+              "h:3",
+              "h:4"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "为旅行用户免费启用线路漫游",
+            "basis": "policy: enable roaming at no cost for traveling users",
+            "refs": [
+              "h:1",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "确认价格后为超限线路加油2GB数据（$2/GB，max 2GB）",
+            "basis": "policy Data Refueling步骤",
+            "refs": [
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "指导用户开启手机端Data Roaming与Mobile Data并验证恢复",
+            "basis": "tech support roaming/data troubleshooting",
+            "refs": [
+              "h:19",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "对象线路正确（h:3号码对应L1002），漫游免费启用符合policy，加油2GB未超上限",
+            "refs": [
+              "h:9",
+              "h:13",
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确同意开启漫游并选择2GB加油方案，价格$2/GB事先告知",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游启用、2GB成功加油、手机端设置后速度测试Excellent，数据实际恢复",
+            "refs": [
+              "e:4",
+              "e:5",
+              "h:26",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明与实际一致，且如实告知$4将出现在账单，并确认速度测试后总结",
+            "refs": [
+              "h:18",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1/15GB超限、漫游未开启、$2/GB报价均有工具数据依据",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证身份、核对线路与套餐，按加油流程确认价格后执行，并指导设备端验证",
+            "refs": [
+              "h:4",
+              "h:6",
+              "h:10",
+              "h:20",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002已启用漫游并加油2GB，用户手机端数据漫游与移动数据开启，速度测试Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户号码555-123-2002对应线路L1002，确认操作对象"
+      },
+      {
+        "from": "h:13",
+        "to": "e:5",
+        "purpose": "用户同意的2GB加油与实际执行一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12中",
+      "：d"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

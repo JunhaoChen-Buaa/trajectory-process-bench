@@ -1,0 +1,148 @@
+{
+  "case_id": "tr506",
+  "created_beijing": "2026-11-10T15:03:20.566164+08:00",
+  "input_sha256": "2f6823958e87dec5a23525a5ac6e248c36d632e55ce13c369c5927c4a8b0f08c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b08efdae1d452b4e3e633a5d24e550025a4ee171306c1cc56363895c148a9974",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 650,
+    "completion_tokens_details": {
+      "reasoning_tokens": 57
+    },
+    "prompt_tokens": 12246,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 12896
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查手机无服务（No Service）问题",
+        "object": "用户线路 555-123-2002（L1002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户",
+            "basis": "policy: Technical Support 要求先识别客户",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按流程排查：检查飞行模式、SIM状态等",
+            "basis": "tech_support_policy 排查步骤",
+            "refs": [
+              "h:8",
+              "h:12",
+              "h:18"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "SIM因PIN锁定时升级转人工",
+            "basis": "tech_support_policy: Locked with PIN/PUK → escalate",
+            "refs": [
+              "h:20",
+              "h:22"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策路径排查：确认线路Active后判断设备问题，飞行模式关闭无果后查SIM，符合排查规则；对象线路正确。",
+            "refs": [
+              "h:5",
+              "h:7",
+              "h:12",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无写入类操作需要用户确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "SIM锁定超出Agent可处理范围，按政策转人工是合法正确处置。",
+            "refs": [
+              "h:20",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "未虚假宣称已修复，转接时发送了规定的转接话术。",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'line is Active on our end' 与工具返回Active一致（h:7）。",
+            "refs": [
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查客户、核对线路、引导check_status_bar/toggle_airplane_mode/check_sim_status，顺序符合手册。",
+            "refs": [
+              "h:2",
+              "h:8",
+              "h:12",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式已关闭，SIM仍被PIN锁定无法自行解除，已按政策转接人工处理。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:22",
+        "purpose": "SIM锁定是转人工的直接依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "转接摘要准确描述问题，无多余虚构信息。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

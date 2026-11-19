@@ -1,0 +1,166 @@
+{
+  "case_id": "tr369",
+  "created_beijing": "2026-11-10T15:05:44.844574+08:00",
+  "input_sha256": "b9ca9c1cf22ecf3429331316a00ddfa306ce7a157bb910ab4c778ab535a205c1",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7be952807852a51a4d934d9b0ff102c7f66c77412c00201c40fdce5dd645ddcd",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 874,
+    "completion_tokens_details": {
+      "reasoning_tokens": 96
+    },
+    "prompt_tokens": 20138,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 21012
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复无法发送MMS的问题（含数据加油）",
+        "object": "L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并逐项排除MMS故障原因（数据限额、SIM、网络模式、APN/MMSC、Wi-Fi Calling、应用权限）",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "如需数据加油，需询问数量、确认价格后执行（最多2GB，$2/GB）",
+            "basis": "policy: Data Refueling",
+            "refs": [
+              "h:14",
+              "h:15",
+              "h:16",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策流程推进：确认超额数据→经同意加油2GB/ $4→逐项按手册排查SIM、网络模式、APN/MMSC、Wi-Fi Calling、权限，未违规操作",
+            "refs": [
+              "h:14",
+              "h:18",
+              "h:40",
+              "h:48",
+              "h:62",
+              "h:72"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加油前明确报价$2/GB共$4.00并获用户确认（'Go ahead and refuel the 2 GB'），设备侧操作均由用户本人执行",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "2GB成功写入L1002（'Successfully added 2 GB'），MMS最终确认可发送（'can send MMS messages'）",
+            "refs": [
+              "h:19",
+              "h:77"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "各阶段说明与实际状态一致，最终仅在can_send_mms确认成功后确认修复",
+            "refs": [
+              "h:20",
+              "h:78"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15GB限额、已用15.1GB、$2/GB、2G不支持MMS等说明均有工具返回或手册依据",
+            "refs": [
+              "h:12",
+              "h:13",
+              "h:48",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按手册顺序完成：先查数据限额并诊断，SIM missing→reseat，2G→改4g_5g_preferred，MMSC未设→reset APN+reboot，Wi-Fi Calling与storage权限按手册处理",
+            "refs": [
+              "h:34",
+              "h:40",
+              "h:48",
+              "h:56",
+              "h:62"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002加油2GB（收费$4.00），用户设备修复SIM、网络模式、APN/MMSC、Wi-Fi Calling、storage权限后MMS可正常发送"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:14",
+        "purpose": "确认数据超额是MMS失败的原因之一"
+      },
+      {
+        "from": "h:58",
+        "to": "h:62",
+        "purpose": "MMSC URL未设置触发APN重置+重启指令"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8与h:11中Agent一次并行发出多个工具调用，违反policy的单次调用要求，属纯接口规范问题，未影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

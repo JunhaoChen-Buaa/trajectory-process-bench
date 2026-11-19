@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Please cite this software release and the upstream tau2-bench task environment when using this benchmark."
+type: software
+title: "A Benchmark for Evaluating Agent Process Reliability from Interaction Trajectories"
+version: 0.1.0
+date-released: 2026-11-19
+license: MIT
+authors:
+  - family-names: Chen
+    given-names: Junhao
+  - family-names: Zhu
+    given-names: Tianchen
+  - family-names: Zheng
+    given-names: Zimu
+  - family-names: Hao
+    given-names: Yifei
+  - family-names: Li
+    given-names: Daqing
+repository-code: "https://github.com/JunhaoChen-Buaa/trajectory-process-bench"
+url: "https://github.com/JunhaoChen-Buaa/trajectory-process-bench"

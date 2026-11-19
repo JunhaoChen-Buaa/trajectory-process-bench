@@ -1,0 +1,177 @@
+{
+  "case_id": "tr477",
+  "created_beijing": "2026-11-10T15:06:02.199424+08:00",
+  "input_sha256": "8f986bcb7fc7a24d39e9fe8bd9a94d38b6390cb1c02e602865726b8d59f0b3f6",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c870f587086f641471cc430b4d92d6a9ae77a3bcdbb1c3112fa8e6849f772233",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1107,
+    "completion_tokens_details": {
+      "reasoning_tokens": 309
+    },
+    "prompt_tokens": 14503,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 15610
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决移动数据无法连接/慢的问题",
+        "object": "L1002（号码555-123-2002）线路",
+        "request_refs": [
+          "h:1",
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先身份核验并定位正确线路（555-123-2002）",
+            "basis": "policy：Customer Lookup；tech support需先识别客户",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断数据不可用原因（漫游）并指导用户开启设备Data Roaming",
+            "basis": "tech_support_policy：roaming troubleshooting",
+            "refs": [
+              "h:19",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "线路侧漫游已启用（L1002 roaming_enabled=true）方可指导",
+            "basis": "policy：Data Roaming",
+            "refs": [
+              "h:24"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "用户希望获得更快速度时，排查Data Saver等可调设置",
+            "basis": "tech_support_policy：Data Saver Mode",
+            "refs": [
+              "h:29"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "核实L1002线路侧roaming_enabled=true（e:2）后指导用户开启设备漫游，符合政策且对象正确",
+            "refs": [
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "纯技术支持排障，无确认要求",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据从No Connection恢复到Excellent 275 Mbps（h:38），问题实际解决",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明与实际状态一致，最终连接Excellent已确认",
+            "refs": [
+              "h:30",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "在Data Saver仍开启的情况下告知用户“没有其他可调设置”（h:30），与事实矛盾（h:32显示Data Saver ON影响速度），后被用户自行发现并关闭恢复",
+            "refs": [
+              "h:30",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "依次核对数据用量/上限、网络状态、漫游开关，必要诊断步骤均完成",
+            "refs": [
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002设备漫游开启、Data Saver关闭，数据连接Excellent（275 Mbps），问题解决"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "告知用户无进一步可优化设置，遗漏Data Saver设置",
+        "basis": "tech_support_policy：'If check_data_restriction_status() shows Data Saver mode is ON, guide the user to use toggle_data_saver_mode()'；用户明确要求提升速度（h:29），而h:32证实Data Saver ON",
+        "refs": [
+          "h:29",
+          "h:30",
+          "h:32",
+          "h:38"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": true,
+        "effect": "Agent初期给出错误结论，用户自行发现并关闭Data Saver，速度由Good提升到Excellent，最终无残留影响"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:24",
+        "to": "h:11",
+        "purpose": "线路侧roaming_enabled=true是指导开启设备漫游的前提"
+      },
+      {
+        "from": "h:30",
+        "to": "h:32",
+        "purpose": "反驳'没有可调设置'的说法"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:39中的非法工具调用为用户侧噪声，非Agent问题",
+      "Agent称'checked earlier'漫游属实（e:2），表述准确"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

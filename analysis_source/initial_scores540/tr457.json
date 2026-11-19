@@ -1,0 +1,153 @@
+{
+  "case_id": "tr457",
+  "created_beijing": "2026-11-10T16:11:11.774977+08:00",
+  "input_sha256": "70598b9c5e089a1ba8f4ecc20f63c655c564090850f2ab541b466f6dcf919152",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "102b1df3e98e156b4df4f98cdc2d1dff5b7e18341c495859353da9d9855be793",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 677,
+    "completion_tokens_details": {
+      "reasoning_tokens": 65
+    },
+    "prompt_tokens": 14803,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15480
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游下移动数据不可用/慢的问题",
+        "object": "用户线路L1002(555-123-2002)的数据连接",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复移动数据连接，达到正常速度",
+            "basis": "用户要求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "出国用户线路未开通漫游时应免费开通",
+            "basis": "policy: enable roaming at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超出限额需经用户确认价格后按$2/GB最多2GB加量",
+            "basis": "policy: refuel price confirm",
+            "refs": [
+              "h:28"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "开通漫游免费(h:14)、引导用户开启data/roaming、2GB加量均符合政策且对象线路正确(L1002)",
+            "refs": [
+              "h:13",
+              "h:22",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加量价格$2.00/GB、数量2GB均已明确报价并获用户同意(h:27,h:28)",
+            "refs": [
+              "h:27",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游开通、设备设置开启、加量2GB成功，速度测试Excellent(h:33)",
+            "refs": [
+              "h:30",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际一致，且建议用户自测确认(h:31)，后续速度测试证实",
+            "refs": [
+              "h:31",
+              "h:33"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1/15GB限额、$2/GB、最多2GB等说明均有工具数据依据(h:11,h:12)",
+            "refs": [
+              "h:11",
+              "h:12",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核对线路与用量，再诊断设备设置，顺序合理无遗漏必要步骤",
+            "refs": [
+              "h:10",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "数据连接完全恢复，漫游开通，加量2GB收费$4，速度Excellent"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:33",
+        "purpose": "用户目标与最终速度测试结果关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:31中'添加到账单'的表述与工具返回charge $4一致；用户中途要求先检查手机属流程内调整，未构成撤回"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

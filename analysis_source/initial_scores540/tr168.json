@@ -1,0 +1,155 @@
+{
+  "case_id": "tr168",
+  "created_beijing": "2026-11-10T14:24:03.407069+08:00",
+  "input_sha256": "b57dbf0a8374aa13e7a9420f2eee15802cb969fa321209c23a832caf5440a68c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f05eea19be1cefcbb392bcd8647b6e7ac89a909465683cb23b3c3de98e5b9bdb",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 839,
+    "completion_tokens_details": {
+      "reasoning_tokens": 111
+    },
+    "prompt_tokens": 14084,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14923
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订ORD-PHL单程航班HAT271（5月26日）",
+        "object": "新预订HATHAT",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:19",
+            "change": "补充要求：新增第二乘客Kevin Smith、economy舱、无行李、无保险"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订与5月10日相同航班HAT271，5月26日ORD→PHL单程",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "economy舱、2名乘客（Sophia Silva、Kevin Smith）、无行李、无保险",
+            "basis": "用户要求",
+            "refs": [
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "仅用certificate_8045380支付，需事先明确确认",
+            "basis": "policy确认要求",
+            "refs": [
+              "h:23",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "查到用户5月10日历史订单WUNA5K确认为HAT271，新预订参数与用户要求及政策一致",
+            "refs": [
+              "h:15",
+              "h:17",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:20、h:24列出全部细节并询问支付方式，h:25用户明确'Go ahead and book it'后执行",
+            "refs": [
+              "h:20",
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:7写库成功且回读一致：HAT271、economy、2乘客、$348用certificate_8045380支付，无额外副作用",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28逐项汇报实际创建的预订详情，与e:7完全一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格$174×2=$348、regular成员economy无免费行李、证书余额不退均正确告知",
+            "refs": [
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id、查历史订单定位HAT271、搜索确认可用性、询问行李与保险，均按政策执行",
+            "refs": [
+              "h:4",
+              "h:14",
+              "h:16",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功创建并支付，所有用户要求满足"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:15",
+        "purpose": "从历史订单WUNA5K确认用户5月10日乘坐的航班为HAT271"
+      }
+    ],
+    "auxiliary_notes": [
+      "座位选择（过道/中间相邻）无对应工具，Agent如实告知无法保证，用户接受后继续，处理妥当",
+      "证书余额不退的政策提醒（h:22）有助于用户选择$500证书"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

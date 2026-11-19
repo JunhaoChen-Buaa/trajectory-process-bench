@@ -1,0 +1,161 @@
+{
+  "case_id": "tr280",
+  "created_beijing": "2026-11-10T16:16:54.023914+08:00",
+  "input_sha256": "69c4e1e256a5ebe30f3d217602492497dea01028971402e9a11b0ea704041bed",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3619b3e0c8dc75005d3057c4b4c04b910fe08d25ec382beb423986cb5c51ff6e",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 754,
+    "completion_tokens_details": {
+      "reasoning_tokens": 38
+    },
+    "prompt_tokens": 14810,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 15564
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "换货台灯（原拟换水杯+台灯）",
+        "object": "订单#W6390527的Desk Lamp item 8384507844",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:15",
+            "change": "用户撤回水杯换货，只换台灯"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅对delivered订单换同产品不同选项的可用item",
+            "basis": "policy: exchange delivered order",
+            "refs": [
+              "h:1",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换到用户选定的1569765161 (silver, low, AC adapter)，差额$5.08经PayPal支付",
+            "basis": "用户 h:15/h:17",
+            "refs": [
+              "h:15",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "执行前列出详情并获用户明确确认yes",
+            "basis": "policy confirmation",
+            "refs": [
+              "h:16",
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered，新item 1569765161同产品且available=true，符合exchange规则",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:16列出订单、item、新item、支付方式、差额$5.08后，用户h:17明确'Go ahead'确认",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:5后DB实际状态为exchange requested，exchange_new_items=[1569765161]，差额5.08，与同意结果一致",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:20如实说明状态为exchange requested并提示将收退货邮件，无虚假完成表述",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$137.94→$143.02、差额$5.08与目录一致；可用选项列表准确",
+            "refs": [
+              "h:11",
+              "h:14",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按email要求认证（用户无邮箱，改用name+zip），核对订单状态，提醒'只能换一次、确认所有要换商品'，步骤齐全",
+            "refs": [
+              "h:2",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W6390527状态为exchange requested，台灯将换为1569765161，$5.08差额经PayPal处理，水杯保留原样"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "用户撤回水杯换货后，Agent按仅台灯重新确认方案"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "确认后执行换货"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户初始要求换两件商品，属同一订单一次换货请求，按一组处理；水杯部分为用户自行撤回，不算Agent遗漏。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

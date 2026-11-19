@@ -1,0 +1,86 @@
+{
+  "domain": "retail",
+  "task_id": "81",
+  "original_task_digest": "3633d0ec2215abfa309de83b95f9a02b8df6a765e662148bb79e53982bf2daca",
+  "sampling_stratum": "cancel",
+  "task": {
+    "id": "81",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "Due to some life changes, you no longer need hiking boots, watch, keyboard, charger, jacket, and running shoes. If cancelling part of the order is not possible, you don't care, just cancel the whole order.",
+        "known_info": "You name is James Kim and your email is james.kim1995@example.com.",
+        "unknown_info": null,
+        "task_instructions": "You are sad, independent, polite."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "81_0",
+          "requestor": "assistant",
+          "name": "cancel_pending_order",
+          "arguments": {
+            "order_id": "#W3289292",
+            "reason": "no longer needed"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "81_1",
+          "requestor": "assistant",
+          "name": "cancel_pending_order",
+          "arguments": {
+            "order_id": "#W9722559",
+            "reason": "no longer needed"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr301",
+    "tr302",
+    "tr303",
+    "tr304",
+    "tr305",
+    "tr306",
+    "tr307",
+    "tr308",
+    "tr309",
+    "tr310",
+    "tr311",
+    "tr312"
+  ]
+}

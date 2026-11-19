@@ -1,0 +1,141 @@
+{
+  "case_id": "tr393",
+  "created_beijing": "2026-11-10T14:38:01.805157+08:00",
+  "input_sha256": "1fea32251aa0c0e1eb099660232e7cc4cf84ead29aa567f3c504b9110d37a6c5",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4a007c13f88611de0f8c6fb102a6199d9857f585094a0f4bc16b63411e3eebc0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 721,
+    "completion_tokens_details": {
+      "reasoning_tokens": 89
+    },
+    "prompt_tokens": 15408,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16129
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "MMS无法发送的技术支持排查修复",
+        "object": "用户手机555-123-2002（L1002）的messaging应用MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份再进行技术支持",
+            "basis": "policy: Technical Support - must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按排查流程诊断并修复MMS问题",
+            "basis": "tech_support_policy: MMS troubleshooting",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按tech support手册排查：确认数据额度未超、检查MMS/网络/APN、换网络模式、查Wi-Fi Calling与应用权限，均符合政策且对象为正确线路L1002",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:16",
+              "h:29",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "纯技术排查，无需要确认的计费或变更操作（用户设备操作由用户本人执行）",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "can_send_mms最终返回可发送（h:43），用户确认问题解决",
+            "refs": [
+              "h:43",
+              "h:44"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致；recap中提及切网也'helped'略有夸大但主体归因（权限）正确且如实",
+            "refs": [
+              "h:45",
+              "h:43"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'2G不适合MMS、需至少3G'有手册依据，权限缺失判断被后续验证证实",
+            "refs": [
+              "h:21",
+              "h:36",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（get_customer_by_phone），逐项诊断顺序符合手册，必要检查均完成",
+            "refs": [
+              "h:4",
+              "h:16",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS问题已解决：授予messaging应用storage与sms权限后，用户可正常发送MMS"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:43",
+        "purpose": "用户初始问题到最终验证成功的闭环关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "切换4G/5G后MMS仍不可用（h:27），真正根因是应用权限缺失；Agent在总结中将网络切换列为辅助因素，属轻微措辞，不影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

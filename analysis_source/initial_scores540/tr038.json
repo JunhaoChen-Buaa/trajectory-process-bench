@@ -1,0 +1,162 @@
+{
+  "case_id": "tr038",
+  "created_beijing": "2026-11-10T15:45:07.415981+08:00",
+  "input_sha256": "be0ae7463c4d366defe1289a22ee70c69de56783e64c8658be44d878c1f3ba75",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "98bba0e8f434bfcea207f179be84f5c9ce4312f0d28e8caab24922ddecc25fc8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 875,
+    "completion_tokens_details": {
+      "reasoning_tokens": 145
+    },
+    "prompt_tokens": 17962,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18837
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改返程航班至5月27日最快航班",
+        "object": "预订OBUT9V（IAH-DEN往返）",
+        "request_refs": [
+          "h:1",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "返程改为5月27日最快（含经停时间）的经济舱航班组合",
+            "basis": "用户h:17",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "保持origin/destination/trip type不变，仅改返程段",
+            "basis": "policy: modify without changing origin, destination, trip type",
+            "refs": []
+          },
+          {
+            "id": "Q3",
+            "content": "退款使用余额最小的礼品卡",
+            "basis": "用户h:22",
+            "refs": [
+              "h:22"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "增加一个托运行李",
+            "basis": "用户h:17",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q5",
+            "content": "更新数据库操作前需列出详情并获用户明确确认",
+            "basis": "policy",
+            "refs": []
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅改返程，保持origin/destination/trip type与舱位；选项搜索和最快选项选择正确（HAT084+HAT266 16:00到达为最快）",
+            "refs": [
+              "h:19",
+              "h:21",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:23列出完整变更与退款方式，h:24用户明确同意proceed with both",
+            "refs": [
+              "h:23",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认返程两段已改为2024-05-27，退款-11入gift_card_7480005，行李2件0付费，与同意内容一致",
+            "refs": [
+              "h:26",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:29的完成说明与实际DB状态完全一致",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格计算正确（$112+$130=$242，原$122+$131=$253，退$11）；银卡经济舱2件免费行李正确；礼品卡余额正确",
+            "refs": [
+              "h:21",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id、通过查询定位预订（h:2-h:16），修改前搜索直飞与中转航班，流程完整",
+            "refs": [
+              "h:2",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "返程已改为HAT084+HAT266（2024-05-27，经济舱），退$11至gift_card_7480005，行李共2件均免费"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:21",
+        "to": "h:19",
+        "purpose": "最快选项基于搜索结果中到达时间16:00判断"
+      },
+      {
+        "from": "h:25",
+        "to": "h:23",
+        "purpose": "实际调用参数与用户确认内容一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "为定位预订查询了多个不相关的预订（h:6-h:14），属效率问题，不构成业务错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

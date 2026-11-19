@@ -1,0 +1,327 @@
+{
+  "case_id": "tr294",
+  "created_beijing": "2026-11-10T15:04:18.491526+08:00",
+  "input_sha256": "2b4e55aeb2e3489cd299d3589c9903d33dfc3fee9a092afe07236a24049a4844",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "34758369f01bf3935342f753bfcef5f9fed8a7e8ff12fa183a7b8cd596c8b219",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1522,
+    "completion_tokens_details": {
+      "reasoning_tokens": 144
+    },
+    "prompt_tokens": 19034,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 20556
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待处理订单收货地址",
+        "object": "订单 #W5270061",
+        "request_refs": [
+          "h:1",
+          "h:19"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将订单地址改为默认地址159 Hickory Lane, Suite 995, Charlotte, NC 28243",
+            "basis": "用户要求 h:19",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，地址修改属允许范围，地址正确",
+            "refs": [
+              "h:11",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列出地址详情，用户明确回答proceed",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:7确认地址已改为Charlotte默认地址",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30如实报告地址已更新",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "默认地址信息与用户档案一致",
+            "refs": [
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先完成身份核验和订单状态检查",
+            "refs": [
+              "h:5",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单地址已成功改为Charlotte默认地址"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修改待处理订单支付方式",
+        "object": "订单 #W5270061",
+        "request_refs": [
+          "h:19"
+        ],
+        "revisions": [
+          {
+            "ref": "h:19",
+            "change": "用户由礼品卡改为PayPal"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "支付方式改为PayPal，原$626.94礼品卡扣款退款",
+            "basis": "用户要求及policy 'Modify payment'",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "PayPal为原支付方式之外的单一生效方式，符合policy",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22说明PayPal切换及退款，用户确认proceed",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:8显示PayPal扣款$626.94、礼品卡即时退款",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30描述与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'refunded immediately'与礼品卡即时退款政策一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "na",
+            "reason": "本操作无额外必经步骤要求",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "支付方式已改为PayPal，礼品卡已退款$626.94"
+      },
+      {
+        "group_id": "G3",
+        "goal": "修改订单中背包商品选项",
+        "object": "订单 #W5270061 中背包（2492465580→5917587651）",
+        "request_refs": [
+          "h:19"
+        ],
+        "revisions": [
+          {
+            "ref": "h:19",
+            "change": "用户撤回台灯修改，仅保留背包修改"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "背包改为grey/medium/polyester/laptop compartment，差价经PayPal支付",
+            "basis": "用户要求 h:19；policy 'Modify items'",
+            "refs": [
+              "h:19"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "一次性收集所有修改项并提醒用户确认全部修改项",
+            "basis": "policy 'This action can only be called once...remind the customer'",
+            "refs": [
+              "h:28"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "同产品不同option且可用（available: true），差价$10.84经PayPal支付，符合policy",
+            "refs": [
+              "h:21",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22列明新背包规格、价格及差价，用户确认",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:9及哈希回读确认背包实际存为grey/medium/polyester，$212.79，PayPal扣$10.84",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30总结与实际状态一致，且如实说明台灯保持原样",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "$212.79报价和$10.84差价计算正确",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "h:22明确列出台灯不再修改的计划并请求确认，满足一次性修改前确认全部项的提醒要求",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "背包已成功替换为grey/medium/polyester款，差价$10.84经PayPal收取，订单状态pending (item modified)"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:22",
+        "to": "h:23",
+        "purpose": "行动前获得用户明确确认"
+      },
+      {
+        "from": "h:19",
+        "to": "h:28",
+        "purpose": "用户撤回台灯修改后仅执行背包修改"
+      }
+    ],
+    "auxiliary_notes": [
+      "执行结果与目录变体、实际存储字段经哈希校验一致，无隐藏差异。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,156 @@
+{
+  "case_id": "tr013",
+  "created_beijing": "2026-11-10T14:43:06.652148+08:00",
+  "input_sha256": "be6790fd3db2377edabb81b5aacee25f76947a71778274122f9eac4e0f61b4dc",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bdcacd9515011dffd7a85ff4a8f28090bf153bcd27c56802fbd6a5761399036f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 734,
+    "completion_tokens_details": {
+      "reasoning_tokens": 41
+    },
+    "prompt_tokens": 10636,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 11370
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "更改Z7GOZK返程航班（后改为凭保险取消）",
+        "object": "预订 Z7GOZK",
+        "request_refs": [
+          "h:1",
+          "h:11"
+        ],
+        "revisions": [
+          {
+            "ref": "h:11",
+            "change": "因不能改签，撤销改回程要求，改为凭旅行保险取消整个预订"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "回程航班的改签请求（basic economy不可改签，应正确告知并拒绝）",
+            "basis": "policy: Basic economy flights cannot be modified",
+            "refs": [
+              "h:1",
+              "h:10"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "因健康原因凭travel insurance取消预订并退款到原支付方式",
+            "basis": "policy: user has travel insurance and reason covered by insurance; refund to original payment within 5-7 business days",
+            "refs": [
+              "h:11",
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确认定 basic economy 不可改签（h:7 cabin=basic_economy），随后按保险健康原因取消符合政策，仅操作了正确的预订",
+            "refs": [
+              "h:7",
+              "h:10",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明预订、原因、退款方式并获用户明确同意（h:12-13）",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据库回放确认 Z7GOZK status=cancelled 且原路退款 $169 记入 gift_card_2200803",
+            "refs": [
+              "h:15",
+              "s:4"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消及退款时间表，与实际状态一致",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "basic economy 不可改签、保险覆盖健康原因取消的说明均有政策依据",
+            "refs": [
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id，再按用户提供的ID查预订定位目标订单（h:2-h:9），顺序符合政策",
+            "refs": [
+              "h:2",
+              "h:3",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "Z7GOZK 已取消，$169 退款已入账至原礼品卡，改签请求被合规拒绝后由用户转为取消"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:7",
+        "purpose": "定位回程航班的预订并确认舱位为basic_economy"
+      },
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "用户改为凭保险取消，Agent确认保险覆盖并征求同意"
+      }
+    ],
+    "auxiliary_notes": [
+      "同时查询了用户全部三个预订以定位目标订单，属合理的查找操作，未误改其他预订"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

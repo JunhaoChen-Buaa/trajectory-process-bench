@@ -1,0 +1,153 @@
+{
+  "case_id": "tr231",
+  "created_beijing": "2026-11-10T16:08:47.415358+08:00",
+  "input_sha256": "c775cc79d713768a117180780984e5a5b0a4dfff52d20cb45645240c824dbb41",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "92cbde35dd94eb09cd3e8881ecfd9cee7712ded73f0074fef1a7d8c78f3b8aa8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 763,
+    "completion_tokens_details": {
+      "reasoning_tokens": 105
+    },
+    "prompt_tokens": 8081,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 8844
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "部分取消订单中的三件办公用品",
+        "object": "用户待取消的订单（未定位到具体订单）",
+        "request_refs": [
+          "h:1",
+          "h:5",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "认证后应能通过用户资料查找其订单并定位订单ID",
+            "basis": "policy: Once the user has been authenticated, you can ... help the user look up order id",
+            "refs": [
+              "h:7",
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消办公用品、保留徒步装备、退款到原支付方式",
+            "basis": "用户要求 h:1/h:5",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "unknown",
+            "reason": "取消方案本身合规，但因未查到订单，实际规则适用性无从验证",
+            "refs": [
+              "h:1"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未进行到需确认取消细节的阶段",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "用户已认证，Agent可通过get_user_details列出该用户订单，却从未尝试，直接转人工，业务未完成",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "仅转人工提示语，无虚假完成说明",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "曾误猜gift card，用户纠正后Agent未坚持（h:4/h:5），无未纠正的实质错误",
+            "refs": [
+              "h:4",
+              "h:5"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "认证完成后政策允许用user details查询订单，转人工前未执行这一可用步骤",
+            "refs": [
+              "h:7",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "订单未定位，取消未办理，已转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "认证后未通过用户资料查找订单即转人工",
+        "basis": "policy允许认证后帮助用户查找订单ID（get_user_details可列订单），用户提供了姓名+邮编且已取得user id noah_patel_6952",
+        "refs": [
+          "h:7",
+          "h:9",
+          "h:13",
+          "h:14"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "本可自行完成的取消业务被迫转人工，用户未获得结果"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:14",
+        "purpose": "已获user id后未尝试get_user_details查订单即转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8/h:12把工具调用JSON文本直接发给用户且未真正执行get_order_details，属接口规范问题，不作业务fail",
+      "#W0000000为占位/猜测订单号，两次查询均返回Order not found，属无效尝试"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

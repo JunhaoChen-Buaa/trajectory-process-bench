@@ -1,0 +1,97 @@
+{
+  "domain": "retail",
+  "task_id": "72",
+  "original_task_digest": "c1f9734e5014a571372b62e63c0aa1268c350c20e18759574065002e72603a69",
+  "sampling_stratum": "modify",
+  "task": {
+    "id": "72",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You made some mistake and sent an order your son's address in Washington DC, and you want to modify it to your default address in Charlotte instead (you do not want to mention it, but it is in your user profile the agent can look up) because he is coming back home. You also want to adjust the desk lamp to be black color, and the backpack to be medium size and polyester material instead. If multiple colors are available for the backpack, you prefer grey. If the agent asks for payment method, you say gift card initially, but when the agent asks you to confirm before proceeding, you change your mind to using PayPal, and also decide to only modify the backpack. Make sure you briefly mention the two things at the same time at the beginning, but first mention the modification then the address.",
+        "known_info": "You name is Ivan Khan and your zip code is 28243.",
+        "unknown_info": "You do not remember your email address.",
+        "task_instructions": "You are polite, optimistic, organized."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "72_0",
+          "requestor": "assistant",
+          "name": "modify_pending_order_address",
+          "arguments": {
+            "order_id": "#W5270061",
+            "address1": "159 Hickory Lane",
+            "address2": "Suite 995",
+            "city": "Charlotte",
+            "country": "USA",
+            "state": "NC",
+            "zip": "28243"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "72_1",
+          "requestor": "assistant",
+          "name": "modify_pending_order_items",
+          "arguments": {
+            "order_id": "#W5270061",
+            "item_ids": [
+              "2492465580"
+            ],
+            "new_item_ids": [
+              "5917587651"
+            ],
+            "payment_method_id": "paypal_7729105"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr289",
+    "tr290",
+    "tr291",
+    "tr292",
+    "tr293",
+    "tr294",
+    "tr295",
+    "tr296",
+    "tr297",
+    "tr298",
+    "tr299",
+    "tr300"
+  ]
+}

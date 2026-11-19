@@ -1,0 +1,161 @@
+{
+  "case_id": "tr377",
+  "created_beijing": "2026-11-10T14:44:02.112373+08:00",
+  "input_sha256": "31e836faed8b64c93a3a4e9def99abd71394e1ecb906b29d4a43df163936e16b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "9337ff829342e5b7b9d25cc927ce94824d5dc9076f7f41512a0ce18218a33272",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 905,
+    "completion_tokens_details": {
+      "reasoning_tokens": 103
+    },
+    "prompt_tokens": 18142,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 19047
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS无法发送的技术支持问题",
+        "object": "用户线路L1002（555-123-2002）及设备D1002",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决用户无法发送MMS的问题",
+            "basis": "用户请求 'I can't send MMS messages'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "办理技术支持前先核实客户身份",
+            "basis": "policy 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据加油前确认数量与价格并获用户同意",
+            "basis": "policy 'Confirm the price'",
+            "refs": [
+              "h:14"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "依次处理了数据超限（refuel 2GB）、线路漫游开启（免费符合policy）、设备侧SIM/漫游/Wi-Fi Calling/2G/权限等所有MMS相关原因，均符合政策。",
+            "refs": [
+              "h:13",
+              "h:35",
+              "h:55"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加油前报价$4.00并获用户明确同意 'go ahead and apply it'；漫游为policy要求的免费操作无需额外确认。",
+            "refs": [
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据加油2GB成功(e:6)、漫游开启成功(e:12)，用户最终确认 can_send_mms 通过(h:61,h:62)。",
+            "refs": [
+              "h:20",
+              "h:61"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:21说'data allowance is now topped up'与实际一致，MMS是否恢复用'should go through'属预测且请用户验证；最终复盘与实际修复步骤一致。",
+            "refs": [
+              "h:21",
+              "h:63"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量15.1/15.0、$2/GB、SIM状态、2G不适合MMS等说明均有工具返回或政策依据。",
+            "refs": [
+              "h:12",
+              "h:16",
+              "h:55"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先通过电话号查到客户(h:4)，按MMS排障路径逐项排查（数据量、SIM、APN、Wi-Fi Calling、网络模式、应用权限），顺序完整。",
+            "refs": [
+              "h:4",
+              "h:27",
+              "h:50"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS问题已解决：2GB数据加油($4.00)、线路漫游开启、用户设备SIM重置、关闭Wi-Fi Calling、切换4G/5G、授予messaging应用storage和sms权限，用户确认可发送MMS。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:20",
+        "purpose": "数据超限诊断与加油结果关联"
+      },
+      {
+        "from": "h:32",
+        "to": "h:35",
+        "purpose": "SIM missing与设备侧修复指引关联"
+      },
+      {
+        "from": "h:54",
+        "to": "h:57",
+        "purpose": "2G与权限缺失导致最终修复步骤"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:21中'should go through now'为乐观预测，实际首次验证仍失败(h:24)，但Agent随后继续排障，未虚假宣告完成。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

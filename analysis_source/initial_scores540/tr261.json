@@ -1,0 +1,142 @@
+{
+  "case_id": "tr261",
+  "created_beijing": "2026-11-10T14:34:29.954372+08:00",
+  "input_sha256": "56147124ff6fabca791656dc0f923d944f14df2a28af83cbeec0bc20fbbcfda1",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "875a71c3096b01d09a7df8e9fe954416bd5e5e91395f1858690e179d84cc3045",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 681,
+    "completion_tokens_details": {
+      "reasoning_tokens": 8
+    },
+    "prompt_tokens": 12636,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13317
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改待发货订单中无线耳机为蓝色款",
+        "object": "订单#W5061109中的Wireless Earbuds（3694871183→8555936349）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "将白色耳机换成蓝色且价格不高于原价",
+            "basis": "用户短引 'swap out my wireless earbuds for a blue colored one'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "同一产品不同选项、确认详情与一次性修改提醒、明确同意后执行",
+            "basis": "policy: 'modify its ... product item options'",
+            "refs": [
+              "h:8"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "同产品换不同选项，订单状态pending，新商品8555936349可用且更便宜，符合policy。",
+            "refs": [
+              "h:5",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列出修改摘要与$30.18 PayPal退款后用户明确确认，且提醒了仅可修改一次。",
+            "refs": [
+              "h:10",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "重放DB确认items/1已变为blue/8h/IPX4、$226.49，refund $30.18入PayPal，状态pending (item modified)。",
+            "refs": [
+              "e:3",
+              "s:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致（'$30.18 refund issued'，5-7天到账符合PayPal政策）。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "选项、价格与退款金额均与目录数据一致（item 8555936349 $226.49，差$30.18）。",
+            "refs": [
+              "h:7",
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先验证身份、查订单状态、列可选蓝色款并提醒一次性修改与全部商品确认。",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W5061109耳机已换为蓝色8小时/IPX4款($226.49)，$30.18退款至PayPal，状态pending (item modified)"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:10",
+        "to": "e:3",
+        "purpose": "确认摘要与实际执行的参数一致"
+      },
+      {
+        "from": "h:7",
+        "to": "h:14",
+        "purpose": "核实目录价格与退款说明一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "执行结果与目录哈希校验一致，无差异；流程顺利，无接口问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

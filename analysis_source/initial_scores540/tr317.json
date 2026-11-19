@@ -1,0 +1,150 @@
+{
+  "case_id": "tr317",
+  "created_beijing": "2026-11-10T16:15:29.532312+08:00",
+  "input_sha256": "5f64750117e30541c5baebee0fd9e05460f1f1c02f5598b790f0b3acb02a386a",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "fd3a68e942f36f9abe1172084ea06c4ece59b88d2c1f6e98f68b2e35144da4f8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 720,
+    "completion_tokens_details": {
+      "reasoning_tokens": 37
+    },
+    "prompt_tokens": 13098,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13818
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消待处理订单#W8835847（原换货请求因缺货改为取消）",
+        "object": "订单#W8835847（含T恤、游戏鼠标、书架）",
+        "request_refs": [
+          "h:1",
+          "h:14"
+        ],
+        "revisions": [
+          {
+            "ref": "h:14",
+            "change": "书架4ft版本缺货后，用户将原换货要求改为取消整个订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "书架改为glass/white/4ft版本",
+            "basis": "用户要求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消#W8835847，理由ordered by mistake，退款$689.97至原礼品卡",
+            "basis": "policy cancel规则+用户确认 h:16/h:18",
+            "refs": [
+              "h:14",
+              "h:16",
+              "h:18"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "取消仅针对pending订单#W8835847，理由为允许的'ordered by mistake'，符合policy；换货目标glass/white 4ft确实不可用(available:false, h:12)，如实告知",
+            "refs": [
+              "h:10",
+              "h:12",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明订单、理由、退款金额并获明确yes确认(h:17-h:18)",
+            "refs": [
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认状态变为cancelled且$689.97退款至gift_card_2652153(s:5)，与同意内容一致",
+            "refs": [
+              "h:20",
+              "s:5"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消且退款已即时到账，与实际状态一致",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "缺货说明、退款金额和礼品卡即时到账说明均有源依据且正确",
+            "refs": [
+              "h:12",
+              "h:13",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按email完成身份认证，再查订单状态确认pending，步骤完整",
+            "refs": [
+              "h:4",
+              "h:5",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W8835847已取消，$689.97已即时退回礼品卡；原换货目标确不可用，用户改为取消并已完成"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:14",
+        "purpose": "缺货事实导致用户将换货改为取消"
+      }
+    ],
+    "auxiliary_notes": [
+      "换货请求经查明不可用后如实告知并给出选项(h:13)，处理得当；用户改取消属有效业务变更"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

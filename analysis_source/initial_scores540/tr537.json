@@ -1,0 +1,128 @@
+{
+  "case_id": "tr537",
+  "created_beijing": "2026-11-10T15:19:29.312911+08:00",
+  "input_sha256": "4587517693bf373e8655dc97ad70986c953b7cd75e44b3945bdeb81f8fca23e1",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6b0ede80cedc3cfc7f58a839ad82e4e43c3acdaa71322ea41c6333933eae6a2d",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 460,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 12798,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13258
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查手机无服务问题",
+        "object": "线路L1002（555-123-2002）及用户设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先核实客户身份",
+            "basis": "policy：Technical Support前必须identify customer",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查无服务问题：检查飞行模式、SIM状态并指导修复",
+            "basis": "tech_support_policy排查流程",
+            "refs": [
+              "h:11",
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别账户并确认对应线路Active后按流程排查，操作均符合政策",
+            "refs": [
+              "h:9",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无涉及费用或变更方案的确认要求，设备操作均由用户本人执行",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "重新插SIM后状态栏显示Excellent/5G/Data Enabled，服务恢复",
+            "refs": [
+              "h:25",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明与实际一致，未虚假声称完成",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于飞行模式和SIM卡座导致无服务的说明有手册依据且正确",
+            "refs": [
+              "h:15",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按要求先识别客户，排查顺序（状态栏→SIM→重插）符合手册",
+            "refs": [
+              "h:2",
+              "h:11",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "飞行模式关闭、SIM重新插好，线路L1002服务正常恢复"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [],
+    "auxiliary_notes": [
+      "Agent查询了用户未提及的L1001、L1003三条线路属冗余读取，不影响业务质量"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

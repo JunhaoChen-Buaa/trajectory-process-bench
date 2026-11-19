@@ -1,0 +1,136 @@
+{
+  "case_id": "tr149",
+  "created_beijing": "2026-11-10T14:46:36.712097+08:00",
+  "input_sha256": "c7d2b4ac666a75255a8d858e28f98730beecaa1637c6e8cb34a986c22644b398",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "9e6f68afd0164d0dcfd2634fb37c8d94f878ae99690e237d17e4433f51bb66b8",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 840,
+    "completion_tokens_details": {
+      "reasoning_tokens": 267
+    },
+    "prompt_tokens": 7697,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 8537
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "因病取消航班并退款",
+        "object": "预订 3RK2T9（MCO-SFO，2名乘客）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按取消规则判断预订是否符合取消条件",
+            "basis": "policy: basic economy、无保险、超过24小时且航班未被取消则不可取消",
+            "refs": [
+              "h:1",
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "需获取 user id 和取消原因",
+            "basis": "policy: must obtain user id and reason for cancellation",
+            "refs": [
+              "h:2"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "记录显示 basic_economy、insurance: no、2024-05-02 创建（>24小时），不符任何取消条件，Agent 正确拒绝执行取消",
+            "refs": [
+              "h:5",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行更新类操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "未取消属政策允许的正确结果（拒绝违规请求不算失败），对记录争议合理转人工",
+            "refs": [
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知 insurance: no 及不符合取消条件，并明确转接，无虚假完成说明",
+            "refs": [
+              "h:6",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "保险记录、创建时间、舱位等说明与工具返回一致",
+            "refs": [
+              "h:5",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先索取 user id 和取消原因，查询预订详情后再判断，流程符合政策",
+            "refs": [
+              "h:2",
+              "h:4"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未取消（按政策正确拒绝），记录争议已转人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:5",
+        "purpose": "用户声称有保险，与 DB 记录 insurance: no 矛盾，作为拒判依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户争议保险记录并要求升级后转人工；该争议无法在现有工具范围内核实，转接属合理处理，未列实质问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

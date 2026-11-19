@@ -1,0 +1,158 @@
+{
+  "case_id": "tr432",
+  "created_beijing": "2026-11-10T16:01:20.794724+08:00",
+  "input_sha256": "8dd208cf3b07c6bf9d0cb69a1cc2c2bc5cc44c347a919b04123eb721dfbb6503",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6b835e54066aeda59e19bc3511ae005a9a6b60bfc9e41b7c9b7b2d14a313b7d0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 797,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13187,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 13984
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游下移动数据不可用/慢速问题",
+        "object": "用户线路L1002（号码555-123-2002）的手机数据连接",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先完成客户身份核验（技术支持需先识别客户）",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:1",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并指导修复手机端导致无数据的问题（飞行模式开、漫游关）",
+            "basis": "tech_support_policy: Airplane Mode / Data Roaming troubleshooting",
+            "refs": [
+              "h:14",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "恢复后验证数据连接与速度达到Excellent",
+            "basis": "用户要求excellent speed（h:1、h:27）",
+            "refs": [
+              "h:1",
+              "h:27"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按政策先查证号码对应线路L1002（非误改L1001），核对了数据用量未超限、线路漫游已启用，指导用户执行设备侧操作，符合技术支持规则。",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本次操作均为诊断与用户设备上的免费设置切换，政策未要求额外确认。",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "飞行模式关闭、手机漫游开启后，speed test显示275 Mbps Excellent，用户确认问题解决。",
+            "refs": [
+              "e:5",
+              "e:6",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Speed test shows 275 Mbps which is Excellent' 与实际测试结果一致，属真实完成说明。",
+            "refs": [
+              "h:28",
+              "e:7"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'you haven't reached your data limit (8.7/15.0)'、'roaming is enabled' 均有工具返回依据且正确。",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验（h:3-5），再查线路/用量，随后按手册顺序诊断（check_network_status→toggle_airplane_mode→toggle_roaming→run_speed_test），必要步骤完整。",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:16",
+              "h:20",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "用户手机飞行模式关闭、数据漫游开启，数据连接恢复且速度为Excellent（275 Mbps），问题解决，用户确认结束。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "号码555-123-2002对应线路L1002，确认诊断对象正确"
+      },
+      {
+        "from": "h:14",
+        "to": "h:16",
+        "purpose": "设备诊断结果显示飞行模式开/漫游关，是修复指导的依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "首次查看了L1001（号码555-123-2001）后再查L1002，属于核对多线路归属的合理查询，非误操作。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

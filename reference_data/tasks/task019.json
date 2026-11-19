@@ -1,0 +1,207 @@
+{
+  "domain": "retail",
+  "task_id": "30",
+  "original_task_digest": "beddfd96b9a1eb0bb4e3925101d4840047451753553546681b2a8b1d825fc2c1",
+  "sampling_stratum": "return",
+  "task": {
+    "id": "30",
+    "description": {
+      "purpose": null,
+      "relevant_policies": null,
+      "notes": null
+    },
+    "user_scenario": {
+      "persona": null,
+      "instructions": {
+        "domain": "retail",
+        "reason_for_call": "You just received your tablet and it was damaged when you opened the package. You want to know the tracking number of that order first. Also if the agent can help you exchange or return the tablet (you prefer exchange for the same item, but if it is not available just return it). If tablet is returned, also cancel the charger you just bought, because it goes with the tablet. And finally, return the sneaker.",
+        "known_info": "You are Olivia Lopez, and you live in Texas in zipcode 76171.\n\nName details:\nYour first name is Olivia, and your last name is Lopez. When asked for your full name, give your first name first and your last name second: Olivia Lopez.",
+        "unknown_info": "You do not remember your email address.",
+        "task_instructions": "You like to do one thing at a time, and reveal minimal information about yourself."
+      }
+    },
+    "ticket": null,
+    "initial_state": null,
+    "evaluation_criteria": {
+      "actions": [
+        {
+          "action_id": "30_0",
+          "requestor": "assistant",
+          "name": "find_user_id_by_name_zip",
+          "arguments": {
+            "first_name": "Olivia",
+            "last_name": "Lopez",
+            "zip": "76171"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_1",
+          "requestor": "assistant",
+          "name": "get_user_details",
+          "arguments": {
+            "user_id": "olivia_lopez_3865"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_2",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W9319364"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_3",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W9373487"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_4",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W2692684"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_5",
+          "requestor": "assistant",
+          "name": "get_product_details",
+          "arguments": {
+            "product_id": "8024098596"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_6",
+          "requestor": "assistant",
+          "name": "return_delivered_order_items",
+          "arguments": {
+            "order_id": "#W2692684",
+            "item_ids": [
+              "3788616824"
+            ],
+            "payment_method_id": "gift_card_7711863"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_7",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W9373487"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_8",
+          "requestor": "assistant",
+          "name": "cancel_pending_order",
+          "arguments": {
+            "order_id": "#W9373487",
+            "reason": "no longer needed"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_9",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W2692684"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_10",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W5481803"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_11",
+          "requestor": "assistant",
+          "name": "get_order_details",
+          "arguments": {
+            "order_id": "#W7449508"
+          },
+          "info": null,
+          "compare_args": null
+        },
+        {
+          "action_id": "30_12",
+          "requestor": "assistant",
+          "name": "return_delivered_order_items",
+          "arguments": {
+            "order_id": "#W7449508",
+            "item_ids": [
+              "6477915553"
+            ],
+            "payment_method_id": "gift_card_7711863"
+          },
+          "info": null,
+          "compare_args": null
+        }
+      ],
+      "env_assertions": null,
+      "communicate_info": [
+        "746342064230"
+      ],
+      "nl_assertions": null,
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ]
+    },
+    "issues": null,
+    "required_documents": null,
+    "user_tools": null,
+    "agent_opener": null
+  },
+  "policy_file": "policies/retail.txt",
+  "policy_rule_index": "requirements/retail_policy_sections.json",
+  "process_requirement_fields": [
+    "适用条件",
+    "应满足的内容",
+    "规则或用户请求依据",
+    "相关消息或执行记录"
+  ],
+  "instantiation": "按本任务原政策及本次公开对话确定适用要求；金额、对象、方案与用户要求变化从本次轨迹取得。任务隐藏答案和参考判定不提供给过程评分模型。",
+  "reference_case_ids": [
+    "tr217",
+    "tr218",
+    "tr219",
+    "tr220",
+    "tr221",
+    "tr222",
+    "tr223",
+    "tr224",
+    "tr225",
+    "tr226",
+    "tr227",
+    "tr228"
+  ]
+}

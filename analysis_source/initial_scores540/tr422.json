@@ -1,0 +1,147 @@
+{
+  "case_id": "tr422",
+  "created_beijing": "2026-11-10T15:58:02.590656+08:00",
+  "input_sha256": "bb9c1ce09d4fc56897618e96f2339cbbb6e07fa855f0a9b843bc5253592fe939",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "51f316eb7f05b402b77c444e3dd9117cc1744d438f4775c5da65c3cb66fd4ef4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 638,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13863,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14501
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游移动数据并达到高速",
+        "object": "L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复移动数据断连/慢的问题",
+            "basis": "用户 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "数据速度需达到 excellent",
+            "basis": "用户 h:1",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全程技术支持流程符合政策：先身份核验（h:4），逐步排查 airplane mode、数据漫游，未越权操作；线路漫游已启用无需代开。",
+            "refs": [
+              "h:4",
+              "h:16",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排查类操作由用户自行在设备执行，无需付费或变更确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终 speed test 返回 275 Mbps Excellent（h:36），用户确认满意（h:37），问题实际解决。",
+            "refs": [
+              "h:36",
+              "h:37"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际一致：关闭 airplane mode、开启 data roaming，速度 excellent，均有执行证据支撑（h:38）。",
+            "refs": [
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'roaming is enabled on our end'（h:10）与 L1002 roaming_enabled=true 一致；漫游必需开启数据漫游的解释正确（h:28）。",
+            "refs": [
+              "h:10",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（policy 'You must first identify the customer'，h:4），再按手册顺序排查，符合流程。",
+            "refs": [
+              "h:4",
+              "h:12",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "移动数据已修复，5G 275 Mbps excellent，用户满意结束。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:8",
+        "to": "h:10",
+        "purpose": "确认 L1002 漫游已启用以支撑告知用户"
+      },
+      {
+        "from": "h:26",
+        "to": "h:28",
+        "purpose": "数据漫游关闭导致无连接的诊断依据"
+      },
+      {
+        "from": "h:36",
+        "to": "h:38",
+        "purpose": "excellent 速度结果支撑完成说明"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent 曾让用户一次做两项操作（h:10），用户指出无法同时执行后调整，属纯交互节奏问题，不影响业务质量。",
+      "数据用量查询（e:9）发现用量未超限，之后未提及该信息，属合理中间核查，无问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

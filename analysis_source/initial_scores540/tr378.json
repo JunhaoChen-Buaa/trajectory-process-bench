@@ -1,0 +1,173 @@
+{
+  "case_id": "tr378",
+  "created_beijing": "2026-11-10T15:18:25.708970+08:00",
+  "input_sha256": "bc59cf515817fd267f9df670726df59714475407c717b949e66dda18d81b4935",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "517c66250128c0352051dbc25ae11cfacf333769a449b25b1d1ab48a30254a09",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 822,
+    "completion_tokens_details": {
+      "reasoning_tokens": 57
+    },
+    "prompt_tokens": 18941,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 19763
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复无法发送MMS的技术支持问题",
+        "object": "用户号码555-123-2002对应线路L1002的手机/MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先完成客户身份识别",
+            "basis": "policy: Technical Support — You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按技术支持手册逐步排查MMS故障（服务、数据、网络类型、APN、Wi-Fi Calling、权限、数据上限、漫游）",
+            "basis": "tech_support_policy MMS troubleshooting",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据充值前确认价格并获得用户同意",
+            "basis": "policy Data Refueling — Confirm the price",
+            "refs": [
+              "h:63"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "用户在漫游时若线路未开漫游则免费开通",
+            "basis": "policy Data Roaming — enable it at no cost",
+            "refs": [
+              "h:83"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "排查路径符合手册，充值与开漫游对象均为正确线路L1002（号码555-123-2002已核对），符合policy限制",
+            "refs": [
+              "h:59",
+              "h:69",
+              "h:85"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值$4.00报价后用户明确同意'go ahead'才执行（h:67-68）；开漫游征得用户同意",
+            "refs": [
+              "h:67",
+              "h:68",
+              "h:84"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终can_send_mms返回可发送，充值2GB/开漫游均实际写入成功",
+            "refs": [
+              "h:70",
+              "h:86",
+              "h:91"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Done! I've added 2.0 GB…'与实际一致，最终recap如实描述全部步骤与费用",
+            "refs": [
+              "h:71",
+              "h:93"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1/15.0 GB超限说明、$2/GB费率、漫游免费均与工具返回和policy一致",
+            "refs": [
+              "h:63",
+              "h:66",
+              "h:83"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份识别，再按手册顺序排查（SIM、网络模式、APN、Wi-Fi Calling、权限、数据量、漫游），未漏必要步骤",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:30",
+              "h:34",
+              "h:44",
+              "h:63"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS问题已解决；线路L1002充值2GB（收费$4.00）并开通漫游（免费），设备端漫游开启"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:59",
+        "purpose": "确认用户号码555-123-2002对应线路L1002，后续充值与开漫游对象正确"
+      },
+      {
+        "from": "h:63",
+        "to": "h:70",
+        "purpose": "充值价格确认与实际执行及收费一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent先查询了L1001的数据用量和详情后才核对到正确的L1002，属于多余查询但未造成影响，不影响业务评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

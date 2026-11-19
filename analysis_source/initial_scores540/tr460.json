@@ -1,0 +1,175 @@
+{
+  "case_id": "tr460",
+  "created_beijing": "2026-11-10T15:03:02.660319+08:00",
+  "input_sha256": "30c36df9b8101a693f206b2ebc8f245ffbf25fa6912b199b416ae21a19ab9378",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3399ecf42606dda61618257400a82867cc23d8329bc454ef885fbed2ace321c4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 864,
+    "completion_tokens_details": {
+      "reasoning_tokens": 75
+    },
+    "prompt_tokens": 17860,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 18724
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复在法国的移动数据连接",
+        "object": "线路L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份核验后定位正确线路",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "境外使用需开启线路漫游（免费）",
+            "basis": "policy: If a user is traveling outside their home network... enable it at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "排除设备侧数据故障（数据开关、漫游开关、APN、限速、VPN、SIM、网络模式）",
+            "basis": "tech_support_policy 排查流程",
+            "refs": [
+              "h:22",
+              "h:34"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "超出流量上限时按用户选择加购流量，最多2GB并先确认价格",
+            "basis": "policy: The maximum amount of data that can be refueled is 2GB... Confirm the price",
+            "refs": [
+              "h:62",
+              "h:63"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "定位到用户提供的号码对应线路L1002，免费开启漫游，确诊超限后经用户同意加购2GB，未超上限。",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:37",
+              "h:65"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加购前明确报价1GB $2/2GB $4，用户明确同意2GB $4，语义等价有效同意。",
+            "refs": [
+              "h:62",
+              "h:63"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "速度测试最终返回275 Mbps Excellent（e:18），数据在法国可用，超额流量问题解决。",
+            "refs": [
+              "h:68"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "报告与实际一致：确认速度测试为Excellent后才告知修复完成，总结的操作均真实发生。",
+            "refs": [
+              "h:70"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "超限断网（15.1/15.0GB）、资费$2/GB、4g_5g_preferred为高速模式等说明均有工具数据支持。",
+            "refs": [
+              "h:37",
+              "h:39",
+              "h:52",
+              "h:62"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先核验身份，再按政策免费开启线路漫游，逐项排查设备端原因，加购前确认价格与数量。",
+            "refs": [
+              "h:2",
+              "h:10",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "线路漫游开启、设备数据与漫游开关打开、加购2GB后速度达275 Mbps Excellent，用户可正常使用。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户提供的号码555-123-2002对应线路L1002"
+      },
+      {
+        "from": "h:62",
+        "to": "h:63",
+        "purpose": "加购报价与用户同意2GB $4的确认关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户在h:41一度拒绝加购，Agent随后继续排查而非强行推销，处理得当；最终用户主动同意加购，不构成确认缺失。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

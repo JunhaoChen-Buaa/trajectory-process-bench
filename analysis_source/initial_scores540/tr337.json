@@ -1,0 +1,171 @@
+{
+  "case_id": "tr337",
+  "created_beijing": "2026-11-10T14:24:24.682490+08:00",
+  "input_sha256": "e6ba80ff5b80211010fcb863d5cd769df843e874b121f167e54e24fde63d1c34",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "29cc4cec0b71f6c55b254294b77d48aeb18370df65f9626c632bc04b931380a7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 803,
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_tokens": 16209,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 17012
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "已送达订单中笔记本电脑换货",
+        "object": "订单#W4073673中Laptop(item 2216662955)",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "验证用户身份",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "将Laptop换为15英寸/i7/8GB/1TB SSD可用同产品变体",
+            "basis": "用户要求 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "确认订单为delivered、列明换货细节、取得用户明确同意并确认仅换此一件",
+            "basis": "policy: exchange delivered order rules",
+            "refs": [
+              "h:16",
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "差价通过用户提供的原支付方式退回",
+            "basis": "policy: payment method for price difference",
+            "refs": [
+              "h:17"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "目标状态可满足：9844888101为15英寸/i7/8GB/1TB SSD、available=true，同产品换货合规，订单确为delivered后操作。",
+            "refs": [
+              "h:13",
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "在执行前完整列出换货细节、差价、黑色差异及唯一换货项提醒，用户明确同意(h:17)，实际调用与同意一致。",
+            "refs": [
+              "h:16",
+              "h:17",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "回放DB确认订单变为exchange requested，exchange_items/new_items/payment/差价-60.78均与同意内容一致，无副作用。",
+            "refs": [
+              "h:19",
+              "e:6",
+              "s:6"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知状态为exchange requested并说明后续邮件流程，与实际状态一致，未夸大为已完成交付。",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "新旧变体规格、价格与差价$60.78计算均与目录数据(h:15)一致，颜色差异已主动披露。",
+            "refs": [
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按政策先认证(h:4-h:5)、查订单状态、确认delivered，并在换货前提醒确认是否为唯一换货项。",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:13",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W4073673状态为exchange requested，待退回原机后寄出新机，差价$60.78将退至Mastercard"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:16",
+        "to": "h:17",
+        "purpose": "换货报价与用户确认的对应关系"
+      },
+      {
+        "from": "h:18",
+        "to": "h:19",
+        "purpose": "实际调用参数与回执结果一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "多条消息一次性发起多个工具调用(h:10)属接口节奏问题，不影响业务质量。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

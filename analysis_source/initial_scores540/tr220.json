@@ -1,0 +1,324 @@
+{
+  "case_id": "tr220",
+  "created_beijing": "2026-11-10T14:43:27.547395+08:00",
+  "input_sha256": "f60384828511d1de6fed57f3aa7570c93df90aafc65e297de3f39d6d4c0e1f9c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c06039ab454b1f4d1e081cb9cf6bb83dce16b16c1f42df4985186e1aac4ae2f2",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1457,
+    "completion_tokens_details": {
+      "reasoning_tokens": 91
+    },
+    "prompt_tokens": 18991,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 20448
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "退回损坏平板",
+        "object": "订单#W2692684中的Tablet(item 3788616824)",
+        "request_refs": [
+          "h:1",
+          "h:17",
+          "h:21",
+          "h:23"
+        ],
+        "revisions": [
+          {
+            "ref": "h:21",
+            "change": "由换货同款改为退货（原样换货目标不可行后撤回）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单状态为delivered方可退货，需确认订单与商品",
+            "basis": "policy: An order can only be returned if its status is 'delivered'",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "退款须到原支付方式或已有礼品卡，需用户确认",
+            "basis": "policy: refund must go to original payment method or existing gift card",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered，退货对象与退款方式(gift_card_7711863)均合规，e:7真实写入",
+            "refs": [
+              "h:15",
+              "h:28",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列出全部细节，h:25用户明确确认两操作",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态变为'return requested'，退款路径为gift card，符合预期",
+            "refs": [
+              "h:29",
+              "s:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "准确说明申请已提交、退款在退货完成后处理，未虚假宣称退款到账",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "换货不可选同一item并如实列出可用变体，与产品目录一致；'makes sense since you already have it'为轻微无影响措辞",
+            "refs": [
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "事先查状态(h:15)、确认所有退货商品与支付方式后再操作",
+            "refs": [
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "平板退货申请已提交，退款将回礼品卡"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消充电宝订单",
+        "object": "订单#W9373487的Portable Charger",
+        "request_refs": [
+          "h:21",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "pending订单可取消，原因须为'no longer needed'或'ordered by mistake'",
+            "basis": "policy: cancelled only if pending, reason either...",
+            "refs": [
+              "h:13",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "礼品卡支付退款立即到账",
+            "basis": "policy: refunded immediately if gift card",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单pending，理由'no longer needed'合规，e:6成功取消",
+            "refs": [
+              "h:13",
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24确认细节，h:25用户yes",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态cancelled并立即退$109.27到礼品卡",
+            "refs": [
+              "h:27",
+              "s:6"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Cancelled...refund added to gift card immediately'与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对礼品卡立即退款的说明有政策依据",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "查询订单状态确认pending(h:13)后再取消",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ]
+          }
+        },
+        "end_state": "订单#W9373487已取消，$109.27已退礼品卡"
+      },
+      {
+        "group_id": "G3",
+        "goal": "退回运动鞋",
+        "object": "订单#W7449508中的Sneakers(item 6477915553)",
+        "request_refs": [
+          "h:31",
+          "h:37"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "delivered订单可部分退货，退款到礼品卡",
+            "basis": "policy: return delivered order",
+            "refs": [
+              "h:35",
+              "h:37"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered，仅退sneakers、退款至gift_card_7711863，符合政策，e:10成功",
+            "refs": [
+              "h:35",
+              "h:40",
+              "h:41"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:36/h:38两次列出细节，h:39用户yes确认",
+            "refs": [
+              "h:38",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态'return requested'，仅sneakers被退，espresso机未受影响",
+            "refs": [
+              "h:41",
+              "s:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明return requested、后续邮件、退货完成后退款，与实际一致",
+            "refs": [
+              "h:42"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对订单内容和状态的说明均与查询结果一致",
+            "refs": [
+              "h:36",
+              "h:35"
+            ],
+            "requirement_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "主动查找含sneaker的订单、确认状态与商品后请求确认",
+            "refs": [
+              "h:32",
+              "h:36"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "运动鞋退货申请已提交，退款将回礼品卡"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:21",
+        "to": "h:19",
+        "purpose": "同款item不可用是用户由换货改退货的关键依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:20中'makes sense since you already have it'为无影响的主观措辞，未影响用户决策，仅作提示。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

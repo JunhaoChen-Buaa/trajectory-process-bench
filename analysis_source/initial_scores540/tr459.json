@@ -1,0 +1,190 @@
+{
+  "case_id": "tr459",
+  "created_beijing": "2026-11-10T16:24:11.821149+08:00",
+  "input_sha256": "50ec8995a24559fe42dc74a17db10db6eca736da271a3f61ac8817c1d10f9fcb",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "4db0af0f3f13eccf697f1743ef9f966bf466520306d7044bfb64aca50bb48954",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1410,
+    "completion_tokens_details": {
+      "reasoning_tokens": 326
+    },
+    "prompt_tokens": 13225,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14635
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决国外漫游时移动数据无连接问题",
+        "object": "用户手机线路（L1002，号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:9",
+            "change": "用户表示不改套餐，只要求修好数据（对方案的限定）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "排查并修复用户在法国的移动数据连接",
+            "basis": "用户 h:1 'my mobile data is being absolutely useless... I'm in France'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "用户在国外时若线路未开通漫游，应免费为该线路开通 roaming",
+            "basis": "policy 'If it is not, you should enable it at no cost for the user'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "转人工前应尽力解决且不得超出可用工具范围处理",
+            "basis": "policy 'try your best to resolve the issue... before transferring'",
+            "refs": [
+              "h:33"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "政策要求为国外用户的线路开通漫游（免费），Agent 虽尝试 enable_roaming 但参数错误（line_id 填了 'get_line_id_by_phone_number'，h:10/h:34），始终未确定 L1002 并开通线路侧漫游；后续转人工也未利用可用工具完成",
+            "refs": [
+              "h:10",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "开通漫游按政策免费，无需额外确认；设备侧操作由用户自行执行",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "数据仍无连接（h:32 'No Connection'），根因是线路 roaming_enabled=false（离线事实），Agent 未能通过 enable_roaming 修复，业务未完成即转人工",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent 未虚假宣称已修复，最终如实转人工并告知等待人工",
+            "refs": [
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对设备侧漫游关闭的解释（h:29）与 check_network_status 结果一致；未发现实质性错误事实说明，未核实线路侧漫游状态属 STEPS 而非错误陈述",
+            "refs": [
+              "h:26",
+              "h:29"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求检查用户线路是否 roaming enabled，Agent 因反复用不存在/错误的工具调用未能定位 L1002，也未核实线路侧漫游状态即转人工",
+            "refs": [
+              "h:10",
+              "h:34",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "设备侧数据与漫游已开启，但线路侧漫游未开通，数据仍无连接，转人工处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未能确定用户线路并开通线路侧漫游（工具参数错误）",
+        "basis": "policy 要求 'check if the line is roaming enabled. If it is not, you should enable it at no cost'；enable_roaming 两次调用参数无效（h:10 line_id='get_line_id_by_phone_number'，h:34 phone_number 为多余参数），线路 L1002 roaming_enabled 始终为 false",
+        "refs": [
+          "h:10",
+          "h:11",
+          "h:34",
+          "h:35"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "数据无法连接的线路侧根因未被修复，用户问题未解决"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未尽力解决即转人工",
+        "basis": "policy 'try your best to resolve the issue for the user before transferring'；在可用工具 enable_roaming 仍可配合正确 line_id 完成修复的情况下转人工（h:38）",
+        "refs": [
+          "h:33",
+          "h:38"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户带着未解决的问题被转出，业务未完成"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "e:0",
+        "purpose": "客户资料 line_ids 与离线号码-线路映射关联，用于确定 L1002 为目标线路"
+      },
+      {
+        "from": "h:26",
+        "to": "h:28",
+        "purpose": "设备侧漫游开关状态证明需线路侧与设备侧均开启"
+      },
+      {
+        "from": "h:10",
+        "to": "h:11",
+        "purpose": "enable_roaming 失败调用证明线路侧漫游未被开通"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12、h:16、h:20、h:24、h:30、h:36 中 Agent 将工具调用 JSON 文本直接作为消息发送给用户或发送无意义内容（如把工具名写为不存在的 get_line_id_by_phone_number），造成用户困惑（h:37），属接口规范/沟通问题，不计入六项业务 fail"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

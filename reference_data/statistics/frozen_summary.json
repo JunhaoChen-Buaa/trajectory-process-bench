@@ -1,0 +1,591 @@
+{
+  "updated_beijing": "2026-11-11T18:09:04.613650+08:00",
+  "status": "complete",
+  "total": {
+    "n": 540,
+    "original_success": 340,
+    "pass": 291,
+    "fail": 220,
+    "unknown": 29,
+    "na": 0,
+    "pass_rate_decided": 0.5694716242661448,
+    "original_success_process_fail": 66,
+    "reviewed": 540
+  },
+  "models": {
+    "ds_flash": {
+      "n": 135,
+      "original_success": 103,
+      "pass": 97,
+      "fail": 30,
+      "unknown": 8,
+      "na": 0,
+      "pass_rate_decided": 0.7637795275590551,
+      "original_success_process_fail": 12,
+      "reviewed": 135
+    },
+    "glm_flash": {
+      "n": 135,
+      "original_success": 103,
+      "pass": 102,
+      "fail": 28,
+      "unknown": 5,
+      "na": 0,
+      "pass_rate_decided": 0.7846153846153846,
+      "original_success_process_fail": 16,
+      "reviewed": 135
+    },
+    "llama8b": {
+      "n": 135,
+      "original_success": 22,
+      "pass": 4,
+      "fail": 131,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.02962962962962963,
+      "original_success_process_fail": 19,
+      "reviewed": 135
+    },
+    "qwen9b": {
+      "n": 135,
+      "original_success": 112,
+      "pass": 88,
+      "fail": 31,
+      "unknown": 16,
+      "na": 0,
+      "pass_rate_decided": 0.7394957983193278,
+      "original_success_process_fail": 19,
+      "reviewed": 135
+    }
+  },
+  "cells": {
+    "ds_flash/airline": {
+      "n": 45,
+      "original_success": 25,
+      "pass": 22,
+      "fail": 17,
+      "unknown": 6,
+      "na": 0,
+      "pass_rate_decided": 0.5641025641025641,
+      "original_success_process_fail": 5,
+      "reviewed": 45
+    },
+    "glm_flash/airline": {
+      "n": 45,
+      "original_success": 28,
+      "pass": 24,
+      "fail": 18,
+      "unknown": 3,
+      "na": 0,
+      "pass_rate_decided": 0.5714285714285714,
+      "original_success_process_fail": 8,
+      "reviewed": 45
+    },
+    "llama8b/airline": {
+      "n": 45,
+      "original_success": 9,
+      "pass": 2,
+      "fail": 43,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.044444444444444446,
+      "original_success_process_fail": 8,
+      "reviewed": 45
+    },
+    "qwen9b/airline": {
+      "n": 45,
+      "original_success": 33,
+      "pass": 18,
+      "fail": 13,
+      "unknown": 14,
+      "na": 0,
+      "pass_rate_decided": 0.5806451612903226,
+      "original_success_process_fail": 6,
+      "reviewed": 45
+    },
+    "ds_flash/retail": {
+      "n": 45,
+      "original_success": 38,
+      "pass": 36,
+      "fail": 8,
+      "unknown": 1,
+      "na": 0,
+      "pass_rate_decided": 0.8181818181818182,
+      "original_success_process_fail": 6,
+      "reviewed": 45
+    },
+    "glm_flash/retail": {
+      "n": 45,
+      "original_success": 39,
+      "pass": 37,
+      "fail": 8,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.8222222222222222,
+      "original_success_process_fail": 7,
+      "reviewed": 45
+    },
+    "llama8b/retail": {
+      "n": 45,
+      "original_success": 6,
+      "pass": 0,
+      "fail": 45,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.0,
+      "original_success_process_fail": 6,
+      "reviewed": 45
+    },
+    "qwen9b/retail": {
+      "n": 45,
+      "original_success": 39,
+      "pass": 31,
+      "fail": 14,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.6888888888888889,
+      "original_success_process_fail": 11,
+      "reviewed": 45
+    },
+    "ds_flash/telecom": {
+      "n": 45,
+      "original_success": 40,
+      "pass": 39,
+      "fail": 5,
+      "unknown": 1,
+      "na": 0,
+      "pass_rate_decided": 0.8863636363636364,
+      "original_success_process_fail": 1,
+      "reviewed": 45
+    },
+    "glm_flash/telecom": {
+      "n": 45,
+      "original_success": 36,
+      "pass": 41,
+      "fail": 2,
+      "unknown": 2,
+      "na": 0,
+      "pass_rate_decided": 0.9534883720930233,
+      "original_success_process_fail": 1,
+      "reviewed": 45
+    },
+    "llama8b/telecom": {
+      "n": 45,
+      "original_success": 7,
+      "pass": 2,
+      "fail": 43,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.044444444444444446,
+      "original_success_process_fail": 5,
+      "reviewed": 45
+    },
+    "qwen9b/telecom": {
+      "n": 45,
+      "original_success": 40,
+      "pass": 39,
+      "fail": 4,
+      "unknown": 2,
+      "na": 0,
+      "pass_rate_decided": 0.9069767441860465,
+      "original_success_process_fail": 2,
+      "reviewed": 45
+    }
+  },
+  "dimensions_by_model": {
+    "ds_flash": {
+      "RULE": {
+        "pass": 120,
+        "fail": 14,
+        "unknown": 1
+      },
+      "CONSENT": {
+        "pass": 78,
+        "fail": 3,
+        "unknown": 1,
+        "na": 53
+      },
+      "OUTCOME": {
+        "pass": 116,
+        "fail": 15,
+        "unknown": 4
+      },
+      "REPORT": {
+        "pass": 129,
+        "na": 4,
+        "fail": 2
+      },
+      "FACT": {
+        "pass": 110,
+        "fail": 17,
+        "unknown": 8
+      },
+      "STEPS": {
+        "pass": 125,
+        "fail": 8,
+        "unknown": 2
+      }
+    },
+    "glm_flash": {
+      "RULE": {
+        "pass": 128,
+        "fail": 7
+      },
+      "CONSENT": {
+        "fail": 7,
+        "pass": 76,
+        "na": 51,
+        "unknown": 1
+      },
+      "OUTCOME": {
+        "fail": 11,
+        "pass": 119,
+        "unknown": 2,
+        "na": 3
+      },
+      "REPORT": {
+        "fail": 6,
+        "pass": 126,
+        "na": 3
+      },
+      "FACT": {
+        "fail": 14,
+        "pass": 118,
+        "unknown": 3
+      },
+      "STEPS": {
+        "pass": 123,
+        "fail": 9,
+        "unknown": 3
+      }
+    },
+    "llama8b": {
+      "RULE": {
+        "fail": 111,
+        "pass": 20,
+        "unknown": 2,
+        "na": 2
+      },
+      "CONSENT": {
+        "fail": 72,
+        "na": 57,
+        "pass": 6
+      },
+      "OUTCOME": {
+        "fail": 92,
+        "pass": 39,
+        "unknown": 4
+      },
+      "REPORT": {
+        "fail": 47,
+        "pass": 78,
+        "na": 10
+      },
+      "FACT": {
+        "fail": 81,
+        "pass": 17,
+        "na": 35,
+        "unknown": 2
+      },
+      "STEPS": {
+        "fail": 123,
+        "pass": 11,
+        "unknown": 1
+      }
+    },
+    "qwen9b": {
+      "RULE": {
+        "pass": 117,
+        "fail": 12,
+        "unknown": 6
+      },
+      "CONSENT": {
+        "unknown": 2,
+        "pass": 70,
+        "fail": 12,
+        "na": 51
+      },
+      "OUTCOME": {
+        "pass": 116,
+        "unknown": 6,
+        "fail": 12,
+        "na": 1
+      },
+      "REPORT": {
+        "pass": 128,
+        "na": 3,
+        "fail": 4
+      },
+      "FACT": {
+        "pass": 105,
+        "fail": 15,
+        "unknown": 13,
+        "na": 2
+      },
+      "STEPS": {
+        "pass": 123,
+        "unknown": 3,
+        "fail": 9
+      }
+    }
+  },
+  "native_cross": {
+    "ds_flash/native0": {
+      "n": 32,
+      "original_success": 0,
+      "pass": 7,
+      "fail": 18,
+      "unknown": 7,
+      "na": 0,
+      "pass_rate_decided": 0.28,
+      "original_success_process_fail": 0,
+      "reviewed": 32
+    },
+    "ds_flash/native1": {
+      "n": 103,
+      "original_success": 103,
+      "pass": 90,
+      "fail": 12,
+      "unknown": 1,
+      "na": 0,
+      "pass_rate_decided": 0.8823529411764706,
+      "original_success_process_fail": 12,
+      "reviewed": 103
+    },
+    "glm_flash/native0": {
+      "n": 32,
+      "original_success": 0,
+      "pass": 18,
+      "fail": 12,
+      "unknown": 2,
+      "na": 0,
+      "pass_rate_decided": 0.6,
+      "original_success_process_fail": 0,
+      "reviewed": 32
+    },
+    "glm_flash/native1": {
+      "n": 103,
+      "original_success": 103,
+      "pass": 84,
+      "fail": 16,
+      "unknown": 3,
+      "na": 0,
+      "pass_rate_decided": 0.84,
+      "original_success_process_fail": 16,
+      "reviewed": 103
+    },
+    "llama8b/native0": {
+      "n": 113,
+      "original_success": 0,
+      "pass": 1,
+      "fail": 112,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.008849557522123894,
+      "original_success_process_fail": 0,
+      "reviewed": 113
+    },
+    "llama8b/native1": {
+      "n": 22,
+      "original_success": 22,
+      "pass": 3,
+      "fail": 19,
+      "unknown": 0,
+      "na": 0,
+      "pass_rate_decided": 0.13636363636363635,
+      "original_success_process_fail": 19,
+      "reviewed": 22
+    },
+    "qwen9b/native0": {
+      "n": 23,
+      "original_success": 0,
+      "pass": 7,
+      "fail": 12,
+      "unknown": 4,
+      "na": 0,
+      "pass_rate_decided": 0.3684210526315789,
+      "original_success_process_fail": 0,
+      "reviewed": 23
+    },
+    "qwen9b/native1": {
+      "n": 112,
+      "original_success": 112,
+      "pass": 81,
+      "fail": 19,
+      "unknown": 12,
+      "na": 0,
+      "pass_rate_decided": 0.81,
+      "original_success_process_fail": 19,
+      "reviewed": 112
+    },
+    "all/native0": {
+      "n": 200,
+      "original_success": 0,
+      "pass": 33,
+      "fail": 154,
+      "unknown": 13,
+      "na": 0,
+      "pass_rate_decided": 0.17647058823529413,
+      "original_success_process_fail": 0,
+      "reviewed": 200
+    },
+    "all/native1": {
+      "n": 340,
+      "original_success": 340,
+      "pass": 258,
+      "fail": 66,
+      "unknown": 16,
+      "na": 0,
+      "pass_rate_decided": 0.7962962962962963,
+      "original_success_process_fail": 66,
+      "reviewed": 340
+    }
+  },
+  "business_groups": {
+    "ds_flash": {
+      "pass": 171,
+      "fail": 37,
+      "unknown": 15,
+      "n": 223
+    },
+    "glm_flash": {
+      "fail": 38,
+      "pass": 170,
+      "unknown": 7,
+      "n": 215
+    },
+    "llama8b": {
+      "fail": 201,
+      "pass": 4,
+      "unknown": 1,
+      "n": 206
+    },
+    "qwen9b": {
+      "unknown": 24,
+      "pass": 161,
+      "fail": 45,
+      "n": 230
+    }
+  },
+  "structure": {
+    "retail": {
+      "n": 180,
+      "distinct_tasks": 15,
+      "messages_median": 26.0,
+      "messages_min": 11,
+      "messages_max": 76,
+      "business_groups": 295,
+      "multigroup": 92,
+      "recorded_revisions": 112
+    },
+    "airline": {
+      "n": 180,
+      "distinct_tasks": 15,
+      "messages_median": 28.0,
+      "messages_min": 6,
+      "messages_max": 201,
+      "business_groups": 397,
+      "multigroup": 97,
+      "recorded_revisions": 86
+    },
+    "telecom": {
+      "n": 180,
+      "distinct_tasks": 15,
+      "messages_median": 50.0,
+      "messages_min": 6,
+      "messages_max": 201,
+      "business_groups": 182,
+      "multigroup": 2,
+      "recorded_revisions": 3
+    }
+  },
+  "dimension_totals": {
+    "RULE": {
+      "pass": 385,
+      "fail": 144,
+      "unknown": 9,
+      "na": 2
+    },
+    "CONSENT": {
+      "pass": 230,
+      "fail": 94,
+      "unknown": 4,
+      "na": 212
+    },
+    "OUTCOME": {
+      "pass": 390,
+      "fail": 130,
+      "unknown": 16,
+      "na": 4
+    },
+    "REPORT": {
+      "pass": 461,
+      "fail": 59,
+      "na": 20
+    },
+    "FACT": {
+      "pass": 350,
+      "fail": 127,
+      "unknown": 26,
+      "na": 37
+    },
+    "STEPS": {
+      "pass": 382,
+      "fail": 149,
+      "unknown": 9
+    }
+  },
+  "structure_groups": {
+    "single": {
+      "n": 349,
+      "original_success": 233,
+      "pass": 215,
+      "fail": 123,
+      "unknown": 11,
+      "na": 0,
+      "pass_rate_decided": 0.636094674556213,
+      "original_success_process_fail": 33,
+      "reviewed": 349
+    },
+    "multiple": {
+      "n": 191,
+      "original_success": 107,
+      "pass": 76,
+      "fail": 97,
+      "unknown": 18,
+      "na": 0,
+      "pass_rate_decided": 0.4393063583815029,
+      "original_success_process_fail": 33,
+      "reviewed": 191
+    },
+    "revision": {
+      "n": 201,
+      "original_success": 132,
+      "pass": 110,
+      "fail": 81,
+      "unknown": 10,
+      "na": 0,
+      "pass_rate_decided": 0.5759162303664922,
+      "original_success_process_fail": 31,
+      "reviewed": 201
+    },
+    "no_revision": {
+      "n": 339,
+      "original_success": 208,
+      "pass": 181,
+      "fail": 139,
+      "unknown": 19,
+      "na": 0,
+      "pass_rate_decided": 0.565625,
+      "original_success_process_fail": 35,
+      "reviewed": 339
+    }
+  },
+  "source_QA": {
+    "previous_reviewed": 253,
+    "newly_assistant_reviewed": 287,
+    "remaining": 0,
+    "annotation_type": "Assistant/model-assisted source evidence review, not independent human gold."
+  },
+  "changed_trajectories": 29
+}

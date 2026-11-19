@@ -1,0 +1,159 @@
+{
+  "case_id": "tr287",
+  "created_beijing": "2026-11-10T15:54:44.754449+08:00",
+  "input_sha256": "3d7fc9d32248a05bdb5f3d1a08525da364b2a7fbd24a6a199742205023373635",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6cbfd0ca7ed486bae068de33f5a56b485d6c78dd11bbe73dfc699b265dd0f2fe",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 973,
+    "completion_tokens_details": {
+      "reasoning_tokens": 153
+    },
+    "prompt_tokens": 8288,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 9261
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "已送达订单中水瓶与台灯的换货",
+        "object": "用户订单（含水瓶、台灯，订单号未提供）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "开始时须通过email或姓名+邮编认证用户身份",
+            "basis": "policy: 'authenticate the user identity ... via email, or via name + zip code'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "认证后可帮助用户查找订单ID",
+            "basis": "policy: 'help the user look up order id'",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "换货需核对订单状态delivered、确认全部换货项与新选项及差价支付方式，并获确认",
+            "basis": "policy: exchange delivered order rules",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "Agent多次虚构订单号#W0000000发起换货/查询调用（h:2带捏造商品ID），且未通过get_user_details查找用户订单，违反认证后可查单的流程。",
+            "refs": [
+              "h:2",
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "换货从未推进到需确认的报价环节。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "换货业务完全未办理，订单未找到，最终仅转人工。",
+            "refs": [
+              "h:23",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent如实告知找不到订单ID并说明工具限制（h:16、h:24），未虚假宣称完成。",
+            "refs": [
+              "h:16",
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户给出任何具体报价或政策事实说明。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "认证后本应调用get_user_details获取用户订单列表（policy允许查单），却反复查询凭空编造的#W0000000，遗漏必要的查单步骤。",
+            "refs": [
+              "h:11",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "换货未办理，转人工处理；用户身份已认证为mei_kovacs_8020。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未查找用户订单而虚构订单号反复调用，导致换货无法办理并过早转人工",
+        "basis": "policy允许认证后'help the user look up order id'；Agent在拿到mei_kovacs_8020后未调用get_user_details查订单，反而对不存在的#W0000000多次调用（Error: Order not found，h:3/h:15/h:23），h:2甚至在认证前就带捏造item ID发起换货。换货业务实际未完成。",
+        "refs": [
+          "h:2",
+          "h:11",
+          "h:15",
+          "h:23",
+          "h:26"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户换货请求未办理，最终只能转人工；无错误写入发生（均为失败尝试）。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:22",
+        "purpose": "已获用户ID后仍查询不存在的订单号而非查用户订单列表"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:12、h:20在用户可见消息中夹带工具调用JSON文本，属接口规范问题，不影响业务判定；认证前发起换货调用（h:2）被后端拒绝，未产生写入。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,205 @@
+{
+  "case_id": "tr307",
+  "created_beijing": "2026-11-10T16:28:03.288977+08:00",
+  "input_sha256": "47c5c1e8f3111c3aa802468a15a0d04dbf64408d8abbd4c76e05e9ce6600f1d3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "5d56c218eb8137671905f1c273a72390853a98b9683012f4cb844e0452720892",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1395,
+    "completion_tokens_details": {
+      "reasoning_tokens": 331
+    },
+    "prompt_tokens": 8666,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 10061
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单（全部商品）",
+        "object": "james_kim_7213 的待取消订单",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [
+          {
+            "ref": "h:9",
+            "change": "由取消部分商品改为取消全部商品/整个订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消该订单全部商品",
+            "basis": "用户要求",
+            "refs": [
+              "h:9",
+              "h:13",
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消前须定位订单并核验状态为pending，且取消理由需用户确认",
+            "basis": "policy: 'can only be cancelled if its status is pending... check its status before'",
+            "refs": [
+              "h:9"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "用户明确要求人工时按流程转接",
+            "basis": "policy transfer规则及用户请求",
+            "refs": [
+              "h:21",
+              "h:29"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "Agent多次使用从未由用户提供或查得的订单号#W0000000直接调用cancel（h:2甚至在身份核验前），订单始终未取消",
+            "refs": [
+              "h:2",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "订单从未定位且未实际提交取消，未到达需最终确认的环节",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "实际执行中只有三次邮箱查身份的读操作，取消未完成，订单状态无任何变更",
+            "refs": [
+              "e:0",
+              "e:1",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "Agent从未向用户声称取消已完成；'I've located your user id'后承诺查订单但未做，属意图未兑现而非虚假完成",
+            "refs": [
+              "h:8"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未对订单内容、状态或商品清单作出有事实影响的具体说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "身份经邮箱核验通过（e:0），但三次声称要get_user_details却从未执行，也未从用户档案定位订单号即反复试错；用户要求人工后亦未调用transfer_to_human_agents",
+            "refs": [
+              "h:8",
+              "h:16",
+              "h:24",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": [
+              "I2",
+              "I3"
+            ]
+          }
+        },
+        "end_state": "订单未被取消，业务未完成，也未实际发起转人工；仅完成身份核验"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "订单始终未取消，反复用臆造订单号失败",
+        "basis": "用户要求'just cancel the whole order'（h:9）；policy要求取消前核对pending状态；#W0000000非用户提供，每次返回'Order not found'（h:3,h:11,h:19,h:27）",
+        "refs": [
+          "h:2",
+          "h:9",
+          "h:10",
+          "h:27"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "取消业务未办理"
+      },
+      {
+        "issue_id": "I2",
+        "title": "身份核验后从未查询用户订单即反复试错",
+        "basis": "h:8/h:16/h:24声称'Let me check if you have any orders'但实际执行仅三次find_user_id_by_email（e:0-e:2），未调用get_user_details",
+        "refs": [
+          "h:8",
+          "h:16",
+          "h:24"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "浪费多轮对话，未定位订单导致取消失败"
+      },
+      {
+        "issue_id": "I3",
+        "title": "用户要求人工后未实际转接",
+        "basis": "policy要求transfer须先调用transfer_to_human_agents；用户h:21明确要求'can I talk to someone'，实际执行无该调用，转接未完成",
+        "refs": [
+          "h:21",
+          "h:29"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户问题既未解决也未升级"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:8",
+        "purpose": "身份已核验成功，但后续未据此查询订单"
+      },
+      {
+        "from": "h:21",
+        "to": "h:29",
+        "purpose": "用户请求人工与终止消息关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8/h:16/h:24在用户可见消息中内嵌工具调用JSON文本，属接口规范问题，未计入业务六项",
+      "h:2在身份核验前即调用cancel，违反'beginning of conversation must authenticate'要求，已并入I1"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,316 @@
+{
+  "case_id": "tr086",
+  "created_beijing": "2026-11-10T14:45:00.584759+08:00",
+  "input_sha256": "12c9e2a087166b1714bef5b3729285e7d5ba94b4af5ae4f7ce963fafdcc102a2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ee3992fd7b35bf32604b8a8876f692e047dc826fedd2d5fe6d0f57f31c428ba1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1363,
+    "completion_tokens_details": {
+      "reasoning_tokens": 66
+    },
+    "prompt_tokens": 13669,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 15032
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "升级预订 M20IZO 至商务舱",
+        "object": "预订 M20IZO（两乘客，HAT268+HAT010）",
+        "request_refs": [
+          "h:1",
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "M20IZO 全体乘客同航班升至 business，价格差额正确并经确认后收取",
+            "basis": "policy: cabin change 需支付差额并需确认",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "未起飞航班可改舱，所有航段统一 business，对象与操作正确",
+            "refs": [
+              "h:11",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "报价 $1,194 并获用户两次确认后执行",
+            "refs": [
+              "h:16",
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB 重放确认 cabin=business、价格 430+412、收费 $1,194 至指定卡，与同意一致",
+            "refs": [
+              "e:6",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知升级完成与实际状态一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价 $842×2−$490=$1,194 与实际收费一致",
+            "refs": [
+              "h:16",
+              "e:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查用户与预订详情并搜索航班核实价格后再改",
+            "refs": [
+              "h:8",
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "M20IZO 已升级为 business，收取 $1,194 至 Mastercard 尾号7334"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消预订 IFOYYZ",
+        "object": "预订 IFOYYZ",
+        "request_refs": [
+          "h:7",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按取消条件判断是否可取消并正确处理",
+            "basis": "policy: basic economy、无保险、超24小时、非航司取消且非 business 不可取消",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确判定不满足任一取消条件并拒绝执行",
+            "refs": [
+              "h:9",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行修改操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "违规取消被正确避免，未写入数据库",
+            "refs": [
+              "e:1"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明不可取消的具体政策原因",
+            "refs": [
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "事实说明（basic economy、2024-05-12 创建、无保险、非航司取消）与查询结果一致",
+            "refs": [
+              "h:9",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询预订详情核实取消条件",
+            "refs": [
+              "h:8",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "IFOYYZ 未取消，Agent 依政策正确拒绝"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消预订 NQNU5R",
+        "object": "预订 NQNU5R",
+        "request_refs": [
+          "h:7",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按政策判断已飞航班预订不可取消",
+            "basis": "policy: any portion flown 不能取消",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "航段日期 2024-05-13/14 已早于当前日期 05-15，属已飞，正确拒绝",
+            "refs": [
+              "h:10",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行修改操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "未做违规取消写入",
+            "refs": [
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明两段航班日期已过、已飞不可取消",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "航班日期事实与工具返回一致；用户也确认自己记错日期",
+            "refs": [
+              "h:10",
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询预订详情核实航班日期",
+            "refs": [
+              "h:8",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "NQNU5R 未取消（航班已飞），Agent 依政策正确拒绝并说明"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:16",
+        "to": "e:6",
+        "purpose": "报价差额与实际扣款一致"
+      },
+      {
+        "from": "h:23",
+        "to": "h:24",
+        "purpose": "用户质疑取消时 Agent 复核并如实答复"
+      }
+    ],
+    "auxiliary_notes": [
+      "搜索航班环节非必要（未改航班），仅为核实价格，无碍评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

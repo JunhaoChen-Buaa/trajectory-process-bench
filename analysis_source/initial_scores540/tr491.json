@@ -1,0 +1,165 @@
+{
+  "case_id": "tr491",
+  "created_beijing": "2026-11-10T14:19:41.237570+08:00",
+  "input_sha256": "b5d8203ec0006b245c2a18b565635d24b6bc33756b6217dbc00728dfb5af47b9",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bcf3d0203081e6bcbcc1dbb3a68a2e3bdde1377a09e3b6e9491bf6abfbd2b6ed",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 878,
+    "completion_tokens_details": {
+      "reasoning_tokens": 152
+    },
+    "prompt_tokens": 11314,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12192
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复无信号手机服务的技术支持",
+        "object": "用户手机线路服务",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "无服务应排查所有可解决原因，包括线路是否因欠费/合约到期被停机",
+            "basis": "tech_support_policy: Line Suspension section",
+            "refs": [
+              "h:7"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "在用尽可行手段前不得转人工",
+            "basis": "policy: 'try your best to resolve the issue before transferring'",
+            "refs": [
+              "h:26"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "尝试的排障动作（关飞行模式、查SIM、重置APN、重启）均符合故障排查规则，未做违规操作",
+            "refs": [
+              "h:5",
+              "h:19",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "本业务无需用户确认即可进行设备侧诊断",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "服务仍未恢复（重启后仍 'No Signal'），未能解决即转人工，且未排查线路停机这一可自行解决的原因",
+            "refs": [
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "转人工话术符合规定流程，未做虚假完成声明",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "未向用户做出有源依据错误的政策/事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未先识别客户身份（Q1），也未查询该线路状态以排除线路停机导致无服务这一政策明示原因",
+            "refs": [
+              "h:2",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "服务未恢复，转接人工；线路停机可能性未排查，客户身份未识别"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未排查线路停机即转人工，问题未解决",
+        "basis": "tech_support_policy: 'If the line is suspended, the user will not have cellular service'; policy: 'try your best to resolve the issue before transferring'",
+        "refs": [
+          "h:24",
+          "h:26"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户无服务问题未解决，可能错过可自助解除的停机恢复"
+      },
+      {
+        "issue_id": "I2",
+        "title": "技术支持未先识别客户身份",
+        "basis": "policy: 'You must first identify the customer'",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "无法核查账户/线路状态，排障不完整"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:25",
+        "to": "h:26",
+        "purpose": "重启后仍无服务即转人工，说明排障不完整"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2/h:8/h:14 以原始JSON形式作为可见消息发出属接口规范问题，不计入业务六项"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

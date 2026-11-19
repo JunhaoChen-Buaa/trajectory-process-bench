@@ -1,0 +1,222 @@
+{
+  "case_id": "tr312",
+  "created_beijing": "2026-11-10T15:45:10.148485+08:00",
+  "input_sha256": "77ab7579b297000137a7166c4818f2e1883ae64aaaa0aabb5b87b14d8d6942c4",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "72412139f3c9e13865e79c5c5be44dbc0f1203bc97b710ae6b36ea0fc8008137",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 806,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 16146,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16952
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单#W3289292",
+        "object": "订单#W3289292",
+        "request_refs": [
+          "h:21",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单状态为pending且确认原因后取消",
+            "basis": "policy: pending order, confirm reason",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，取消原因'no longer needed'符合规则，e:6成功写入cancelled",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明两订单详情并要求yes，用户h:25明确确认",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认状态cancelled，退款$2468.70至PayPal已入账记录",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30准确说明已取消及5-7天退款时间，符合实际",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "订单内容、价格、退款时间说明均与数据一致",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证身份(h:4)、查订单状态(h:14)再操作，顺序正确",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W3289292已取消，退款$2468.70至PayPal"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消订单#W9722559",
+        "object": "订单#W9722559",
+        "request_refs": [
+          "h:21",
+          "h:23"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单状态为pending且确认原因后取消",
+            "basis": "policy: pending order, confirm reason",
+            "refs": [
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，原因'no longer needed'合规，e:7成功写入cancelled",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明详情获用户h:25确认",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB确认cancelled，退款$943.83至PayPal",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:30说明与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "订单内容和金额说明正确",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "身份验证和状态检查均已执行(h:18)",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W9722559已取消，退款$943.83至PayPal"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:23",
+        "to": "h:26",
+        "purpose": "用户确认两订单取消，随后执行"
+      },
+      {
+        "from": "h:25",
+        "to": "h:27",
+        "purpose": "确认后成功取消订单"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent主动帮助用户定位物品所属订单、未擅自取消#W9154975，处理得当"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

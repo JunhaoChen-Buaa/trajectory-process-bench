@@ -1,0 +1,136 @@
+{
+  "case_id": "tr480",
+  "created_beijing": "2026-11-10T14:16:03.085735+08:00",
+  "input_sha256": "7fc503227ee9122e93d855fb827600c07f67a471ba3f2e1a39465b6f70bb7867",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c308e938ff77890a58068dda8d6aaa6a737a0017499bba4d4a1eacde2485dd80",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 637,
+    "completion_tokens_details": {
+      "reasoning_tokens": 17
+    },
+    "prompt_tokens": 14853,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15490
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "移动数据时断时续/无连接的技术支持排查",
+        "object": "用户线路 L1002（555-123-2002）的手机数据连接",
+        "request_refs": [
+          "h:1",
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先完成客户身份识别",
+            "basis": "policy: You must first identify the customer",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "定位正确线路并按设备诊断流程排查移动数据问题直至恢复",
+            "basis": "用户 h:1/h:7 与 tech support 排查流程",
+            "refs": [
+              "h:1",
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按技术支持流程逐步诊断（状态栏→Data Saver→网络状态→APN→VPN→roaming），对象线路 L1002 与用户号码一致且正确。",
+            "refs": [
+              "h:12",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "诊断与设备端开关操作无需单独确认要求。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终 speed test 275 Mbps Excellent（e:10），数据连接恢复，用户确认满意。",
+            "refs": [
+              "h:46",
+              "h:49"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明与实际状态一致，数据连接确已恢复并以测速结果佐证。",
+            "refs": [
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于线路侧 roaming 已开启、Data Saver 影响、APN 正常的说明均有工具证据（h:11,h:16,h:34）且正确。",
+            "refs": [
+              "h:32",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（h:3-h:5），逐项设备诊断顺序合理，最终问题由开启 data roaming 解决。",
+            "refs": [
+              "h:4",
+              "h:41"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002 手机数据连接恢复正常，测速 275 Mbps（Excellent），用户确认问题解决并结束会话。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "e:2",
+        "purpose": "确认用户号码 555-123-2002 对应线路 L1002"
+      }
+    ],
+    "auxiliary_notes": [
+      "排查路径略绕（先查 APN/VPN 后才处理已发现的 roaming 关闭项），属流程效率问题，不影响业务结果。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

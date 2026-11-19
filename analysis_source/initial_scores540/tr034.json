@@ -1,0 +1,160 @@
+{
+  "case_id": "tr034",
+  "created_beijing": "2026-11-10T15:02:02.140114+08:00",
+  "input_sha256": "1d238c8dc24cdfcd610e7e9159bbbbb7223063025b2e2da96229f237bd039c70",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "52de679a384358dc0133fba0f503e01a731b227dcea3afadb8cacad9b7d6b466",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 673,
+    "completion_tokens_details": {
+      "reasoning_tokens": 10
+    },
+    "prompt_tokens": 12739,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 13412
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日JFK→SEA单程经济舱机票",
+        "object": "新预订 HATHAT",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:8",
+            "change": "直飞均早于11点不可接受，改选11点后起飞的中停方案（补充约束）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "单程JFK→SEA，2024-05-20，经济舱，Mia Li一名乘客",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:3",
+              "h:16"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "起飞不早于11:00 EST",
+            "basis": "用户要求",
+            "refs": [
+              "h:8"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "无保险，3件托运（金卡经济舱3件免费），一张certificate+一张信用卡支付",
+            "basis": "policy支付限制与用户要求",
+            "refs": [
+              "h:16",
+              "h:17",
+              "h:18"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "方案符合用户约束；支付为一certificate+一credit card符合policy限制，行李3件全免费正确（gold economy）。",
+            "refs": [
+              "h:19",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "预订前列明全部细节并获用户“Yeah, go ahead”确认。",
+            "refs": [
+              "h:19",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "book_reservation成功写入，航段、舱位、乘客、行李、支付金额均与确认一致。",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成的说明与实际预订记录一致，含预订ID与支付明细。",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "报价$152+$103=$255、金卡3件免费行李、certificate剩余额不退、每单限一张certificate均正确。",
+            "refs": [
+              "h:11",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先取user id并查询用户与航班、询问乘客/保险/行李，再确认后下单，顺序符合policy。",
+            "refs": [
+              "h:4",
+              "h:15",
+              "h:19"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订HATHAT成功创建：经济舱JFK→ATL→SEA 2024-05-20，Mia Li，3件免费行李，无保险，$250证书+$5信用卡已扣。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:8",
+        "to": "h:11",
+        "purpose": "用户11点后起飞约束与中停方案匹配"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:13对直飞的重复搜索属冗余只读调用，无业务影响。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,154 @@
+{
+  "case_id": "tr366",
+  "created_beijing": "2026-11-10T15:16:30.296725+08:00",
+  "input_sha256": "25fb3fd77ef68288fa801c0fde5c6392ca81c920cb9dbfa6420978cbeacc1ca7",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "7bd968149ef76217c7de5a18ae50a185f58956ce76d8aabb540990f04ec8c3db",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 712,
+    "completion_tokens_details": {
+      "reasoning_tokens": 36
+    },
+    "prompt_tokens": 19628,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 20340
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复无法发送MMS并解决数据流量超限问题",
+        "object": "John Smith 的线路 L1002（号码 555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "识别客户身份",
+            "basis": "tech support policy 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查并修复MMS故障（信号/SIM/网络模式/APN/权限/Wi-Fi Calling等）",
+            "basis": "tech_support_policy 各节排障流程",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超限时提供加流量或换套餐选项；加流量需询问数量、确认价格、上限2GB",
+            "basis": "policy 'Data Refueling' 步骤与2GB上限",
+            "refs": [
+              "h:70",
+              "h:74",
+              "h:75"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "全程按排障手册逐步排查并成功修复MMS；加流量2GB未超上限且线路Active，操作对象L1002与用户号码一致",
+            "refs": [
+              "h:76",
+              "e:26"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "加流量前已确认价格 $4.00/2GB，用户明确同意“Go ahead and add it to my line”",
+            "refs": [
+              "h:74",
+              "h:75"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "加流量后速度测试Excellent、can_send_mms成功，故障真正解决",
+            "refs": [
+              "h:80",
+              "h:81"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际状态一致：MMS确认可发送，$4已写入账单，2月28日周期重置说明属实",
+            "refs": [
+              "h:78",
+              "h:83"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1/15.0GB超限、$2/GB费率、MMSC未设置、SIM缺失等说明均有工具数据支持",
+            "refs": [
+              "h:69",
+              "h:73",
+              "h:41"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先经手机号识别客户，逐一执行手册要求的诊断与修复，且每步顺序合理",
+            "refs": [
+              "h:2",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "线路L1002加购2GB流量（$4），MMS发送恢复、数据连接正常"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:66",
+        "to": "h:70",
+        "purpose": "速度测试无连接引导Agent查询数据用量，定位超限根因"
+      },
+      {
+        "from": "h:74",
+        "to": "h:75",
+        "purpose": "价格确认获得用户同意后才执行加流量"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户侧设备操作（toggle_airplane_mode等）由用户执行，属正常排障流程，不算Agent错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

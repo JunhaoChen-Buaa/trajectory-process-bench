@@ -1,0 +1,244 @@
+{
+  "case_id": "tr304",
+  "created_beijing": "2026-11-10T16:10:23.626361+08:00",
+  "input_sha256": "957f9c44aeb59b51090122fcbced1e8322d9d2e38015d6ffb823821bb0110602",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "bc58e604276de89f1c45de4469aba408f6a8cec41220732e91d72123d297b65c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1017,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 16299,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17316
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单 #W3289292",
+        "object": "#W3289292（Hiking Boots、Wristwatch、Mechanical Keyboard）",
+        "request_refs": [
+          "h:1",
+          "h:21"
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单状态为 pending 才可取消，需先核验状态",
+            "basis": "policy: An order can only be cancelled if its status is 'pending'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消原因须为 'no longer needed' 或 'ordered by mistake'",
+            "basis": "policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "取消前须列出详情并获得用户明确确认",
+            "basis": "policy: obtain explicit user confirmation",
+            "refs": [
+              "h:22"
+            ]
+          }
+        ],
+        "revisions": [],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单确为 pending，原因 'no longer needed' 合规，对象正确",
+            "refs": [
+              "h:13",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:22 列明订单、原因、退款方式，用户明确 'Yes, cancel #W3289292'",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据库实际状态变为 cancelled，退款 $2468.70 已入 PayPal",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明已取消且退款将 5-7 天到账，与实际一致（h:26 称 processed 属流程性描述，h:32 已澄清将到账）",
+            "refs": [
+              "h:26",
+              "h:32"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "商品、金额、退款方式的说明与订单数据一致",
+            "refs": [
+              "h:20",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先认证身份、查订单状态再取消，顺序合规",
+            "refs": [
+              "h:5",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单 #W3289292 已取消，$2468.70 退款至 PayPal"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消订单 #W9722559",
+        "object": "#W9722559（Portable Charger、Luggage Set、Fleece Jacket、Running Shoes）",
+        "request_refs": [
+          "h:21"
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单状态为 pending 才可取消，需先核验状态",
+            "basis": "policy",
+            "refs": [
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消原因须为 'no longer needed' 或 'ordered by mistake'",
+            "basis": "policy",
+            "refs": [
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "取消前须列出详情并获得用户明确确认",
+            "basis": "policy",
+            "refs": [
+              "h:26"
+            ]
+          }
+        ],
+        "revisions": [],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单 pending，原因 'no longer needed' 合规，对象正确",
+            "refs": [
+              "h:17",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:26 列明详情后用户回复 'Yes, cancel #W9722559 too'",
+            "refs": [
+              "h:26",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "实际状态变为 cancelled，退款 $943.83 已入 PayPal",
+            "refs": [
+              "h:29"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "完成说明与实际状态一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "商品清单与金额说明与订单数据一致",
+            "refs": [
+              "h:20",
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已先查询订单状态，流程合规",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单 #W9722559 已取消，$943.83 退款至 PayPal"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:21",
+        "to": "h:13",
+        "purpose": "确认 boots 所在订单为 #W3289292 且状态 pending"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:26 中 'refund has been processed' 措辞稍强（PayPal 需 5-7 天），但同消息已注明时限，视为可接受的表述，不计实质问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

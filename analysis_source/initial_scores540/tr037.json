@@ -1,0 +1,275 @@
+{
+  "case_id": "tr037",
+  "created_beijing": "2026-11-10T16:12:08.025229+08:00",
+  "input_sha256": "50dc3b6d7fadc91bc9ab6ab6fa68b0e1b86e4df9b3f9c47f428b64e9937f2bae",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "513752dfb386baf5c7056eac65c156d0108007307eceb34a1b16abf392c5274a",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1492,
+    "completion_tokens_details": {
+      "reasoning_tokens": 267
+    },
+    "prompt_tokens": 22128,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 23620
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改返程航班至5月27日最快可选经济舱方案",
+        "object": "订单OBUT9V返程段",
+        "request_refs": [
+          "h:1",
+          "h:15"
+        ],
+        "revisions": [
+          {
+            "ref": "h:27",
+            "change": "用户从Option 2（0分钟中转）改为Option 3"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "返程改为5月27日当天最快可行航班，经济舱",
+            "basis": "用户要求 h:15",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "改签差价59美元由gift_card_7091239支付",
+            "basis": "用户确认 h:32",
+            "refs": [
+              "h:32"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "经济舱可改且未改出发/目的地/行程类型，选Option 3经用户确认；写入的航班与确认一致",
+            "refs": [
+              "h:33",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:33列出全部改动与支付方式后用户明确yes",
+            "refs": [
+              "h:33",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认返程已改为HAT290/HAT175 5月27日，$59已扣gift_card_7091239",
+            "refs": [
+              "e:18",
+              "s:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:39的完成说明与实际DB状态一致",
+            "refs": [
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "新票价142+170与搜索结果一致，差价59计算正确",
+            "refs": [
+              "h:18",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先查用户与订单、搜索直飞与中转、获取确认后才写入",
+            "refs": [
+              "h:4",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "返程已改为HAT290+HAT175（5月27日，经济舱），$59差价由gift_card_7091239扣付"
+      },
+      {
+        "group_id": "G2",
+        "goal": "增加一件托运行李",
+        "object": "订单OBUT9V行李",
+        "request_refs": [
+          "h:15"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "silver会员经济舱乘客享有2件免费托运行李，新增第2件行李应免费",
+            "basis": "policy: silver member '2 free checked bag for each economy passenger'",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "行李费用用余额最小可覆盖的礼品卡支付",
+            "basis": "用户要求 h:15,h:32",
+            "refs": [
+              "h:15",
+              "h:32"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "允许添加行李且用户有需求，写入total 2/nonfree 1与确认一致",
+            "refs": [
+              "h:33",
+              "e:19"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "行李数与$50费用在h:33获用户确认",
+            "refs": [
+              "h:33",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "第2件行李按政策对silver经济舱应免费，但实际向gift_card_6276644多收了$50",
+            "refs": [
+              "e:19",
+              "s:19"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:39称收取$50行李费，将错误的收费作为已完成结果如实报告，但完成说明与应收状态（免费）不符",
+            "refs": [
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:26称silver经济舱仅1件免费行李，与policy的2件免费相矛盾，导致用户被误导同意付费",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "更新前核对订单并按规则要求确认，无遗漏必要步骤",
+            "refs": [
+              "h:26",
+              "h:37"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "行李总数已改为2件，但因误判免费额度向gift_card_6276644多收$50（应免费）"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "错误计算免费行李额度并对第2件行李多收$50",
+        "basis": "policy规定silver会员经济舱乘客2件免费托运行李，Agent在h:26称仅1件免费并收费$50，实际DB扣款gift_card_6276644 $50",
+        "refs": [
+          "h:26",
+          "h:33",
+          "h:38",
+          "e:19"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户被错误收取$50行李费，本应免费；行李数量本身已正确更新"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:26",
+        "purpose": "用户加行李要求与Agent对免费额度的错误说明"
+      },
+      {
+        "from": "h:26",
+        "to": "e:19",
+        "purpose": "错误报价导致实际$50扣款"
+      }
+    ],
+    "auxiliary_notes": [
+      "搜索工具返回的航班时刻为EST，Agent直接用其比较时长，未发现时区处理问题，属轻微边界说明",
+      "h:32中Agent确认'next smallest'礼品卡顺序正确（6→113→157）"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

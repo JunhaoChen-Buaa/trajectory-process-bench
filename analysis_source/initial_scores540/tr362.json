@@ -1,0 +1,145 @@
+{
+  "case_id": "tr362",
+  "created_beijing": "2026-11-10T14:13:14.467979+08:00",
+  "input_sha256": "8fdf7bd75b303529ee824c6e530756f43c91b0f0c9eff4675632dc60040d1366",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "52d73296ca8f6e91fb3b4f9ee92359c0d3f1a4d9c3481a70b33a7050f418ac97",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 664,
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_tokens": 17927,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18591
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS无法发送问题",
+        "object": "用户线路L1002（555-123-2002）的MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决MMS无法发送的问题",
+            "basis": "用户请求 \"can't send MMS messages\"",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "充值数据前确认价格并按用户确认金额执行",
+            "basis": "policy: Confirm the price",
+            "refs": [
+              "h:11",
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "充值2GB符合15GB限制与$2/GB政策，最大2GB未超；后续排障按手册逐步执行，对象L1002正确。",
+            "refs": [
+              "h:9",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前向用户确认2GB/$4.00，用户明确同意。",
+            "refs": [
+              "h:12",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "数据充值成功且MMS最终确认可发送（e:22），问题解决。",
+            "refs": [
+              "h:15",
+              "h:72"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "各阶段说明均与实际状态一致；h:16为\"should be restored\"的预测表述且邀请验证，最终确认后总结准确。",
+            "refs": [
+              "h:16",
+              "h:74"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "超额判断（15.1GB>15GB）、$2/GB价格、Airplane Mode/SIM/APN/Wi-Fi Calling/权限等说明均有工具证据支持。",
+            "refs": [
+              "h:7",
+              "h:9",
+              "h:10"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证身份，充值前查用量与计划，排障依次检查服务/数据/APN/Wi-Fi Calling/权限，符合手册流程。",
+            "refs": [
+              "h:2",
+              "h:7",
+              "h:48",
+              "h:62"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS可正常发送，线路L1002充值2GB并计费$4.00，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:7",
+        "purpose": "将用户号码555-123-2002映射到线路L1002"
+      },
+      {
+        "from": "h:10",
+        "to": "h:15",
+        "purpose": "超额诊断与充值执行"
+      }
+    ],
+    "auxiliary_notes": [
+      "首个根因（数据超额）并非唯一根因，Agent在首次修复失败后继续系统排查，处理得当"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

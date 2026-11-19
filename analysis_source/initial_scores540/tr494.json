@@ -1,0 +1,128 @@
+{
+  "case_id": "tr494",
+  "created_beijing": "2026-11-10T16:20:48.026625+08:00",
+  "input_sha256": "e397b48f85855da09ccabd53357f106c9626712eed5ffa9f7588878cbd6b57b3",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "c4a76d6352d5686965a0c3fe41494f7578285563a01bce45efa63036efa7a38c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 551,
+    "completion_tokens_details": {
+      "reasoning_tokens": 10
+    },
+    "prompt_tokens": 14084,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 14635
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无服务问题",
+        "object": "线路 555-123-2002 (L1002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复用户手机的蜂窝服务",
+            "basis": "用户请求 'No Service... I need this fixed'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按排障流程处理飞机模式、SIM、APN，均在政策与工具范围内，对象为用户提供的号码对应线路L1002",
+            "refs": [
+              "h:4",
+              "h:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无付费或状态变更类需确认操作，均为诊断性用户设备操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "重启后状态栏显示 '📶⁴ Excellent | 5G | 📱 Data Enabled'，MMS亦可发送，服务恢复",
+            "refs": [
+              "h:36",
+              "h:42"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明与实际状态一致，且经用户确认设备已恢复",
+            "refs": [
+              "h:40",
+              "h:43"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'APN name showing broken indicates incorrect settings' 与手册 'Incorrect APN Settings' 一致",
+            "refs": [
+              "h:30",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "技术支持前已核验身份（按手机号查到客户），排障顺序符合手册：状态栏→SIM→APN→重启",
+            "refs": [
+              "h:5",
+              "h:14",
+              "h:22",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "手机服务与数据已恢复（5G、信号极佳、数据开启），MMS可发送，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认555-123-2002对应线路L1002且状态Active，排除线路暂停原因"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在一次消息中给出多步用户操作（reset后reboot），属流程效率选择，不影响业务质量"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

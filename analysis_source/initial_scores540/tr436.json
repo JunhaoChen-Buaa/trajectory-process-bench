@@ -1,0 +1,181 @@
+{
+  "case_id": "tr436",
+  "created_beijing": "2026-11-10T15:05:02.713522+08:00",
+  "input_sha256": "26261fee483c2a5ff077bd6dde63c244d428c420b3049dcbcfcd275d47e3a6b0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "0ceebdb31a92c40c5d2c5818994cafee0466f4c8a21785817270797a1a737393",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 904,
+    "completion_tokens_details": {
+      "reasoning_tokens": 67
+    },
+    "prompt_tokens": 16667,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 17571
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "漫游状态下修复移动数据（故障排查+数据充值）",
+        "object": "用户线路 L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "先识别客户身份",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:2"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "确认线路漫游已启用并指导开启手机端数据漫游",
+            "basis": "policy: 'you should check if the line is roaming enabled'",
+            "refs": [
+              "h:9",
+              "h:36"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超限处理：按计划价格充值并确认价格",
+            "basis": "policy: 'Confirm the price' + max 2GB",
+            "refs": [
+              "h:50",
+              "h:51"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "逐步排查设备侧问题（data disabled, 2G, data saver, VPN）直至连接恢复",
+            "basis": "tech support policy",
+            "refs": [
+              "h:16",
+              "h:28"
+            ]
+          },
+          {
+            "id": "Q5",
+            "content": "正确对象线路：与用户提供的号码555-123-2002对应",
+            "basis": "policy: line associated with the phone number provided",
+            "refs": [
+              "h:3",
+              "h:9"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所有操作（开关data/saver/网络模式/漫游、充值2GB≤上限）符合政策，对象线路L1002经h:9核实与用户号码555-123-2002匹配。",
+            "refs": [
+              "h:9",
+              "h:52"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3",
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前明确报价$2.0/GB、最多2GB（h:50），用户明确同意加2GB不改套餐（h:51）后才调用refuel_data。",
+            "refs": [
+              "h:50",
+              "h:51"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "充值成功（e:14, $4.00）、设备问题逐一修复，最终速度测试275 Mbps Excellent（h:56），数据连接实际恢复。",
+            "refs": [
+              "h:53",
+              "h:56"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结与实际一致，均在速度测试确认后宣布修复，并正确说明$4.00已计入账单。",
+            "refs": [
+              "h:54",
+              "h:58"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "超限（15.1/15.0GB）、roaming_enabled: true、2GB上限、$2/GB价格均有工具返回依据；APN正常判断与h:48一致。",
+            "refs": [
+              "h:11",
+              "h:13",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按流程完成身份核验（按号码查找）、线路/套餐/用量查询、漫游核查、逐项设备诊断与充值后速度验证。",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:35",
+              "h:55"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "移动数据完全恢复：2GB充值成功（$4.00），设备设置修复，速度测试275 Mbps Excellent；用户确认问题解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "确认用户提供的号码555-123-2002对应线路L1002"
+      },
+      {
+        "from": "h:50",
+        "to": "h:51",
+        "purpose": "充值价格确认与用户同意的关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14消息较长且夹杂内部推理式表述，但信息准确，属措辞层面，不影响评分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

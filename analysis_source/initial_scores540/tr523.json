@@ -1,0 +1,161 @@
+{
+  "case_id": "tr523",
+  "created_beijing": "2026-11-10T14:59:02.335799+08:00",
+  "input_sha256": "bc2c82a1b307a3f1074efec72276dbba9c8ea34d79db9621f17cdf8eb51d21c9",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "959053c699acf866fed7fe94671d66a0be017a18ec25db7cff4a5e560801b177",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 988,
+    "completion_tokens_details": {
+      "reasoning_tokens": 217
+    },
+    "prompt_tokens": 10916,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 11904
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复手机No Service故障",
+        "object": "用户手机蜂窝服务(线路)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "技术支持前必须先识别客户身份",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "按排障流程排查No Service原因(飞行模式、SIM、APN、线路停机)并尽力解决后再转人工",
+            "basis": "tech_support_policy排障步骤; 'try all the possible ways...before transferring'",
+            "refs": [
+              "h:1",
+              "h:15",
+              "h:17"
+            ]
+          }
+        ],
+        "requirements_note": null,
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "转人工属于政策允许范围,未做违规操作;未尝试APN/停机排查记在STEPS",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无需要确认的变更操作",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "No Service未解决即转人工;政策要求转人工前穷尽手段,APN检查和线路停机排查均未做,转人工并非必要",
+            "refs": [
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知转人工,未虚构修复结果",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "na",
+            "reason": "未向用户做出资格/政策类事实说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未按政策先识别客户即提供技术支持;SIM正常后未检查APN设置,也未核查线路是否因欠费/合约停机,即提前转人工",
+            "refs": [
+              "h:16",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          }
+        },
+        "end_state": "故障未解决,经transfer_to_human_agents转人工;飞行模式已关闭但信号仍为No Signal"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未先识别客户身份即提供技术支持",
+        "basis": "policy: 'Technical Support: You must first identify the customer'",
+        "refs": [
+          "h:1",
+          "h:2"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "全程未查客户/线路状态,导致无法排查线路停机等账户侧原因"
+      },
+      {
+        "issue_id": "I2",
+        "title": "未穷尽排障步骤即提前转人工",
+        "basis": "tech_support_policy: 'Make sure you try all the possible ways to resolve the user's issue before transferring'; SIM Active后应查APN,并核查线路停机",
+        "refs": [
+          "h:17",
+          "h:24"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "No Service根因未查明,用户问题未被解决即转出"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:17",
+        "to": "h:24",
+        "purpose": "SIM确认Active后未做APN检查即转人工,证明排障不完整"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2-h:9中多次重复发送check_status_bar属纯操作冗余,不计业务扣分;设备侧工具由用户执行属正常流程"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

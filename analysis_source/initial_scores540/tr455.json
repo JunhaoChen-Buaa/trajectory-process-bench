@@ -1,0 +1,200 @@
+{
+  "case_id": "tr455",
+  "created_beijing": "2026-11-10T15:29:05.460899+08:00",
+  "input_sha256": "1afc755b28c6c6af4cb53e2eca5e958dbe7a403fa91f04f7b179eabf0be3fcb0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "349762ee138868c6cc411f9f26877f9d87297a192fc3227ddb5388f64856bb00",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1464,
+    "completion_tokens_details": {
+      "reasoning_tokens": 286
+    },
+    "prompt_tokens": 21166,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 22630
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决法国漫游下移动数据不可用/缓慢问题",
+        "object": "用户线路 L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户在国外（法国）数据不可用时，应核对用户号码对应线路是否启用roaming，未启用则免费开通",
+            "basis": "policy: 'you should check if the line is roaming enabled. If it is not, you should enable it at no cost'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "故障排查应针对用户提供的号码对应线路对象进行",
+            "basis": "用户提供了号码555-123-2002 (h:5)",
+            "refs": [
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "应通过引导用户在设备上执行诊断/修复操作解决数据问题，无法解决再转人工",
+            "basis": "tech_support_policy: 'try all the possible ways to resolve the user's issue before transferring'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "用户号码555-123-2002对应L1002，Agent却始终对L1001查用量并称其为用户线路，从未核查/处理roaming，方案对象错误。",
+            "refs": [
+              "h:10",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行任何需确认的变更操作。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "数据问题完全未诊断也未修复，会话陷入重复循环后终止，业务未完成。",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:16向用户断言'single line (L1001)'与事实（三条线路L1001/L1002/L1003）矛盾，属于虚假的事实性说明；未声称已完成修复。",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "声称用户只有一条线路L1001，而账户记录显示line_ids为[L1001,L1002,L1003]；且未提及法国漫游这一关键前提，将慢速归因于'达到数据上限'也无依据（仅用3.2/5.0GB）。",
+            "refs": [
+              "h:12",
+              "h:15",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "用户明确在国外，按政策必须核查线路roaming启用状态，Agent从未查询线路详情或roaming状态，必要步骤缺失。",
+            "refs": [
+              "h:1"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1",
+              "I3"
+            ]
+          }
+        },
+        "end_state": "移动数据问题未诊断未解决，线路L1002的roaming状态从未被核查（离线显示其已启用），会话以循环失败告终"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "排查对象错误：对错误线路L1001操作，未核查用户线路L1002的roaming",
+        "basis": "用户号码555-123-2002绑定L1002；policy要求'the line associated with the phone number the user provided'核查roaming；Agent调用get_data_usage(line_id=L1001)",
+        "refs": [
+          "h:5",
+          "h:10",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "针对错误线路诊断，用户真实线路的roaming状态从未核查，问题无从解决"
+      },
+      {
+        "issue_id": "I2",
+        "title": "向用户虚假说明'single line (L1001)'并错误归因数据上限",
+        "basis": "h:15显示line_ids=[L1001,L1002,L1003]，h:16称'a single line (L1001)'；h:11用量3.2/5.0GB未超限，h:12却称'possible that you've reached your data limit'",
+        "refs": [
+          "h:11",
+          "h:15",
+          "h:16"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户对账户和故障原因的理解"
+      },
+      {
+        "issue_id": "I3",
+        "title": "故障排查彻底失败：向用户反复发送原始工具JSON且无任何诊断/修复进展",
+        "basis": "h:26至h:200约170次重复发送'{\"name\": \"check_network_status\"...}'原始调用文本，用户多次表示看不懂，未引导任何实际设备操作或修复，也未转人工",
+        "refs": [
+          "h:26",
+          "h:27",
+          "h:200"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "会话陷入死循环，数据问题未解决，用户需求落空"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:5",
+        "to": "h:10",
+        "purpose": "用户号码对应线路L1002，但Agent对L1001查用量，证明对象错误"
+      },
+      {
+        "from": "h:1",
+        "to": "h:26",
+        "purpose": "用户在国外需核查roaming，但Agent从未做该必要步骤"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:2调用get_details_by_id(id='customer_id')参数格式错误，属一次无害失败重试；大量重复的check_network_status原始JSON被标记为customer_visible但不代表真实设备侧工具执行（unmatched_structured_calls=1），归入I3处理"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

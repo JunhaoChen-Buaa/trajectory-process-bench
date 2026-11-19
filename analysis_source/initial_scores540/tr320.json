@@ -1,0 +1,176 @@
+{
+  "case_id": "tr320",
+  "created_beijing": "2026-11-10T14:46:15.145844+08:00",
+  "input_sha256": "4487d0fbf96b6818387d565825c86e6fc30b982c9a4eeaa2afe05c361f54043a",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3f466511d0bda6990a5f8c4fa91226e8899fc22218c60e080b2f5cb26076b104",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1317,
+    "completion_tokens_details": {
+      "reasoning_tokens": 377
+    },
+    "prompt_tokens": 13197,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 14514
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "书架改为4英尺的同材质同色变体（后被用户撤回改为取消订单）",
+        "object": "订单 #W8835847 中的 Bookshelf (glass/white/5 ft)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "用户撤回改尺寸要求，改为取消整个订单（原因 ordered by mistake）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "改为同产品、glass/white/4 ft 且可用的变体",
+            "basis": "policy: each item can be modified to an available new item of the same product",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "仅当状态为 pending 才能取消，取消前需确认订单号和原因",
+            "basis": "policy: cancelled only if status is 'pending'; confirm order id and reason",
+            "refs": [
+              "h:17"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "取消前列出操作细节并获得用户明确确认，礼品卡退款即时",
+            "basis": "policy: obtain explicit user confirmation (yes)",
+            "refs": [
+              "h:19"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "目标变体 7373893106 确实 available:false（h:15），正确拒绝改货并按用户改后的合法取消请求执行，对象与原因正确。",
+            "refs": [
+              "h:15",
+              "h:16",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前在 h:18 列出订单号、原因并请求 yes，用户 h:19 明确同意。",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "重放DB显示 #W8835847 变为 cancelled 且 689.97 退款入 gift_card_2652153，与规则和用户同意一致。",
+            "refs": [
+              "h:21",
+              "s:5"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:22 如实告知订单已取消、退款已即时入礼品卡，与实际状态一致。",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:18 把不在该订单中的 Bluetooth Speaker 列入取消明细，与订单实际内容矛盾（ recovered=false，不影响最终取消对象）。",
+            "refs": [
+              "h:13",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先验证身份（e:0），查订单状态为 pending（h:13）后才取消；改货前亦查询了产品变体。",
+            "refs": [
+              "h:4",
+              "h:13"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单 #W8835847 已取消，$689.97 已即时退回礼品卡；改尺寸请求因目标变体缺货未执行且被用户撤回。"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "取消确认摘要中错误列出 Bluetooth Speaker",
+        "basis": "h:13 显示 #W8835847 仅含 T-Shirt/Gaming Mouse/Bookshelf，但 h:18 写 'for the Bluetooth Speaker, T-Shirt, Gaming Mouse, and Bookshelf'",
+        "refs": [
+          "h:13",
+          "h:18"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "用户收到的取消明细包含不属于该订单的商品，未影响实际取消范围或退款金额。"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:16",
+        "purpose": "证明目标变体不可用是拒绝改货的依据"
+      },
+      {
+        "from": "h:17",
+        "to": "h:18",
+        "purpose": "用户撤回改货并改为取消，取消细节确认"
+      },
+      {
+        "from": "h:20",
+        "to": "s:5",
+        "purpose": "取消操作与DB重放实际状态一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:16 消息较长且夹杂内部推理式表述，属措辞问题，不影响业务判定。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

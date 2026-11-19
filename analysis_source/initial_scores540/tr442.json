@@ -1,0 +1,149 @@
+{
+  "case_id": "tr442",
+  "created_beijing": "2026-11-10T15:43:49.656407+08:00",
+  "input_sha256": "8af8bdc2c823300e79a1d8b4a841a24ba409e6b3c1c59f0dd457f084f4836340",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "ab657e610fa7ad7971a3e643dd89c2919376347074f1e05fe843d7b18deb61d7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 733,
+    "completion_tokens_details": {
+      "reasoning_tokens": 26
+    },
+    "prompt_tokens": 15282,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 16015
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复国外漫游下移动数据中断与过慢问题",
+        "object": "线路 L1002（555-123-2002）",
+        "request_refs": [
+          "h:1",
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "恢复因超出15GB套餐限额而中断的数据连接",
+            "basis": "policy: 'If the user's data usage exceeds the plan's data limit, data connectivity will be lost'",
+            "refs": [
+              "h:1",
+              "h:12"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "解决数据过慢问题，最终达到可用高速（Excellent）",
+            "basis": "用户要求 'I need excellent speed, not just good enough'",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "数据超限提出refuel与换plan两个合规选项，refuel 2GB（上限2GB）符合规则，roaming线侧已启用未误操作",
+            "refs": [
+              "h:12",
+              "e:2",
+              "e:4"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "报价2GB×$2=4美元并明确线路，用户确认'shall I go ahead'后执行",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "refuel成功(e:4)，设备侧数据开关、roaming、4g_5g_preferred、Data Saver、VPN均修复，最终测速275Mbps Excellent",
+            "refs": [
+              "e:4",
+              "e:14",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'2 GB has been added...for $4.00'与实际一致；总结与各项实际操作相符，最终Excellent由测速证实",
+            "refs": [
+              "h:18",
+              "h:48",
+              "h:46"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1GB/15GB限额、$2/GB资费、'roaming已在线路侧启用'均有工具依据",
+            "refs": [
+              "h:9",
+              "h:11",
+              "e:2",
+              "e:3"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验(e:0)，确认线路归属，确认超限原因后报价，流程顺序符合政策",
+            "refs": [
+              "e:0",
+              "e:2",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "2GB已加到L1002（收费$4），设备数据/漫游/网络模式/Data Saver/VPN问题全部排除，测速275Mbps Excellent，用户确认满意"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:12",
+        "to": "h:9",
+        "purpose": "超限判断依据来自L1002用量15.1GB与P1002限额15GB"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent纯文字推送均符合customer_visible要求；未发现多余工具调用或对象误操作"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

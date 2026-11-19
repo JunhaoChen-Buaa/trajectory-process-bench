@@ -1,0 +1,146 @@
+{
+  "case_id": "tr165",
+  "created_beijing": "2026-11-10T16:02:33.278243+08:00",
+  "input_sha256": "e67c58ce379313ba101dd701c66a064069d2e25be24daf7a8ef41594ac302e2d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b2e8731fc9c87fde55f735d744da06c8ca69ff47c5b2296dca43dc31187fc33f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1196,
+    "completion_tokens_details": {
+      "reasoning_tokens": 456
+    },
+    "prompt_tokens": 12318,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 13514
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订ORD→PHL单程航班HAT271（5月26日，经济舱）",
+        "object": "新预订（ORD→PHL，HAT271，2024-05-26，2名乘客）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "预订ORD→PHL单程、与5月10日相同航班、经济舱，收集乘客/行李/保险/支付信息",
+            "basis": "用户h:1/h:15",
+            "refs": [
+              "h:1",
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "无法处理座位分配请求时应先调用transfer_to_human_agents并发送转接话术",
+            "basis": "policy: transfer, first make a tool call to transfer_to_human_agents, then send the message",
+            "refs": [
+              "h:20",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "查询、报价与拟预订方案均符合规则（非基本经济舱可订、证书规则正确），未违规写入",
+            "refs": [
+              "h:14",
+              "h:16"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "用户因座位问题未确认预订，未执行任何需确认的写入操作",
+            "refs": [
+              "h:19"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "用户明确要求转人工（h:21），Agent口头建议转接但始终未调用transfer_to_human_agents，也未发送转接话术，业务以悬置状态结束",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "对无法分配座位、经济舱余3座、证书余额不退还等说明均与实际一致，无虚假完成声明",
+            "refs": [
+              "h:16",
+              "h:18"
+            ]
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "$348总价、证书可用性及剩余$152不退、座位可用性均有工具数据依据",
+            "refs": [
+              "h:13",
+              "h:16"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "policy要求的转接流程（先调用transfer_to_human_agents再发送'YOU ARE BEING TRANSFERRED...'）完全未执行",
+            "refs": [
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "预订未成交；用户要求转人工，Agent承诺转接但既未调用转接工具也未发送转接消息，用户诉求无人响应"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "承诺转人工但未执行任何转接操作",
+        "basis": "policy: 'first make a tool call to transfer_to_human_agents, and then send the message'; 用户明确'Yeah, transfer me'（h:21），全程无transfer_to_human_agents调用",
+        "refs": [
+          "h:20",
+          "h:21"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户座位分配诉求未能获得任何处理途径，对话在转接请求后无响应终止"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:11",
+        "purpose": "定位5月10日ORD→PHL航班为HAT271（WUNA5K）"
+      },
+      {
+        "from": "h:19",
+        "to": "h:20",
+        "purpose": "用户以座位保证为预订前提，Agent声明无法分配座位并建议转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "座位分配确非本Agent工具能力范围，拒绝本身正确，问题仅在未执行已承诺的转接流程"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

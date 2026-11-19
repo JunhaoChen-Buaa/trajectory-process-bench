@@ -1,0 +1,147 @@
+{
+  "case_id": "tr503",
+  "created_beijing": "2026-11-10T14:47:28.516087+08:00",
+  "input_sha256": "8fb4de788190cd6b17ef2ceb556ad96694b50be1a95e6b1e35f32aefc804cf50",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f893fd039955d9af06d8a5d7ec527fbdf319df6e7b423f39d00c0c51cb43d0a0",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1227,
+    "completion_tokens_details": {
+      "reasoning_tokens": 538
+    },
+    "prompt_tokens": 11314,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 12541
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无服务问题（技术支持）",
+        "object": "用户手机线路/设备",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按tech support政策先识别客户身份",
+            "basis": "policy: 'You must first identify the customer'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排查无信号原因，包括检查线路是否因欠费/合约到期被停机",
+            "basis": "tech_support_policy: 'Investigate if the line is suspended'",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "无法在Agent权限内解决时才转人工",
+            "basis": "policy transfer条件",
+            "refs": [
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按手册顺序排查了飞行模式、SIM、APN、重新插卡等真实尝试，未做违规操作",
+            "refs": [
+              "h:2",
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "排查性操作无需用户确认，无变更类业务",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "OUTCOME": {
+            "status": "unknown",
+            "reason": "问题未解决并转人工；转接本身合法，但未排查线路停机这一可自行恢复的根因，无法确认是否本可解决",
+            "refs": [
+              "h:28",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "未做虚假完成声明，转接说明与实际一致",
+            "refs": [
+              "h:30"
+            ],
+            "requirement_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "未向用户作出错误的事实/政策说明",
+            "refs": [],
+            "requirement_ids": []
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "tech support要求先识别客户，但Agent从未做任何客户查询，因此也无法按政策检查线路是否被停机（可自行resume）",
+            "refs": [
+              "h:1",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "无服务问题未解决，已转人工；客户身份与线路状态全程未核实"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "未先识别客户，且未排查线路停机这一可恢复根因即转人工",
+        "basis": "policy: 'You must first identify the customer'; tech_support_policy: 'Investigate if the line is suspended'",
+        "refs": [
+          "h:1",
+          "h:28"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "未核实线路是否因欠费/合约停机，若可恢复则Agent本可直接解决，用户被转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:28",
+        "purpose": "识别客户与排查停机的必要步骤在转人工前始终未执行"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8在APN设置看起来正确的情况下仍请求set_apn_settings（值与原设置相同），属多余的写入尝试，未实际执行，记为接口规范层面的辅助问题，不计业务fail。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

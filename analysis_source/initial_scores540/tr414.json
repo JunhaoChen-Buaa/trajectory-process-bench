@@ -1,0 +1,144 @@
+{
+  "case_id": "tr414",
+  "created_beijing": "2026-11-10T15:04:04.460055+08:00",
+  "input_sha256": "1623f50a7c7e75dc2598c83453dcdaeba5ef43f4879388f6f588c691fa5fef9c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "d1d51826011b8c209f2c1e13d3b91c41471f81c257e411f30cc7d0230b5db8c3",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 578,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 15631,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 16209
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决海外无法发送MMS问题",
+        "object": "John Smith号码555-123-2002对应线路L1002的MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并修复用户在国外无法发送MMS的问题",
+            "basis": "用户请求h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "技术支持前须先识别客户",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:2"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按技术支持流程依次排查无信号、SIM缺失、漫游、APN/MMSC、Wi-Fi Calling，均符合政策；对象线路L1002经号码555-123-2002核实正确",
+            "refs": [
+              "h:17",
+              "h:33",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "技术支持排障无需额外确认流程",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "最终can_send_mms确认可发送MMS，e:18证实问题解决",
+            "refs": [
+              "h:47"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "总结准确描述各步骤及结果，与实际状态一致",
+            "refs": [
+              "h:49"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "说明线路漫游已在运营商端启用与e:2一致；missing MMSC URL是原因的说明与政策及最终结果一致",
+            "refs": [
+              "h:26",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户(h:2-h:5)，核对线路L1002漫游已启用，按政策顺序完成诊断与修复步骤",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "MMS恢复正常，可成功发送图片消息"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:9",
+        "purpose": "用户号码555-123-2002对应线路L1002，确认漫游已启用"
+      },
+      {
+        "from": "h:35",
+        "to": "h:39",
+        "purpose": "MMSC URL缺失是MMS故障根因，指导重置APN并重启"
+      },
+      {
+        "from": "h:45",
+        "to": "h:47",
+        "purpose": "重启后验证MMS功能恢复"
+      }
+    ],
+    "auxiliary_notes": [
+      "诊断过程高效规范，用户侧设备操作指引清晰，无接口或流程冗余问题。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

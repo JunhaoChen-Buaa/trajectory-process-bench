@@ -1,0 +1,145 @@
+{
+  "case_id": "tr249",
+  "created_beijing": "2026-11-10T15:40:04.298843+08:00",
+  "input_sha256": "4087b7510eee07629add19f9e09f42b93654d5e6d51031aaeb96f5171dc1fbfa",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6d6d1efc8abf3edd3a3cd289b0f70583101041284bf1d6e534dc2d10b12c9496",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 647,
+    "completion_tokens_details": {
+      "reasoning_tokens": 34
+    },
+    "prompt_tokens": 8364,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 9011
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消订单（后撤回）",
+        "object": "#W4284542",
+        "request_refs": [
+          "h:9",
+          "h:11"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "用户撤回取消请求，要求订单保持原状"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "身份验证后才可查询/办理",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:2",
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "取消需pending状态且退款至原支付方式；不可删除单件商品",
+            "basis": "policy: refund via original payment method; cancel whole order",
+            "refs": [
+              "h:10",
+              "h:12"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确说明不能删单件、取消需整单且退款回原信用卡（'refund goes back to the original payment method'），拒绝违规改退款去向；用户撤回后未执行取消，订单保持pending正确。",
+            "refs": [
+              "h:10",
+              "h:12",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未发生任何数据库写入操作，取消被用户撤回。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "按用户撤回后的要求订单保持pending未变更，符合预期结果。",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确告知未取消、保持原状，与实际状态一致。",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "删除单件不可行、取消退款回原支付方式5-7天、pending无追踪号等说明均有policy依据。",
+            "refs": [
+              "h:8",
+              "h:10",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先按姓名+邮编验证身份，再查询订单状态后说明取消条件，顺序正确。",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W4284542保持pending，未做任何变更；用户主动放弃取消。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "退款方式要求与政策限制的关联"
+      },
+      {
+        "from": "h:13",
+        "to": "h:14",
+        "purpose": "撤回取消与订单保持原状的关联"
+      }
+    ],
+    "auxiliary_notes": [
+      "单件商品删除请求被正确拒绝属于政策允许范围内的拒绝，不构成业务失败。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,166 @@
+{
+  "case_id": "tr341",
+  "created_beijing": "2026-11-10T15:55:20.602491+08:00",
+  "input_sha256": "3d1daac2c14d2586562e01cbd751b751f29ad0210a50ea67432ce8811ed709b6",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "e2faecd970550607c971ed2967d9dd74b0f2fd4d4cf94bf4201daab429cdb5b5",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 743,
+    "completion_tokens_details": {
+      "reasoning_tokens": 11
+    },
+    "prompt_tokens": 16989,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 17732
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "换货已送达订单中的笔记本电脑",
+        "object": "Order #W4073673 中的 Laptop (item 2216662955) 换为 item 9844888101",
+        "request_refs": [
+          "h:1",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "通过姓名+邮编完成身份核验",
+            "basis": "policy: authenticate via name + zip code",
+            "refs": [
+              "h:3",
+              "e:0"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "确认订单状态为 delivered 后才能换货",
+            "basis": "policy: exchange only delivered",
+            "refs": [
+              "e:4"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "换同产品不同选项的可用新品，价格差退至原支付方式",
+            "basis": "policy: same product different option; refund via payment method",
+            "refs": [
+              "h:14",
+              "h:18"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "列出换货明细并取得明确确认，提醒只能换一次及确认全部商品",
+            "basis": "policy: explicit confirmation; remind all items",
+            "refs": [
+              "h:18",
+              "h:20",
+              "h:21"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "换货对象、新品(15-inch i7/8GB/1TB SSD, available, 同产品)均符合规则，订单确为 delivered",
+            "refs": [
+              "h:13",
+              "e:4",
+              "e:6"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "列明明细并要求yes，用户明确回复 yes (h:21)，支付方式 Mastercard 1531 亦经确认",
+            "refs": [
+              "h:18",
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:6 成功写入：status=exchange requested，差价-60.78退至 credit_card_3677959，与用户同意一致",
+            "refs": [
+              "e:6",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知申请已提交、状态 exchange requested、退款5-7天及后续邮件，如实说明而非虚假完成",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "所报规格(15-inch, i7, 8GB, 1TB SSD, black, $2459.74)与目录一致，差价-60.78计算正确",
+            "refs": [
+              "h:13",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验、查订单状态、查产品目录、提醒一次性限制及确认全部商品，顺序合规",
+            "refs": [
+              "h:4",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "换货申请已成功提交，订单状态 exchange requested，60.78美元退款至信用卡，用户将收到退回原机的邮件"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:18",
+        "purpose": "目录证实所报价规格与价格正确"
+      },
+      {
+        "from": "e:6",
+        "to": "h:24",
+        "purpose": "实际写入状态与送达说明一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "一次对话中同时进行多个读取工具调用属接口规范问题，不计入业务评分"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

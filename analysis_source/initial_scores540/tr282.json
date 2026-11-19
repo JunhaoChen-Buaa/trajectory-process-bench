@@ -1,0 +1,176 @@
+{
+  "case_id": "tr282",
+  "created_beijing": "2026-11-10T15:36:43.490157+08:00",
+  "input_sha256": "e1169ee94dce43468c3d74b46624a9f41d9004d9a93d90a4f2f5d7f7e92e37b2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "966b1067dad461ed88ac0c7e045ed03d2a2095214d401233eefde4f0df44ebcb",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1239,
+    "completion_tokens_details": {
+      "reasoning_tokens": 389
+    },
+    "prompt_tokens": 14030,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 15269
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "台灯换货（delivered订单换更低亮度AC款）",
+        "object": "订单#W6390527中的Desk Lamp item 8384507844",
+        "request_refs": [
+          "h:1",
+          "h:17",
+          "h:21"
+        ],
+        "revisions": [
+          {
+            "ref": "h:17",
+            "change": "用户撤回水瓶换货请求，只保留台灯换货"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "对delivered订单中台灯换为同产品可用新变体，仅一次换货",
+            "basis": "policy: exchange delivered order, same product different option",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换货前列明详情并获用户明确确认",
+            "basis": "policy: obtain explicit user confirmation (yes)",
+            "refs": [
+              "h:20",
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "价差金额正确报价并经用户同意",
+            "basis": "policy: payment method for price difference",
+            "refs": [
+              "h:20"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单#W6390527为delivered，换为同产品可用变体1569765161，符合policy；水瓶撤回未误操作",
+            "refs": [
+              "h:11",
+              "h:19",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "确认流程合规，但用户同意的金额为$5.02，实际扣款$5.08，金额同意与实际不一致",
+            "refs": [
+              "h:20",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "换货实际写入：status 'exchange requested'，exchange_new_items [1569765161]，价差按目录价正确计算5.08经PayPal；仅报价口径差$0.06记于FACT",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:24说明价差$5.08、将收到退回邮件，与实际存储状态一致，未虚报",
+            "refs": [
+              "h:24",
+              "h:23"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:20向用户报价差额$5.02，而143.02-137.94=5.08，报价计算错误且与实收不符",
+            "refs": [
+              "h:20",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份核验(find_user_id_by_name_zip)、查订单确认delivered、查产品可用性，并在执行前提醒换货仅一次并提醒跳过水瓶的后果",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W6390527状态为exchange requested，台灯换为silver/low/AC adapter(1569765161)，PayPal扣价差5.08；用户同意时被告知5.02"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "价差报价错误：告知$5.02，实际收$5.08",
+        "basis": "143.02-137.94=5.08；h:20报价$5.02获同意，h:23实收5.08",
+        "refs": [
+          "h:20",
+          "h:21",
+          "h:23"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": false,
+        "effect": "用户实际多付$0.06，用户在确认时已知金额口径有误版本"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:23",
+        "purpose": "确认报价金额与实际扣款不一致"
+      }
+    ],
+    "auxiliary_notes": [
+      "水瓶换货为用户主动撤回（h:17），Agent已正确提示一次性限制，不判遗漏"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

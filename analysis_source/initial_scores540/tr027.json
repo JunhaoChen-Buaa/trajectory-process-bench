@@ -1,0 +1,190 @@
+{
+  "case_id": "tr027",
+  "created_beijing": "2026-11-10T14:53:37.954648+08:00",
+  "input_sha256": "c368507304006fb3d0a89ddac6943603eb021209506bc1f533f9b548403850d0",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "51b52a20525fc9c40145b6b476929020cae6de40d0b36d370b046cd64f9d188b",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1414,
+    "completion_tokens_details": {
+      "reasoning_tokens": 473
+    },
+    "prompt_tokens": 15425,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 16839
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "预订5月20日JFK至SEA经济舱单程航班（11am后出发，3件行李，无保险）",
+        "object": " mia_li_3668 的新预订（HAT136+HAT039）",
+        "request_refs": [
+          "h:1",
+          "h:5",
+          "h:17"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "找到5月20日JFK→SEA 11am EST后出发的航班并预订，经济舱",
+            "basis": "用户要求",
+            "refs": [
+              "h:1",
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "3件行李、无保险、用证书支付；gold会员economy有3件免费行李",
+            "basis": "policy baggage allowance",
+            "refs": [
+              "h:17",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "预订前需列出明细并获得用户明确确认",
+            "basis": "policy confirmation rule",
+            "refs": [
+              "h:24",
+              "h:29"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "gold会员economy每位3件免费行李，3件行李不应收费，Agent错误加收$50且报价$202；且最终未能完成本可办理的预订就转人工",
+            "refs": [
+              "h:23",
+              "h:24",
+              "h:31",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1",
+              "I2"
+            ]
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "预订前列出了明细并获用户明确同意（'That works for me'），尽管报价中行李费有误，同意与所报内容一致",
+            "refs": [
+              "h:24",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "预订从未成功写入：第二次调用缺 user_id 和 total_baggages 报错，Agent未重试即转人工，业务未完成",
+            "refs": [
+              "h:31",
+              "h:34",
+              "h:36"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "Agent未向用户作出任何'已完成'的说明",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "将免费行李误报为需付$50；且声称两证书合计$350付$202'不可能'的说法不成立，仅剩余额不可退才是限制",
+            "refs": [
+              "h:24",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id、查用户详情、搜索航班、询问保险，预订前确认，顺序符合政策",
+            "refs": [
+              "h:20",
+              "h:22",
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "预订未完成，用户被转人工；转接并非因超出能力范围（Agent可自行修正调用并按正确价格$152完成预订）"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "行李费计算错误：gold会员economy的3件免费行李被误收$50",
+        "basis": "policy: gold member economy每乘客3件免费行李；用户档案显示 membership:'gold'，却被报价'+$50 extra baggage = $202'",
+        "refs": [
+          "h:23",
+          "h:24",
+          "h:28"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "报价多收$50（未实际扣款，预订失败），并伴随错误的证书合并付款解释"
+      },
+      {
+        "issue_id": "I2",
+        "title": "book_reservation调用缺参失败后未重试，过早转人工",
+        "basis": "h:31 'missing 2 required positional arguments: user_id and total_baggages'，信息已具备却未重试，转接应由无法处理时才触发",
+        "refs": [
+          "h:31",
+          "h:33",
+          "h:34"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "预订未完成，用户被转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:23",
+        "to": "h:24",
+        "purpose": "会员等级gold+economy对照行李政策判定行李应免费"
+      },
+      {
+        "from": "h:31",
+        "to": "h:34",
+        "purpose": "调用失败与未重试即转人工的因果关系"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:8将原始工具调用JSON暴露给用户，属接口措辞问题；'-$148 not possible'的错误解释已并入FACT/issue I1"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

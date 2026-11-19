@@ -1,0 +1,173 @@
+{
+  "case_id": "tr489",
+  "created_beijing": "2026-11-10T15:52:46.318805+08:00",
+  "input_sha256": "0bc5beec5836d5a474de5f92fa5008e84b13da2ed8b678c3cbe3dfcab5ae7eaa",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b088c77cb5823f39df1fca39a433d738087eee9a08135b1bc427e6fb4f77d4e1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 797,
+    "completion_tokens_details": {
+      "reasoning_tokens": 57
+    },
+    "prompt_tokens": 20156,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 20953
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "恢复555-123-2002线路服务（缴清逾期账单并解除暂停）",
+        "object": "线路L1002（555-123-2002）及逾期账单B1234321",
+        "request_refs": [
+          "h:1",
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "查明No Service原因并恢复线路服务",
+            "basis": "用户报告\"No Service\"",
+            "refs": [
+              "h:1",
+              "h:5"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "支付逾期账单后方可解除暂停",
+            "basis": "policy: lift suspension after overdue bills paid",
+            "refs": [
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "付款前需确认账单状态并先发送付款请求",
+            "basis": "policy overdue bill payment步骤",
+            "refs": [
+              "h:12",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "恢复后提醒用户重启设备",
+            "basis": "policy: user will have to reboot device",
+            "refs": [
+              "h:27"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别L1002因逾期账单暂停，确认账单Overdue后请求付款，付清后resume_line，符合政策。",
+            "refs": [
+              "h:9",
+              "h:12",
+              "h:13",
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户明确同意发送65美元付款请求（h:14），金额与实际一致。",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "账单Paid（h:24），线路Active（h:26），重启后5G信号Excellent且数据开启（h:65、h:67），服务完全恢复。",
+            "refs": [
+              "h:24",
+              "h:26",
+              "h:65",
+              "h:67"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:27说明账单已付、暂停已解除并提醒重启，均与实际一致；h:69总结准确。",
+            "refs": [
+              "h:27",
+              "h:69"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "h:13说明暂停因逾期账单有工具依据（h:9、h:12），诊断说明SIM正常、线路Active均准确。",
+            "refs": [
+              "h:13",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按政策先查账单状态、发送请求、确认Paid后再resume，并提醒重启。",
+            "refs": [
+              "h:11",
+              "h:16",
+              "h:24",
+              "h:25",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q3",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "B1234321已付清，L1002恢复Active，用户设备5G信号Excellent且数据开启，问题解决。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:13",
+        "purpose": "暂停原因归因于逾期账单的依据"
+      },
+      {
+        "from": "h:12",
+        "to": "h:15",
+        "purpose": "发送付款请求前确认账单Overdue"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent建议的toggle_data与重复toggle_airplane_mode对最终恢复并非必要，但属合理诊断尝试，不影响业务评分；最终由APN reset+reboot解决。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

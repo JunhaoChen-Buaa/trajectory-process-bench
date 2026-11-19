@@ -1,0 +1,145 @@
+{
+  "case_id": "tr022",
+  "created_beijing": "2026-11-10T16:00:09.041826+08:00",
+  "input_sha256": "3c0190f685182922cb8f3414cf6be1fd0aef1530f052efc91581af8b743b371f",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "584ed4c682cc60e78518375f2a844de318ff5125b68fc77e14e5f17f974cc413",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 597,
+    "completion_tokens_details": {
+      "reasoning_tokens": 44
+    },
+    "prompt_tokens": 9267,
+    "prompt_tokens_details": {
+      "cached_tokens": 5824
+    },
+    "total_tokens": 9864
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改回程航班被拒后取消订单",
+        "object": "预订 Z7GOZK",
+        "request_refs": [
+          "h:1",
+          "h:9"
+        ],
+        "revisions": [
+          {
+            "ref": "h:9",
+            "change": "用户将目标由修改回程改为取消整个订单"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "基本经济舱不可修改航班",
+            "basis": "policy: 'Basic economy flights cannot be modified'",
+            "refs": [
+              "h:1",
+              "h:8"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "有保险且健康原因可取消并全额退款$169至原支付方式",
+            "basis": "policy: insurance enables full refund; refund to original payment in 5-7 days",
+            "refs": [
+              "h:9",
+              "h:10"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确拒绝基本经济舱改期，取消符合保险健康原因规则，对象Z7GOZK正确",
+            "refs": [
+              "h:7",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "取消前列明订单详情与退款金额并获得用户明确同意",
+            "refs": [
+              "h:10",
+              "h:11"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回读确认status=cancelled且$169退款入gift_card_2200803",
+            "refs": [
+              "h:13",
+              "e:2"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知已取消及$169退款5-7个工作日到账，与实际一致",
+            "refs": [
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "改期不可行的说明与basic_economy事实一致；退款金额169与订单金额一致",
+            "refs": [
+              "h:8",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取user id、定位订单、查详情，顺序完整",
+            "refs": [
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "Z7GOZK已取消，$169全额退款至原礼品卡，用户自行重新购票"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:9",
+        "to": "h:7",
+        "purpose": "取消资格依赖订单含保险的事实"
+      }
+    ],
+    "auxiliary_notes": []
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

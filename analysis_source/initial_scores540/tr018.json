@@ -1,0 +1,139 @@
+{
+  "case_id": "tr018",
+  "created_beijing": "2026-11-10T15:55:20.201362+08:00",
+  "input_sha256": "77df588ffb650dfff6e6a14d1d0814c5062c8de9b507cb6dc7d0bc1af14c3435",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "a671cd5768a8333a7d04e18670d4c1fbce7c75534748cd08a40f25607a7621a1",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 612,
+    "completion_tokens_details": {
+      "reasoning_tokens": 61
+    },
+    "prompt_tokens": 10580,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 11192
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "更改Z7GOZK返程航班",
+        "object": "预订 Z7GOZK 的返程 HAT207",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:11",
+            "change": "放弃改签请求，改为用旅行保险取消该预订"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按用户要求尝试更改返程航班",
+            "basis": "用户请求",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订为 basic economy，policy 规定 'Basic economy flights cannot be modified'，Agent 正确拒绝改签",
+            "refs": [
+              "h:7",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "改签被规则禁止，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝改签是正确结果；用户随后撤回并转为取消，取消在保险+健康原因下正确完成",
+            "refs": [
+              "h:10",
+              "h:11",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明无法修改 basic economy，并准确说明取消与退款状态",
+            "refs": [
+              "h:10",
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "取消说明与预订数据一致（保险 yes、$169 礼品卡支付、5-7个工作日退款）",
+            "refs": [
+              "h:7",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先获取 user id，用工具帮用户定位预订，再按规则判断并处理",
+            "refs": [
+              "h:2",
+              "h:4",
+              "h:6"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "改签被正确拒绝；用户改为取消预订 Z7GOZK，已成功取消并退款 $169 至礼品卡"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:7",
+        "purpose": "确定目标预订及其 basic economy 舱位"
+      },
+      {
+        "from": "h:11",
+        "to": "h:12",
+        "purpose": "用户改为保险取消，Agent确认资格"
+      }
+    ],
+    "auxiliary_notes": [
+      "用户改签请求被正确拒绝，不判失败；取消属于同一预订内用户主动修改目标，未另建组。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

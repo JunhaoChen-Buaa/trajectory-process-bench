@@ -1,0 +1,207 @@
+{
+  "case_id": "tr237",
+  "created_beijing": "2026-11-10T16:06:55.203057+08:00",
+  "input_sha256": "4ae4a3efb8785d79be22bf16155f3169a98b55c5533d5161ea857093ea45d9ce",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "86fbe682d094f2c049b07aa0fb3a4cbcf5d64ebf21c200834e42f332df12f79f",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 927,
+    "completion_tokens_details": {
+      "reasoning_tokens": 51
+    },
+    "prompt_tokens": 13533,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 14460
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "部分取消订单中的办公物品",
+        "object": "订单 #W1845024",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "放弃取消需求，改为修改收货地址并整单保留"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确说明不支持部分取消，不得违规操作",
+            "basis": "policy: cancellation applies to entire order only",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "Agent明确说明系统不支持部分取消，仅可整单取消或修改物品，未违规操作",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消动作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "na",
+            "reason": "用户主动撤回该目标改为改地址，未产生取消结果",
+            "refs": [
+              "h:13"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知不支持部分取消并列出选项，无虚假完成说明",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "部分取消不可行的说明符合政策，识别办公物品时如实标注歧义并请用户确认",
+            "refs": [
+              "h:12"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已先认证身份并查询订单状态(pending)再讨论取消",
+            "refs": [
+              "h:4",
+              "h:9"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "取消请求被用户撤回，未执行取消"
+      },
+      {
+        "group_id": "G2",
+        "goal": "修改订单收货地址为纽约住址",
+        "object": "订单 #W1845024",
+        "request_refs": [
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "将订单地址改为 224 Elm Street, Suite 491, New York, NY 10108, USA",
+            "basis": "用户 h:13/h:15",
+            "refs": [
+              "h:13"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单为pending，允许修改地址，改后的地址与用户要求一致，DB回读确认",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "Agent列出完整新地址并获用户明确确认后才执行",
+            "refs": [
+              "h:14",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "地址成功更新为用户要求的NYC地址，订单其余内容未受影响",
+            "refs": [
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "'Done! ... has been updated' 与实际DB状态一致",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "地址信息直接来自用户档案，准确无误",
+            "refs": [
+              "h:7",
+              "h:14"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已核验身份并确认订单为pending后执行修改",
+            "refs": [
+              "h:4",
+              "h:9"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "#W1845024 地址已更新为 224 Elm Street, Suite 491, New York, NY 10108, USA，状态仍为pending"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:7",
+        "to": "h:14",
+        "purpose": "用户档案默认地址作为修改地址的来源依据"
+      }
+    ],
+    "auxiliary_notes": [
+      "原始三个订单中有两个已取消，Agent查询后仅操作pending订单，处理得当；用户口头表述的'三个办公物品'与实际订单不符，Agent通过澄清而非臆测处理，值得肯定"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

@@ -1,0 +1,166 @@
+{
+  "case_id": "tr395",
+  "created_beijing": "2026-11-10T15:32:28.948214+08:00",
+  "input_sha256": "cab7f624604027bf1354880ede5ad64e81da61c4a12c748c10c2b59fbeb475fc",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "208f7ca0150ec71df9e04dd0ba5c8f4633a0358cf02a74cc5dbaecd3a4640619",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1171,
+    "completion_tokens_details": {
+      "reasoning_tokens": 269
+    },
+    "prompt_tokens": 12144,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "total_tokens": 13315
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "排查并修复MMS无法发送问题",
+        "object": "用户线路 L1002（号码 555-123-2002）的MMS功能",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "按技术支持流程排查MMS问题并尽量修复",
+            "basis": "tech_support_policy",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "MMS排查前必须先完成客户身份识别",
+            "basis": "policy: Technical Support - You must first identify the customer",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "排查对象线路错误：用户号码555-123-2002对应L1002，但Agent以L1001查询数据用量（h:30），且提出数据超限假设而未实际核实；政策要求针对用户提供号码对应线路。",
+            "refs": [
+              "h:19",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "MMS排查为只读/用户设备操作，无需单独确认。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "MMS始终未修复，Agent遗漏了修复路径（短信权限缺失）即转人工，未尽力解决。",
+            "refs": [
+              "h:35",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "未向用户虚假宣称已修复，转人工说明与实际一致（h:40）。",
+            "refs": [
+              "h:40"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "Agent将P1001的5GB限额说成可能与MMS相关，但该计划/线路与用户实际线路L1002未核对，属于无源依据的误导性事实说明；用户多次纠正2GB说法后Agent未回应（h:31）。",
+            "refs": [
+              "h:30",
+              "h:31"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "政策要求检查messaging应用的storage和sms权限，用户报告仅有storage/camera/location（h:33），sms权限缺失这一明确修复步骤被遗漏即转人工；身份识别也延迟到排查中途才完成。",
+            "refs": [
+              "h:33",
+              "h:38"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": [
+              "I2"
+            ]
+          }
+        },
+        "end_state": "MMS问题未解决，转接人工，用户线路L1002的sms权限缺失未被处理"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "排查对象线路错误并给出无依据的计划限额说明",
+        "basis": "用户称号码555-123-2002是其号码（h:19），该号对应L1002；Agent却对L1001查用量并断言5GB限额可能是问题（h:30），用户纠正后未回应（h:31）",
+        "refs": [
+          "h:19",
+          "h:30",
+          "h:31"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "误导用户理解，数据超限假设未经核实，排查方向偏离"
+      },
+      {
+        "issue_id": "I2",
+        "title": "遗漏sms权限修复步骤即转人工",
+        "basis": "政策：若messaging应用缺少storage和sms权限应引导grant_app_permission；用户报告仅有storage/camera/location（h:33），Agent未处理sms权限便transfer_to_human_agents（h:38）",
+        "refs": [
+          "h:33",
+          "h:38"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "MMS问题未能修复，用户被迫转人工"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:19",
+        "to": "h:30",
+        "purpose": "用户实际号码对应线路L1002，而Agent查询的是L1001"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在前半段以内部工具调用文本与用户交替出现，未遵守'一次只发消息或调用工具'的接口规范，属接口规范问题不计业务分。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

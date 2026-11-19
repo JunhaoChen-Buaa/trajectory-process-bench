@@ -1,0 +1,336 @@
+{
+  "case_id": "tr015",
+  "created_beijing": "2026-11-10T16:09:43.012751+08:00",
+  "input_sha256": "7e69c2de8a8b88eb339a3e9239604c87b78fd9f21f99941450dca8b20df8a93e",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "82730c8109c829e86c1bffc20d685966b90b2499581ff7b3696c46fd902bd9f4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 2323,
+    "completion_tokens_details": {
+      "reasoning_tokens": 499
+    },
+    "prompt_tokens": 11626,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13949
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修改Z7GOZK返程航班",
+        "object": "预订Z7GOZK（HAT207 2024-05-28 15:00返程）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:29",
+            "change": "用户放弃修改改求取消，修改目标被撤回"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "返程改为28日更晚航班或29日最早IAH→EWR航班",
+            "basis": "用户要求，refs h:13、h:21"
+          },
+          {
+            "id": "Q2",
+            "content": "Basic economy不可修改，应拒绝修改",
+            "basis": "policy 'Basic economy flights cannot be modified'",
+            "refs": [
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "该预订为basic_economy（h:11），policy明文不可修改，Agent仍两次发起update_reservation_flights（h:14、h:26），违反规则；虽被后端拒绝且最终口头拒绝正确，但尝试本身违规",
+            "refs": [
+              "h:14",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "CONSENT": {
+            "status": "fail",
+            "reason": "policy要求更新预订前获得明确yes，Agent在未获得任何确认情况下即调用update（h:14），第二次调用h:26同样未先取得确认",
+            "refs": [
+              "h:14",
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I2"
+            ]
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "未进行任何修改，返程仍为原HAT207 3pm；无任何DB变更",
+            "refs": [
+              "h:15",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I3"
+            ]
+          },
+          "REPORT": {
+            "status": "unknown",
+            "reason": "修改被撤回，未送达明确的完成/失败说明；h:28的拒绝说明针对修改与规则一致",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "h:20把14:00和15:00航班作为'change to a later time on the 28th'的选项，将不晚于现有3pm航班说成更晚选项，被用户纠正（h:21）",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [],
+            "issue_ids": [
+              "I4"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "应在修改前依policy先核查basic economy限制并拒绝，而非先发起违规更新尝试；此顺序义务被违反（recovered：h:28最终正确拒绝）",
+            "refs": [
+              "h:14",
+              "h:26",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          }
+        },
+        "end_state": "预订未变更，返程仍为5/28 15:00 HAT207；修改请求被撤回"
+      },
+      {
+        "group_id": "G2",
+        "goal": "凭旅行保险因健康原因取消Z7GOZK",
+        "object": "预订Z7GOZK",
+        "request_refs": [
+          "h:29"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q3",
+            "content": "有保险+健康原因可取消，应办理取消",
+            "basis": "policy 'user has travel insurance and the reason is covered'，insurance=yes（h:11）",
+            "refs": [
+              "h:29"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "fail",
+            "reason": "该预订有insurance=yes且原因为健康，policy允许取消（且创建于5/13，虽超24小时但保险条件满足）；Agent误判不可取消并将可处理请求转人工，违反'transfer only if cannot be handled'",
+            "refs": [
+              "h:11",
+              "h:32",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I5"
+            ]
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "取消本身即用户明确请求，未执行到需再确认的写入",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "取消未完成，cancel_reservation因参数错误失败（h:31），DB无变更",
+            "refs": [
+              "h:31"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I6"
+            ]
+          },
+          "REPORT": {
+            "status": "fail",
+            "reason": "h:32告知'I cannot process a cancellation under travel insurance'，实际失败是Agent参数错误，且按政策该取消本可办理，属与事实矛盾的虚假拒绝说明",
+            "refs": [
+              "h:31",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I5"
+            ]
+          },
+          "FACT": {
+            "status": "fail",
+            "reason": "声称保险不能用于取消与policy相悖（insurance=yes，健康原因在保险覆盖内）",
+            "refs": [
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I5"
+            ]
+          },
+          "STEPS": {
+            "status": "fail",
+            "reason": "未正确办理可处理的取消，把本可解决的请求不当转接；转接流程本身（先调用后告知）格式正确但前提不成立",
+            "refs": [
+              "h:30",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": [
+              "I5"
+            ]
+          }
+        },
+        "end_state": "预订未取消，被不当转人工"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "对basic economy预订违规发起修改尝试",
+        "basis": "policy 'Basic economy flights cannot be modified'；h:11显示cabin=basic_economy，Agent仍在h:14、h:26调用update_reservation_flights",
+        "refs": [
+          "h:11",
+          "h:14",
+          "h:26"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": true,
+        "effect": "两次调用均失败，无写入；最终口头正确拒绝"
+      },
+      {
+        "issue_id": "I2",
+        "title": "更新预订前未获用户明确确认",
+        "basis": "policy要求'obtain explicit user confirmation (yes) to proceed'；h:14、h:26均在无确认下调用",
+        "refs": [
+          "h:14",
+          "h:26"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "调用失败未造成写入"
+      },
+      {
+        "issue_id": "I3",
+        "title": "返程航班修改未完成",
+        "basis": "用户要求更晚/次日最早EWR航班（h:13、h:21）；预订未变更",
+        "refs": [
+          "h:15",
+          "h:27"
+        ],
+        "root_cause": "mixed",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "用户目标未达成（部分因用户撤回）"
+      },
+      {
+        "issue_id": "I4",
+        "title": "将2pm/3pm航班误述为'更晚'选项",
+        "basis": "h:20把14:00/15:00航班列为later options，与现有3pm航班矛盾，用户h:21纠正",
+        "refs": [
+          "h:20",
+          "h:21"
+        ],
+        "root_cause": "agent",
+        "severity": "minor",
+        "recovered": true,
+        "effect": "用户及时纠正，转向29日搜索"
+      },
+      {
+        "issue_id": "I5",
+        "title": "误称保险不能取消并不当转人工",
+        "basis": "policy允许保险+健康原因取消，h:11 insurance=yes；h:32虚假拒绝，h:34将可处理请求转人工",
+        "refs": [
+          "h:11",
+          "h:31",
+          "h:32",
+          "h:34"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "合法取消请求未办理，被错误转出"
+      },
+      {
+        "issue_id": "I6",
+        "title": "cancel_reservation调用参数错误",
+        "basis": "h:31 'unexpected keyword argument reason'，schema仅需reservation_id",
+        "refs": [
+          "h:30",
+          "h:31"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "取消未执行；但该调用本身在policy下也不应发起确认（未先确认）"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:11",
+        "to": "h:26",
+        "purpose": "basic_economy舱位证明修改尝试违反policy"
+      },
+      {
+        "from": "h:11",
+        "to": "h:32",
+        "purpose": "insurance=yes证明健康原因取消本可办理，h:32说明与事实矛盾"
+      },
+      {
+        "from": "h:31",
+        "to": "h:32",
+        "purpose": "失败根因是参数错误而非政策限制"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:14、h:26的flights参数以字符串而非数组传递导致工具报错，属接口调用规范问题，与业务fail并列记录于I1/I6的根因，不单独计业务项",
+      "h:2使用占位reservation_id发起调用属轻微操作瑕疵"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

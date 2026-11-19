@@ -1,0 +1,110 @@
+{
+  "case_id": "tr178",
+  "created_beijing": "2026-11-10T15:33:54.851873+08:00",
+  "input_sha256": "bc23d711ab10e10ae27e960638dd932d334c72b123d4ef5df5b4444b4dd50911",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "f43dc4153e23f26fa2e2848f433aa2e3ad6a023821b3e81489d20d4a8af5ae10",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 582,
+    "completion_tokens_details": {
+      "reasoning_tokens": 184
+    },
+    "prompt_tokens": 10458,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 11040
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消预订 IFOYYZ",
+        "object": "reservation IFOYYZ (CLT-EWR 往返, basic economy)",
+        "request_refs": [
+          "h:7"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "仅当符合取消规则时才取消",
+            "basis": "policy: 24小时内/航司取消/商务舱/保险",
+            "refs": [
+              "h:7"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "预订创建于5/12超24小时、basic economy、无保险且变更计划原因，均不满足取消条件，拒绝正确",
+            "refs": [
+              "h:9",
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依规拒绝，依法拒绝可视为正确结果",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知不符合资格并列出规则",
+            "refs": [
+              "h:20"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "取消资格规则说明与policy一致，创建时间/舱位/保险事实准确",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查预订详情并询问取消原因",
+            "refs": [
+              "h:8",
+              "h:16"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          }
+        },
+        "end_state": "IFOYYZ 未取消，正确依规拒绝"
+      }
+    ],
+    "group补充": null,
+    "groups_placeholder": null,
+    "extra_groups": null,
+    "ignore": ""
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

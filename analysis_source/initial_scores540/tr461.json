@@ -1,0 +1,158 @@
+{
+  "case_id": "tr461",
+  "created_beijing": "2026-11-10T15:33:05.924893+08:00",
+  "input_sha256": "2c45bd3df980a9b2dcb2f3bce39faa9fd55eb0251cbfdb1b9f3ec4185c91122b",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "6030c4feb5308141fe32685b06988c593c0ba31f73bbdc858e0b82f7cbe48ab7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 760,
+    "completion_tokens_details": {
+      "reasoning_tokens": 40
+    },
+    "prompt_tokens": 14303,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 15063
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复在法国的移动数据问题（漫游+数据超限+续费）",
+        "object": "线路 L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户在国外旅行，应检查并免费开启线路漫游",
+            "basis": "policy: check if line is roaming enabled, enable it at no cost",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "排除设备侧问题（数据漫游开关、移动数据开关）并验证连接",
+            "basis": "tech support policy: roaming/data toggle guidance",
+            "refs": [
+              "h:16",
+              "h:32"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据超限时经用户选择加购数据（≤2GB，按套餐单价，先确认价格与数量）",
+            "basis": "policy: data refueling steps",
+            "refs": [
+              "h:23",
+              "h:24",
+              "h:28"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确核对号码对应L1002后enable_roaming并refuel 2GB，符合免费漫游与续费上限规则",
+            "refs": [
+              "h:9",
+              "h:11",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "先报价$2/GB并告知上限，用户明确选2GB后执行，实际收费$4.00与同意一致",
+            "refs": [
+              "h:27",
+              "h:28",
+              "h:30"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "漫游已开启、2GB加购成功、用户测速275 Mbps Excellent，数据功能实际恢复",
+            "refs": [
+              "h:30",
+              "h:35"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "摘要与实际操作一致，且在用户测速确认后才断言完全正常",
+            "refs": [
+              "h:31",
+              "h:37"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15GB限制与15.1GB用量、$2/GB报价均有工具数据依据",
+            "refs": [
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按流程先查身份、检查线路漫游、核对账单用量、报价确认后加购，无遗漏必要步骤",
+            "refs": [
+              "h:5",
+              "h:9",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002漫游开启、设备数据漫游与移动数据已开、加购2GB收费$4，测速Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:9",
+        "purpose": "用户号555-123-2002对应L1002，确认操作对象正确"
+      }
+    ],
+    "auxiliary_notes": [
+      "身份验证仅用电话号码查询，符合policy的lookup方式；h:5中email字段(john.smith@example.com)与姓名不一致疑似数据瑕疵，非Agent问题"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

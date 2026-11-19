@@ -1,0 +1,137 @@
+{
+  "case_id": "tr540",
+  "created_beijing": "2026-11-10T14:35:40.933990+08:00",
+  "input_sha256": "0b428e03cc6f9976e6ab8cbbe0bef6ec32b82fa71b7741f524cebbafac2a9500",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "8d4907a4dc6b1a648ded7275730e456ac87ec7cc5919895c373887f238bf7bdd",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 501,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 13128,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 13629
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复手机无服务问题",
+        "object": "L1002 (555-123-2002)",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决No Service问题",
+            "basis": "用户 h:1 'I need this fixed'",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "技术支持前先识别客户",
+            "basis": "policy 'You must first identify the customer'",
+            "refs": [
+              "h:3"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按手册顺序排查：状态栏→飞行模式→SIM状态→重插SIM，全部符合技术支持流程",
+            "refs": [
+              "h:18",
+              "h:22",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "设备排查无需业务确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "重插SIM后状态栏显示Excellent信号、5G、数据开启，服务恢复",
+            "refs": [
+              "h:28",
+              "h:29"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "Agent说明问题根因（飞行模式+SIM未识别）与恢复状态一致",
+            "refs": [
+              "h:30",
+              "h:32"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对飞行模式、SIM识别的说明均有设备返回依据",
+            "refs": [
+              "h:16",
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已先要求客户身份识别(h:2-3)并核对了线路状态再进入设备排查",
+            "refs": [
+              "h:2",
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002设备服务恢复正常（信号Excellent、5G、数据开启），问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "用户提供号码555-123-2002对应L1002，确定排查对象"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:7中L1001数据显示data_used_gb与plan无关的读数细节不影响本次业务",
+      "设备侧操作由用户执行，符合手册指导模式"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

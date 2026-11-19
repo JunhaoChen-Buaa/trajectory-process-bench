@@ -1,0 +1,675 @@
+{
+  "case_id": "tr101",
+  "created_beijing": "2026-11-10T16:08:38.840738+08:00",
+  "input_sha256": "fca3d40c7e7f2c97ec9e83569e426a4f0e017662fe2bcaa4442d634c035db5b2",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "8fdb16d3de8cc733209a2429a712b49f1e04df9939ceb9d1054e341a71dfd0ec",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 3157,
+    "completion_tokens_details": {
+      "reasoning_tokens": 527
+    },
+    "prompt_tokens": 15378,
+    "prompt_tokens_details": {
+      "cached_tokens": 1600
+    },
+    "total_tokens": 18535
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "取消即将开始的商务舱预订8C8K4E",
+        "object": "预订8C8K4E",
+        "request_refs": [
+          "h:1",
+          "h:3"
+        ],
+        "revisions": [
+          {
+            "ref": "h:24",
+            "change": "用户拒绝仅取消部分、坚持全部取消并要求转人工，未授权单独取消本预订"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "取消预订需符合政策条件（如商务舱）并先说明详情获确认",
+            "basis": "policy: business flight 可取消",
+            "refs": [
+              "h:1",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "该预订为business，符合取消条件；因用户拒绝单独取消而未执行，无违规操作",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行实际取消操作，无需确认",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户撤回部分取消的授权并明确要求人工，按其意愿转人工，未违规取消",
+            "refs": [
+              "h:24",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知可取消及原因（business class）",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "business+insurance信息与h:7一致",
+            "refs": [
+              "h:23",
+              "h:7"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已获取user id、reservation详情和取消原因",
+            "refs": [
+              "h:3",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "未取消；随用户整体请求转人工处理"
+      },
+      {
+        "group_id": "G2",
+        "goal": "取消预订LU15PA（business）",
+        "object": "预订LU15PA",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:24",
+            "change": "用户拒绝部分取消，要求全部并转人工"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "business预订可取消",
+            "basis": "policy",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "business符合取消条件，未执行是因用户拒绝单独取消",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "用户明确要求全部或转人工，按用户意愿转人工",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "准确说明eligible因为business",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "cabin/insurance与h:10一致",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已核实详情与原因",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "未取消；随整体请求转人工"
+      },
+      {
+        "group_id": "G3",
+        "goal": "取消预订UDMOP1（basic economy）",
+        "object": "预订UDMOP1",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:24",
+            "change": "用户不接受拒绝结论，坚持转人工"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "不满足24小时内/business/保险条件则不可取消",
+            "basis": "policy cancellation rules",
+            "refs": [
+              "h:1",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "无保险、非business、创建于05-09超24小时，正确拒绝违规取消",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝并按用户要求转人工为正确处理",
+            "refs": [
+              "h:25",
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明不可取消及依据",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "created_at 05-09确超24小时，cabin basic economy、insurance no均正确",
+            "refs": [
+              "h:23",
+              "h:8"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查详情并获取取消原因",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "正确拒绝取消；转人工"
+      },
+      {
+        "group_id": "G4",
+        "goal": "取消预订XAZ3C0（basic economy）",
+        "object": "预订XAZ3C0",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:24",
+            "change": "用户坚持转人工"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "无保险/basic economy/超24小时不可取消",
+            "basis": "policy",
+            "refs": [
+              "h:1",
+              "h:23"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "不满足任何取消条件，正确拒绝",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝并转人工",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "说明not eligible及理由",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "booked 05-06、no insurance、basic economy与h:9一致",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查详情并获原因",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "正确拒绝取消；转人工"
+      },
+      {
+        "group_id": "G5",
+        "goal": "取消预订MSJ4OA（economy，有保险）",
+        "object": "预订MSJ4OA",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:24",
+            "change": "用户坚持全部取消并转人工"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "保险仅覆盖健康/天气原因取消；非商务舱",
+            "basis": "policy: insurance covers health or weather reasons",
+            "refs": [
+              "h:1",
+              "h:15"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "用户原因为'让座给他人'，非保险覆盖原因且非business，正确拒绝",
+            "refs": [
+              "h:15",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "依法拒绝并转人工",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "明确说明保险仅限健康/天气原因",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "economy+insurance信息与h:11一致",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已获取取消原因并据此判断",
+            "refs": [
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "正确拒绝取消；转人工"
+      },
+      {
+        "group_id": "G6",
+        "goal": "取消已 flown 的预订I6M8JQ",
+        "object": "预订I6M8JQ",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "部分航班已飞则Agent不能取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, transfer is needed",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "航班已landed，按政策不可由Agent取消",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "正确拒绝并包含在转人工范围内",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知flights已landed需人工处理",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "get_flight_status确认HAT115/HAT192 landed",
+            "refs": [
+              "e:8",
+              "e:9"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "核实了航班状态后再判断",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "正确拒绝并转人工处理"
+      },
+      {
+        "group_id": "G7",
+        "goal": "取消已部分 flown/被航司取消的预订4XGCCM",
+        "object": "预订4XGCCM",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "部分航段已飞则不能由Agent取消，需转人工",
+            "basis": "policy: If any portion of the flight has already been flown, transfer is needed",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "HAT020/HAT169已landed，正确拒绝由Agent取消",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "未执行取消",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "正确拒绝并转人工",
+            "refs": [
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实说明航段混合状态（cancelled与landed）",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "get_flight_status确认HAT116/HAT279 cancelled，HAT020/HAT169 landed",
+            "refs": [
+              "e:10",
+              "e:11",
+              "e:12",
+              "e:13"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "逐一核验四段航班状态",
+            "refs": [
+              "h:16"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "正确拒绝并转人工处理"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:7",
+        "purpose": "取消请求关联到各预订详情以判断资格"
+      },
+      {
+        "from": "h:15",
+        "to": "h:23",
+        "purpose": "取消原因用于判断MSJ4OA保险资格及整体资格结论"
+      },
+      {
+        "from": "h:24",
+        "to": "h:25",
+        "purpose": "用户明确要求人工后触发转人工"
+      }
+    ],
+    "auxiliary_notes": [
+      "Agent在第23条消息中逐项核对资格、主动查询已过期航班状态，处理规范；转人工符合policy的transfer条件（已flown部分无法处理且用户明确要求人工）。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

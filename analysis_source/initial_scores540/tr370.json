@@ -1,0 +1,153 @@
+{
+  "case_id": "tr370",
+  "created_beijing": "2026-11-10T15:02:01.725740+08:00",
+  "input_sha256": "788b866e43c6e2171bb16b49971aefa331b2d1245ea582b394f93b94d7118638",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "b7a3823dfe8375953d6364ffc4951da37a184bcf69a20c2e37d402815ff62184",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 609,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 18058,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 18667
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复MMS发送故障（含数据加油）",
+        "object": "用户线路L1002（555-123-2002）及其手机",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并解决MMS无法发送问题",
+            "basis": "用户报告 h:1",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "确认后引导用户加油2GB数据并收取$2/GB",
+            "basis": "policy数据加油流程",
+            "refs": [
+              "h:67",
+              "h:68"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "排查路径符合tech support手册（飞行模式→SIM→数据→网络模式→APN→Wi-Fi Calling→权限→数据限额），加油2GB未超上限且对象线路正确",
+            "refs": [
+              "h:13",
+              "h:27",
+              "h:44",
+              "h:58",
+              "h:67"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "用户在报价$2/GB后明确同意加油2GB（h:68），实际收取$4与同意一致",
+            "refs": [
+              "h:67",
+              "h:68"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "加油成功（e:24）且最终MMS可发送（e:25），用户确认问题解决",
+            "refs": [
+              "h:71",
+              "h:73"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "每次'完成'说明（如h:71加油完成）均与实际状态一致，故障修复经验证后才确认",
+            "refs": [
+              "h:71",
+              "h:73"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "15.1GB超15GB限额、$2/GB、2G不支持MMS等说明均有工具/手册依据",
+            "refs": [
+              "h:66",
+              "h:30",
+              "h:67"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户（h:2），排查顺序覆盖手册所列原因，最终定位数据限额",
+            "refs": [
+              "h:2",
+              "h:8",
+              "h:52"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "问题已解决：数据加油2GB（$4.00）后MMS可正常发送"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:67",
+        "to": "h:69",
+        "purpose": "报价与用户同意对应实际加油操作"
+      },
+      {
+        "from": "h:15",
+        "to": "h:23",
+        "purpose": "飞行模式关闭后进一步排查SIM"
+      }
+    ],
+    "auxiliary_notes": [
+      "多次reseat/reset等操作由用户设备侧执行，属正常排障分工，非Agent遗漏"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

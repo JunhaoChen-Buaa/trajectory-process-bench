@@ -1,0 +1,119 @@
+{
+  "case_id": "tr532",
+  "created_beijing": "2026-11-10T15:38:10.641343+08:00",
+  "input_sha256": "f0151dff1b50d95955808bc48cb9a9c531b1d6fd10fec2cd70d86da43b281c72",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "2424c29ab5f04cc4178bb1ee4f79b6f1bf19978bf2a2e26e132101fb020e8e7b",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 415,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 12454,
+    "prompt_tokens_details": {
+      "cached_tokens": 8576
+    },
+    "total_tokens": 12869
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "解决手机无服务问题",
+        "object": "L1002（555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "诊断并恢复手机蜂窝信号",
+            "basis": "用户报告No Service要求修复",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "按技术支持流程先核验身份（phone lookup e:0），确认线路未挂起后逐步排查，符合政策",
+            "refs": [
+              "h:2",
+              "h:10"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "无需确认的操作变更，设备操作均由用户自行执行",
+            "refs": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "reseat_sim_card后状态栏显示Excellent 5G信号，服务恢复",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "如实告知服务已恢复，依据用户确认的状态栏结果",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "Airplane Mode disables wireless communications、SIM未检测到导致无信号等说明均有手册依据",
+            "refs": [
+              "h:14",
+              "h:22"
+            ]
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "按序执行check_status_bar→toggle_airplane_mode→check_sim_status→reseat_sim_card，符合诊断流程",
+            "refs": [
+              "h:11",
+              "h:15",
+              "h:19",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002设备恢复正常服务（信号Excellent、5G、数据开启），用户确认问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:1",
+        "to": "h:25",
+        "purpose": "用户原始请求与最终解决结果关联"
+      }
+    ],
+    "auxiliary_notes": []
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

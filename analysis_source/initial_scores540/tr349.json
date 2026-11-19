@@ -1,0 +1,245 @@
+{
+  "case_id": "tr349",
+  "created_beijing": "2026-11-10T15:50:39.438005+08:00",
+  "input_sha256": "41d82a286e97321f23967e6f73aaa0804ed58e426d655e32af6b0f2b502b445d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "95332ceeb729ce92aae8abcb889fdb21c20675837b9c63a7238b54074cbc56b4",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1415,
+    "completion_tokens_details": {
+      "reasoning_tokens": 279
+    },
+    "prompt_tokens": 17538,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 18953
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "订单#W3916020自行车与拼图换货",
+        "object": "#W3916020（Bicycle 7758198585→5606522780；Jigsaw Puzzle 4068787148→5546244844）",
+        "request_refs": [
+          "h:5",
+          "h:14"
+        ],
+        "revisions": [
+          {
+            "ref": "h:14",
+            "change": "确认拼图指#W3916020中的那件（澄清，非撤回）"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "两件商品换为已确认的可用同产品新变体，差价退至Visa …6791",
+            "basis": "policy: exchange delivered order; user h:20",
+            "refs": [
+              "h:19",
+              "h:20"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "所选变体为同一产品、available=true且符合用户要求，对象与订单均正确（h:16,h:17）。",
+            "refs": [
+              "h:16",
+              "h:17"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:21详细列明换货明细与退款卡后，用户h:22明确yes确认。",
+            "refs": [
+              "h:21",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "execution中无exchange_delivered_order_items调用，订单从未变为exchange requested，换货未办理。",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "用户确认后即STOP，Agent未发送任何完成说明。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "价格差（−$14.54、−$0.42）与可用性说明与产品详情一致。",
+            "refs": [
+              "h:16",
+              "h:17",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已核验订单delivered状态、查变体可用性、确认换货全部明细并提醒确认。",
+            "refs": [
+              "h:11",
+              "h:19",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "换货已获确认但未执行，订单#W3916020仍为delivered原状"
+      },
+      {
+        "group_id": "G2",
+        "goal": "订单#W4689314相机换为更低分辨率",
+        "object": "#W4689314 Digital Camera 5996159312→8363011723",
+        "request_refs": [
+          "h:5"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q2",
+            "content": "相机换为20MP/3x/SD（8363011723），差价约−$71.59退至Visa …6791",
+            "basis": "user h:5,h:20",
+            "refs": [
+              "h:5",
+              "h:20"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "20MP/3x/SD为唯一保持zoom与storage不变且更低分辨率的可用变体，符合要求。",
+            "refs": [
+              "h:18",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "明细与退款卡在h:21列明，用户h:22确认yes。",
+            "refs": [
+              "h:21",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "fail",
+            "reason": "未执行任何换货工具调用，#W4689314仍为delivered，未生成退款。",
+            "refs": [
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": [
+              "I1"
+            ]
+          },
+          "REPORT": {
+            "status": "na",
+            "reason": "无完成说明送达用户。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "退款渠道说明（原支付方式或gift card）符合policy，且差价计算正确。",
+            "refs": [
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查订单状态并确认换货明细。",
+            "refs": [
+              "h:9",
+              "h:19"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "换货未执行，订单#W4689314保持原状"
+      }
+    ],
+    "issues": [
+      {
+        "issue_id": "I1",
+        "title": "用户确认后未执行两笔换货工具调用",
+        "basis": "policy: after user confirmation exchange tool should be called; user h:22明确yes",
+        "refs": [
+          "h:21",
+          "h:22"
+        ],
+        "root_cause": "agent",
+        "severity": "substantive",
+        "recovered": false,
+        "effect": "#W3916020与#W4689314的换货均未提交，用户未获退款约$86.55"
+      }
+    ],
+    "evidence_links": [
+      {
+        "from": "h:20",
+        "to": "h:21",
+        "purpose": "用户选择与确认内容对应"
+      },
+      {
+        "from": "h:22",
+        "to": "h:22",
+        "purpose": "确认后无任何exchange调用"
+      }
+    ],
+    "auxiliary_notes": [
+      "skateboard取消请求由用户自行撤回（h:14、h:20），Agent正确未处理，不另建组"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

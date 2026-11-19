@@ -1,0 +1,242 @@
+{
+  "case_id": "tr328",
+  "created_beijing": "2026-11-10T15:01:44.074222+08:00",
+  "input_sha256": "2949872f2be04c97d91ee322c6e5be34f728d5959b937d8a6211c100be28b38c",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "44a8fa5bd6aced3e46ad9ccdb610f9f86eb96eb693fcf331a345d53b0c28e519",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 1207,
+    "completion_tokens_details": {
+      "reasoning_tokens": 104
+    },
+    "prompt_tokens": 16140,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 17347
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "退货（两块滑板和智能手表）",
+        "object": "订单 #W7553978，items 4545791457/3098764622/1631806422",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [
+          {
+            "ref": "h:13",
+            "change": "在原两块滑板基础上新增智能手表 1631806422 一并退货"
+          }
+        ],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "订单需为delivered状态方可退货",
+            "basis": "policy: An order can only be returned if its status is 'delivered'",
+            "refs": [
+              "h:11"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "操作前列明细并获得用户明确确认",
+            "basis": "policy: must list the action details and obtain explicit user confirmation",
+            "refs": [
+              "h:18",
+              "h:20",
+              "h:21"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "退款到原支付方式（信用卡）",
+            "basis": "用户 h:1 及 policy refund 规则",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单确为delivered（h:11），按一次退货包含全部3件商品，对象正确",
+            "refs": [
+              "h:11",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:20列出明细后用户h:21明确确认后才调用",
+            "refs": [
+              "h:20",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:5后状态变为return requested，退货商品与支付方式与用户确认一致",
+            "refs": [
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:24如实说明状态为return requested并说明后续邮件流程",
+            "refs": [
+              "h:24"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "商品ID、价格与订单数据一致",
+            "refs": [
+              "h:12",
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已先核验状态并提醒确认退货商品范围（h:18/h:20）",
+            "refs": [
+              "h:18",
+              "h:20"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "订单#W7553978状态为return requested，含两滑板和智能手表，退款指向信用卡"
+      },
+      {
+        "group_id": "G2",
+        "goal": "退货（电子阅读器）",
+        "object": "订单 #W3239882，item 9494281769",
+        "request_refs": [
+          "h:13"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q4",
+            "content": "订单需为delivered状态且单独按订单处理退货",
+            "basis": "policy: return per order, delivered only",
+            "refs": [
+              "h:15"
+            ]
+          },
+          {
+            "id": "Q5",
+            "content": "操作前列明细并获得明确确认",
+            "basis": "policy确认要求",
+            "refs": [
+              "h:24",
+              "h:25"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单delivered（h:15），仅退e-reader，符合同产品规则外的退货限制",
+            "refs": [
+              "h:15",
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "h:24列明细后用户h:25确认才执行",
+            "refs": [
+              "h:24",
+              "h:25"
+            ],
+            "requirement_ids": [
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "e:6后状态return requested，return_items与支付方式与确认一致",
+            "refs": [
+              "h:27"
+            ],
+            "requirement_ids": [
+              "Q4",
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "h:28如实报告状态与后续邮件说明",
+            "refs": [
+              "h:28"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "关于不同订单需分开退货的说明符合按订单处理的政策",
+            "refs": [
+              "h:18"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "已查询订单状态并获确认",
+            "refs": [
+              "h:15",
+              "h:24"
+            ],
+            "requirement_ids": []
+          }
+        },
+        "end_state": "订单#W3239882状态为return requested，仅e-reader退货，退款指向信用卡"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:13",
+        "to": "h:15",
+        "purpose": "确认e-reader所在订单及状态以判断退货资格"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:28/h:30中退款'5-7 business days after received and inspected'的时限说明非政策原文，政策仅规定cancel/modify的5-7天，属轻微未经依据的补充措辞，无实质影响",
+      "h:12中$388.19报价发生在用户追加手表之前，后被h:18更新，不算错误"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

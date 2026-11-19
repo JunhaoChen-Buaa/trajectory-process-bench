@@ -1,0 +1,181 @@
+{
+  "case_id": "tr437",
+  "created_beijing": "2026-11-10T15:27:24.331950+08:00",
+  "input_sha256": "0e500f903df1a6181ed20f179fe72ec376b4fd191fc95de38395fe4ce8fc671d",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "747da72fcdfd31c7a5e619fe6e796885394d6bf4ef9e76f5de13ac58586994e2",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 912,
+    "completion_tokens_details": {
+      "reasoning_tokens": 105
+    },
+    "prompt_tokens": 15599,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 16511
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复在法国漫游时移动数据慢/断连问题",
+        "object": "线路L1002（号码555-123-2002）",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确识别客户并定位线路",
+            "basis": "policy: Customer Lookup / Technical Support需先识别",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断数据问题根因（超量15.1/15.0GB）并给出合规选项",
+            "basis": "policy: Data Plan Limits Reached",
+            "refs": [
+              "h:11",
+              "h:13"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "充值前确认数量与价格（$2/GB，最多2GB）",
+            "basis": "policy: Data Refueling步骤",
+            "refs": [
+              "h:13",
+              "h:14"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "漫游启用核实与设备侧设置指导",
+            "basis": "policy: Addressing Data Roaming Problems",
+            "refs": [
+              "h:21",
+              "h:29"
+            ]
+          },
+          {
+            "id": "Q5",
+            "content": "完成说明与实际状态一致",
+            "basis": "policy REPORT要求",
+            "refs": [
+              "h:39"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "仅对正确线路L1002执行合规操作：充值2GB未超上限、未擅自改套餐、漫游已启用无需再开",
+            "refs": [
+              "h:13",
+              "h:15"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "充值前明确报出价格$2/GB与2GB上限，用户明确同意选择充值2GB",
+            "refs": [
+              "h:13",
+              "h:14"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "充值成功（e:6，$4.00入账），用户设备侧按指导开启数据/漫游、切换4G/5G、关Data Saver与VPN后实测275 Mbps Excellent",
+            "refs": [
+              "e:6",
+              "h:37"
+            ],
+            "requirement_ids": [
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "准确汇报充值完成与17GB有效额度，并如实提醒2GB为本周期一次性额度、2025-02-28到期，未夸大",
+            "refs": [
+              "h:17",
+              "h:39"
+            ],
+            "requirement_ids": [
+              "Q5"
+            ],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "数据用量、套餐限额、$2/GB价格、线路漫游已启用均有工具返回依据（h:8,h:11,h:12）",
+            "refs": [
+              "h:11",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q2",
+              "Q4"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先识别客户、核对账单量与套餐、确认价格后再充值，设备侧每步指导均符合手册流程",
+            "refs": [
+              "h:4",
+              "h:13",
+              "h:21"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q3"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "L1002充值2GB（$4.00），设备侧数据与漫游开启、4G/5G模式、Data Saver与VPN关闭，实测速度Excellent，问题解决"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:14",
+        "to": "h:16",
+        "purpose": "用户同意2GB充值对应成功执行结果"
+      },
+      {
+        "from": "h:21",
+        "to": "e:2",
+        "purpose": "告知用户线路侧漫游已启用需核对线路记录"
+      },
+      {
+        "from": "h:29",
+        "to": "h:37",
+        "purpose": "设备侧修复建议对应最终速度测试结果"
+      }
+    ],
+    "auxiliary_notes": [
+      "h:5中email字段（john.smith@example.com）与姓名Priya Patil不一致，疑为后端数据噪声，Agent未使用也未向用户复述，不影响业务"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

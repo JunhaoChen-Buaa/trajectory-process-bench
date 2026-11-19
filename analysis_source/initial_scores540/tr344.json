@@ -1,0 +1,152 @@
+{
+  "case_id": "tr344",
+  "created_beijing": "2026-11-10T15:50:05.408916+08:00",
+  "input_sha256": "5d56d5e9a85c1d016d4f1d6d6531667f16585dfe50928aa8098e878f14aef130",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "988e90826a4e0ec2e97cb03be58284983736b8699a42e845fad8d6ab9ab699be",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 713,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 17111,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "total_tokens": 17824
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "笔记本电脑换货（i7/8GB/1TB SSD）",
+        "object": "订单#W4073673中的Laptop（item 2216662955）换为item 9844888101",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "用户需认证后才能办理",
+            "basis": "policy: authenticate via email or name+zip",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "换货为同产品不同选项且新品可用",
+            "basis": "policy: exchange to available item of same product",
+            "refs": [
+              "h:1"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "操作前列出详情并获用户明确确认",
+            "basis": "policy: obtain explicit user confirmation",
+            "refs": [
+              "h:22",
+              "h:23"
+            ]
+          },
+          {
+            "id": "Q4",
+            "content": "提醒换货只能一次并确认所有需换商品",
+            "basis": "policy: remind customer exchange only once",
+            "refs": [
+              "h:22"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "订单已delivered，新品9844888101同产品可用，差价经信用卡处理，符合规则；错误订单W2905754的方案在用户指出后已纠正到正确订单",
+            "refs": [
+              "h:19",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "pass",
+            "reason": "操作前列明新旧商品、差价-$60.78与付款方式，用户明确yes确认",
+            "refs": [
+              "h:22",
+              "h:23"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "DB回放确认状态变为exchange requested，差价-60.78记入正确付款方式，无额外影响",
+            "refs": [
+              "e:8"
+            ],
+            "requirement_ids": [
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "告知状态为exchange requested及后续邮件说明，与实际一致，未虚假宣称退款已到账",
+            "refs": [
+              "h:26"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "对新旧商品的选项与差价说明均有工具返回依据；最初针对错误订单W2905754报价$167.87是因误认订单，纠正后报价正确",
+            "refs": [
+              "h:14",
+              "h:22"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "完成name+zip认证、查订单与商品详情、检查delivered状态并提醒一次性换货限制",
+            "refs": [
+              "h:4",
+              "h:22"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q4"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "订单#W4073673状态为exchange requested，2216662955换为9844888101，$60.78退款至信用卡"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:15",
+        "to": "h:22",
+        "purpose": "用户否认16GB配置促使Agent核对正确订单#W4073673后重新报价确认"
+      }
+    ],
+    "auxiliary_notes": [
+      "认证优先尝试email属正常流程，用户无email后改用name+zip，符合policy",
+      "初始误查订单#W3826449和#W2905754是为定位含laptop的订单，不构成违规副作用"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}

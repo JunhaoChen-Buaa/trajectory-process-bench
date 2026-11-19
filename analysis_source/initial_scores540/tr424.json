@@ -1,0 +1,150 @@
+{
+  "case_id": "tr424",
+  "created_beijing": "2026-11-10T14:22:04.186847+08:00",
+  "input_sha256": "1e993da706394cd7a01eaa14d0296b99d77bbbc7936f77b7b04e44b8847824fc",
+  "provider": "glm_official",
+  "actual_model": "glm-5.3-flash",
+  "request_sha256": "3551cd69ad5e00cedca929ad763a9370eebea0e2ba7330d0c4c54acc9c74a73c",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 738,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 14801,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 15539
+  },
+  "parsed": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "goal": "修复法国漫游期间移动数据无连接/慢速问题",
+        "object": "用户线路 L1002（号码 555-123-2002）的手机数据连接",
+        "request_refs": [
+          "h:1"
+        ],
+        "revisions": [],
+        "requirements": [
+          {
+            "id": "Q1",
+            "content": "正确识别客户与对应线路并核验账户侧状态（线路Active、roaming启用、数据未超限）",
+            "basis": "tech_support政策：必须先识别客户；漫游需line roaming enabled",
+            "refs": [
+              "h:3"
+            ]
+          },
+          {
+            "id": "Q2",
+            "content": "诊断并指导用户修复设备侧问题（关闭飞行模式、开启数据漫游）",
+            "basis": "tech_support_policy: Airplane Mode/Roaming troubleshooting",
+            "refs": [
+              "h:14",
+              "h:26"
+            ]
+          },
+          {
+            "id": "Q3",
+            "content": "数据恢复且速度达到用户要求的Excellent",
+            "basis": "用户要求 'I need excellent speed'",
+            "refs": [
+              "h:1"
+            ]
+          }
+        ],
+        "scores": {
+          "RULE": {
+            "status": "pass",
+            "reason": "正确识别客户C1001并核对号码555-123-2002对应L1002（Active、roaming enabled、8.7/15GB），指导的排障步骤均符合政策。",
+            "refs": [
+              "h:3",
+              "h:9",
+              "h:12"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          },
+          "CONSENT": {
+            "status": "na",
+            "reason": "故障排障无需确认类操作，未涉及费用或方案变更。",
+            "refs": [],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "OUTCOME": {
+            "status": "pass",
+            "reason": "关闭飞行模式并开启设备数据漫游后，speed test返回275 Mbps Excellent，数据连接恢复达标。",
+            "refs": [
+              "h:34",
+              "h:48"
+            ],
+            "requirement_ids": [
+              "Q3"
+            ],
+            "issue_ids": []
+          },
+          "REPORT": {
+            "status": "pass",
+            "reason": "最终总结与实际状态一致，明确列出已修复项及实测速度，无虚假完成声明。",
+            "refs": [
+              "h:48"
+            ],
+            "requirement_ids": [],
+            "issue_ids": []
+          },
+          "FACT": {
+            "status": "pass",
+            "reason": "'8.7 GB used out of 15 GB' 与 get_data_usage 返回一致；线路roaming enabled、设备roaming off的说明均有依据。",
+            "refs": [
+              "h:12",
+              "h:28"
+            ],
+            "requirement_ids": [
+              "Q1"
+            ],
+            "issue_ids": []
+          },
+          "STEPS": {
+            "status": "pass",
+            "reason": "先身份识别，再核对线路/用量，逐项排障（状态栏→网络状态→漫游→速度复测→APN/Data Saver/VPN复核），顺序合理完整。",
+            "refs": [
+              "h:4",
+              "h:10",
+              "h:26",
+              "h:34"
+            ],
+            "requirement_ids": [
+              "Q1",
+              "Q2"
+            ],
+            "issue_ids": []
+          }
+        },
+        "end_state": "移动数据恢复正常，275 Mbps Excellent，用户确认满意结束。"
+      }
+    ],
+    "issues": [],
+    "evidence_links": [
+      {
+        "from": "h:3",
+        "to": "h:9",
+        "purpose": "号码555-123-2002对应L1002且roaming enabled，是漫游排障判断依据"
+      },
+      {
+        "from": "h:26",
+        "to": "h:30",
+        "purpose": "设备data roaming off为根因，开启后恢复连接"
+      }
+    ],
+    "auxiliary_notes": [
+      "排障步骤略显冗长（速度已达Excellent后继续检查APN/Data Saver/VPN），属流程措辞层面，不影响业务质量。"
+    ]
+  },
+  "validation_errors": [],
+  "mechanical_fence_removal": false
+}
