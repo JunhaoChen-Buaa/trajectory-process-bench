@@ -1,6 +1,6 @@
 # Trajectory Process Benchmark
 
-[Source repository](https://github.com/JunhaoChen-Buaa/trajectory-process-bench) · [Download v0.1.0](https://github.com/JunhaoChen-Buaa/trajectory-process-bench/archive/refs/tags/v0.1.0.zip)
+[Source repository](https://github.com/JunhaoChen-Buaa/trajectory-process-bench) · [Download v0.1.1](https://github.com/JunhaoChen-Buaa/trajectory-process-bench/archive/refs/tags/v0.1.1.zip)
 
 **Evaluate whether an agent followed the user's instructions and business rules, as well as whether it completed the task.**
 
@@ -209,4 +209,4 @@ See [DATA_CARD.md](DATA_CARD.md) for provenance and limitations, [DATA_LICENSE.m
 
 Project contributions are released under the [MIT License](LICENSE). Upstream files retain their original licenses and notices. No model weights are included.
 
-Citation metadata is in [CITATION.cff](CITATION.cff). This is the v0.1.0 software release accompanying the manuscript; no DOI or publication acceptance is claimed.
+Citation metadata is in [CITATION.cff](CITATION.cff). This is the v0.1.1 software release accompanying the manuscript; no DOI or publication acceptance is claimed.

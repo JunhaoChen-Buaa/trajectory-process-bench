@@ -1,6 +1,10 @@
-# Publication preparation — 0.1.0
+# Release 0.1.1
 
-This release packages the validated v6 delivery for https://github.com/JunhaoChen-Buaa/trajectory-process-bench. The v0.1.0 tag fixes the code and reference-data version used for distribution.
+This release packages the validated v6 delivery for https://github.com/JunhaoChen-Buaa/trajectory-process-bench. The v0.1.1 tag fixes the distributed code and reference-data version; the initial v0.1.0 tag remains available.
+
+## POSIX report fix
+
+The first hosted Linux check found that source-review report generation opened a relative evidence path through an output directory that did not yet exist. Windows normalized that path during file opening, but POSIX rejected the missing intermediate directory. The report command now resolves the evidence path before reading it. A regression test covers report generation with source reviews into a new nested directory. No scoring rules, annotations, or experiment counts changed.
 
 ## Added or rewritten
 

@@ -1,5 +1,5 @@
 {
-  "release_version": "0.1.0",
+  "release_version": "0.1.1",
   "prepared_on": "2026-11-19",
   "upstream": {
     "project": "https://github.com/sierra-research/tau2-bench",
@@ -9,7 +9,7 @@
     "source": "Bundled tested local snapshot; no fresh remote comparison in this preparation"
   },
   "reference_files_byte_identical": 605,
-  "runtime_and_rubric_files_byte_identical": 13,
+  "runtime_and_rubric_files_byte_identical": 12,
   "reference_input_count": 540,
   "reviewed_trajectory_count": 540,
   "request_group_count": 874,
@@ -4895,5 +4895,6 @@
   "git_byte_preservation": "All publication files are tracked and exported byte-identically with core.autocrlf=true; .gitattributes disables text normalization",
   "new_model_calls": 0,
   "new_business_runs": 0,
-  "repository": "https://github.com/JunhaoChen-Buaa/trajectory-process-bench"
+  "repository": "https://github.com/JunhaoChen-Buaa/trajectory-process-bench",
+  "cli_report_path_fix": "Resolve evidence paths before loading reviews when the output directory does not exist; preserves verdicts and all reference data"
 }

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite this software release and the upstream tau2-bench task environment when using this benchmark."
 type: software
 title: "A Benchmark for Evaluating Agent Process Reliability from Interaction Trajectories"
-version: 0.1.0
+version: 0.1.1
 date-released: 2026-11-19
 license: MIT
 authors:

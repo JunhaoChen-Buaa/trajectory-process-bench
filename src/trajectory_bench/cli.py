@@ -117,7 +117,9 @@ def main(argv: list[str] | None = None) -> int:
                         path = Path(target)
                         if not path.is_absolute():
                             path = args.output.resolve() / path
-                        packet = load_json(path)
+                        # Collapse .. before opening: on POSIX the report output
+                        # directory may not exist yet while reviews are loaded.
+                        packet = load_json(path.resolve())
                         if row.get("evidence_sha256") and digest(packet) != row["evidence_sha256"]:
                             raise ValueError(f"Evidence hash differs for {row['case_id']}")
                         evidence[row["case_id"]] = packet

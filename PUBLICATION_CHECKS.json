@@ -6,7 +6,7 @@
     "task_catalogs": 45,
     "normalized_inputs": 540,
     "unit_tests": {
-      "run": 57,
+      "run": 58,
       "errors": 0,
       "failures": 0,
       "skipped": 0
@@ -59,11 +59,11 @@
   },
   "unchanged": {
     "reference_files": 605,
-    "runtime_and_rubric": true,
+    "runtime_and_rubric": "Scoring/rubric/capture unchanged; CLI report evidence paths normalized for POSIX",
     "upstream_files": true,
     "original_delivery": true
   },
-  "hosted_ci": "not run; workflow included for Python 3.12/3.13",
+  "hosted_ci": "Initial hosted check identified a POSIX report path bug; fixed in v0.1.1, hosted recheck pending",
   "external_publication": "These checks were completed locally before upload; repository identity is supplied separately.",
   "repository": "https://github.com/JunhaoChen-Buaa/trajectory-process-bench"
 }

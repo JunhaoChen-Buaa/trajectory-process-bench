@@ -111,6 +111,23 @@ class TransportTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
+    def test_reviewed_report_can_use_a_new_nested_output_directory(self):
+        from trajectory_bench.cli import main
+        replay = Path(__file__).resolve().parents[1] / 'examples/replay/retail100'
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / 'not_created' / 'reviewed_report'
+            self.assertFalse(output.exists())
+            with patch('sys.stdout', new=io.StringIO()):
+                code = main(['report', '--records', str(replay / 'records.jsonl'),
+                             '--reviews', str(replay / 'source_reviews.jsonl'),
+                             '--output', str(output)])
+            self.assertEqual(code, 0)
+            self.assertTrue((output / 'report.html').is_file())
+            result = json.loads((output / 'report.json').read_text(encoding='utf-8'))
+            self.assertEqual(result['records'][0]['reviewed']['verdict'], 'fail')
+            self.assertNotEqual(result['records'][0]['automatic']['annotation'],
+                                result['records'][0]['reviewed']['annotation'])
+
     def test_score_report_resume_does_not_repeat_judge(self):
         calls=[]
         class Judge:
